@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
+class AddSessionRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'case_id' => 'required|exists:cases,id',
+            'date' => 'required|date',
+            'location' => 'required',
+            'nots' => 'required',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'case_id.required' => "case_id is required",
+            'case_id.exists' => "case_id not found",
+            'date.required' => "date is required",
+            'date.date' => "date must be a date",
+            'location.required' => "location is required",
+            'nots.required' => "nots is required",
+        ];
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => 'Validation failed',
+            'errors' => $validator->errors()
+        ], 422));
+    }
+}
