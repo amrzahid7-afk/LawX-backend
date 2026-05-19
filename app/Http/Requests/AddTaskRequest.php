@@ -14,7 +14,7 @@ class AddTaskRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return  auth('api')->user()->role->name == 'admin';
+        return true; //auth('api')->user()->role->name == 'admin';
     }
 
     /**

@@ -27,6 +27,8 @@ namespace App\Models{
  * @property-read \App\Models\User $lawer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Session> $sessions
  * @property-read int|null $sessions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
+ * @property-read int|null $tasks_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel query()
@@ -218,6 +220,31 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property string $id
+ * @property string $title
+ * @property string|null $description
+ * @property string $status
+ * @property string $client_id
+ * @property string $lawer_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereClientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereLawerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereUpdatedAt($value)
+ */
+	class Legal_request extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Message newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Message newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Message query()
@@ -330,6 +357,15 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal query()
+ */
+	class Proposal extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @property int $id
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -431,23 +467,24 @@ namespace App\Models{
 /**
  * @property string $id
  * @property string $case_id
- * @property string $date
- * @property string $location
- * @property string $nots
- * @property string|null $result
+ * @property string $title
+ * @property string $description
+ * @property string $assigned_to
+ * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $assignedTo
  * @property-read \App\Models\CaseModel $case
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereAssignedTo($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereCaseId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereLocation($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereNots($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereResult($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereUpdatedAt($value)
  */
 	class Task extends \Eloquent {}
@@ -479,6 +516,8 @@ namespace App\Models{
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\Role $role
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
+ * @property-read int|null $tasks_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()

@@ -49,8 +49,7 @@ class DocumentService
         $formattedData = $documents->map(function ($document) {
             return [
                 'id' => $document->id,
-
-                'file_url' => Storage::disk('public')->url($document->file_path),
+                'file_url' => Storage::url($document->file_path),
                 'case' => [
                     'id' => $document->case->id,
                     'title' => $document->case->title,
@@ -65,7 +64,6 @@ class DocumentService
                 'uploaded_AT' => $document->created_at->format('Y-m-d h:i A'),
             ];
         });
-
         return [
             'status' => 'success',
             'data' => [

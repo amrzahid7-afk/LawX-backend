@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CaseController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ManageOfficesController;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,20 +25,10 @@ Route::get('/test', function () {
 });
 Route::prefix('/Auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);  // done 
-    // Route::post('/verify_2FA', [AuthController::class, 'verify_2FA']);
     Route::post('password/forgot', [AuthController::class, 'forgotPassword']); // done
     Route::post('password/reset', [AuthController::class, 'resetPassword']); // done
     Route::middleware('auth:api')->group(function () {
         Route::get('/logout', [AuthController::class, 'logout']); // done
-        // Route::prefix('manage_account/')->group(function () {
-        //     // personal settings
-        //     Route::prefix('profile/personal')->group(function () {
-        //         // get user profile data 
-        //         Route::get('/get_profile', [AuthController::class, 'getSuperAdminProfile']);
-        //         // update user  profile data //  done
-        //         Route::put('/update_profile', [AuthController::class, 'updateSuperAdminProfile']);
-        //     });
-        // });
     });
 });
 Route::prefix('/Case')->group(function () {
@@ -52,6 +43,13 @@ Route::prefix('/Case')->group(function () {
     Route::get('/get_documents_for_case/{case_id}', [DocumentController::class, 'get_sessions_for_case']);
     Route::get('/get_tasks_for_case/{case_id}', [TaskController::class, 'get_tasks_for_case']);
     Route::post('/create_task', [TaskController::class, 'create_task']);
+})->middleware('auth:api');
+Route::prefix('/client_portal/legal_request')->group(function () {
+    Route::post('/create_request', [LegalRequestController::class, 'create']);  // done 
+    Route::get('/get_my_requests', [LegalRequestController::class, 'get_my_requests']); // done
+    Route::get('/get_offices_or_lawers_available', [LegalRequestController::class, 'get_offices_or_lawers']); // done
+    Route::get('/get_protofolio_for_lawer_or_office/{ID}', [LegalRequestController::class, 'get_protofolio']); // in future not done
+    Route::get('/get_proposals_for_my_requests/{request_id}', [LegalRequestController::class, 'get_proposals']);
 })->middleware('auth:api');
 // Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/verify_2FA', [AuthController::class, 'verify_2FA']);

@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->ForeignUuid('case_id')->constrained('cases')->onDelete('cascade');
             $table->text('file_path');
             $table->string('type');
+            $table->ForeignUuid('case_id')->constrained('cases')->onDelete('cascade')->nullable();
+            $table->ForeignUuid('legal_request_id')->constrained('legal_requests')->onDelete('cascade')->nullable();
+            $table->ForeignUuid('proposal_id')->constrained('proposals')->onDelete('cascade')->nullable();
             $table->ForeignUuid('uploaded_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
