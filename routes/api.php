@@ -5,6 +5,7 @@ use App\Http\Controllers\CaseController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ManageOfficesController;
+use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,10 @@ Route::prefix('/client_portal/legal_request')->group(function () {
     Route::get('/get_offices_or_lawers_available', [LegalRequestController::class, 'get_offices_or_lawers']); // done
     Route::get('/get_protofolio_for_lawer_or_office/{ID}', [LegalRequestController::class, 'get_protofolio']); // in future not done
     Route::get('/get_proposals_for_my_requests/{request_id}', [LegalRequestController::class, 'get_proposals']);
+})->middleware('auth:api');
+Route::prefix('/Market_place')->group(function () {
+    Route::get('/get_legal_requests', [ProposalController::class, 'get_legal_requests']);
+    Route::post('/send_proposal', [ProposalController::class, 'send_proposal']);
 })->middleware('auth:api');
 // Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/verify_2FA', [AuthController::class, 'verify_2FA']);
