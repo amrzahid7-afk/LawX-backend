@@ -17,11 +17,18 @@ class CaseModel extends Model
 
     protected $fillable = [
         'id',
+        'case_number',
+        'case_category',
         'title',
         'description',
+        'importance_stars',
+        'billing_type',
+        'collection_percentage',
         'status',
-        'client_id',
-        'lawer_id'
+        'financial_status',
+        'progress_percentage',
+        'court',
+        'lead_lawyer_id'
     ];
 
 
@@ -35,15 +42,43 @@ class CaseModel extends Model
     }
     public function sessions()
     {
-        return $this->hasMany(Session::class);
+        return $this->hasMany(Session::class, 'case_id');
     }
     public function documents()
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class, 'case_id');
     }
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class, 'case_id');
+    }
+    // المحامي الرئيسي
+    public function leadLawyer()
+    {
+        return $this->belongsTo(User::class, 'lead_lawyer_id');
+    }
+    // جميع الموكلين في القضية
+    public function clients()
+    {
+        return $this->belongsToMany(User::class, 'case_clients', 'case_id', 'user_id')
+            ->withPivot('is_primary');
+    }
+
+    // جميع الخصوم في القضية
+    public function opponents()
+    {
+        return $this->belongsToMany(Opponent::class, 'case_opponents', 'case_id', 'opponent_id');
+    }
+
+    // الفريق المكلف بالقضية
+    public function team()
+    {
+        return $this->belongsToMany(User::class, 'case_teams', 'case_id', 'user_id')
+            ->withPivot('role_in_case');
+    }
+    public function paymentMilestones()
+    {
+        return $this->hasMany(Case_payment_milestone::class, 'case_id');
     }
     // public function office()
     // {

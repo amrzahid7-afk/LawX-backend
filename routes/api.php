@@ -9,6 +9,7 @@ use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/tokens/create', function (Request $request) {
+    dd($token = $request->user()->createToken($request->token_name));
+    return ['token' => $token->plainTextToken];
+    return "asa";
+});
+
+
 Route::get('/test', function () {
     return "API Working";
 });
@@ -28,34 +36,53 @@ Route::prefix('/Auth')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);  // done 
     Route::post('password/forgot', [AuthController::class, 'forgotPassword']); // done
     Route::post('password/reset', [AuthController::class, 'resetPassword']); // done
-    Route::middleware('auth:api')->group(function () {
-        Route::get('/logout', [AuthController::class, 'logout']); // done
-    });
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+    // Route::middleware('auth:sanctum')->group(function () {
+    //     Route::get('/logout', [AuthController::class, 'logout']); // done
+    // });
 });
-Route::prefix('/Case')->group(function () {
-    Route::post('/create_case', [CaseController::class, 'create']);
+Route::prefix('/Case')->middleware('auth:sanctum')->group(function () {
     Route::post('/update_case',  [CaseController::class, 'update']);
     Route::get('/get_cases', [CaseController::class, 'view_list']);
+    // To DO 
+    Route::post('/create_case', [CaseController::class, 'create']); // Done 
+    Route::get('/get_case_details/{case_id}', [CaseController::class, 'get_case_details']); // new api 
+    Route::get('/get_documents_for_case/{case_id}', [DocumentController::class, 'get_sessions_for_case']);  // Edit required
+    Route::post('/upload_document', [DocumentController::class, 'upload_Document']);   // Edit required
+    // validation Error In Arabic and English (Multi Language)
+    Route::post('/get_client', [CaseController::class, 'get_client']); // new api
+    Route::post('/get_lawer', [CaseController::class, 'get_lawer']); // new api
+    // create new table for files categories 
+    Route::post('/edit_task', [CaseController::class, 'edit_task']); // new api
+    Route::post('/delete_task', [CaseController::class, 'delete_task']); // new api
+    Route::post('/switch_task_status', [CaseController::class, 'switch_task_status']); // new api
+    Route::post('/delete_document', [CaseController::class, 'delete_document']); // new api
+
+
+
+
+    Route::delete('/delete_case/{case_id}', [CaseController::class, 'delete_case']); // check 
     Route::post('/add_new_session', [SessionController::class, 'addSession']);
     Route::get('/get_sessions_for_case/{case_id}', [SessionController::class, 'get_sessions_for_case']);
     Route::get('/get_sessions_for_lawer', [SessionController::class, 'get_sessions_for_lawer']);
     Route::get('/get_sessions_for_client', [SessionController::class, 'get_sessions_for_client']);
-    Route::post('/upload_document', [DocumentController::class, 'upload_Document']);
-    Route::get('/get_documents_for_case/{case_id}', [DocumentController::class, 'get_sessions_for_case']);
+    Route::delete('/delete_session/{session_id}', [SessionController::class, 'delete_session']); // check 
+    Route::post('/update_session', [SessionController::class, 'update_session']); // check 
     Route::get('/get_tasks_for_case/{case_id}', [TaskController::class, 'get_tasks_for_case']);
     Route::post('/create_task', [TaskController::class, 'create_task']);
-})->middleware('auth:api');
+}); //->middleware('auth:api');
 Route::prefix('/client_portal/legal_request')->group(function () {
     Route::post('/create_request', [LegalRequestController::class, 'create']);  // done 
     Route::get('/get_my_requests', [LegalRequestController::class, 'get_my_requests']); // done
     Route::get('/get_offices_or_lawers_available', [LegalRequestController::class, 'get_offices_or_lawers']); // done
     Route::get('/get_protofolio_for_lawer_or_office/{ID}', [LegalRequestController::class, 'get_protofolio']); // in future not done
     Route::get('/get_proposals_for_my_requests/{request_id}', [LegalRequestController::class, 'get_proposals']);
-})->middleware('auth:api');
+})->middleware('auth:sanctum');
 Route::prefix('/Market_place')->group(function () {
     Route::get('/get_legal_requests', [ProposalController::class, 'get_legal_requests']);
     Route::post('/send_proposal', [ProposalController::class, 'send_proposal']);
-})->middleware('auth:api');
+})->middleware('auth:sanctum');
 // Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/verify_2FA', [AuthController::class, 'verify_2FA']);
 // Route::post('password/forgot', [AuthController::class, 'forgotPassword']);

@@ -72,6 +72,36 @@ class SessionsService
             'code' => '200'
         ];
     }
-    public function deleteSession() {}
-    public function deleteAllSessions() {}
+    public function delete_session($session_id)
+    {
+        Session::where('id', $session_id)->delete();
+        return [
+            'status' => 'success',
+            'message' => 'delete session successfully',
+            'code' => '200'
+        ];
+    }
+    public function update_session($request)
+    {
+        $session = Session::where('id', $request->session_id)->first();
+        $session->update([
+            'date' => $request->date ?? $session->date,
+            'location' => $request->location ?? $session->location,
+            'nots'  => $request->nots ?? $session->nots,
+            'result'  => $request->result ?? $session->result,
+        ]);
+        if ($request->file('file')) {
+            // calling function for store the file to this session 
+
+        }
+        $session  = Session::where('id', $session->id)
+            ->with('documents')
+            ->get();
+        return [
+            'status' => 'success',
+            'message' => 'Fetch sessions For client successfully',
+            'data' => $session,
+            'code' => '200'
+        ];
+    }
 }
