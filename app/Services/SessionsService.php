@@ -77,30 +77,37 @@ class SessionsService
         Session::where('id', $session_id)->delete();
         return [
             'status' => 'success',
-            'message' => 'delete session successfully',
+            'data' => [
+                'message' => 'delete session successfully'
+            ],
             'code' => '200'
         ];
     }
-    public function update_session($request)
+    public function update_session($data)
     {
-        $session = Session::where('id', $request->session_id)->first();
+        $session = Session::where('id', $data['session_id'])->first();
         $session->update([
-            'date' => $request->date ?? $session->date,
-            'location' => $request->location ?? $session->location,
-            'nots'  => $request->nots ?? $session->nots,
-            'result'  => $request->result ?? $session->result,
+            'date' => $data['date'] ?? $session->date,
+            'location' => $data['location'] ?? $session->location,
+            'nots'  => $data['nots'] ?? $session->nots,
+            'result'  => $data['result'] ?? $session->result,
         ]);
-        if ($request->file('file')) {
-            // calling function for store the file to this session 
-
+        if ($data['file']) {
+            $documentService = app(DocumentService::class);
+            $documentData = [
+                'case_id' => $session['case_id'],
+                'file'    => $data['file'],
+                'type'    => $data['file_type'] ?? 'session_document',
+                'nots'    => $data['file_notes'] ?? null,
+            ];
+            $documentService->add_new_document($documentData);
         }
-        $session  = Session::where('id', $session->id)
-            ->with('documents')
-            ->get();
         return [
             'status' => 'success',
-            'message' => 'Fetch sessions For client successfully',
-            'data' => $session,
+            'data' => [
+                'message' => 'Update session successfully',
+                'data' => $session
+            ],
             'code' => '200'
         ];
     }

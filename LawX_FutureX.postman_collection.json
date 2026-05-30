@@ -38,7 +38,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n        \"case_id\": \"ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb\",\r\n        \"date\":\"2002-5-6\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
+              "raw": "{\r\n        \"case_id\": \"000266fb-6833-4ba1-bbda-4bbee6f303a7\",\r\n        \"date\":\"2002-5-6\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -100,7 +100,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/delete_session/ID",
+              "raw": "http://127.0.0.1:8000/api/Case/delete_session/fa2cf6ad-329a-4895-bd17-708fd09c674a",
               "protocol": "http",
               "host": [
                 "127",
@@ -113,7 +113,7 @@
                 "api",
                 "Case",
                 "delete_session",
-                "ID"
+                "fa2cf6ad-329a-4895-bd17-708fd09c674a"
               ]
             }
           },
@@ -146,13 +146,40 @@
               }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\r\n        \"case_id\": \"ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb\",\r\n        \"date\":\"2002-5-6\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "case_id",
+                  "value": "000266fb-6833-4ba1-bbda-4bbee6f303a7",
+                  "type": "text"
+                },
+                {
+                  "key": "session_id",
+                  "value": "9c2d1b3d-2b58-4444-8579-9ecbb39a884a",
+                  "type": "text"
+                },
+                {
+                  "key": "date",
+                  "value": "2002-8-6",
+                  "type": "text"
+                },
+                {
+                  "key": "location",
+                  "value": "barzeh",
+                  "type": "text"
+                },
+                {
+                  "key": "nots",
+                  "value": "nothing",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "94fc43e4-7c33-4082-b0a6-49a285121be6",
+                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
                 }
-              }
+              ]
             },
             "url": {
               "raw": "http://127.0.0.1:8000/api/Case/update_session",
@@ -375,18 +402,24 @@
               "formdata": [
                 {
                   "key": "case_id",
-                  "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb ,",
+                  "value": "123ee189-4cb6-4e9d-bb67-92c7f0cff307",
                   "type": "text"
                 },
                 {
                   "key": "type",
-                  "value": "pdf",
+                  "value": "عقد بيع",
                   "type": "text"
                 },
                 {
                   "key": "file",
                   "type": "file",
                   "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                },
+                {
+                  "key": "nots",
+                  "value": "بموجب هذل العقد تكون الملكية منقولة من البائع للشاري ",
+                  "type": "text",
+                  "uuid": "ade155f0-b40b-4500-8c81-5fdd4ffe2a73"
                 }
               ]
             },
@@ -404,6 +437,57 @@
                 "api",
                 "Case",
                 "upload_document"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete_document",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/Case/delete_document/f157f67f-3526-42e0-8f2a-a6dfd8acb5e0",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Case",
+                "delete_document",
+                "f157f67f-3526-42e0-8f2a-a6dfd8acb5e0"
               ]
             }
           },
@@ -446,7 +530,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_documents_for_case/ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+              "raw": "http://127.0.0.1:8000/api/Case/get_documents_for_case/123ee189-4cb6-4e9d-bb67-92c7f0cff307",
               "protocol": "http",
               "host": [
                 "127",
@@ -459,7 +543,7 @@
                 "api",
                 "Case",
                 "get_documents_for_case",
-                "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb"
+                "123ee189-4cb6-4e9d-bb67-92c7f0cff307"
               ]
             }
           },
@@ -483,7 +567,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{admin_token}}",
+                  "value": "{{lawer_token}}",
                   "type": "string"
                 }
               ]
@@ -498,7 +582,12 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": ""
+              "raw": "{\r\n    \"case_id\": \"000266fb-6833-4ba1-bbda-4bbee6f303a7\" , \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"due_date\": \"2029-11-01\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"92c67cb3-3fb2-4143-93a9-c8746ed02936\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
             },
             "url": {
               "raw": "http://127.0.0.1:8000/api/Case/create_task",
@@ -514,6 +603,60 @@
                 "api",
                 "Case",
                 "create_task"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "edit_task",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"task_id\": \"3e3828d5-5cf8-4190-bc82-f145c7e7e68e\" , \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"status\": \"completed\" , \r\n    \"due_date\":\"2029-01-25\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"92c67cb3-3fb2-4143-93a9-c8746ed02936\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/Case/edit_task",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Case",
+                "edit_task"
               ]
             }
           },
@@ -556,7 +699,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_tasks_for_case/ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+              "raw": "http://127.0.0.1:8000/api/Case/get_my_tasks",
               "protocol": "http",
               "host": [
                 "127",
@@ -568,8 +711,118 @@
               "path": [
                 "api",
                 "Case",
-                "get_tasks_for_case",
-                "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb"
+                "get_my_tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_my_tasks",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/Case/get_my_tasks",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Case",
+                "get_my_tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete_task",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/Case/delete_task/2a84aa3b-aa2a-4d7f-8bf1-e0eeaf2fd408",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Case",
+                "delete_task",
+                "2a84aa3b-aa2a-4d7f-8bf1-e0eeaf2fd408"
               ]
             }
           },
@@ -1122,7 +1375,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"18-666\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    \"collection_percentage\": 15.00,\r\n    \"lead_lawyer_id\": \"7262160f-a926-4146-8b38-c2741c09c039\",\r\n\r\n    \"clients\": [\r\n        { \"user_id\": \"5ef2431f-ac0e-41a9-8948-b4ad491179a6\", \"is_primary\": true }   \r\n    ],\r\n    \r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    \r\n    // \"team\": [\r\n    //     { \"user_id\": \"uuid-of-employee-1\", \"role_in_case\": \"باحث قانوني\" }\r\n    // ],\r\n    \r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"144-666\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    \"collection_percentage\": 15.00,\r\n    \"lead_lawyer_id\": \"92c67cb3-3fb2-4143-93a9-c8746ed02936\",\r\n\r\n    \"clients\": [\r\n        { \"user_id\": \"726a7a26-dc50-457d-a20e-a9ea689ab074\", \"is_primary\": true }   \r\n    ],\r\n    \r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    \r\n    // \"team\": [\r\n    //     { \"user_id\": \"uuid-of-employee-1\", \"role_in_case\": \"باحث قانوني\" }\r\n    // ],\r\n    \r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1262,7 +1515,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:8000/api/Case/delete_case/",
+              "raw": "http://localhost:8000/api/Case/delete_case/f817d24c-df89-4ab7-9f0c-d3988f8008e9",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -1272,7 +1525,7 @@
                 "api",
                 "Case",
                 "delete_case",
-                ""
+                "f817d24c-df89-4ab7-9f0c-d3988f8008e9"
               ]
             }
           },
@@ -1321,6 +1574,211 @@
       ]
     },
     {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"lawer@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/Auth/login",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "password_forget",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"lawer@example.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/Auth/password/forgot",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Auth",
+                "password",
+                "forgot"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "password_reset",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"lawer@example.com\" ,\r\n    \"code\": \"3265380\" ,\r\n    \"token\": \"HzowWUMgRgtpvjYUEmCW2NSmmmdfgwwPI8Nm40M5pum4nEQHH1GBVY2j7rI3MYMI\" ,\r\n    \"password\": \"888888@@\",\r\n    \"password_confirmation\": \"888888@@\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/Auth/password/reset",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Auth",
+                "password",
+                "reset"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logout",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {}
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"case_id\" : \"30608555-cede-4bde-8325-6cdb0f27294f\" ,\r\n    \"title\": \" public case\" ,\r\n    \"description\": \"very hard case\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/Auth/logout",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "me",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {}
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"case_id\" : \"30608555-cede-4bde-8325-6cdb0f27294f\" ,\r\n    \"title\": \" public case\" ,\r\n    \"description\": \"very hard case\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/Auth/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Testing",
       "request": {
         "method": "GET",
@@ -1338,156 +1796,6 @@
           "path": [
             "api",
             "test"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "login",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"email\": \"lawer@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://127.0.0.1:8000/api/Auth/login",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "api",
-            "Auth",
-            "login"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "password_forget",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"email\": \"lawer@example.com\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://127.0.0.1:8000/api/Auth/password/forgot",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "api",
-            "Auth",
-            "password",
-            "forgot"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "password_reset",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"email\": \"lawer@example.com\" ,\r\n    \"code\": \"3265380\" ,\r\n    \"token\": \"HzowWUMgRgtpvjYUEmCW2NSmmmdfgwwPI8Nm40M5pum4nEQHH1GBVY2j7rI3MYMI\" ,\r\n    \"password\": \"888888@@\",\r\n    \"password_confirmation\": \"888888@@\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://127.0.0.1:8000/api/Auth/password/reset",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "api",
-            "Auth",
-            "password",
-            "reset"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "logout",
-      "protocolProfileBehavior": {
-        "disabledSystemHeaders": {}
-      },
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{lawer_token}}",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "POST",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"case_id\" : \"30608555-cede-4bde-8325-6cdb0f27294f\" ,\r\n    \"title\": \" public case\" ,\r\n    \"description\": \"very hard case\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8000/api/Auth/logout",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8000",
-          "path": [
-            "api",
-            "Auth",
-            "logout"
           ]
         }
       },

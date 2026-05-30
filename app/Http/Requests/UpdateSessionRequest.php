@@ -23,9 +23,10 @@ class UpdateSessionRequest extends FormRequest
     {
         return [
             'session_id' => 'required|exists:sessions,id',
-            'date' => 'nullable|date',
-            'location' => 'nullable',
-            'result' => 'nullable',
+            'case_id' => 'required|exists:cases,id',
+            'date' => 'nullable|date:after_or_equal:today',
+            'location' => 'nullable|string|max:255',
+            'result' => 'nullable|string|max:255',
             'file' => 'nullable|file',
         ];
     }

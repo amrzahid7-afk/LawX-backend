@@ -49,18 +49,47 @@ class SessionController extends Controller
     }
     public function delete_session($session_id)
     {
+        // validate session_id is uuid and exists in sessions table
+        $validate = validator()->make(
+            ['session_id' => $session_id],
+            ['session_id' => 'required|uuid|exists:sessions,id'],
+            [
+                'session_id.required' => 'Session ID is required',
+                'session_id.uuid' => 'Session ID must be a valid UUID',
+                'session_id.exists' => 'Session not found'
+            ]
+        );
+        if ($validate->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => $validate->errors()->first(),
+            ], 422);
+        }
+        // calling Service function
         $sessions = $this->session_service->delete_session($session_id);
+        // sending response
         return response()->json([
             'status' => $sessions['status'],
-            'message' => $sessions['message'],
+            'data' => $sessions['data'],
         ], $sessions['code']);
     }
     public function update_session(UpdateSessionRequest $request)
     {
-        $sessions = $this->session_service->update_session($request);
-        return response()->json([
-            'status' => $sessions['status'],
-            'message' => $sessions['message'],
-        ], $sessions['code']);
+        try {
+            // validate data 
+            $data = $request->validated();
+            // logic in service class 
+            $sessions = $this->session_service->update_session($data);
+            // sending response 
+            return response()->json([
+                'status' => $sessions['status'],
+                'data' => $sessions['data'],
+            ], $sessions['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'Line' => $e->getLine()
+            ], 500);
+        }
     }
 }

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('case_payment_milestones', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('case_id')->constrained('cases')->onDelete('cascade');
             $table->string('title'); // مثال: "دفعة بعد الجلسة الأولى" أو "القسط الشهري"
             $table->decimal('amount', 15, 2); // المبلغ المطلوب في هذه المرحلة
             $table->date('due_date'); // تاريخ الاستحقاق
             $table->enum('status', ['pending', 'paid', 'overdue'])->default('pending');
+            $table->foreignUuid('case_id')->constrained('cases')->onDelete('cascade');
             $table->timestamps();
         });
     }

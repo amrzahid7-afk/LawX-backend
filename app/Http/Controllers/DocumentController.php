@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UploadDocumentRequest;
 use App\Services\DocumentService;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class DocumentController extends Controller
 {
@@ -24,9 +26,30 @@ class DocumentController extends Controller
             ]
         ], $result['code']);
     }
-    public function get_sessions_for_case($case_id)
+    public function get_documents_for_case($case_id)
     {
+        // validate case Id 
+        $validate = Validator::make(
+            ['case_id' => $case_id],
+            [
+                'case_id' => ['required', 'uuid', Rule::exists('cases', 'id')]
+            ],
+            [
+                'case_id.required' => 'Case ID is required',
+                'case_id.uuid' => 'Case ID must be a valid UUID',
+                'case_id.exists' => 'Case not found'
+            ]
+        );
+        if ($validate->fails()) {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Invalid case ID',
+                'error'   => $validate->errors()
+            ], 422);
+        }
+        // calling Service function 
         $result = $this->documentService->get_documents_for_case($case_id);
+        // sending response 
         return response()->json([
             'status' => $result['status'],
             'data' => [
@@ -34,5 +57,44 @@ class DocumentController extends Controller
                 'data' => $result['data']['data'],
             ]
         ], $result['code']);
+    }
+    public function delete_document($document_id)
+    {
+        try {
+            // dd(1);
+            // validate Document ID
+            $validator = Validator::make(
+                ['document_id' => $document_id],
+                ['document_id' => 'required|exists:documents,id'],
+                [
+                    'document_id.required' => "document Id is required",
+                    'document_id.exists' => "document Id must Be Exist in the Files Table"
+                ]
+            );
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => "failed",
+                    'Message' => $validator->errors(),
+                ]);
+            }
+            // dd(1);
+
+            // calling Service function 
+            $result = $this->documentService->delete_document($document_id);
+            // sending response 
+            return response()->json([
+                'status' =>  $result['status'],
+                'data' => [
+                    'message' => $result['data']['message'],
+                    'data' => $result['data']['data'],
+                ]
+            ], $result['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => "failed",
+                'Message' => $e->getMessage(),
+                'line' => $e->getLine(),
+            ], $e->getCode());
+        }
     }
 }

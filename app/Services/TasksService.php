@@ -13,6 +13,7 @@ class TasksService
             'case_id' => $data['case_id'],
             'title' => $data['title'],
             'description' => $data['description'],
+            'due_date' => $data['due_date'] ?? null,
             'assigned_to' => $data['assigned_to'],
         ]);
         return [
@@ -24,18 +25,39 @@ class TasksService
             'code' => '200'
         ];
     }
-    // public function get_tasks_for_case($case_id)
-    // {
-    //     $tasks_for_case = Task::with('case')->get();
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'get tasks successfully',
-    //             'data' => $tasks_for_case
-    //         ],
-    //         'code' => '200'
-    //     ];
-    // }
+    public function edit_task(array $data)
+    {
+        $task = Task::find($data['task_id']);
+        $task->update([
+            'title' => $data['title'] ?? $task->title,
+            'description' => $data['description'] ?? $task->description,
+            'due_date' => $data['due_date'] ?? $task->due_date,
+            'assigned_to' => $data['assigned_to'] ?? $task->assigned_to,
+            'status' => $data['status'] ?? $task->status,
+        ]);
+        $formattedTask = [
+            'id' => $task->id,
+            'case_id' => $task->case_id,
+            'title' => $task->title,
+            'description' => $task->description,
+            'due_date' => $task->due_date ? $task->due_date->format('Y-m-d h') : null,
+            'assigned_to' => [
+                'id' => $task->assignedTo->id ?? null,
+                'name' => $task->assignedTo->full_name ?? null,
+                'role' => $task->assignedTo->role->name ?? null
+            ],
+            'status' => $task->status,
+            'created_at' => $task->created_at->format('Y-m-d h'),
+        ];
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'Task updated successfully',
+                'data' => $formattedTask
+            ],
+            'code' => '200'
+        ];
+    }
     public function get_tasks_for_case($case_id)
     {
         $case = CaseModel::with(['lawer', 'client'])->find($case_id);
@@ -71,6 +93,44 @@ class TasksService
                     'case' => $formattedCase,
                     'tasks' => $formattedTasks
                 ]
+            ],
+            'code' => '200'
+        ];
+    }
+    public function delete_task($task_id)
+    {
+        $task = Task::find($task_id);
+        $task->delete();
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'Task deleted successfully'
+            ],
+            'code' => '200'
+        ];
+    }
+    public function get_my_tasks()
+    {
+        $user = auth('sanctum')->user();
+        $tasks = $user->tasks()->with(['case.client'])->get();
+        $formattedTasks = $tasks->map(function ($task) {
+            return [
+                'task_title' => $task->title,
+                'task_description' => $task->description,
+                'task_due_date' => $task->due_date->format('Y-m-d'),
+                'task_status' => $task->status,
+                'case_number' => $task->case->case_number,
+                'case_title' => $task->case->title,
+                'case_category' => $task->case->case_category,
+                'case_description' => $task->case->description,
+                'client' => $task->case->client
+            ];
+        });
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'Task Fetching successfully',
+                'tasks' => $formattedTasks
             ],
             'code' => '200'
         ];

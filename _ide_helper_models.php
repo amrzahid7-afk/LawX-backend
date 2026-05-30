@@ -14,22 +14,31 @@
 namespace App\Models{
 /**
  * @property string $id
+ * @property string $case_number
  * @property string $title
+ * @property string $case_category
  * @property string|null $description
+ * @property int $importance_stars
+ * @property string $billing_type
+ * @property numeric|null $collection_percentage
  * @property string $status
- * @property string $client_id
- * @property string $lawer_id
+ * @property string $financial_status
+ * @property int $progress_percentage
+ * @property string|null $court
+ * @property string|null $lead_lawyer_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $client
+ * @property-read \App\Models\User|null $client
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $clients
  * @property-read int|null $clients_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
- * @property-read \App\Models\User $lawer
+ * @property-read \App\Models\User|null $lawer
  * @property-read \App\Models\User|null $leadLawyer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Opponent> $opponents
  * @property-read int|null $opponents_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Case_payment_milestone> $paymentMilestones
+ * @property-read int|null $payment_milestones_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Session> $sessions
  * @property-read int|null $sessions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
@@ -39,11 +48,18 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereClientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereBillingType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereCaseCategory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereCaseNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereCollectionPercentage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereCourt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereFinancialStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereLawerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereImportanceStars($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereLeadLawyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereProgressPercentage($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereUpdatedAt($value)
@@ -63,27 +79,65 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property string $id
+ * @property string $case_id
+ * @property string $user_id
+ * @property int $is_primary
+ * @property-read \App\Models\CaseModel $case
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_client newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_client newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_client query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_client whereCaseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_client whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_client whereIsPrimary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_client whereUserId($value)
  */
 	class Case_client extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
+ * @property string $id
+ * @property string $title
+ * @property numeric $amount
+ * @property string $due_date
+ * @property string $status
+ * @property string $case_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\CaseModel $case
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone whereCaseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone whereDueDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_payment_milestone whereUpdatedAt($value)
  */
 	class Case_payment_milestone extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
+ * @property string $id
+ * @property string $case_id
+ * @property string $user_id
+ * @property string $role_in_case
+ * @property-read \App\Models\CaseModel $case
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_team newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_team newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_team query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_team whereCaseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_team whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_team whereRoleInCase($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Case_team whereUserId($value)
  */
 	class Case_team extends \Eloquent {}
 }
@@ -124,6 +178,7 @@ namespace App\Models{
  * @property string $id
  * @property string $file_path
  * @property string $type
+ * @property string|null $nots
  * @property string|null $case_id
  * @property string|null $legal_request_id
  * @property string|null $proposal_id
@@ -143,6 +198,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereFilePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereLegalRequestId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereNots($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereProposalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUpdatedAt($value)
@@ -339,11 +395,29 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property string $id
+ * @property string $name
+ * @property string $type
+ * @property string|null $national_id
+ * @property string|null $phone
+ * @property string|null $email
+ * @property string|null $address
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $cases
  * @property-read int|null $cases_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent whereNationalId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Opponent whereUpdatedAt($value)
  */
 	class Opponent extends \Eloquent {}
 }

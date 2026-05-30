@@ -290,7 +290,9 @@ class CaseService
         CaseModel::where('id', $case_id)->delete();
         return [
             'status' => 'success',
-            'message' => 'Delete case successfully',
+            'data' => [
+                'message' => 'Delete case successfully'
+            ],
             'code' => '200'
         ];
     }

@@ -9,7 +9,7 @@ class Session extends Model
 {
     protected $table = 'sessions';
     protected $keyType = 'string';
-    protected $increment = false;
+    public $incrementing = false;
     protected $fillable = [
         "id",
         'case_id',

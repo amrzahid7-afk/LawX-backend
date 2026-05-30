@@ -126,12 +126,32 @@ class CaseController extends Controller
     public function delete_case($case_id)
     {
         try {
-
+            // validate case_id is uuid and exists in cases table
+            $validate = Validator::make(
+                ['case_id' => $case_id],
+                [
+                    'case_id' => ['required', 'uuid', Rule::exists('cases', 'id')]
+                ],
+                [
+                    'case_id.required' => 'Case ID is required',
+                    'case_id.uuid' => 'Case ID must be a valid UUID',
+                    'case_id.exists' => 'Case not found'
+                ]
+            );
+            if ($validate->fails()) {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Invalid case ID',
+                    'error'   => $validate->errors()
+                ], 422);
+            }
+            // calling case service
             $cases = $this->caseService->delete_case($case_id);
+            // return response
             return response()->json([
-                'status' => 'success',
-                'data' => null
-            ]);
+                'status' => $cases['status'],
+                'data' => $cases['data']
+            ], $cases['code']);
         } catch (Exception $e) {
             return response()->json([
                 'status'  => false,

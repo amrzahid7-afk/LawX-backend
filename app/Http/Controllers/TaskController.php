@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\TasksService;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddTaskRequest;
+use App\Http\Requests\EditTaskRequest;
 
 class TaskController extends Controller
 {
@@ -55,6 +56,71 @@ class TaskController extends Controller
                 'status' => $result['status'],
                 'data' => $result['data'],
             ], $result['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'Line' => $e->getLine()
+            ], 500);
+        }
+    }
+    public function edit_task(EditTaskRequest $request)
+    {
+        try {
+            // validate data 
+            $data = $request->validated();
+            // logic in service class 
+            $result = $this->tasks_service->edit_task($data);
+            // sending response 
+            return response()->json([
+                'status' => $result['status'],
+                'data' => $result['data'],
+            ], $result['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'Line' => $e->getLine()
+            ], 500);
+        }
+    }
+    public function delete_task($task_id)
+    {
+        try {
+            // validate Task ID
+            $validator = validator()->make(['task_id' => $task_id], [
+                'task_id' => 'required|exists:tasks,id'
+            ], [
+                'task_id.required' => "Task ID is required",
+                'task_id.exists' => "Task ID must exist in the tasks table"
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 'error',
+                    'data' => $validator->errors(),
+                    'code' => '400'
+                ]);
+            }
+            // Call Service function
+            $result = $this->tasks_service->delete_task($task_id);
+            // sending response
+            return response()->json([
+                'status' => $result['status'],
+                'data' => $result['data'],
+            ], $result['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'Line' => $e->getLine()
+            ], 500);
+        }
+    }
+    public function get_my_tasks()
+    {
+        try {
+            $tasks = $this->tasks_service->get_my_tasks();
+            return response()->json([
+                'status' => $tasks['status'],
+                'data' => $tasks['data'],
+            ], $tasks['code']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),

@@ -77,6 +77,24 @@ class AuthController extends Controller
         $result = $this->authService->resetPassword($request->all());
         return response()->json($result, $result['code']);
     }
+    public function me(Request $request)
+    {
+        $user = $request->user();
+        $formattedUser = [
+            'id' => $user->id,
+            'full_name' => $user->full_name,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'role' => $user->role ? $user->role->name : null,
+        ];
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'message' => 'Fetch user data successfully',
+                'data' => $formattedUser
+            ],
+        ], 200);
+    }
 
 
 

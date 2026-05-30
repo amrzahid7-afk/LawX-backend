@@ -27,6 +27,7 @@ class UploadDocumentRequest extends FormRequest
             'case_id' => 'required|exists:cases,id',
             'type' => 'required|string|max:10|min:3',
             'file' => 'required|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
+            'nots' => 'nullable|string|max:255',
         ];
     }
     public function messages()
@@ -41,6 +42,8 @@ class UploadDocumentRequest extends FormRequest
             'file.required' => 'File is required',
             'file.mimes' => 'File must be a pdf, doc, docx, jpg, jpeg, png',
             'file.max' => 'File must be less than 2MB',
+            'nots.string' => 'Notes must be a string',
+            'nots.max' => 'Notes must be less than 255 characters',
         ];
     }
     protected function failedValidation(Validator $validator)

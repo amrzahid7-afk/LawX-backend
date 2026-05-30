@@ -28,6 +28,7 @@ class AddTaskRequest extends FormRequest
             'case_id' => 'required|exists:cases,id',
             'title' => 'required|string|max:25',
             'description' => 'required|string|max:255',
+            'due_date' => 'nullable|date|after_or_equal:today',
             // 'assigned_to' => 'required|exists:users,id',
             'assigned_to' => [
                 'required',
@@ -52,6 +53,9 @@ class AddTaskRequest extends FormRequest
             'description.required' => "description is required",
             'description.string' => "description must be a text",
             'description.max' => "description must be less than 255 characters",
+            'due_date.nullable' => "due_date must be a valid date",
+            'due_date.date' => "due_date must be a valid date",
+            'due_date.after_or_equal' => "due_date must be a date equal to or after today",
             'assigned_to.required' => "assigned_to is required",
             'assigned_to.exists' => "assigned_to not found",
         ];
