@@ -22,11 +22,19 @@ class AuthService
         $user = User::where('email', $credentials['email'])->first();
         $user->tokens()->delete();
         $token = $user->createToken('api-token')->plainTextToken;
+        $formatted_data = [
+            'ID' => $user->id,
+            'full_name' => $user->full_name,
+            'email' => $user->email,
+            'role' => $user->role->name,
+            'is_active' => $user->is_active,
+            'created_at' => $user->created_at->format('y m d'),
+        ];
         return [
             'status' => 'success',
             'data' => [
                 'token' => $token,
-                'user' => $user
+                'user' => $formatted_data
             ],
             'code' => 200
         ];

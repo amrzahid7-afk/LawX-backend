@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 
 class LegalRequestService
 {
+
     public function createLegalRequest($data)
     {
         $file = isset($data['file']) ? $data['file'] : null;
@@ -231,6 +232,43 @@ class LegalRequestService
             'data' => [
                 'message' => 'get proposals successfully',
                 'data' => $result
+            ],
+            'code' => '200'
+        ];
+    }
+    public function getLegalRequestDetails($request_id)
+    {
+        // GET DATA 
+        $legal_request = Legal_request::with(['documents', 'client'])->find($request_id);
+        // Format data
+        $formatted_data = [
+            'id' => $legal_request->id,
+            'title_request' => $legal_request->title_request,
+            'description_request' => $legal_request->description_request,
+            'location_request' => $legal_request->location_request,
+            'budget_min' => $legal_request->budget_min,
+            'budget_max' => $legal_request->budget_max,
+            'created_at' => $legal_request->created_at->format('Y-m-d h:i A'),
+            'status' => $legal_request->status,
+            'type' => $legal_request->type,
+            'documents' => $legal_request->documents->map(function ($doc) {
+                return [
+                    'id' => $doc->id,
+                    'file_url' => Storage::url($doc->file_path),
+                    'type' => $doc->type
+                ];
+            })->toArray(),
+            'client_info' => [
+                'full_name' => $legal_request->client->full_name ?? null,
+                'email' => $legal_request->client->email ?? null,
+            ],
+        ];
+        // Response
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'get legal request details successfully',
+                'data' => $formatted_data
             ],
             'code' => '200'
         ];

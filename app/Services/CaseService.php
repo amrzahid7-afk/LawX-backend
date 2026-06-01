@@ -23,7 +23,7 @@ class CaseService
             // create the case
             $case = CaseModel::create([
                 'client_id' => $data['clients'][0]['user_id'], // assuming the first client is the primary one
-                'lawer_id' => $data['lead_lawyer_id'],
+                'lead_lawyer_id' => $data['lead_lawyer_id'],
                 'title' => $data['title'],
                 'case_category' => $data['case_category'],
                 'description' => $data['description'],
@@ -31,7 +31,7 @@ class CaseService
                 'importance_stars' => $data['importance_stars'],
                 'billing_type' => $data['billing_type'],
                 'collection_percentage' => $data['collection_percentage'] ?? null,
-                'case_number' => $data['case_number']
+                'case_number' => $data['case_number'],
             ]);
             foreach ($data['clients'] as $client) {
                 // loop through each client and attach them to the case with their primary status
@@ -147,20 +147,18 @@ class CaseService
                 'collection_percentage' => $case->collection_percentage,
                 'financial_status' => $case->financial_status,
                 'progress_percentage' => $case->progress_percentage,
-                'lawyer_id' => $case->lawer_id, // ملاحظة: تأكد من اسم العمود في قاعدة البيانات
+                'lawyer_id' => $case->lead_lawyer_id,
                 'created_at' => $case->created_at->format('Y-m-d'),
-                // 1. تنسيق بيانات العملاء (مع جلب البيانات من Pivot و User)
                 'clients' => $case->clients->map(function ($client) {
                     return [
                         'user_id' => $client->id,
-                        'name' => $client->name,
+                        'name' => $client->full_name,
                         'email' => $client->email,
                         'phone' => $client->phone ?? null,
                         'is_primary' => (bool) $client->pivot->is_primary, // البيانات من جدول الربط
                     ];
                 })->values()->all(),
 
-                // 2. تنسيق بيانات الخصوم
                 'opponents' => $case->opponents->map(function ($opponent) {
                     return [
                         'id' => $opponent->id,
@@ -172,7 +170,6 @@ class CaseService
                     ];
                 })->values()->all(),
 
-                // 3. تنسيق بيانات الفريق
                 'team' => $case->team->map(function ($member) {
                     return [
                         'user_id' => $member->id,
@@ -182,7 +179,6 @@ class CaseService
                     ];
                 })->values()->all(),
 
-                // 4. تنسيق بيانات الأقساط (المهم جداً هنا تنسيق التاريخ)
                 'payment_milestones' => $case->paymentMilestones->map(function ($milestone) {
                     return [
                         'id' => $milestone->id,
@@ -192,7 +188,6 @@ class CaseService
                         'status' => $milestone->status,
                     ];
                 })->values()->all(),
-                // إضافة الجلسات
                 'last_session' => $lastSession ? $lastSession->toArray() : null,
                 'next_session' => $nextSession ? $nextSession->toArray() : null
 
@@ -255,32 +250,34 @@ class CaseService
     }
     public function get_cases(Request $request)
     {
-        // dd($request->user());
-        // dd(auth('sanctum')->user());
-        $user = $request->user();  //auth('sanctum')->user();
-        $column = '';
-        if ($user->role->name == 'admin') {
-            $cases = CaseModel::select(['status', 'title', 'description', 'id'])->get();
-        } else {
-            switch ($user->role->name) {
-                case 'client':
-                    $column = 'client_id';
-                    break;
-                case 'lawer':
-                    $column = 'lawer_id';
-                    break;
-            }
-            $cases = CaseModel::where($column, $user->id)
-                // ->where('client_id', $user->id)
-                ->select(['status', 'title', 'description', 'id'])
-                ->get();
-        }
-
+        // get auth user
+        $user = $request->user();
+        // get cases
+        $cases = CaseModel::with(['documents', 'tasks', 'clients', 'opponents', 'team', 'paymentMilestones']);
+        // formatting data
+        $formattedCases = $cases->get()->map(function ($case) {
+            return [
+                'id' => $case->id,
+                'title' => $case->title,
+                'description' => $case->description,
+                'status' => $case->status,
+                'team' => $case->team->map(function ($member) {
+                    return [
+                        'user_id' => $member->id,
+                        'name' => $member->name,
+                        'role_in_case' => $member->pivot->role_in_case,
+                        'email' => $member->email,
+                    ];
+                })->values()->all(),
+                'documents_count' => $case->documents->count(),
+                'created_at' => $case->created_at->format('Y-m-d'),
+            ];
+        });
         return [
             'status' => 'success',
             'data' => [
-                'message' => 'get your cases successfully',
-                'cases' => $cases
+                'message' => 'get cases successfully',
+                'cases' => $formattedCases
             ],
             'code' => '200'
         ];

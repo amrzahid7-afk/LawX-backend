@@ -22,11 +22,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/tokens/create', function (Request $request) {
-    dd($token = $request->user()->createToken($request->token_name));
-    return ['token' => $token->plainTextToken];
-    return "asa";
-});
+// Route::post('/tokens/create', function (Request $request) {
+//     dd($token = $request->user()->createToken($request->token_name));
+//     return ['token' => $token->plainTextToken];
+//     return "asa";
+// });
 
 
 Route::get('/test', function () {
@@ -51,9 +51,9 @@ Route::prefix('/Case')->middleware('auth:sanctum')->group(function () {
     Route::get('/get_documents_for_case/{case_id}', [DocumentController::class, 'get_documents_for_case']);  // 
     Route::get('/delete_document/{document_id}', [DocumentController::class, 'delete_document']); // 
     // Tasks apis 
+    Route::post('/create_task', [TaskController::class, 'create_task']); // 
     Route::get('/get_my_tasks', [TaskController::class, 'get_my_tasks']); // to do 
     Route::get('/get_tasks_for_case/{case_id}', [TaskController::class, 'get_tasks_for_case']);
-    Route::post('/create_task', [TaskController::class, 'create_task']); // 
     Route::post('/edit_task', [TaskController::class, 'edit_task']); // 
     Route::get('/delete_task/{task_id}', [TaskController::class, 'delete_task']); // 
     // Sessions apis
@@ -64,17 +64,22 @@ Route::prefix('/Case')->middleware('auth:sanctum')->group(function () {
     Route::delete('/delete_session/{session_id}', [SessionController::class, 'delete_session']); // 
     Route::post('/update_session', [SessionController::class, 'update_session']); //  
 });
-Route::prefix('/client_portal/legal_request')->group(function () {
+Route::prefix('/client_portal/legal_request')->middleware('auth:sanctum')->group(function () {
     Route::post('/create_request', [LegalRequestController::class, 'create']);  //  
     Route::get('/get_my_requests', [LegalRequestController::class, 'get_my_requests']); // 
     Route::get('/get_offices_or_lawers_available', [LegalRequestController::class, 'get_offices_or_lawers']); // 
     Route::get('/get_protofolio_for_lawer_or_office/{ID}', [LegalRequestController::class, 'get_protofolio']); // in future not 
     Route::get('/get_proposals_for_my_requests/{request_id}', [LegalRequestController::class, 'get_proposals']);
-})->middleware('auth:sanctum');
-Route::prefix('/Market_place')->group(function () {
+});
+Route::prefix('/Market_place')->middleware('auth:sanctum')->group(function () {
     Route::get('/get_legal_requests', [ProposalController::class, 'get_legal_requests']);
+    Route::get('/get_legal_request_details/{request_id}', [LegalRequestController::class, 'get_legal_request_details']);
+    Route::get('/get_my_proposals', [ProposalController::class, 'get_my_proposals']);
+    Route::get('/get_proposal_details/{proposal_id}', [ProposalController::class, 'get_proposal_details']);
     Route::post('/send_proposal', [ProposalController::class, 'send_proposal']);
-})->middleware('auth:sanctum');
+    Route::post('/update_proposal', [ProposalController::class, 'update_proposal']);
+    Route::get('/delete_proposal/{proposal_id}', [ProposalController::class, 'delete_proposal']);
+});
 // Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/verify_2FA', [AuthController::class, 'verify_2FA']);
 // Route::post('password/forgot', [AuthController::class, 'forgotPassword']);
