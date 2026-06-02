@@ -41,6 +41,9 @@ class TaskController extends Controller
             // validate ID
             $validator = validator()->make(['case_id' => $case_id], [
                 'case_id' => 'required|exists:cases,id'
+            ], [
+                'case_id.required' => "Case ID is required",
+                'case_id.exists' => "Case ID must exist in the cases table"
             ]);
             if ($validator->fails()) {
                 return response()->json([

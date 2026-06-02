@@ -54,6 +54,46 @@ class LegalRequestService
             'code' => '200'
         ];
     }
+    public function updateLegalRequest($data)
+    {
+        $legal_request = Legal_request::find($data['request_id']);
+        $file = isset($data['file']) ? $data['file'] : null;
+        unset($data['file']);
+        $legal_request->update($data);
+        if ($file) {
+            $legal_request->documents()->delete();
+            $path = $file->store('documents', 'public');
+            Document::create([
+                'id' => Str::uuid(),
+                'file_path' => $path,
+                'type' => 'legal_request_file',
+                'case_id' => null,
+                'legal_request_id' => $legal_request->id,
+                'proposal_id' => null,
+                'uploaded_by' => request()->user()->id,
+            ]);
+        }
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'update legal request successfully',
+                'data' => $legal_request
+            ],
+            'code' => '200'
+        ];
+    }
+    public function deleteLegalRequest($request_id)
+    {
+        $legal_request = Legal_request::find($request_id);
+        $legal_request->delete();
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'delete legal request successfully',
+            ],
+            'code' => '200'
+        ];
+    }
 
     public function getMyRequests()
     {

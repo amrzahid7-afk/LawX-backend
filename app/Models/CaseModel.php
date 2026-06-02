@@ -20,6 +20,7 @@ class CaseModel extends Model
         'case_number',
         'case_category',
         'title',
+        'price',
         'description',
         'importance_stars',
         'billing_type',
@@ -30,16 +31,6 @@ class CaseModel extends Model
         'court',
         'lead_lawyer_id'
     ];
-
-
-    public function client()
-    {
-        return $this->belongsTo(User::class, 'client_id');
-    }
-    public function lawer()
-    {
-        return $this->belongsTo(User::class, 'lawer_id');
-    }
     public function sessions()
     {
         return $this->hasMany(Session::class, 'case_id');
@@ -80,32 +71,4 @@ class CaseModel extends Model
     {
         return $this->hasMany(Case_payment_milestone::class, 'case_id');
     }
-    // public function office()
-    // {
-    //     return $this->belongsTo(Office::class);
-    // }
-    // public function client()
-    // {
-    //     return $this->belongsTo(Client::class);
-    // }
-    // public function assignedEmployee()
-    // {
-    //     return $this->belongsTo(Employee::class, 'assigned_employee_id');
-    // }
-    // public function caseType()
-    // {
-    //     return $this->belongsTo(CaseType::class);
-    // }
-    // // public function template()
-    // // {
-    // //     return $this->belongsTo(WorkflowTemplate::class, 'template_id');
-    // // }
-    // public function milestones()
-    // {
-    //     return $this->hasMany(Casemillstone::class);
-    // }
-    // public function invoices()
-    // {
-    //     return $this->hasMany(Invoice::class);
-    // }
 }

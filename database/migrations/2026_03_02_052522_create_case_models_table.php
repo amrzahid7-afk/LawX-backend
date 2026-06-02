@@ -32,6 +32,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('case_number')->unique();
             $table->string('title');
+            $table->float('price');
             $table->string('case_category');
             $table->text('description')->nullable();
             $table->tinyInteger('importance_stars')->default(3); // 1, 2, 3, 4, 5

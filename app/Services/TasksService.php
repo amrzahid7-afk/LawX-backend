@@ -60,7 +60,7 @@ class TasksService
     }
     public function get_tasks_for_case($case_id)
     {
-        $case = CaseModel::with(['lawer', 'client'])->find($case_id);
+        $case = CaseModel::with(['leadLawyer', 'clients', 'team'])->find($case_id);
         $tasks = Task::with(['assignedTo.role'])
             ->where('case_id', $case_id)
             ->get();
@@ -68,13 +68,31 @@ class TasksService
             'id' => $case->id,
             'title' => $case->title,
             'description' => $case->description,
-            'lawyr_name' => $case->lawer->full_name ?? null,
-            'client_name' => $case->client->full_name ?? null,
+            'lead_lawyer' => [
+                'name' => $case->leadLawyer->full_name ?? 'لم يُحدد بعد',
+            ],
+            'clients' => $case->clients->map(function ($client) {
+                return [
+                    'id'         => $client->id,
+                    'name'       => $client->full_name,
+                    'is_primary' => $client->pivot->is_primary ? true : false // ميزة قادمة من جدول case_clients
+                ];
+            }),
+            'team' => $case->team->map(function ($member) {
+                return [
+                    'id'   => $member->id,
+                    'name' => $member->full_name,
+                    'role_in_case' => $member->pivot->role_in_case // ميزة قادمة من جدول case_teams
+                ];
+            }),
+            // 'lawyr_name' => $case->lawer->full_name ?? null,
+            // 'client_name' => $case->client->full_name ?? null,
             'status' => $case->status,
             'created_at' => $case->created_at->format('Y-m-d h'), // السنة-الشهر-اليوم الساعة (24)
         ];
         $formattedTasks = $tasks->map(function ($task) {
             return [
+                'task_id' => $task->id,
                 'title' => $task->title,
                 'description' => $task->description,
                 'assigned_to' => [
@@ -112,9 +130,10 @@ class TasksService
     public function get_my_tasks()
     {
         $user = auth('sanctum')->user();
-        $tasks = $user->tasks()->with(['case.client'])->get();
+        $tasks = $user->tasks()->with(['case'])->get();
         $formattedTasks = $tasks->map(function ($task) {
             return [
+                'task_id' => $task->id,
                 'task_title' => $task->title,
                 'task_description' => $task->description,
                 'task_due_date' => $task->due_date->format('Y-m-d'),
@@ -123,7 +142,6 @@ class TasksService
                 'case_title' => $task->case->title,
                 'case_category' => $task->case->case_category,
                 'case_description' => $task->case->description,
-                'client' => $task->case->client
             ];
         });
         return [

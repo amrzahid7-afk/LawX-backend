@@ -66,6 +66,8 @@ Route::prefix('/Case')->middleware('auth:sanctum')->group(function () {
 });
 Route::prefix('/client_portal/legal_request')->middleware('auth:sanctum')->group(function () {
     Route::post('/create_request', [LegalRequestController::class, 'create']);  //  
+    Route::post('/update_request', [LegalRequestController::class, 'update_request']);  //  
+    Route::get('/delete_request/{request_id}', [LegalRequestController::class, 'delete_request']);  //  
     Route::get('/get_my_requests', [LegalRequestController::class, 'get_my_requests']); // 
     Route::get('/get_offices_or_lawers_available', [LegalRequestController::class, 'get_offices_or_lawers']); // 
     Route::get('/get_protofolio_for_lawer_or_office/{ID}', [LegalRequestController::class, 'get_protofolio']); // in future not 

@@ -32,6 +32,7 @@ class CaseCreationRequest extends FormRequest
             'title'             => ['required', 'string', 'min:5', 'max:255'],
             'description'       => ['required', 'string', 'min:10'],
             'court'             => ['required', 'string', 'min:3'],
+            'price'             => ['required', 'integer', 'min:0'],
             'case_category'     => ['required', 'string', 'min:4'],
             'importance_stars'  => ['required', 'integer', 'min:1', 'max:5'],
             'billing_type'      => ['required', 'in:fixed_proposal,percentage_collection,installments,pay_as_you_go'],
