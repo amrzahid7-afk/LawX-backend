@@ -567,7 +567,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{admin_token}}",
+                  "value": "{{lawer_token}}",
                   "type": "string"
                 }
               ]
@@ -582,7 +582,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"case_id\": \"000266fb-6833-4ba1-bbda-4bbee6f303a7\" , \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"due_date\": \"2029-11-01\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"283e648d-60e5-45ed-a467-c56779b57df9\"\r\n}",
+              "raw": "{\r\n    \"case_id\": \"371c2596-8b4e-42b3-bfb3-18e27734a6f9\" , \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"due_date\": \"2029-11-01\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"d33749b9-8604-4947-a788-759e7755faa8\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -699,7 +699,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_my_tasks",
+              "raw": "http://127.0.0.1:8000/api/Case/get_tasks_for_case/{{case_id}}",
               "protocol": "http",
               "host": [
                 "127",
@@ -711,7 +711,8 @@
               "path": [
                 "api",
                 "Case",
-                "get_my_tasks"
+                "get_tasks_for_case",
+                "{{case_id}}"
               ]
             }
           },
@@ -809,7 +810,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/delete_task/2a84aa3b-aa2a-4d7f-8bf1-e0eeaf2fd408",
+              "raw": "http://127.0.0.1:8000/api/Case/delete_task/{{task_id}}",
               "protocol": "http",
               "host": [
                 "127",
@@ -822,7 +823,7 @@
                 "api",
                 "Case",
                 "delete_task",
-                "2a84aa3b-aa2a-4d7f-8bf1-e0eeaf2fd408"
+                "{{task_id}}"
               ]
             }
           },
@@ -864,7 +865,105 @@
               "formdata": [
                 {
                   "key": "title_request",
-                  "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                  "value": "استشارة",
+                  "type": "text"
+                },
+                {
+                  "key": "description_request",
+                  "value": "نزاع تركة",
+                  "type": "text"
+                },
+                {
+                  "key": "location_request",
+                  "value": "importanttask",
+                  "type": "text"
+                },
+                {
+                  "key": "budget_min",
+                  "value": "50000",
+                  "type": "text"
+                },
+                {
+                  "key": "budget_max",
+                  "value": "60000",
+                  "type": "text"
+                },
+                {
+                  "key": "type",
+                  "value": "public",
+                  "type": "text"
+                },
+                {
+                  "key": "assigned_lawyer_id",
+                  "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/create_request",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "client_portal",
+                "legal_request",
+                "create_request"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update_request",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "request_id",
+                  "value": "e68ba981-2392-43f6-ad47-3790a305aea0",
+                  "type": "text",
+                  "uuid": "68411ddb-bf37-41b3-804d-f4aa3be1b28c"
+                },
+                {
+                  "key": "title_request",
+                  "value": "نزاع تركة 2222تتت",
                   "type": "text"
                 },
                 {
@@ -906,7 +1005,7 @@
               ]
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/create_request",
+              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/update_request",
               "protocol": "http",
               "host": [
                 "127",
@@ -919,7 +1018,54 @@
                 "api",
                 "client_portal",
                 "legal_request",
-                "create_request"
+                "update_request"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete_request",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/delete_request/{{request_id}}",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "client_portal",
+                "legal_request",
+                "delete_request",
+                "{{request_id}}"
               ]
             }
           },
@@ -1654,7 +1800,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"148-687\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    \"collection_percentage\": 15.00,\r\n    \"lead_lawyer_id\": \"92c67cb3-3fb2-4143-93a9-c8746ed02936\",\r\n\r\n    \"clients\": [\r\n        { \"user_id\": \"726a7a26-dc50-457d-a20e-a9ea689ab074\", \"is_primary\": true }   \r\n    ],\r\n    \r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    \r\n    // \"team\": [\r\n    //     { \"user_id\": \"uuid-of-employee-1\", \"role_in_case\": \"باحث قانوني\" }\r\n    // ],\r\n    \r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"148-687\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    \"collection_percentage\": 15.00,\r\n    \"lead_lawyer_id\": \"d33749b9-8604-4947-a788-759e7755faa8\",\r\n\r\n    \"clients\": [\r\n        { \"user_id\": \"c7aaa3ec-05b6-4ab0-a05c-86d61370bac1\", \"is_primary\": true }   \r\n    ],\r\n    \r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    \r\n    // \"team\": [\r\n    //     { \"user_id\": \"uuid-of-employee-1\", \"role_in_case\": \"باحث قانوني\" }\r\n    // ],\r\n    \r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1707,7 +1853,7 @@
               }
             ],
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_case_details/6365933a-8037-488a-94ad-8e0643e3433e",
+              "raw": "http://127.0.0.1:8000/api/Case/get_case_details/371c2596-8b4e-42b3-bfb3-18e27734a6f9",
               "protocol": "http",
               "host": [
                 "127",
@@ -1720,7 +1866,7 @@
                 "api",
                 "Case",
                 "get_case_details",
-                "6365933a-8037-488a-94ad-8e0643e3433e"
+                "371c2596-8b4e-42b3-bfb3-18e27734a6f9"
               ]
             }
           },
@@ -2121,6 +2267,18 @@
         }
       },
       "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "case_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "task_id",
+      "value": "",
+      "type": "default"
     }
   ]
 }
