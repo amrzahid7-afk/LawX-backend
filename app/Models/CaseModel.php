@@ -20,6 +20,7 @@ class CaseModel extends Model
         'case_number',
         'case_category',
         'title',
+        'result',
         'price',
         'description',
         'importance_stars',

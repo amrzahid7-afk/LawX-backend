@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Task;
 use App\Traits\HasUuid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Task;
+
 
 class User extends Authenticatable
 {
@@ -18,14 +21,19 @@ class User extends Authenticatable
     protected $keyType = 'string';
     protected $fillable = [
         'id',
-        'office_id',
         'role_id',
         'email',
+        'address',
         'password',
         'full_name',
         'avatar',
         'is_active',
-        'activation_2FA'
+        'activation_2FA',
+        'city',
+        'lat',
+        'lng',
+        'experience_years',
+        'bio',
     ];
     protected $hidden = [
         'password',
@@ -44,7 +52,7 @@ class User extends Authenticatable
 
     public function cases()
     {
-        return $this->hasMany(CaseModel::class);
+        return $this->hasMany(CaseModel::class, 'lead_lawyer_id', 'id');
     }
     public function documents()
     {
@@ -53,6 +61,30 @@ class User extends Authenticatable
     public function tasks()
     {
         return $this->hasMany(Task::class, 'assigned_to');
+    }
+    public function legalCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(Legal_category::class, 'user_legal_categories', 'user_id', 'category_id');
+    }
+
+    // علاقة 2: المستخدم (المحامي) يستقبل تقييمات من العملاء
+    public function reviewsReceived(): HasMany
+    {
+        return $this->hasMany(Review::class, 'lawyer_id');
+    }
+
+    // علاقة 3 (اختيارية): المستخدم (العميل) قام بكتابة تقييمات
+    public function reviewsGiven(): HasMany
+    {
+        return $this->hasMany(Review::class, 'client_id');
+    }
+    public function client_invoices()
+    {
+        return $this->hasMany(Invoice::class, 'client_id');
+    }
+    public function lawyer_invoices()
+    {
+        return $this->hasMany(Invoice::class, 'lawyer_id');
     }
     // relations methods 
     // public function office()

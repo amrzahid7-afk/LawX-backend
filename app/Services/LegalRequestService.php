@@ -7,8 +7,11 @@ use App\Models\Legal_request;
 use App\Models\Proposal;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Notifications\Send_Request_Notification;
 
 class LegalRequestService
 {
@@ -30,6 +33,11 @@ class LegalRequestService
             'client_id' => auth('api')->user()->id,
             'assigned_lawyer_id' => $data['assigned_lawyer_id'] ?? null,
         ]);
+        // sending notification
+        if ($data['assigned_lawyer_id']) {
+            $lawyer = User::find($data['assigned_lawyer_id']);
+            $lawyer->notify(new Send_Request_Notification($legal_request->toArray()));
+        }
         if ($file) {
             $path = $file->store('documents', 'public');
             Document::create([
@@ -135,23 +143,154 @@ class LegalRequestService
             'code' => '200'
         ];
     }
-    public function getOfficesOrLawers()
+    public function get_offices_or_lawers_available(Request $request)
     {
-        $role_id = Role::where('name', 'lawer')->first()->id;
-        $lawers = User::where([
-            'role_id' => $role_id,
-            'is_active' => true
-        ])->select('full_name', 'email')
-            ->get();
+        // getting lawer & office admin role
+        $lawyerRoleId = Role::where('name', 'lawer')->first()->id;
+        $officeManagerRoleId = Role::where('name', 'admin')->first()->id;
+        // dd('1');
+        $query = User::whereIn('role_id', [$lawyerRoleId, $officeManagerRoleId])
+            ->where('is_active', true)
+            ->with(['legalCategories']) // جلب التخصصات لعرضها في القائمة
+            ->withAvg('reviewsReceived as rate', 'rating') // حساب متوسط التقييم مرة واحدة
+            ->withCount('cases as cases_count'); // عدد القضايا مرة واحدةلمدينة
+        // dd('1');
+
+        // getting data with city filter
+        if ($request->has('city')) {
+            $query->where('city', $request->city);
+        }
+
+
+        // getting data with cases category filter
+        if ($request->has('category_id')) {
+            $query->whereHas('legalCategories', function ($q) use ($request) {
+                $q->where('legal_categories.id', $request->category_id);
+            });
+        }
+        // dd('1');
+        //  getting data with rate lawers filter
+        if ($request->has('min_rate')) {
+            $query->having('rate', '>=', $request->min_rate);
+        }
+        // dd('1');
+
+        $users = $query->get();
+        // dd('1');
+
+        // تنسيق البيانات للإرسال
+        $data = $users->map(function ($user) {
+            return [
+                'id' => $user->id,
+                'full_name' => $user->full_name,
+                'avatar' => $user->avatar ?? null,
+                'rate' => round($user->rate, 1) ?: 0, // التقييم المحسوب
+                'status' => $user->is_active ? 'active' : 'inactive',
+                'address' => $user->address ?? null,
+                // 'office_id' => $user->office_id ?? null, // للمكتب فقط
+                'specialists' => $user->legalCategories->pluck('name'), // أسماء التخصصات
+                'role' => $user->role->name // lawyer or office_manager
+            ];
+        });
+        // dd('1');
+        // Response
         return [
             'status' => 'success',
             'data' => [
-                'message' => 'get offices or lawers successfully',
-                'data' => $lawers
+                'message' => 'get lawers , offices successfully',
+                'data' => $data
             ],
             'code' => '200'
         ];
     }
+
+    public function getProtofolioForLawerOrOffice($lawyerId)
+    {
+        // 1. جلب بيانات المحامي مع العلاقات (القضايا مع التصنيفات، والتقييمات مع بيانات العميل، ودور المستخدم)
+        $lawyer = User::with(['cases.category', 'reviewsReceived.client', 'role'])
+            ->findOrFail($lawyerId);
+
+        // 2. حساب سنوات الخبرة
+        // سنفترض أن سنوات الخبرة تحسب من تاريخ إنشاء الحساب، أو يمكنك استخدام حقل محدد مثل $lawyer->experience_years
+        $experienceYears = Carbon::parse($lawyer->created_at)->diffInYears(Carbon::now());
+
+        // 3. حساب إحصائيات القضايا
+        $totalCases = $lawyer->cases->count();
+        $wonCases = $lawyer->cases->where('status', 'won')->count(); // تأكد أن قيمة 'won' صحيحة في قاعدة البيانات
+        $percentWon = $totalCases > 0 ? ($wonCases / $totalCases) * 100 : 0;
+
+        // 4. جلب التصنيفات القانونية الفريدة الخاصة به
+        $legalCategories = $lawyer->legalCategories->pluck('name')
+            ->values()->toArray();
+
+        // 5. تجهيز آراء العملاء بالصيغة المطلوبة [اسم العميل، التقييم، التعليق]
+        $opinions = $lawyer->reviewsReceived->map(function ($review) {
+            return [
+                'client_name' => $review->client ? $review->client->full_name : 'Unknown',
+                'rate'        => $review->rating,
+                'comment'     => $review->comment,
+            ];
+        })->toArray();
+
+        // 6. بناء مصفوفة البيانات الأساسية
+        $data = [
+            'lawyer_name'           => $lawyer->name,
+            'role'                  => $lawyer->role->name ?? 'User', // اسم الدور
+            'address'               => $lawyer->address,
+            'phone_number'          => $lawyer->phone,
+            'rate'                  => 12345, // القيمة التي طلبتها (يمكن استبدالها بحساب حقيقي: $lawyer->reviews()->avg('rating'))
+            'experience_years_count' => $experienceYears,
+            'number_of_cases'       => $totalCases,
+            'percent_of_cases_won'  => number_format($percentWon, 2), // نسبة مئوية
+            'legal_categories'      => $legalCategories,
+            'bio_for_lawyer'        => $lawyer->bio,
+            'opinion_of_clients'    => $opinions,
+        ];
+
+        // 7. الشرط الإضافي: إذا كان المستخدم من نوع Admin
+        // نفترض هنا أن الـ Admin له role_id = 1 أو أن اسم الدور 'admin'
+        if ($lawyer->role_id == 1 || (isset($lawyer->role->name) && strtolower($lawyer->role->name) === 'admin')) {
+            $data['location_data'] = [
+                'latitude'  => $lawyer->latitude,
+                'longitude' => $lawyer->longitude,
+            ];
+        }
+
+        // sending response 
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'get protofolio for lawer or office successfully',
+                'data' => $data
+            ],
+            'code' => '200'
+        ];
+    }
+    // public function getOfficesOrLawers()
+    // {
+    //     $role_id = Role::where('name', 'lawer')->first()->id;
+    //     $lawers = User::with('legalCategories')->where([
+    //         'role_id' => $role_id,
+    //         'is_active' => true
+    //     ])->select(
+    //         'full_name',
+    //         'is_active',
+    //         'city',
+    //         'address',
+    //         'lat',
+    //         'lng',
+    //         'experience_years',
+    //         'bio',
+    //     )->get();
+    //     return [
+    //         'status' => 'success',
+    //         'data' => [
+    //             'message' => 'get offices or lawers successfully',
+    //             'data' => $lawers
+    //         ],
+    //         'code' => '200'
+    //     ];
+    // }
     // public function getProposals($request_id)
     // {
     //     $proposals = Proposal::where('request_id', $request_id)

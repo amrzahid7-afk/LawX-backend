@@ -75,7 +75,7 @@ class CaseService
             // check if team members exist in the request and attach them to the case
             if (isset($data['team'])) {
                 // loop through each team member and attach them to the case with their role in the case
-                foreach ($data['teams'] as $team) {
+                foreach ($data['team'] as $team) {
                     $case->team()->attach($team['user_id'], [
                         'role_in_case' => $team['role_in_case'],
                         'id' => Str::uuid()->toString() // Generate a UUID for the pivot table entry
@@ -266,7 +266,7 @@ class CaseService
                 'team' => $case->team->map(function ($member) {
                     return [
                         'user_id' => $member->id,
-                        'name' => $member->name,
+                        'name' => $member->full_name,
                         'role_in_case' => $member->pivot->role_in_case,
                         'email' => $member->email,
                     ];

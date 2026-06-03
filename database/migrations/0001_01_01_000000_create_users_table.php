@@ -18,6 +18,13 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('role_id')->constrained('roles');
             $table->boolean('is_active')->default(true);
+            $table->string('address')->nullable();
+            $table->string('city')->nullable(); // make it table relation later
+            $table->string('lat')->nullable();
+            $table->string('lng')->nullable();
+            $table->integer('experience_years')->default(0)->nullable();
+            $table->text('bio')->nullable();
+            // $table->foreignId('city_id')->nullable()->constrained('cities');
             $table->timestamps();
             // $table->foreignUuid('office_id')->nullable()->constrained('offices')->onDelete('cascade');
             // $table->string('avatar')->nullable();

@@ -35,6 +35,7 @@ return new class extends Migration
             $table->float('price');
             $table->string('case_category');
             $table->text('description')->nullable();
+            $table->enum('result', ['pending', 'won', 'lost'])->default('pending');
             $table->tinyInteger('importance_stars')->default(3); // 1, 2, 3, 4, 5
             // نوع خطة الدفع لهذه القضية
             $table->enum('billing_type', [
@@ -50,7 +51,7 @@ return new class extends Migration
             $table->enum('financial_status', ['unpaid', 'partially_paid', 'paid', 'overdue'])->default('unpaid');
             $table->integer('progress_percentage')->default(0);
             $table->string('court', 255)->nullable();
-            $table->foreignUuid('lead_lawyer_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignUuid('lead_lawyer_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

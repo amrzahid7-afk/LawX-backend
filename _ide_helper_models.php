@@ -16,8 +16,10 @@ namespace App\Models{
  * @property string $id
  * @property string $case_number
  * @property string $title
+ * @property float $price
  * @property string $case_category
  * @property string|null $description
+ * @property string $result
  * @property int $importance_stars
  * @property string $billing_type
  * @property numeric|null $collection_percentage
@@ -28,12 +30,10 @@ namespace App\Models{
  * @property string|null $lead_lawyer_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User|null $client
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $clients
  * @property-read int|null $clients_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
- * @property-read \App\Models\User|null $lawer
  * @property-read \App\Models\User|null $leadLawyer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Opponent> $opponents
  * @property-read int|null $opponents_count
@@ -59,7 +59,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereImportanceStars($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereLeadLawyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereProgressPercentage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereResult($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereUpdatedAt($value)
@@ -286,8 +288,8 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property-read \App\Models\CaseModel|null $case
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PaymentInstallment> $installments
- * @property-read int|null $installments_count
+ * @property-read \App\Models\User|null $client
+ * @property-read \App\Models\User|null $lawyer
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice query()
@@ -313,6 +315,27 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LegalEmbedding query()
  */
 	class LegalEmbedding extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property string $id
+ * @property string $name
+ * @property string|null $icon
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ * @property-read int|null $users_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_category newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_category newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_category query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_category whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_category whereIcon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_category whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_category whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_category whereUpdatedAt($value)
+ */
+	class Legal_category extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -530,7 +553,7 @@ namespace App\Models{
  * @property numeric $price
  * @property string $estimated_days
  * @property string $message_for_client
- * @property string $valid_until
+ * @property \Illuminate\Support\Carbon $valid_until
  * @property string $payment_terms
  * @property string $status
  * @property string $price_currency
@@ -560,6 +583,35 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal whereValidUntil($value)
  */
 	class Proposal extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property string $id
+ * @property string $lawyer_id
+ * @property string $client_id
+ * @property string $case_id
+ * @property int $rating
+ * @property string|null $comment
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\CaseModel $case
+ * @property-read \App\Models\User $client
+ * @property-read \App\Models\User $lawyer
+ * @method static \Database\Factories\ReviewFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereCaseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereClientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereLawyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereUpdatedAt($value)
+ */
+	class Review extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -667,6 +719,7 @@ namespace App\Models{
  * @property string $case_id
  * @property string $title
  * @property string $description
+ * @property \Illuminate\Support\Carbon|null $due_date
  * @property string $assigned_to
  * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -680,6 +733,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereCaseId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereDueDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task whereTitle($value)
@@ -705,14 +759,26 @@ namespace App\Models{
  * @property string $password
  * @property int $role_id
  * @property bool $is_active
+ * @property string|null $address
+ * @property string|null $city
+ * @property string|null $lat
+ * @property string|null $lng
+ * @property int|null $experience_years
+ * @property string|null $bio
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $cases
  * @property-read int|null $cases_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Legal_category> $legalCategories
+ * @property-read int|null $legal_categories_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviewsGiven
+ * @property-read int|null $reviews_given_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviewsReceived
+ * @property-read int|null $reviews_received_count
  * @property-read \App\Models\Role $role
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
  * @property-read int|null $tasks_count
@@ -722,11 +788,17 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereBio($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereExperienceYears($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereFullName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereLat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereLng($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)

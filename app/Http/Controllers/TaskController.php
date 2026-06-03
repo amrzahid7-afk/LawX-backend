@@ -99,8 +99,7 @@ class TaskController extends Controller
                 return response()->json([
                     'status' => 'error',
                     'data' => $validator->errors(),
-                    'code' => '400'
-                ]);
+                ], 400);
             }
             // Call Service function
             $result = $this->tasks_service->delete_task($task_id);

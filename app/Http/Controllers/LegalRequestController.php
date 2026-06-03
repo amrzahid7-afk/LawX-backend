@@ -94,10 +94,10 @@ class LegalRequestController extends Controller
             ], 500);
         }
     }
-    public function get_offices_or_lawers()
+    public function get_offices_or_lawers(Request $request)
     {
         try {
-            $data = $this->legalRequestService->getOfficesOrLawers();
+            $data = $this->legalRequestService->get_offices_or_lawers_available($request);
             return response()->json([
                 'status' => $data['status'],
                 'data' => $data['data']
@@ -105,7 +105,8 @@ class LegalRequestController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'Line' => $e->getLine()
+                'Line' => $e->getLine(),
+                'class' => $e->getFile()
             ], 500);
         }
     }
@@ -152,6 +153,38 @@ class LegalRequestController extends Controller
             return response()->json([
                 'error' => $e->getMessage(),
                 'Line' => $e->getLine()
+            ], 500);
+        }
+    }
+    public function get_protofolio_for_lawer_or_office($lawer_id)
+    {
+        try {
+            $validator = Validator::make(
+                ['lawer_id' => $lawer_id],
+                [
+                    'lawer_id' => ['required', 'exists:users,id'],
+                ],
+                [
+                    'lawer_id.required' => 'Lawyer/Office ID is required',
+                    'lawer_id.exists' => 'Lawyer/Office ID does not exist',
+                ]
+            );
+            if ($validator->fails()) {
+                return response()->json([
+                    'message' => 'Invalid Lawyer/Office ID',
+                    'error' => $validator->errors()->first()
+                ], 422);
+            }
+            $data = $this->legalRequestService->getProtofolioForLawerOrOffice($lawer_id);
+            return response()->json([
+                'status' => $data['status'],
+                'data' => $data['data']
+            ], $data['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'Line' => $e->getLine(),
+                'class' => $e->getFile()
             ], 500);
         }
     }

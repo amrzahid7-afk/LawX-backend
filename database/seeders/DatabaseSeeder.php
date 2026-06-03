@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeeder::class,
             LegalRequestSeeder::class,
-            ProposalSeeder::class
+            ProposalSeeder::class,
+            LegalCategoriesSeeder::class
         ]);
     }
 }

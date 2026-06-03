@@ -3,13 +3,14 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CaseController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ManageOfficesController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TaskController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,16 +63,20 @@ Route::prefix('/Case')->middleware('auth:sanctum')->group(function () {
     Route::get('/get_sessions_for_lawer', [SessionController::class, 'get_sessions_for_lawer']);
     Route::get('/get_sessions_for_client', [SessionController::class, 'get_sessions_for_client']);
     Route::delete('/delete_session/{session_id}', [SessionController::class, 'delete_session']); // 
-    Route::post('/update_session', [SessionController::class, 'update_session']); //  
+    Route::post('/update_session', [SessionController::class, 'update_session']); //
+    // Invoices apis
+    Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']); //  
+    Route::post('/get_invoices_for_client', [InvoiceController::class, 'get_invoices_for_client']); //  
 });
 Route::prefix('/client_portal/legal_request')->middleware('auth:sanctum')->group(function () {
     Route::post('/create_request', [LegalRequestController::class, 'create']);  //  
     Route::post('/update_request', [LegalRequestController::class, 'update_request']);  //  
     Route::get('/delete_request/{request_id}', [LegalRequestController::class, 'delete_request']);  //  
     Route::get('/get_my_requests', [LegalRequestController::class, 'get_my_requests']); // 
-    Route::get('/get_offices_or_lawers_available', [LegalRequestController::class, 'get_offices_or_lawers']); // 
-    Route::get('/get_protofolio_for_lawer_or_office/{ID}', [LegalRequestController::class, 'get_protofolio']); // in future not 
     Route::get('/get_proposals_for_my_requests/{request_id}', [LegalRequestController::class, 'get_proposals']);
+    // will make another controller for this in future to make it more organized
+    Route::get('/get_offices_or_lawers_available', [LegalRequestController::class, 'get_offices_or_lawers']); // 
+    Route::get('/get_protofolio_for_lawer_or_office/{lawer_id}', [LegalRequestController::class, 'get_protofolio_for_lawer_or_office']); // in future not 
 });
 Route::prefix('/Market_place')->middleware('auth:sanctum')->group(function () {
     Route::get('/get_legal_requests', [ProposalController::class, 'get_legal_requests']);

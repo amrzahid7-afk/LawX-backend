@@ -582,7 +582,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"case_id\": \"371c2596-8b4e-42b3-bfb3-18e27734a6f9\" , \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"due_date\": \"2029-11-01\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"d33749b9-8604-4947-a788-759e7755faa8\"\r\n}",
+              "raw": "{\r\n    \"case_id\": \"7bb406b9-c134-4564-b915-b13588841a63\" , \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"due_date\": \"2029-11-01\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"0167a26b-d75d-40ea-9762-c6c991ca9364\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -636,7 +636,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"task_id\": \"3e3828d5-5cf8-4190-bc82-f145c7e7e68e\" , \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"status\": \"completed\" , \r\n    \"due_date\":\"2029-01-25\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"92c67cb3-3fb2-4143-93a9-c8746ed02936\"\r\n}",
+              "raw": "{\r\n    \"task_id\": \"506f26f1-ce2b-4657-a080-9f8bd108469f\" , \r\n    \"title\": \"استخراج قيد  \" , \r\n    \"status\": \"completed\" , \r\n    \"due_date\":\"2029-01-25\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"d33749b9-8604-4947-a788-759e7755faa8\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -895,9 +895,8 @@
                 },
                 {
                   "key": "assigned_lawyer_id",
-                  "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
-                  "type": "text",
-                  "disabled": true
+                  "value": "0167a26b-d75d-40ea-9762-c6c991ca9364",
+                  "type": "text"
                 },
                 {
                   "key": "file",
@@ -1256,6 +1255,53 @@
           "response": []
         },
         {
+          "name": "get_protofolio_for_lawer_or_office",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/get_protofolio_for_lawer_or_office/0167a26b-d75d-40ea-9762-c6c991ca9364",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "client_portal",
+                "legal_request",
+                "get_protofolio_for_lawer_or_office",
+                "0167a26b-d75d-40ea-9762-c6c991ca9364"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "get_proposals_for_my_requests",
           "protocolProfileBehavior": {
             "disableBodyPruning": true,
@@ -1457,7 +1503,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{lawer_token}}",
+                  "value": "{{admin_token}}",
                   "type": "string"
                 }
               ]
@@ -1500,12 +1546,12 @@
                 },
                 {
                   "key": "price_currency",
-                  "value": "EUR",
+                  "value": "EGP",
                   "type": "text"
                 },
                 {
                   "key": "request_id",
-                  "value": "1e6bbd2b-84af-4332-b0bd-fd265ab4498c",
+                  "value": "10ca5861-c9ec-4c90-924c-1a2bec32cd05",
                   "type": "text"
                 },
                 {
@@ -1785,7 +1831,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{lawer_token}}",
+                  "value": "{{admin_token}}",
                   "type": "string"
                 }
               ]
@@ -1800,7 +1846,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"148-687\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    \"collection_percentage\": 15.00,\r\n    \"lead_lawyer_id\": \"d33749b9-8604-4947-a788-759e7755faa8\",\r\n\r\n    \"clients\": [\r\n        { \"user_id\": \"c7aaa3ec-05b6-4ab0-a05c-86d61370bac1\", \"is_primary\": true }   \r\n    ],\r\n    \r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    \r\n    // \"team\": [\r\n    //     { \"user_id\": \"uuid-of-employee-1\", \"role_in_case\": \"باحث قانوني\" }\r\n    // ],\r\n    \r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"4848-67\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    \"collection_percentage\": 15.00,\r\n    \"lead_lawyer_id\": \"30f84bb4-ce00-4d9c-ad5e-17797c668447\",\r\n\r\n    \"clients\": [\r\n        { \"user_id\": \"aa07e346-4ed8-4870-b695-1b5ad9d48e2b\", \"is_primary\": true }   \r\n    ],\r\n    \r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    \r\n    \"team\": [\r\n        {\r\n             \"user_id\":\"30f84bb4-ce00-4d9c-ad5e-17797c668447\",\r\n              \"role_in_case\": \"باحث قانوني\" \r\n              }\r\n    ],\r\n    \r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2017,7 +2063,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"client@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
+              "raw": "{\r\n    \"email\": \"admin@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2205,6 +2251,110 @@
                 "api",
                 "Auth",
                 "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Invoices_Module",
+      "item": [
+        {
+          "name": "create_invoice",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n     \"case_id\":\"7bb406b9-c134-4564-b915-b13588841a63\",\r\n     // 0167a26b-d75d-40ea-9762-c6c991ca9364 lawer ID\r\n     \"lawyer_id\":\"0167a26b-d75d-40ea-9762-c6c991ca9364\",\r\n     \"client_id\":\"aa07e346-4ed8-4870-b695-1b5ad9d48e2b\",\r\n     \"total_amount\":3500,\r\n     \"due_date\":\"2029-11-01\",\r\n     \"items\": [\r\n    {\r\n        \"title\": \"أتعاب المحكمة التجارية\",\r\n        \"description\": \"إيداع صحيفة الدعوى ومرفقاتها\",\r\n        \"amount\": 1500.00\r\n    },\r\n    {\r\n        \"title\": \"الرسوم القضائية\",\r\n        \"description\": \"المطالبة بعدم التعويض\",\r\n        \"amount\": 1000.00\r\n    },\r\n    {\r\n        \"title\": \"بدء العمل\",\r\n        \"description\": \"دراسة الملف واستشارة أولية\",\r\n        \"amount\": 1000.00\r\n    }\r\n]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/Case/create_invoice",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Case",
+                "create_invoice"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_invoices_for_client",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/Case/get_invoices_for_client",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Case",
+                "get_invoices_for_client"
               ]
             }
           },

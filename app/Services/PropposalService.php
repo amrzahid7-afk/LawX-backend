@@ -7,6 +7,7 @@ use App\Models\Legal_request;
 use App\Models\Proposal;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Notifications\Send_Proposal_Notification;
 
 class PropposalService
 {
@@ -82,6 +83,10 @@ class PropposalService
         }
         $Respose_data = $proposal->makeHidden(['created_at', 'updated_at'])->toArray();
         $Respose_data['file_url'] = Storage::disk('public')->url($path);
+        // sending notification to client 
+        $client = $proposal->request->client;
+        $client->notify(new Send_Proposal_Notification($proposal->id, $client->id));
+        // return response
         return [
             'status' => 'success',
             'data' => [
