@@ -6,6 +6,12 @@ use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Office;
+use App\Models\Invoice;
+use App\Models\Casemillstone;
+use App\Models\User;
+use App\Models\Session;
+use App\Models\Document;
+use App\Models\Task;
 
 class CaseModel extends Model
 {
@@ -65,12 +71,12 @@ class CaseModel extends Model
     // // {
     // //     return $this->belongsTo(WorkflowTemplate::class, 'template_id');
     // // }
-    // public function milestones()
-    // {
-    //     return $this->hasMany(Casemillstone::class);
-    // }
-    // public function invoices()
-    // {
-    //     return $this->hasMany(Invoice::class);
-    // }
+    public function milestones()
+    {
+        return $this->hasMany(Casemillstone::class);
+    }
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

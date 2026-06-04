@@ -8,6 +8,8 @@ use App\Http\Controllers\ManageOfficesController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TimelineController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +27,7 @@ Route::get('/test', function () {
     return "API Working";
 });
 Route::prefix('/Auth')->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);  // done 
+    Route::post('/login', [AuthController::class, 'login']);  // done
     Route::post('password/forgot', [AuthController::class, 'forgotPassword']); // done
     Route::post('password/reset', [AuthController::class, 'resetPassword']); // done
     Route::middleware('auth:api')->group(function () {
@@ -46,7 +48,7 @@ Route::prefix('/Case')->group(function () {
     Route::post('/create_task', [TaskController::class, 'create_task']);
 })->middleware('auth:api');
 Route::prefix('/client_portal/legal_request')->group(function () {
-    Route::post('/create_request', [LegalRequestController::class, 'create']);  // done 
+    Route::post('/create_request', [LegalRequestController::class, 'create']);  // done
     Route::get('/get_my_requests', [LegalRequestController::class, 'get_my_requests']); // done
     Route::get('/get_offices_or_lawers_available', [LegalRequestController::class, 'get_offices_or_lawers']); // done
     Route::get('/get_protofolio_for_lawer_or_office/{ID}', [LegalRequestController::class, 'get_protofolio']); // in future not done
@@ -55,7 +57,14 @@ Route::prefix('/client_portal/legal_request')->group(function () {
 Route::prefix('/Market_place')->group(function () {
     Route::get('/get_legal_requests', [ProposalController::class, 'get_legal_requests']);
     Route::post('/send_proposal', [ProposalController::class, 'send_proposal']);
+
 })->middleware('auth:api');
+
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'getStatistics']);
+    Route::get('/cases/{caseId}/timeline', [TimelineController::class, 'timeline']);
+});
 // Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/verify_2FA', [AuthController::class, 'verify_2FA']);
 // Route::post('password/forgot', [AuthController::class, 'forgotPassword']);
@@ -76,7 +85,7 @@ Route::prefix('/Market_place')->group(function () {
 //         });
 //         // security settings
 //         Route::prefix('profile/security/')->group(function () {
-//             // change pawword 
+//             // change pawword
 //             Route::post('change_password', [AuthController::class, 'changePassword']);
 //             // disable and enable 2FA
 //             Route::get('switch_2FA', [AuthController::class, 'switch_2FA']);
@@ -87,16 +96,16 @@ Route::prefix('/Market_place')->group(function () {
 //             // delete all login devices (sessions)
 //             Route::delete('delete_all_sessions', [AuthController::class, 'deleteAllSessions']);
 //         });
-//         // manage offices 
+//         // manage offices
 //         Route::prefix('offices')->group(function () {
 //             Route::prefix('office_data')->group(function () {
 //                 // create new office
 //                 Route::post('create_office', [ManageOfficesController::class, 'createOffice']);
 //                 // get all offices
 //                 Route::get('get_offices', [ManageOfficesController::class, 'getOffices']);
-//                 // get specific office details 
+//                 // get specific office details
 //                 Route::get('get_office/{id}', [ManageOfficesController::class, 'getOffice']);
-//                 // update office data 
+//                 // update office data
 //                 Route::put('update_office/{id}', [ManageOfficesController::class, 'updateOffice']);
 //                 // delete office
 //                 Route::delete('delete_office/{id}', [ManageOfficesController::class, 'deleteOffice']);
@@ -104,7 +113,7 @@ Route::prefix('/Market_place')->group(function () {
 //             Route::prefix('office_admins')->group(function () {
 //                 // get all office admins
 //                 Route::get('get_office_admins', [ManageOfficesController::class, 'getOfficeAdmins']);
-//                 // update office admin data 
+//                 // update office admin data
 //                 Route::put('update_office_admin/{id}', [ManageOfficesController::class, 'updateOfficeAdmin']);
 //                 // delete office admin
 //                 Route::delete('delete_office_admin/{id}', [ManageOfficesController::class, 'deleteOfficeAdmin']);

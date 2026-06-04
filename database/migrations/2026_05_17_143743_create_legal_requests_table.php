@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // more columns // 
+        // more columns //
         /**
-         *   add category Id Column that match with category cases table 
-           
+         *   add category Id Column that match with category cases table
+
          */
         Schema::create('legal_requests', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title_request');
             $table->text('description_request');
-            $table->text('location_request'); //  المحكمة و المدينة و المحافظة 
+            $table->text('location_request'); //  المحكمة و المدينة و المحافظة
             $table->decimal('budget_min')->nullable();
             $table->decimal('budget_max')->nullable();
             $table->enum('type', ['private', 'public'])->default('public');

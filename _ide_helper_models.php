@@ -24,7 +24,11 @@ namespace App\Models{
  * @property-read \App\Models\User $client
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $invoices
+ * @property-read int|null $invoices_count
  * @property-read \App\Models\User $lawer
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Casemillstone> $milestones
+ * @property-read int|null $milestones_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Session> $sessions
  * @property-read int|null $sessions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
@@ -88,14 +92,19 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property string $id
- * @property string $case_id
  * @property string $file_path
  * @property string $type
+ * @property string|null $case_id
+ * @property string|null $legal_request_id
+ * @property string|null $proposal_id
  * @property string $uploaded_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\CaseModel $case
+ * @property-read \App\Models\CaseModel|null $case
+ * @property-read \App\Models\Legal_request|null $legal_request
+ * @property-read \App\Models\Proposal|null $proposal
  * @property-read \App\Models\User $uploadedBy
+ * @method static \Database\Factories\DocumentFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document query()
@@ -103,6 +112,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereFilePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereLegalRequestId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereProposalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUploadedBy($value)
@@ -221,23 +232,36 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property string $id
- * @property string $title
- * @property string|null $description
+ * @property string $title_request
+ * @property string $description_request
+ * @property string $location_request
+ * @property numeric|null $budget_min
+ * @property numeric|null $budget_max
+ * @property string $type
  * @property string $status
  * @property string $client_id
- * @property string $lawer_id
+ * @property string|null $assigned_lawyer_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $client
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
+ * @property-read int|null $documents_count
+ * @property-read \App\Models\User|null $lawyer
+ * @method static \Database\Factories\LegalRequestFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereAssignedLawyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereBudgetMax($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereBudgetMin($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereClientId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereDescriptionRequest($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereLawerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereLocationRequest($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereTitleRequest($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legal_request whereUpdatedAt($value)
  */
 	class Legal_request extends \Eloquent {}
@@ -357,9 +381,38 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property string $id
+ * @property numeric $price
+ * @property string $estimated_days
+ * @property string $message_for_client
+ * @property string $valid_until
+ * @property string $payment_terms
+ * @property string $status
+ * @property string $price_currency
+ * @property string $request_id
+ * @property string $lawer_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
+ * @property-read int|null $documents_count
+ * @property-read \App\Models\User|null $lawyer
+ * @property-read \App\Models\Legal_request $request
+ * @method static \Database\Factories\ProposalFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal whereEstimatedDays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal whereLawerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal whereMessageForClient($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal wherePaymentTerms($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal wherePriceCurrency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal whereRequestId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal whereValidUntil($value)
  */
 	class Proposal extends \Eloquent {}
 }
@@ -511,6 +564,10 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $cases
  * @property-read int|null $cases_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $casesAsClient
+ * @property-read int|null $cases_as_client_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $casesAsLawyer
+ * @property-read int|null $cases_as_lawyer_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications

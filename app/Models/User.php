@@ -63,6 +63,15 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Task::class);
     }
+    public function casesAsLawyer()
+{
+    return $this->hasMany(CaseModel::class, 'lawer_id');
+}
+
+public function casesAsClient()
+{
+    return $this->hasMany(CaseModel::class, 'client_id');
+}
     // relations methods 
     // public function office()
     // {
