@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "fe1005ac-e212-4bbf-948b-8d71ebe035db",
+    "_postman_id": "5b1b7b5f-7101-4823-b9dd-eab790314d97",
     "name": "LawX_FutureX",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "34857970",
-    "_collection_link": "https://go.postman.co/collection/34857970-fe1005ac-e212-4bbf-948b-8d71ebe035db?source=collection_link"
+    "_exporter_id": "24679275",
+    "_collection_link": "https://go.postman.co/collection/24679275-5b1b7b5f-7101-4823-b9dd-eab790314d97?source=collection_link"
   },
   "item": [
     {
@@ -266,7 +266,7 @@
               "formdata": [
                 {
                   "key": "case_id",
-                  "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                  "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb ,",
                   "type": "text"
                 },
                 {
@@ -337,7 +337,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_documents_for_case/328c779d-ce19-4e1d-8db7-fb015a55480a",
+              "raw": "http://127.0.0.1:8000/api/Case/get_documents_for_case/ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
               "protocol": "http",
               "host": [
                 "127",
@@ -350,7 +350,7 @@
                 "api",
                 "Case",
                 "get_documents_for_case",
-                "328c779d-ce19-4e1d-8db7-fb015a55480a"
+                "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb"
               ]
             }
           },
@@ -388,13 +388,8 @@
               }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\r\n   \"case_id\": \"ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb\" ,\r\n    \"title\":\"new task\",\r\n    \"description\":\"important task\",\r\n    \"assigned_to\": \"47acde5d-df36-4233-b6dd-76c774d49d50\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
+              "mode": "formdata",
+              "formdata": []
             },
             "url": {
               "raw": "http://127.0.0.1:8000/api/Case/create_task",
@@ -466,6 +461,522 @@
                 "Case",
                 "get_tasks_for_case",
                 "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Client_portal",
+      "item": [
+        {
+          "name": "create_legal_request",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title_request",
+                  "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                  "type": "text"
+                },
+                {
+                  "key": "description_request",
+                  "value": "newtask",
+                  "type": "text"
+                },
+                {
+                  "key": "location_request",
+                  "value": "importanttask",
+                  "type": "text"
+                },
+                {
+                  "key": "budget_min",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "budget_max",
+                  "value": "6",
+                  "type": "text"
+                },
+                {
+                  "key": "type",
+                  "value": "public",
+                  "type": "text"
+                },
+                {
+                  "key": "assigned_lawyer_id",
+                  "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/create_request",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "client_portal",
+                "legal_request",
+                "create_request"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_my_requests",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title_request",
+                  "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                  "type": "text"
+                },
+                {
+                  "key": "description_request",
+                  "value": "newtask",
+                  "type": "text"
+                },
+                {
+                  "key": "location_request",
+                  "value": "importanttask",
+                  "type": "text"
+                },
+                {
+                  "key": "budget_min",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "budget_max",
+                  "value": "6",
+                  "type": "text"
+                },
+                {
+                  "key": "type",
+                  "value": "public",
+                  "type": "text"
+                },
+                {
+                  "key": "assigned_lawyer_id",
+                  "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/get_my_requests",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "client_portal",
+                "legal_request",
+                "get_my_requests"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_offices_or_lawers_available",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title_request",
+                  "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                  "type": "text"
+                },
+                {
+                  "key": "description_request",
+                  "value": "newtask",
+                  "type": "text"
+                },
+                {
+                  "key": "location_request",
+                  "value": "importanttask",
+                  "type": "text"
+                },
+                {
+                  "key": "budget_min",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "budget_max",
+                  "value": "6",
+                  "type": "text"
+                },
+                {
+                  "key": "type",
+                  "value": "public",
+                  "type": "text"
+                },
+                {
+                  "key": "assigned_lawyer_id",
+                  "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/get_offices_or_lawers_available",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "client_portal",
+                "legal_request",
+                "get_offices_or_lawers_available"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get_proposals_for_my_requests",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title_request",
+                  "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                  "type": "text"
+                },
+                {
+                  "key": "description_request",
+                  "value": "newtask",
+                  "type": "text"
+                },
+                {
+                  "key": "location_request",
+                  "value": "importanttask",
+                  "type": "text"
+                },
+                {
+                  "key": "budget_min",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "budget_max",
+                  "value": "6",
+                  "type": "text"
+                },
+                {
+                  "key": "type",
+                  "value": "public",
+                  "type": "text"
+                },
+                {
+                  "key": "assigned_lawyer_id",
+                  "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/get_proposals_for_my_requests/06de03f9-952d-4acb-b712-94bac133da60",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "client_portal",
+                "legal_request",
+                "get_proposals_for_my_requests",
+                "06de03f9-952d-4acb-b712-94bac133da60"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Information_Dashboard",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "3|lG2ZWm99WaEd30WyOIllXnV6sSnCri14R3XMprEKd56d7d8e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/dashboard",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "dashboard"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Alerts_to_dashboard",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "3|lG2ZWm99WaEd30WyOIllXnV6sSnCri14R3XMprEKd56d7d8e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/dashboard/alerts",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "dashboard",
+                "alerts"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Time_Line",
+      "item": [
+        {
+          "name": "Shwo_Timeline",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "3|lG2ZWm99WaEd30WyOIllXnV6sSnCri14R3XMprEKd56d7d8e",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/Case/be0b1e39-ea77-461b-b754-1b93c7617ccc/timeline",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Case",
+                "be0b1e39-ea77-461b-b754-1b93c7617ccc",
+                "timeline"
               ]
             }
           },

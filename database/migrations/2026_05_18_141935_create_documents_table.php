@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->text('file_path');
             $table->string('type');
+            $table->text('nots')->nullable();
             $table->ForeignUuid('case_id')->constrained('cases')->onDelete('cascade')->nullable();
             $table->ForeignUuid('legal_request_id')->constrained('legal_requests')->onDelete('cascade')->nullable();
             $table->ForeignUuid('proposal_id')->constrained('proposals')->onDelete('cascade')->nullable();

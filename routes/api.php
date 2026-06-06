@@ -2,14 +2,17 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CaseController;
+use App\Http\Controllers\Dashboard\alertsController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ManageOfficesController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TimelineController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\Dashboard\DashboardController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,48 +26,81 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::post('/tokens/create', function (Request $request) {
+//     dd($token = $request->user()->createToken($request->token_name));
+//     return ['token' => $token->plainTextToken];
+//     return "asa";
+// });
+
+
 Route::get('/test', function () {
     return "API Working";
 });
 Route::prefix('/Auth')->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);  // done
-    Route::post('password/forgot', [AuthController::class, 'forgotPassword']); // done
-    Route::post('password/reset', [AuthController::class, 'resetPassword']); // done
-    Route::middleware('auth:api')->group(function () {
-        Route::get('/logout', [AuthController::class, 'logout']); // done
-    });
+    Route::post('/login', [AuthController::class, 'login']);  //
+    Route::post('password/forgot', [AuthController::class, 'forgotPassword']); //
+    Route::post('password/reset', [AuthController::class, 'resetPassword']); //
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+    Route::get('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 });
-Route::prefix('/Case')->group(function () {
-    Route::post('/create_case', [CaseController::class, 'create']);
+Route::prefix('/Case')->middleware('auth:sanctum')->group(function () {
+    // cases apis
+    Route::post('/create_case', [CaseController::class, 'create']); //
     Route::post('/update_case',  [CaseController::class, 'update']);
+    Route::get('/{caseId}/timeline',  [TimelineController::class, 'timeline']);
     Route::get('/get_cases', [CaseController::class, 'view_list']);
+    Route::get('/get_case_details/{case_id}', [CaseController::class, 'get_case_details']); //
+    Route::delete('/delete_case/{case_id}', [CaseController::class, 'delete_case']); //
+    // documents apis
+    Route::post('/upload_document', [DocumentController::class, 'upload_Document']);   //
+    Route::get('/get_documents_for_case/{case_id}', [DocumentController::class, 'get_documents_for_case']);  //
+    Route::get('/delete_document/{document_id}', [DocumentController::class, 'delete_document']); //
+    // Tasks apis
+    Route::post('/create_task', [TaskController::class, 'create_task']); //
+    Route::get('/get_my_tasks', [TaskController::class, 'get_my_tasks']); // to do
+    Route::get('/get_tasks_for_case/{case_id}', [TaskController::class, 'get_tasks_for_case']);
+    Route::post('/edit_task', [TaskController::class, 'edit_task']); //
+    Route::get('/delete_task/{task_id}', [TaskController::class, 'delete_task']); //
+    // Sessions apis
     Route::post('/add_new_session', [SessionController::class, 'addSession']);
     Route::get('/get_sessions_for_case/{case_id}', [SessionController::class, 'get_sessions_for_case']);
     Route::get('/get_sessions_for_lawer', [SessionController::class, 'get_sessions_for_lawer']);
     Route::get('/get_sessions_for_client', [SessionController::class, 'get_sessions_for_client']);
-    Route::post('/upload_document', [DocumentController::class, 'upload_Document']);
-    Route::get('/get_documents_for_case/{case_id}', [DocumentController::class, 'get_sessions_for_case']);
-    Route::get('/get_tasks_for_case/{case_id}', [TaskController::class, 'get_tasks_for_case']);
-    Route::post('/create_task', [TaskController::class, 'create_task']);
-})->middleware('auth:api');
-Route::prefix('/client_portal/legal_request')->group(function () {
-    Route::post('/create_request', [LegalRequestController::class, 'create']);  // done
-    Route::get('/get_my_requests', [LegalRequestController::class, 'get_my_requests']); // done
-    Route::get('/get_offices_or_lawers_available', [LegalRequestController::class, 'get_offices_or_lawers']); // done
-    Route::get('/get_protofolio_for_lawer_or_office/{ID}', [LegalRequestController::class, 'get_protofolio']); // in future not done
-    Route::get('/get_proposals_for_my_requests/{request_id}', [LegalRequestController::class, 'get_proposals']);
-})->middleware('auth:api');
-Route::prefix('/Market_place')->group(function () {
-    Route::get('/get_legal_requests', [ProposalController::class, 'get_legal_requests']);
-    Route::post('/send_proposal', [ProposalController::class, 'send_proposal']);
-
-})->middleware('auth:api');
-
-
-Route::middleware('auth:api')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'getStatistics']);
-    Route::get('/cases/{caseId}/timeline', [TimelineController::class, 'timeline']);
+    Route::delete('/delete_session/{session_id}', [SessionController::class, 'delete_session']); //
+    Route::post('/update_session', [SessionController::class, 'update_session']); //
+    // Invoices apis
+    Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']); //
+    Route::post('/get_invoices_for_client', [InvoiceController::class, 'get_invoices_for_client']); //
 });
+Route::prefix('/client_portal/legal_request')->middleware('auth:sanctum')->group(function () {
+    Route::post('/create_request', [LegalRequestController::class, 'create']);  //
+    Route::post('/update_request', [LegalRequestController::class, 'update_request']);  //
+    Route::get('/delete_request/{request_id}', [LegalRequestController::class, 'delete_request']);  //
+    Route::get('/get_my_requests', [LegalRequestController::class, 'get_my_requests']); //
+    Route::get('/get_proposals_for_my_requests/{request_id}', [LegalRequestController::class, 'get_proposals']);
+    // will make another controller for this in future to make it more organized
+    Route::get('/get_offices_or_lawers_available', [LegalRequestController::class, 'get_offices_or_lawers']); //
+    Route::get('/get_protofolio_for_lawer_or_office/{lawer_id}', [LegalRequestController::class, 'get_protofolio_for_lawer_or_office']); // in future not
+});
+Route::prefix('/Market_place')->middleware('auth:sanctum')->group(function () {
+    Route::get('/get_legal_requests', [ProposalController::class, 'get_legal_requests']);
+    Route::get('/get_legal_request_details/{request_id}', [LegalRequestController::class, 'get_legal_request_details']);
+    Route::get('/get_my_proposals', [ProposalController::class, 'get_my_proposals']);
+    Route::get('/get_proposal_details/{proposal_id}', [ProposalController::class, 'get_proposal_details']);
+    Route::post('/send_proposal', [ProposalController::class, 'send_proposal']);
+    Route::post('/update_proposal', [ProposalController::class, 'update_proposal']);
+    Route::get('/delete_proposal/{proposal_id}', [ProposalController::class, 'delete_proposal']);
+
+});
+
+Route::prefix('/dashboard')->middleware('auth:sanctum')->group(function () {
+
+    route::get('/',[DashboardController::class,'getStatistics']);
+    route::get('/alerts',[alertsController::class,'index']);
+});
+
+
+
 // Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/verify_2FA', [AuthController::class, 'verify_2FA']);
 // Route::post('password/forgot', [AuthController::class, 'forgotPassword']);
@@ -74,11 +110,11 @@ Route::middleware('auth:api')->group(function () {
 //     Route::prefix('manage_account/')->group(function () {
 //         // personal settings
 //         Route::prefix('profile/personal')->group(function () {
-//             // get super admin  profile data //  done
+//             // get super admin  profile data //
 //             Route::get('super_admin/get_profile', [AuthController::class, 'getSuperAdminProfile']);
-//             // update super admin  profile data //  done
+//             // update super admin  profile data //
 //             Route::put('super_admin/update_profile', [AuthController::class, 'updateSuperAdminProfile']);
-//             // upload personal image profile  //  done
+//             // upload personal image profile  //
 //             Route::post('super_admin/upload_avatar', [AuthController::class, 'upload_avatar']);
 //             // delete personal image profile and return default image
 //             Route::delete('super_admin/delete_image', [AuthController::class, 'deleteImage']);

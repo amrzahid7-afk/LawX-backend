@@ -15,8 +15,16 @@ class Task extends Model
         'case_id',
         'title',
         'description',
+        'due_date',
         'assigned_to',
         'status'
+    ];
+    protected $casts = [
+        'due_date' => 'datetime', // تأكد من وجود هذا السطر
+        'created_at' => 'datetime', // تأكد من وجود هذا السطر
+        'status' => 'string'
+
+        // ... باقي الحقول الأخرى
     ];
     protected static function boot()
     {
@@ -27,6 +35,7 @@ class Task extends Model
             }
         });
     }
+
 
     public function case()
     {

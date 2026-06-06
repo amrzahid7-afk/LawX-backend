@@ -16,6 +16,7 @@ return new class extends Migration
             $table->ForeignUuid('case_id')->constrained('cases')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
+            $table->dateTime('due_date')->nullable();
             $table->ForeignUuid('assigned_to')->constrained('users')->onDelete('cascade');
             $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
             $table->timestamps();

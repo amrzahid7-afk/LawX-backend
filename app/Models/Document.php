@@ -14,13 +14,14 @@ class Document extends Model
     use HasFactory, HasUuid;
     protected $table = 'documents';
     protected $keyType = 'string';
-    protected $increment = false;
+    public $incrementing = false;
     protected $fillable = [
         'id',
         'case_id',
         'file_path',
         'type',
         'uploaded_by',
+        'nots',
         'legal_request_id',
         'proposal_id',
     ];

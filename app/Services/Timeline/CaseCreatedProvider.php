@@ -1,25 +1,31 @@
 <?php
+
 namespace App\Services\Timeline;
+
 use App\Contracts\Services\Timeline\TimelineEventProviderInterface;
 
 class CaseCreatedProvider implements TimelineEventProviderInterface
 {
     /**
-     * Summary of getEvents
+     * الحصول على حدث إنشاء القضية
      * @param mixed $case
-     * @return array{date: mixed, description: string, title: string, type: string, user: mixed[]}
+     * @return array
      */
     public function getEvents($case): array
     {
 
-    $clientName=$case->client?->full_name ?? 'العميل';
+        $primaryClient = $case->clients->where('pivot.is_primary', true)->first() ?? $case->clients->first();
+        $clientName = $primaryClient?->full_name ?? 'العميل المشترك';
 
-       return [[
-            'type' => 'case_created',
-            'title' => 'تم إنشاء القضية',
-            'description' => "تم إنشاء القضية \"{$case->title}\" بواسطة {$clientName}",
-            'date' => $case->created_at,
-            'user' =>$clientName,
+
+        $lawyerName = $case->leadLawyer?->full_name ?? 'النظام';
+
+        return [[
+            'type'        => 'case_created',
+            'title'       => 'تم إنشاء القضية',
+            'description' => "تم إنشاء القضية \"{$case->title}\" وتعيين المحامي الرئيسي {$lawyerName}",
+            'date'        => $case->created_at,
+            'user'        => $clientName,
         ]];
     }
 }

@@ -13,9 +13,7 @@ class StoreOfficeRequest extends FormRequest
         return true;
     }
 
-    /**
-     * قواعد التحقق التي تنطبق على الطلب.
-     */
+
     public function rules(): array
     {
         return [

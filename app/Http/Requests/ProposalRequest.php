@@ -35,6 +35,8 @@ class ProposalRequest extends FormRequest
             'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
         ];
     }
+
+
     public function messages()
     {
         return [

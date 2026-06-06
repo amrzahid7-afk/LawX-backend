@@ -1,13 +1,16 @@
 <?php
+
 namespace App\Services\Timeline;
+
 use App\Contracts\Services\Timeline\TimelineEventProviderInterface;
-use carbon\Carbon;
+use Carbon\Carbon;
+
 class SessionProvider implements TimelineEventProviderInterface
 {
     /**
-     * Summary of getEvents
+     * الحصول على أحداث الجلسات
      * @param mixed $case
-     * @return array{date: mixed, description: string, title: string, type: string, user: mixed[]}
+     * @return array
      */
     public function getEvents($case): array
     {
@@ -18,28 +21,22 @@ class SessionProvider implements TimelineEventProviderInterface
         }
 
         foreach ($case->sessions as $session) {
-            // 1. تأمين تحويل التاريخ إلى كائن Carbon
             $sessionDate = $session->date instanceof Carbon ? $session->date : Carbon::parse($session->date);
 
             $events[] = [
                 'type'        => 'session',
-                'title'       => 'جلسة محكمة',
-
-                'description' => "تمت جدولة جلسة في: \"{$session->location}\"" ,
+                'title'       => 'جلسة محكمة جديد',
+                'description' => "تمت جدولة جلسة جديدة في: \"{$session->location}\"",
                 'date'        => $sessionDate->toDateTimeString(),
-
                 'user'        => 'النظام',
-
-
-                'meta'        => [
-                    'location' => $session->location,
-                    'notes'    => $session->nots,
-                    'result'   => $session->result ?? 'بانتظار الجلسة',
-                ]
+               'meta' => [
+    'location' => $session->location,
+    'notes'    => $session->nots, // ✅ تم تعديلها لتطابق عمود قاعدة البيانات حرفياً
+    'result'   => $session->result ?? 'بانتظار الجلسة',
+]
             ];
         }
 
         return $events;
-
     }
 }

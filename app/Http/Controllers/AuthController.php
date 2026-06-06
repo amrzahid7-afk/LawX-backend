@@ -11,10 +11,11 @@ use App\Http\Requests\Auth\UploadAvatarRequest;
 use App\Http\Requests\Auth\changePasswordRequest;
 use App\Services\AuthService;
 use Exception;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    protected $authService;
+    protected AuthService $authService;
 
     public function __construct(AuthService $authService)
     {
@@ -35,28 +36,29 @@ class AuthController extends Controller
             ], 401);
         }
     }
-    public function verify_2FA(Verify_2FA_Request $request)
+
+    public function logout(Request $request)
     {
+        // return response()->json(["رسالة" => "وصل الغالي عالكونترولر"]);
         try {
-            $data = $this->authService->verify2FA($request->all());
+            $user = $request->user();
+
+            if ($user) {
+                // بدلاً من currentAccessToken()->delete()، سنستخدم الطريقة المباشرة التالية:
+                $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+            }
+
             return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
+                'status' => 'success',
+                'message' => 'Logged out successfully'
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => $e->getMessage()
-            ], 401);
+                'message' => $e->getMessage(),
+                'line' => $e->getLine()
+            ], 500);
         }
-    }
-    public function logout()
-    {
-        $this->authService->logout();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Logout successfully'
-        ]);
     }
     public function forgotPassword(ForgetPasswordRequest $request)
     {
@@ -75,95 +77,139 @@ class AuthController extends Controller
         $result = $this->authService->resetPassword($request->all());
         return response()->json($result, $result['code']);
     }
-    // Manage Profile  
-    public function getSuperAdminProfile()
+    public function me(Request $request)
     {
-        try {
-            $data = $this->authService->getSuperAdminProfile();
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'error_data' => [
-                    'message' => $e->getMessage(),
-                    'Line' => $e->getLine()
-                ],
-            ], 401);
-        }
+        $user = $request->user();
+        $formattedUser = [
+            'id' => $user->id,
+            'full_name' => $user->full_name,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'role' => $user->role ? $user->role->name : null,
+        ];
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'message' => 'Fetch user data successfully',
+                'data' => $formattedUser
+            ],
+        ], 200);
     }
-    public function updateSuperAdminProfile(UpdateProfileRequest $request)
-    {
-        try {
-            $data = $this->authService->updateSuperAdminProfile($request->all());
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'error_data' => [
-                    'message' => $e->getMessage(),
-                    'Line' => $e->getLine()
-                ],
-            ], 401);
-        }
-    }
-    public function upload_avatar(UploadAvatarRequest $request)
-    {
-        try {
-            $data = $this->authService->upload_avatar($request);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'error_data' => [
-                    'message' => $e->getMessage(),
-                    'Line' => $e->getLine()
-                ],
-            ], 500);
-        }
-    }
-    public function changePassword(changePasswordRequest $request)
-    {
-        try {
-            $data = $this->authService->changePassword($request->all());
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'error_data' => [
-                    'message' => $e->getMessage(),
-                    'Line' => $e->getLine()
-                ],
-            ], 500);
-        }
-    }
-    public function switch_2FA()
-    {
-        try {
-            $data = $this->authService->switch_2FA();
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'error_data' => [
-                    'message' => $e->getMessage(),
-                    'Line' => $e->getLine()
-                ],
-            ], 500);
-        }
-    }
+
+
+
+
+
+
+
+
+
+
+
+    // Manage Profile 
+    // public function verify_2FA(Verify_2FA_Request $request)
+    // {
+    //     try {
+    //         $data = $this->authService->verify2FA($request->all());
+    //         return response()->json([
+    //             'status' => $data['status'],
+    //             'data' => $data['data']
+    //         ], $data['code']);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'message' => $e->getMessage()
+    //         ], 401);
+    //     }
+    // }
+    // public function getSuperAdminProfile()
+    // {
+    //     try {
+    //         $data = $this->authService->getSuperAdminProfile();
+    //         return response()->json([
+    //             'status' => $data['status'],
+    //             'data' => $data['data']
+    //         ], $data['code']);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'error_data' => [
+    //                 'message' => $e->getMessage(),
+    //                 'Line' => $e->getLine()
+    //             ],
+    //         ], 401);
+    //     }
+    // }
+    // public function updateSuperAdminProfile(UpdateProfileRequest $request)
+    // {
+    //     try {
+    //         $data = $this->authService->updateSuperAdminProfile($request->all());
+    //         return response()->json([
+    //             'status' => $data['status'],
+    //             'data' => $data['data']
+    //         ], $data['code']);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'error_data' => [
+    //                 'message' => $e->getMessage(),
+    //                 'Line' => $e->getLine()
+    //             ],
+    //         ], 401);
+    //     }
+    // }
+    // public function upload_avatar(UploadAvatarRequest $request)
+    // {
+    //     try {
+    //         $data = $this->authService->upload_avatar($request);
+    //         return response()->json([
+    //             'status' => $data['status'],
+    //             'data' => $data['data']
+    //         ], $data['code']);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'error_data' => [
+    //                 'message' => $e->getMessage(),
+    //                 'Line' => $e->getLine()
+    //             ],
+    //         ], 500);
+    //     }
+    // }
+    // public function changePassword(changePasswordRequest $request)
+    // {
+    //     try {
+    //         $data = $this->authService->changePassword($request->all());
+    //         return response()->json([
+    //             'status' => $data['status'],
+    //             'data' => $data['data']
+    //         ], $data['code']);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'error_data' => [
+    //                 'message' => $e->getMessage(),
+    //                 'Line' => $e->getLine()
+    //             ],
+    //         ], 500);
+    //     }
+    // }
+    // public function switch_2FA()
+    // {
+    //     try {
+    //         $data = $this->authService->switch_2FA();
+    //         return response()->json([
+    //             'status' => $data['status'],
+    //             'data' => $data['data']
+    //         ], $data['code']);
+    //     } catch (\Exception $e) {
+    //         return response()->json([
+    //             'status' => 'error',
+    //             'error_data' => [
+    //                 'message' => $e->getMessage(),
+    //                 'Line' => $e->getLine()
+    //             ],
+    //         ], 500);
+    //     }
+    // }
 }

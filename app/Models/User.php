@@ -2,32 +2,38 @@
 
 namespace App\Models;
 
-use App\Models\Employee;
-use App\Models\Office;
+use App\Models\Task;
 use App\Traits\HasUuid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements JWTSubject
+
+class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasUuid;
+    use HasApiTokens, HasFactory, Notifiable, HasUuid;
 
-    protected $keyType = 'string';
     public $incrementing = false;
-
+    protected $keyType = 'string';
     protected $fillable = [
         'id',
-        'office_id',
         'role_id',
         'email',
+        'address',
         'password',
         'full_name',
         'avatar',
         'is_active',
-        'activation_2FA'
+        'activation_2FA',
+        'city',
+        'lat',
+        'lng',
+        'experience_years',
+        'bio',
     ];
     protected $hidden = [
         'password',
@@ -38,22 +44,15 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
         'is_active' => 'boolean',
     ];
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
 
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
+
     public function cases()
     {
-        return $this->hasMany(CaseModel::class);
+        return $this->hasMany(CaseModel::class, 'lead_lawyer_id', 'id');
     }
     public function documents()
     {
@@ -61,7 +60,31 @@ class User extends Authenticatable implements JWTSubject
     }
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Task::class, 'assigned_to');
+    }
+    public function legalCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(Legal_category::class, 'user_legal_categories', 'user_id', 'category_id');
+    }
+
+    // علاقة 2: المستخدم (المحامي) يستقبل تقييمات من العملاء
+    public function reviewsReceived(): HasMany
+    {
+        return $this->hasMany(Review::class, 'lawyer_id');
+    }
+
+    // علاقة 3 (اختيارية): المستخدم (العميل) قام بكتابة تقييمات
+    public function reviewsGiven(): HasMany
+    {
+        return $this->hasMany(Review::class, 'client_id');
+    }
+    public function client_invoices()
+    {
+        return $this->hasMany(Invoice::class, 'client_id');
+    }
+    public function lawyer_invoices()
+    {
+        return $this->hasMany(Invoice::class, 'lawyer_id');
     }
     public function casesAsLawyer()
 {

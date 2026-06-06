@@ -1,32 +1,36 @@
 <?php
+
 namespace App\Services\Timeline;
-use App\Contracts\Services\Timeline\TimelineEventProviderInterface;
-use illuminate\Support\Collection;
+
+use Illuminate\Support\Collection;
+
 class TimelineAggregatorService
 {
-    /*
-    @var param mixid $case
-    */
-    protected $providers =  [];
+    protected $providers = [];
+
     public function __construct(iterable $providers)
     {
         $this->providers = $providers;
     }
 
-    /*@param mixed $case*/
-    public function getTimeLine($case)
+    /**
+     * جلب جميع الأحداث مجمعة ومُرتبة زمنياً تلقائياً
+     * @param mixed $case
+     * @return array
+     */
+    public function getTimeline($case) // ✅ تم تصحيح الحرف المكتوب (getTimeline)
     {
+        $events = collect();
 
-$events=collect();
+        foreach ($this->providers as $provider) {
+            $events = $events->concat($provider->getEvents($case));
+        }
 
-foreach($this->providers as $provider){
-    $events=$events->concat($provider->getEvents($case));
+        // ترتيب الأحداث من الأقدم إلى الأحدث أو العكس حسب الرغبة
+        $sorted = $events->sortBy(function ($event) {
+            return $event['date'] instanceof \DateTime ? $event['date'] : new \DateTime($event['date']);
+        })->values();
 
-    }
-
-    $sorted = $events->sortBy(function ($event) {
-    return $event['date'] instanceof \DateTime ? $event['date'] : new \DateTime($event['date']);
-    })->values();
-    return $sorted->toArray();
+        return $sorted->toArray();
     }
 }

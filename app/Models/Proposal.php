@@ -28,6 +28,12 @@ class Proposal extends Model
         'request_id',
         'lawer_id',
     ];
+    protected function casts(): array
+    {
+        return [
+            'valid_until' => 'date',
+        ];
+    }
     // Define Factory Method
     protected static function newFactory()
     {

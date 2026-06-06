@@ -72,6 +72,43 @@ class SessionsService
             'code' => '200'
         ];
     }
-    public function deleteSession() {}
-    public function deleteAllSessions() {}
+    public function delete_session($session_id)
+    {
+        Session::where('id', $session_id)->delete();
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'delete session successfully'
+            ],
+            'code' => '200'
+        ];
+    }
+    public function update_session($data)
+    {
+        $session = Session::where('id', $data['session_id'])->first();
+        $session->update([
+            'date' => $data['date'] ?? $session->date,
+            'location' => $data['location'] ?? $session->location,
+            'nots'  => $data['nots'] ?? $session->nots,
+            'result'  => $data['result'] ?? $session->result,
+        ]);
+        if ($data['file']) {
+            $documentService = app(DocumentService::class);
+            $documentData = [
+                'case_id' => $session['case_id'],
+                'file'    => $data['file'],
+                'type'    => $data['file_type'] ?? 'session_document',
+                'nots'    => $data['file_notes'] ?? null,
+            ];
+            $documentService->add_new_document($documentData);
+        }
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'Update session successfully',
+                'data' => $session
+            ],
+            'code' => '200'
+        ];
+    }
 }
