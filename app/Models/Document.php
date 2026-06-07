@@ -24,6 +24,7 @@ class Document extends Model
         'nots',
         'legal_request_id',
         'proposal_id',
+        'invoice_id',
     ];
     // Define Factory Method 
     protected static function newFactory()
@@ -39,9 +40,14 @@ class Document extends Model
             }
         });
     }
+
     public function case()
     {
         return $this->belongsTo(CaseModel::class, 'case_id');
+    }
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class, 'invoice_id');
     }
     public function uploadedBy()
     {

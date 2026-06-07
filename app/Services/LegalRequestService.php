@@ -34,7 +34,7 @@ class LegalRequestService
             'assigned_lawyer_id' => $data['assigned_lawyer_id'] ?? null,
         ]);
         // sending notification
-        if ($data['assigned_lawyer_id']) {
+        if (isset($data['assigned_lawyer_id']) && $data['assigned_lawyer_id']) {
             $lawyer = User::find($data['assigned_lawyer_id']);
             $lawyer->notify(new Send_Request_Notification($legal_request->toArray()));
         }
@@ -113,7 +113,9 @@ class LegalRequestService
                 return [
                     'id' => $doc->id,
                     'file_url' => Storage::url($doc->file_path),
-                    'type' => $doc->type
+                    'file_size' => Storage::size($doc->file_path),
+                    'name' => $doc->type,
+                    'nots' => $doc->nots
                 ];
             });
             $requestData = [
@@ -206,24 +208,23 @@ class LegalRequestService
 
     public function getProtofolioForLawerOrOffice($lawyerId)
     {
-        // 1. جلب بيانات المحامي مع العلاقات (القضايا مع التصنيفات، والتقييمات مع بيانات العميل، ودور المستخدم)
-        $lawyer = User::with(['cases.category', 'reviewsReceived.client', 'role'])
+        $lawyer = User::with(['legalCategories', 'cases', 'reviewsReceived.client', 'role'])
             ->findOrFail($lawyerId);
 
-        // 2. حساب سنوات الخبرة
-        // سنفترض أن سنوات الخبرة تحسب من تاريخ إنشاء الحساب، أو يمكنك استخدام حقل محدد مثل $lawyer->experience_years
         $experienceYears = Carbon::parse($lawyer->created_at)->diffInYears(Carbon::now());
 
-        // 3. حساب إحصائيات القضايا
         $totalCases = $lawyer->cases->count();
-        $wonCases = $lawyer->cases->where('status', 'won')->count(); // تأكد أن قيمة 'won' صحيحة في قاعدة البيانات
+        $wonCases = $lawyer->cases->where('status', 'won')->count();
         $percentWon = $totalCases > 0 ? ($wonCases / $totalCases) * 100 : 0;
 
-        // 4. جلب التصنيفات القانونية الفريدة الخاصة به
-        $legalCategories = $lawyer->legalCategories->pluck('name')
-            ->values()->toArray();
+        $legalCategories =  $lawyer->legalCategories->map(function ($cat) {
+            return [
+                'icon' => $cat->icon,
+                'name' => $cat->name
+            ];
+        })->toArray();
 
-        // 5. تجهيز آراء العملاء بالصيغة المطلوبة [اسم العميل، التقييم، التعليق]
+
         $opinions = $lawyer->reviewsReceived->map(function ($review) {
             return [
                 'client_name' => $review->client ? $review->client->full_name : 'Unknown',
@@ -232,23 +233,20 @@ class LegalRequestService
             ];
         })->toArray();
 
-        // 6. بناء مصفوفة البيانات الأساسية
         $data = [
-            'lawyer_name'           => $lawyer->name,
-            'role'                  => $lawyer->role->name ?? 'User', // اسم الدور
+            'lawyer_name'           => $lawyer->full_name,
+            'role'                  => $lawyer->role->name ?? 'User',
             'address'               => $lawyer->address,
-            'phone_number'          => $lawyer->phone,
-            'rate'                  => 12345, // القيمة التي طلبتها (يمكن استبدالها بحساب حقيقي: $lawyer->reviews()->avg('rating'))
+            'phone_number'          => $lawyer->phone ?? '0968339198',
+            'rate'                  => $lawyer->reviewsReceived()->avg('rating') ?? 0,
             'experience_years_count' => $experienceYears,
             'number_of_cases'       => $totalCases,
-            'percent_of_cases_won'  => number_format($percentWon, 2), // نسبة مئوية
+            'percent_of_cases_won'  => number_format($percentWon, 2),
             'legal_categories'      => $legalCategories,
             'bio_for_lawyer'        => $lawyer->bio,
             'opinion_of_clients'    => $opinions,
         ];
 
-        // 7. الشرط الإضافي: إذا كان المستخدم من نوع Admin
-        // نفترض هنا أن الـ Admin له role_id = 1 أو أن اسم الدور 'admin'
         if ($lawyer->role_id == 1 || (isset($lawyer->role->name) && strtolower($lawyer->role->name) === 'admin')) {
             $data['location_data'] = [
                 'latitude'  => $lawyer->latitude,
@@ -434,7 +432,8 @@ class LegalRequestService
                 return [
                     'id' => $doc->id,
                     'file_url' => Storage::url($doc->file_path),
-                    'type' => $doc->type
+                    'file_size' => Storage::size($doc->file_path),
+                    'name' => $doc->type
                 ];
             })->toArray(),
             'client_info' => [

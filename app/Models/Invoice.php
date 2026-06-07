@@ -23,9 +23,7 @@ class Invoice extends Model
         'status',
         'due_date',
         'items',
-        'pdf_url',
     ];
-
     public function case()
     {
         return $this->belongsTo(CaseModel::class, 'case_id');
@@ -39,5 +37,10 @@ class Invoice extends Model
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class, 'invoice_id');
     }
 }

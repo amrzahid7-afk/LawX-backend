@@ -17,35 +17,79 @@ class SessionController extends Controller
 
     public function addSession(AddSessionRequest $request)
     {
-        $session = $this->session_service->add_new_session($request->validated());
-        return response()->json([
-            'status' => $session['status'],
-            'data' => $session['data'],
-        ], $session['code']);
+        try {
+            $session = $this->session_service->add_new_session($request->validated());
+            return response()->json([
+                'status' => $session['status'],
+                'data' => $session['data'],
+            ], $session['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => "Error",
+                'message' => $e->getMessage(),
+                'line' => $e->getLine(),
+            ], 500);
+        }
     }
     public function get_sessions_for_case($case_id)
     {
-        $sessions = $this->session_service->getSessions($case_id);
-        return response()->json([
-            'status' => $sessions['status'],
-            'data' => $sessions['data'],
-        ], $sessions['code']);
+        $validate = validator()->make(
+            ['case_id' => $case_id],
+            ['case_id' => 'required|uuid|exists:cases,id'],
+            [
+                'case_id.required' => 'Case ID is required',
+                'case_id.uuid' => 'Case ID must be a valid UUID',
+                'case_id.exists' => 'Case not found'
+            ]
+        );
+        if ($validate->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => $validate->errors()->first(),
+            ], 422);
+        }
+        try {
+            $sessions = $this->session_service->getSessions($case_id);
+            return response()->json([
+                'status' => $sessions['status'],
+                'data' => $sessions['data'],
+            ], $sessions['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'Line' => $e->getLine()
+            ], 500);
+        }
     }
     public function get_sessions_for_lawer()
     {
-        $sessions = $this->session_service->get_sessions_for_lawer();
-        return response()->json([
-            'status' => $sessions['status'],
-            'data' => $sessions['data'],
-        ], $sessions['code']);
+        try {
+            $sessions = $this->session_service->get_sessions_for_lawer();
+            return response()->json([
+                'status' => $sessions['status'],
+                'data' => $sessions['data'],
+            ], $sessions['code']);
+        } catch (\Exception $th) {
+            return response()->json([
+                'error' => $th->getMessage(),
+                'Line' => $th->getLine()
+            ], 500);
+        }
     }
     public function get_sessions_for_client()
     {
-        $sessions = $this->session_service->get_sessions_for_client();
-        return response()->json([
-            'status' => $sessions['status'],
-            'data' => $sessions['data'],
-        ], $sessions['code']);
+        try {
+            $sessions = $this->session_service->get_sessions_for_client();
+            return response()->json([
+                'status' => $sessions['status'],
+                'data' => $sessions['data'],
+            ], $sessions['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'Line' => $e->getLine()
+            ], 500);
+        }
     }
     public function delete_session($session_id)
     {

@@ -70,7 +70,7 @@ class PropposalService
             'lawer_id' => auth('sanctum')->user()->id,
         ]);
         if ($file) {
-            $path = $file->store('documents', 'public');
+            $path = $file->store('documents/proposals', 'public');
             Document::create([
                 'id' => Str::uuid(),
                 'file_path' => $path,
@@ -81,8 +81,8 @@ class PropposalService
                 'uploaded_by' => auth('sanctum')->user()->id,
             ]);
         }
-        $Respose_data = $proposal->makeHidden(['created_at', 'updated_at'])->toArray();
-        $Respose_data['file_url'] = Storage::disk('public')->url($path);
+        // $Respose_data = $proposal->makeHidden(['created_at', 'updated_at'])->toArray();
+        // $Respose_data['file_url'] = Storage::disk('public')->url($path);
         // sending notification to client 
         $client = $proposal->request->client;
         $client->notify(new Send_Proposal_Notification($proposal->id, $client->id));
@@ -107,6 +107,7 @@ class PropposalService
                 'title_request' => $proposal->request->title_request ?? null,
                 'title_description' => $proposal->request->description_request ?? null,
                 'price' => $proposal->price,
+                'price_currency' => strtoupper($proposal->price_currency),
                 'estimated_days' => $proposal->estimated_days,
                 'created_at' => $proposal->created_at->format('Y-m-d h'),
                 'status' => $proposal->status,
@@ -123,10 +124,58 @@ class PropposalService
             'code' => '200'
         ];
     }
+    // public function get_proposal_details($proposal_id)
+    // {
+    //     $proposal = Proposal::with(['request', 'documents', 'lawyer'])->find($proposal_id);
+    //     $formattedProposal = [
+    //         'lawyer_name' => $proposal->lawyer->full_name ?? null,
+    //         'lawyer_address' => $proposal->lawyer->address ?? null,
+    //         'lawyer_legalCategories' => $proposal->lawyer->legalCategories ?? null,
+    //         'lawyer_review' => $proposal->lawyer->reviewsReceived ?? null,
+    //         'title_request' => $proposal->request->title_request ?? null,
+    //         'title_description' => $proposal->request->description_request ?? null,
+    //         'price' => $proposal->price,
+    //         'estimated_days' => $proposal->estimated_days,
+    //         'message_for_client' => $proposal->message_for_client,
+    //         'status' => $proposal->status,
+    //         'created_at' => $proposal->created_at->format('Y-m-d h'),
+    //         'valid_until' => $proposal->valid_until->format('Y-m-d'),
+    //         'payment_terms' => $proposal->payment_terms,
+    //         'price_currency' => $proposal->price_currency,
+    //         'documents' => $proposal->documents->map(function ($doc) {
+    //             return asset('storage/' . $doc->file_path);
+    //         })->toArray(),
+    //     ];
+    //     return [
+    //         'status' => 'success',
+    //         'data' => [
+    //             'message' => 'get proposal details successfully',
+    //             'data' => $formattedProposal
+    //         ],
+    //         'code' => 200
+    //     ];
+    // }
+
     public function get_proposal_details($proposal_id)
     {
-        $proposal = Proposal::with(['request', 'documents'])->find($proposal_id);
+        $proposal = Proposal::with([
+            'request',
+            'documents',
+            'lawyer',
+            'lawyer.legalCategories',
+            'lawyer.reviewsReceived'
+        ])->find($proposal_id);
+
         $formattedProposal = [
+            'lawyer_name' => $proposal->lawyer->full_name ?? null,
+            'lawyer_address' => $proposal->lawyer->address ?? null,
+            'lawyer_legalCategories' => $proposal->lawyer->legalCategories->map(function ($cat) {
+                return [
+                    'icon' => $cat->icon,
+                    'name' => $cat->name
+                ];
+            })->toArray(),
+            'lawyer_review' => $proposal->lawyer->reviewsReceived->avg('rating') ?? 0,
             'title_request' => $proposal->request->title_request ?? null,
             'title_description' => $proposal->request->description_request ?? null,
             'price' => $proposal->price,
@@ -136,9 +185,9 @@ class PropposalService
             'created_at' => $proposal->created_at->format('Y-m-d h'),
             'valid_until' => $proposal->valid_until->format('Y-m-d'),
             'payment_terms' => $proposal->payment_terms,
-            'price_currency' => $proposal->price_currency,
+            'price_currency' => strtoupper($proposal->price_currency),
             'documents' => $proposal->documents->map(function ($doc) {
-                return asset('storage/' . $doc->file_path);
+                return Storage::url($doc->file_path);
             })->toArray(),
         ];
         return [

@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('sessions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('case_id')->constrained('cases')->onDelete('cascade');
-            $table->date('date');
+            $table->dateTime('date');
             $table->text('location');
             $table->text('nots');
             $table->string('result')->nullable();
+            $table->enum('status', ['pending', 'completed', 'cancelled'])->default('pending');
             $table->timestamps();
         });
     }

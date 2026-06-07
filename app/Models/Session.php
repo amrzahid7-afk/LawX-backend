@@ -17,6 +17,10 @@ class Session extends Model
         'location',
         'nots',
         'result',
+        'status'
+    ];
+    protected $casts = [
+        'date' => 'datetime',
     ];
     protected static function boot()
     {

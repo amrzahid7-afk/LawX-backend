@@ -25,14 +25,16 @@ class CreateInvoiceRequest extends FormRequest
     {
         return [
             'case_id' => 'required|uuid|exists:cases,id',
-            'lawyer_id' => 'required|uuid|exists:users,id',
-            'client_id' => 'required|uuid|exists:users,id',
+            // 'lawyer_id' => 'required|uuid|exists:users,id',
+            // 'client_id' => 'required|uuid|exists:users,id',
             'total_amount' => 'required|numeric|min:0',
             'due_date' => 'required|date|after_or_equal:today',
             'items' => 'required|array',
             'items.*.title' => 'required|string',
             'items.*.description' => 'required|string',
             'items.*.amount' => 'required|numeric|min:0',
+            'documents' => 'nullable|array|max:5', // السماح برفع حتى 5 ملفات، ويمكن أن تكون فارغة
+            'documents.*' => 'file|mimes:pdf,doc,docx,jpg,png,jpeg|max:10240', // كل ملف يجب أن يكون من هذه الصيغ وحجمه أقل من 10 ميجا
         ];
     }
 
@@ -64,6 +66,9 @@ class CreateInvoiceRequest extends FormRequest
             'items.*.amount.required' => 'Each item must have an amount.',
             'items.*.amount.numeric' => 'Each item amount must be a number.',
             'items.*.amount.min' => 'Each item amount must be at least 0.',
+            'documents.max' => 'Cannot upload more than 5 files.',
+            'documents.*.mimes' => 'The document must be a file of type: pdf, doc, docx, jpg, png, jpeg.',
+            'documents.*.max' => 'The document may not be greater than 10MB.',
         ];
     }
     /**

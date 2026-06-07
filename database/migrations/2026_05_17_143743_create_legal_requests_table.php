@@ -27,7 +27,10 @@ return new class extends Migration
             $table->enum('status', ['open', 'close', 'in_progress'])->default('open');
 
             $table->ForeignUuid('client_id')->constrained('users')->onDelete('cascade');
-            $table->ForeignUuid('assigned_lawyer_id')->constrained('users')->onDelete('cascade')->nullable();
+            // Assigned Lawyer ID
+            $table->uuid('assigned_lawyer_id')->nullable(); // تأكد من وضع nullable قبل foreign
+            $table->foreign('assigned_lawyer_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

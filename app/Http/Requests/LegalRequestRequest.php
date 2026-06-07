@@ -33,7 +33,13 @@ class LegalRequestRequest extends FormRequest
             'budget_max' => 'numeric|min:0',
             'type' => 'required|string|max:255|in:private,public',
             'file' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
-            'assigned_lawyer_id' => Rule::when($this->input('type') === 'private', 'required|exists:users,id', 'nullable'),
+            // 'assigned_lawyer_id' => Rule::when($this->input('type') === 'private', 'required|exists:users,id', 'nullable'),
+            'assigned_lawyer_id' => [
+                'required_if:type,private',
+                'prohibited_if:type,public',
+                'uuid',
+                'exists:users,id'
+            ],
         ];
     }
     public function messages()

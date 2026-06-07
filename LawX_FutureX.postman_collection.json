@@ -38,7 +38,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n        \"case_id\": \"000266fb-6833-4ba1-bbda-4bbee6f303a7\",\r\n        \"date\":\"2002-5-6\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
+              "raw": "{\r\n        \"case_id\": \"{{case_id}}\",\r\n        \"date\":\"2026-10-25 14:30\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -150,17 +150,17 @@
               "formdata": [
                 {
                   "key": "case_id",
-                  "value": "000266fb-6833-4ba1-bbda-4bbee6f303a7",
+                  "value": "{{case_id}}",
                   "type": "text"
                 },
                 {
                   "key": "session_id",
-                  "value": "9c2d1b3d-2b58-4444-8579-9ecbb39a884a",
+                  "value": "{{session_id}}",
                   "type": "text"
                 },
                 {
                   "key": "date",
-                  "value": "2002-8-6",
+                  "value": "2028-10-25 14:30",
                   "type": "text"
                 },
                 {
@@ -177,7 +177,14 @@
                   "key": "file",
                   "type": "file",
                   "uuid": "94fc43e4-7c33-4082-b0a6-49a285121be6",
-                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be",
+                  "disabled": true
+                },
+                {
+                  "key": "result",
+                  "value": "الحكم لصالح الموكل",
+                  "type": "text",
+                  "uuid": "a31811fb-364c-4b1b-a232-9a15b9b921c3"
                 }
               ]
             },
@@ -237,7 +244,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_sessions_for_case/328c779d-ce19-4e1d-8db7-fb015a55480a",
+              "raw": "http://127.0.0.1:8000/api/Case/get_sessions_for_case/{{case_id}}",
               "protocol": "http",
               "host": [
                 "127",
@@ -250,7 +257,7 @@
                 "api",
                 "Case",
                 "get_sessions_for_case",
-                "328c779d-ce19-4e1d-8db7-fb015a55480a"
+                "{{case_id}}"
               ]
             }
           },
@@ -259,7 +266,6 @@
         {
           "name": "Get_All_Session_For_lawer",
           "protocolProfileBehavior": {
-            "disableBodyPruning": true,
             "disabledSystemHeaders": {
               "accept": true
             }
@@ -283,15 +289,6 @@
                 "type": "text"
               }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
             "url": {
               "raw": "http://127.0.0.1:8000/api/Case/get_sessions_for_lawer",
               "protocol": "http",
@@ -402,7 +399,7 @@
               "formdata": [
                 {
                   "key": "case_id",
-                  "value": "123ee189-4cb6-4e9d-bb67-92c7f0cff307",
+                  "value": "ae169200-be8a-484f-a98e-97d1fa6745f3",
                   "type": "text"
                 },
                 {
@@ -474,7 +471,7 @@
               "formdata": []
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/delete_document/f157f67f-3526-42e0-8f2a-a6dfd8acb5e0",
+              "raw": "http://127.0.0.1:8000/api/Case/delete_document/f157f67f-3526-42e0-8f2a-a6",
               "protocol": "http",
               "host": [
                 "127",
@@ -487,7 +484,7 @@
                 "api",
                 "Case",
                 "delete_document",
-                "f157f67f-3526-42e0-8f2a-a6dfd8acb5e0"
+                "f157f67f-3526-42e0-8f2a-a6"
               ]
             }
           },
@@ -530,7 +527,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_documents_for_case/123ee189-4cb6-4e9d-bb67-92c7f0cff307",
+              "raw": "http://127.0.0.1:8000/api/Case/get_documents_for_case/{{case_id}}",
               "protocol": "http",
               "host": [
                 "127",
@@ -543,7 +540,7 @@
                 "api",
                 "Case",
                 "get_documents_for_case",
-                "123ee189-4cb6-4e9d-bb67-92c7f0cff307"
+                "{{case_id}}"
               ]
             }
           },
@@ -582,7 +579,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"case_id\": \"7bb406b9-c134-4564-b915-b13588841a63\" , \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"due_date\": \"2029-11-01\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"0167a26b-d75d-40ea-9762-c6c991ca9364\"\r\n}",
+              "raw": "{\r\n    \"case_id\": \"{{case_id}}\", \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"due_date\": \"2029-11-01\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"c8849178-a3d5-43c9-9bc5-0534dc8041fb\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -890,12 +887,12 @@
                 },
                 {
                   "key": "type",
-                  "value": "public",
+                  "value": "private",
                   "type": "text"
                 },
                 {
                   "key": "assigned_lawyer_id",
-                  "value": "0167a26b-d75d-40ea-9762-c6c991ca9364",
+                  "value": "{{lawer_id}}",
                   "type": "text"
                 },
                 {
@@ -1281,7 +1278,7 @@
               }
             ],
             "url": {
-              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/get_protofolio_for_lawer_or_office/0167a26b-d75d-40ea-9762-c6c991ca9364",
+              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/get_protofolio_for_lawer_or_office/{{lawer_id}}",
               "protocol": "http",
               "host": [
                 "127",
@@ -1295,7 +1292,7 @@
                 "client_portal",
                 "legal_request",
                 "get_protofolio_for_lawer_or_office",
-                "0167a26b-d75d-40ea-9762-c6c991ca9364"
+                "{{lawer_id}}"
               ]
             }
           },
@@ -1503,7 +1500,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{admin_token}}",
+                  "value": "{{lawer_token}}",
                   "type": "string"
                 }
               ]
@@ -1551,13 +1548,14 @@
                 },
                 {
                   "key": "request_id",
-                  "value": "10ca5861-c9ec-4c90-924c-1a2bec32cd05",
+                  "value": "{{request_id}}",
                   "type": "text"
                 },
                 {
                   "key": "file",
                   "type": "file",
-                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be",
+                  "disabled": true
                 }
               ]
             },
@@ -1652,7 +1650,7 @@
               }
             ],
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Market_place/get_proposal_details/97a75abc-b6a6-45ff-bc34-9e6404eef0ed",
+              "raw": "http://127.0.0.1:8000/api/Market_place/get_proposal_details/{{proposal_id}}",
               "protocol": "http",
               "host": [
                 "127",
@@ -1665,7 +1663,7 @@
                 "api",
                 "Market_place",
                 "get_proposal_details",
-                "97a75abc-b6a6-45ff-bc34-9e6404eef0ed"
+                "{{proposal_id}}"
               ]
             }
           },
@@ -1831,7 +1829,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{admin_token}}",
+                  "value": "{{lawer_token}}",
                   "type": "string"
                 }
               ]
@@ -1846,7 +1844,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"4848-67\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    \"collection_percentage\": 15.00,\r\n    \"lead_lawyer_id\": \"30f84bb4-ce00-4d9c-ad5e-17797c668447\",\r\n\r\n    \"clients\": [\r\n        { \"user_id\": \"aa07e346-4ed8-4870-b695-1b5ad9d48e2b\", \"is_primary\": true }   \r\n    ],\r\n    \r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    \r\n    \"team\": [\r\n        {\r\n             \"user_id\":\"30f84bb4-ce00-4d9c-ad5e-17797c668447\",\r\n              \"role_in_case\": \"باحث قانوني\" \r\n              }\r\n    ],\r\n    \r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"4848-111\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    // \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        { \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    // \"team\": [\r\n    //     {\r\n    //          \"user_id\":\"30f84bb4-ce00-4d9c-ad5e-17797c668447\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           }\r\n    // ],\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1867,6 +1865,46 @@
                 "api",
                 "Case",
                 "create_case"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update_case",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "// {\r\n//     \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n//     \"title\": \" private case\" ,\r\n//     \"description\": \"so hard case\"\r\n// }\r\n{\r\n    \"case_id\" : \"{{case_id}}\",\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"111-2222\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 500000.000,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    // \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        {           \r\n              \"user_id\": \"{{client_id}}\", \"is_primary\": true \r\n             }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"email\": \"email@gmail.com\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    // \"team\": [\r\n    //     {\r\n    //          \"user_id\":\"30f84bb4-ce00-4d9c-ad5e-17797c668447\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           }\r\n    // ],\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8000/api/Case/update_case",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "Case",
+                "update_case"
               ]
             }
           },
@@ -1899,7 +1937,7 @@
               }
             ],
             "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_case_details/371c2596-8b4e-42b3-bfb3-18e27734a6f9",
+              "raw": "http://127.0.0.1:8000/api/Case/get_case_details/{{case_id}}",
               "protocol": "http",
               "host": [
                 "127",
@@ -1912,7 +1950,7 @@
                 "api",
                 "Case",
                 "get_case_details",
-                "371c2596-8b4e-42b3-bfb3-18e27734a6f9"
+                "{{case_id}}"
               ]
             }
           },
@@ -2010,46 +2048,6 @@
             }
           },
           "response": []
-        },
-        {
-          "name": "update_case",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n    \"title\": \" private case\" ,\r\n    \"description\": \"so hard case\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/api/Case/update_case",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "update_case"
-              ]
-            }
-          },
-          "response": []
         }
       ]
     },
@@ -2063,7 +2061,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"admin@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
+              "raw": "{\r\n    \"email\": \"client@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2288,13 +2286,69 @@
               }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\r\n     \"case_id\":\"7bb406b9-c134-4564-b915-b13588841a63\",\r\n     // 0167a26b-d75d-40ea-9762-c6c991ca9364 lawer ID\r\n     \"lawyer_id\":\"0167a26b-d75d-40ea-9762-c6c991ca9364\",\r\n     \"client_id\":\"aa07e346-4ed8-4870-b695-1b5ad9d48e2b\",\r\n     \"total_amount\":3500,\r\n     \"due_date\":\"2029-11-01\",\r\n     \"items\": [\r\n    {\r\n        \"title\": \"أتعاب المحكمة التجارية\",\r\n        \"description\": \"إيداع صحيفة الدعوى ومرفقاتها\",\r\n        \"amount\": 1500.00\r\n    },\r\n    {\r\n        \"title\": \"الرسوم القضائية\",\r\n        \"description\": \"المطالبة بعدم التعويض\",\r\n        \"amount\": 1000.00\r\n    },\r\n    {\r\n        \"title\": \"بدء العمل\",\r\n        \"description\": \"دراسة الملف واستشارة أولية\",\r\n        \"amount\": 1000.00\r\n    }\r\n]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "case_id",
+                  "value": "80168184-1710-42bb-ab13-09a61b2f94d5",
+                  "type": "text"
+                },
+                {
+                  "key": "total_amount",
+                  "value": "3000",
+                  "type": "text"
+                },
+                {
+                  "key": "due_date",
+                  "value": "2029-11-01",
+                  "type": "text"
+                },
+                {
+                  "key": "items[0][title]",
+                  "value": "أتعاب المحكمة التجارية",
+                  "type": "text"
+                },
+                {
+                  "key": "items[0][description]",
+                  "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                  "type": "text"
+                },
+                {
+                  "key": "items[0][amount]",
+                  "value": "1500",
+                  "type": "text"
+                },
+                {
+                  "key": "items[1][title]",
+                  "value": "أتعاب المحكمة التجارية",
+                  "type": "text",
+                  "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                },
+                {
+                  "key": "items[1][description]",
+                  "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                  "type": "text",
+                  "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                },
+                {
+                  "key": "items[1][amount]",
+                  "value": "1500",
+                  "type": "text",
+                  "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                },
+                {
+                  "key": "documents[0]",
+                  "type": "file",
+                  "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                  "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                },
+                {
+                  "key": "documents[1]",
+                  "type": "file",
+                  "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                  "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
                 }
-              }
+              ]
             },
             "url": {
               "raw": "http://127.0.0.1:8000/api/Case/create_invoice",
@@ -2355,6 +2409,146 @@
                 "api",
                 "Case",
                 "get_invoices_for_client"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notifications_Module",
+      "item": [
+        {
+          "name": "All_notifications",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/notifications",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "notifications"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "notification_mark-read",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/notifications/{{notification_id}}/mark-read",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "notifications",
+                "{{notification_id}}",
+                "mark-read"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "mark-all-read",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:8000/api/notifications/mark-all-read",
+              "protocol": "http",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "8000",
+              "path": [
+                "api",
+                "notifications",
+                "mark-all-read"
               ]
             }
           },
@@ -2427,6 +2621,36 @@
     },
     {
       "key": "task_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "session_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "request_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "proposal_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "lawer_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "client_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "notification_id",
       "value": "",
       "type": "default"
     }

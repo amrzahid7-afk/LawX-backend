@@ -23,6 +23,10 @@ class Case_payment_milestone extends Model
         'due_date',
         'status'
     ];
+    protected $casts = [
+        'due_date' => 'date',
+        'amount' => 'decimal:2',
+    ];
     public function case()
     {
         return $this->belongsTo(\App\Models\CaseModel::class, 'case_id');

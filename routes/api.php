@@ -6,6 +6,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ManageOfficesController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TaskController;
@@ -86,6 +87,14 @@ Route::prefix('/Market_place')->middleware('auth:sanctum')->group(function () {
     Route::post('/send_proposal', [ProposalController::class, 'send_proposal']);
     Route::post('/update_proposal', [ProposalController::class, 'update_proposal']);
     Route::get('/delete_proposal/{proposal_id}', [ProposalController::class, 'delete_proposal']);
+});
+Route::prefix('notifications/')->middleware('auth:sanctum')->group(function () {
+
+    Route::get('/', [NotificationController::class, 'index']);
+
+    Route::get('/{id}/mark-read', [NotificationController::class, 'markAsRead']);
+
+    Route::get('/mark-all-read', [NotificationController::class, 'markAllAsRead']);
 });
 // Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/verify_2FA', [AuthController::class, 'verify_2FA']);

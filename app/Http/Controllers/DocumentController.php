@@ -75,7 +75,7 @@ class DocumentController extends Controller
                 return response()->json([
                     'status' => "failed",
                     'Message' => $validator->errors(),
-                ]);
+                ], 422);
             }
             // dd(1);
 

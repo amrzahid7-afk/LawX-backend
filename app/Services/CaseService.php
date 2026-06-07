@@ -15,6 +15,7 @@ use function Laravel\Prompts\select;
 
 class CaseService
 {
+
     public function createCase(array $data)
     {
         $user = auth('sanctum')->user();
@@ -63,9 +64,7 @@ class CaseService
 
                     // 3. التأكد من وجود ID قبل الربط
                     if ($opponent->id) {
-                        $case->opponents()->attach($opponent->id, [
-                            'id' => Str::uuid()->toString()
-                        ]);
+                        $case->opponents()->attach($opponent->id);
                     } else {
                         // تسجيل خطأ للتنبيه إذا لم يتم الحفظ بشكل صحيح
                         \Log::error('Failed to create opponent: ' . json_encode($opponentData));
@@ -124,9 +123,7 @@ class CaseService
     }
     public function get_case_details($case_id)
     {
-        // جلب القضية مع العلاقات
-        $case = CaseModel::with(['clients', 'opponents', 'team', 'paymentMilestones'])->find($case_id);
-        // بدء عملية التنسيق (Formatting)
+        $case = CaseModel::with(['invoices', 'clients', 'opponents', 'team', 'paymentMilestones'])->find($case_id);
         try {
             $lastSession = $case->sessions()->where('date', '<=', Carbon::now())
                 ->orderBy('date', 'desc')
@@ -135,6 +132,32 @@ class CaseService
             $nextSession = $case->sessions()->where('date', '>', Carbon::now())
                 ->orderBy('date', 'asc')
                 ->first();
+            // get all invoices for the case
+            $allInvoices = $case->invoices;
+
+            // تجميع الفواتير المدفوعة وغير المدفوعة
+            $paidInvoices = $allInvoices->where('status', 'paid');
+            $unpaidInvoices = $allInvoices->where('status', '!=', 'paid'); // يفترض أن الحالة 'paid' تعني مدفوع بالكامل
+
+            $financialSummary = [
+                'total_invoices_count' => $allInvoices->count(),
+                // 'total_due_amount'     => (float) $allInvoices->sum('total_amount'),
+                'total_paid_amount'    => (float) $paidInvoices->sum('total_amount'),
+                'total_unpaid_amount'  => (float) $unpaidInvoices->sum('total_amount'),
+                'paid_count'           => $paidInvoices->count(),
+                'unpaid_count'         => $unpaidInvoices->count(),
+                'payment_status'       => $unpaidInvoices->count() > 0 ? 'Pending' : 'Paid'
+            ];
+            $invoicesFormatted = $allInvoices->map(function ($invoice) {
+                return [
+                    'id' => $invoice->id,
+                    'total_amount' => (float) $invoice->total_amount,
+                    'status' => $invoice->status,
+                    'due_date' => $invoice->due_date,
+                    'details' => is_string($invoice->items) ? json_decode($invoice->items, true) : $invoice->items,
+                ];
+            })->values()->all();
+
             $formattedCase = [
                 'id' => $case->id,
                 'title' => $case->title,
@@ -147,7 +170,7 @@ class CaseService
                 'importance_stars' => $case->importance_stars,
                 'billing_type' => $case->billing_type,
                 'collection_percentage' => $case->collection_percentage,
-                'financial_status' => $case->financial_status,
+                // 'financial_status' => $case->financial_status,
                 'progress_percentage' => $case->progress_percentage,
                 'lawyer_id' => $case->lead_lawyer_id,
                 'created_at' => $case->created_at->format('Y-m-d'),
@@ -180,7 +203,8 @@ class CaseService
                         'email' => $member->email,
                     ];
                 })->values()->all(),
-
+                'invoices' => $invoicesFormatted,
+                'financialSummary' => $financialSummary,
                 'payment_milestones' => $case->paymentMilestones->map(function ($milestone) {
                     return [
                         'id' => $milestone->id,
@@ -235,21 +259,202 @@ class CaseService
             ];
         }
     }
+
     public function updateCase($data)
     {
-        $updated_case = CaseModel::where("id", $data['case_id'])->first();;
-        $updated_case['status'] = $data['status'] ?? $updated_case['status'];
-        $updated_case['title'] = $data['title'] ?? $updated_case['title'];
-        $updated_case['description'] = $data['description'] ?? $updated_case['description'];
-        $updated_case->save();
-        return [
-            'status' => 'success',
-            'data' => [
-                'message' => 'update case successfully'
-            ],
-            'code' => '200'
-        ];
+        DB::beginTransaction();
+
+        try {
+            // 1. التحقق من وجود القضية
+            $case = CaseModel::find($data['case_id']);
+            if (!$case) {
+                throw new \Exception("Case not found.");
+            }
+
+            // 2. تحديث الحقول الأساسية
+            $case->title = $data['title'] ?? $case->title;
+            $case->description = $data['description'] ?? $case->description;
+            $case->case_number = $data['case_number'] ?? $case->case_number;
+            $case->case_category = $data['case_category'] ?? $case->case_category;
+            $case->court = $data['court'] ?? $case->court;
+
+            // تحويل السعر لرقم لضمان عدم وجود مشاكل مع قاعدة البيانات
+            $case->price = isset($data['price']) ? (float) $data['price'] : $case->price;
+
+            $case->importance_stars = $data['importance_stars'] ?? $case->importance_stars;
+            $case->billing_type = $data['billing_type'] ?? $case->billing_type;
+
+            // إذا كان نوع الفوترة ليس نسبة، تصفير النسبة
+            if (isset($data['billing_type']) && $data['billing_type'] !== 'percentage_collection') {
+                $case->collection_percentage = null;
+            } else {
+                $case->collection_percentage = $data['collection_percentage'] ?? $case->collection_percentage;
+            }
+
+            $case->lead_lawyer_id = $data['lead_lawyer_id'] ?? $case->lead_lawyer_id;
+            $case->status = $data['status'] ?? $case->status;
+
+            $case->save();
+
+            // 3. تحديث العملاء (Clients)
+            if (isset($data['clients']) && is_array($data['clients'])) {
+                $syncData = [];
+                foreach ($data['clients'] as $client) {
+                    $syncData[$client['user_id']] = ['is_primary' => $client['is_primary']];
+                }
+                $case->clients()->sync($syncData);
+            }
+
+            // 4. تحديث الخصوم (Opponents) - التأكد من إزالة الـ IDs المرسلة
+            if (isset($data['opponents']) && is_array($data['opponents'])) {
+                $case->opponents()->delete();
+
+                // تجهيز البيانات بدون 'id' لتجنب مشاكل UUID التكرار
+                $opponentsData = [];
+                foreach ($data['opponents'] as $opp) {
+                    $opponentsData[] = [
+                        'name' => $opp['name'],
+                        'type' => $opp['type'],
+                        'national_id' => $opp['national_id'] ?? null,
+                        'phone' => $opp['phone'] ?? null,
+                        'email' => $opp['email'] ?? null,
+                    ];
+                }
+                if (!empty($opponentsData)) {
+                    $case->opponents()->createMany($opponentsData);
+                }
+            }
+
+            // 5. تحديث الفريق (Team)
+            if (isset($data['team']) && is_array($data['team'])) {
+                $syncTeamData = [];
+                foreach ($data['team'] as $member) {
+                    $syncTeamData[$member['user_id']] = ['role_in_case' => $member['role_in_case']];
+                }
+                $case->team()->sync($syncTeamData);
+            }
+
+            // 6. تحديث الأقساط الزمنية (Payment Milestones)
+            if (isset($data['payment_milestones']) && is_array($data['payment_milestones'])) {
+                $case->paymentMilestones()->delete();
+
+                $milestonesData = [];
+                foreach ($data['payment_milestones'] as $ms) {
+                    $milestonesData[] = [
+                        'title' => $ms['title'],
+                        'amount' => (float) $ms['amount'],
+                        'due_date' => $ms['due_date'],
+                        'status' => 'pending', // حالة افتراضية
+                    ];
+                }
+                if (!empty($milestonesData)) {
+                    $case->paymentMilestones()->createMany($milestonesData);
+                }
+            }
+
+            DB::commit();
+
+            return [
+                'status' => 'success',
+                'data' => [
+                    'message' => 'update case successfully'
+                ],
+                'code' => '200'
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            // يمكن هنا تسجيل الخطأ في السجلات (Log)
+            return [
+                'status' => 'error',
+                'data' => [
+                    'message' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine()
+                ],
+                'code' => 500
+            ];
+        }
     }
+    // public function updateCase($data)
+    // {
+    //     DB::beginTransaction();
+
+    //     try {
+    //         $case = CaseModel::find($data['case_id']);
+
+    //         $case->title = $data['title'] ?? $case->title;
+    //         $case->description = $data['description'] ?? $case->description;
+    //         $case->case_number = $data['case_number'] ?? $case->case_number;
+    //         $case->case_category = $data['case_category'] ?? $case->case_category;
+    //         $case->court = $data['court'] ?? $case->court;
+    //         $case->price = $data['price'] ?? $case->price;
+    //         $case->importance_stars = $data['importance_stars'] ?? $case->importance_stars;
+    //         $case->billing_type = $data['billing_type'] ?? $case->billing_type;
+    //         $case->collection_percentage = $data['collection_percentage'] ?? $case->collection_percentage;
+    //         $case->lead_lawyer_id = $data['lead_lawyer_id'] ?? $case->lead_lawyer_id;
+    //         $case->status = $data['status'] ?? $case->status;
+    //         $case->save();
+
+    //         if (isset($data['clients'])) {
+    //             $syncData = [];
+    //             foreach ($data['clients'] as $client) {
+    //                 $syncData[$client['user_id']] = ['is_primary' => $client['is_primary']];
+    //             }
+    //             $case->clients()->sync($syncData);
+    //         }
+
+    //         if (isset($data['opponents'])) {
+    //             $case->opponents()->delete();
+    //             $case->opponents()->createMany($data['opponents']);
+    //         }
+
+    //         if (isset($data['team'])) {
+    //             $syncTeamData = [];
+    //             foreach ($data['team'] as $member) {
+    //                 $syncTeamData[$member['user_id']] = ['role_in_case' => $member['role_in_case']];
+    //             }
+    //             $case->team()->sync($syncTeamData);
+    //         }
+    //         if (isset($data['payment_milestones'])) {
+    //             $case->paymentMilestones()->delete();
+    //             $case->paymentMilestones()->createMany($data['payment_milestones']);
+    //         }
+    //         DB::commit();
+    //         return [
+    //             'status' => 'success',
+    //             'data' => [
+    //                 'message' => 'update case successfully'
+    //             ],
+    //             'code' => '200'
+    //         ];
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         return [
+    //             'status' => 'error',
+    //             'data' => [
+    //                 'message' => $e->getMessage(),
+    //                 'Line' => $e->getLine()
+    //             ],
+    //             'code' => 500
+    //         ];
+    //     }
+    // }
+    // public function updateCase($data)
+    // {
+    //     $updated_case = CaseModel::where("id", $data['case_id'])->first();;
+    //     $updated_case['status'] = $data['status'] ?? $updated_case['status'];
+    //     $updated_case['title'] = $data['title'] ?? $updated_case['title'];
+    //     $updated_case['description'] = $data['description'] ?? $updated_case['description'];
+    //     $updated_case->save();
+    //     return [
+    //         'status' => 'success',
+    //         'data' => [
+    //             'message' => 'update case successfully'
+    //         ],
+    //         'code' => '200'
+    //     ];
+    // }
+
     public function get_cases(Request $request)
     {
         // get auth user

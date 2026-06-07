@@ -26,7 +26,7 @@ class AddSessionRequest extends FormRequest
     {
         return [
             'case_id' => 'required|exists:cases,id',
-            'date' => 'required|date',
+            'date' => 'required|date_format:Y-m-d H:i|after_or_equal:today',
             'location' => 'required',
             'nots' => 'required',
         ];
@@ -37,9 +37,10 @@ class AddSessionRequest extends FormRequest
             'case_id.required' => "case_id is required",
             'case_id.exists' => "case_id not found",
             'date.required' => "date is required",
-            'date.date' => "date must be a date",
             'location.required' => "location is required",
             'nots.required' => "nots is required",
+            'date.date_format' => "date must be in format Y-m-d H:i",
+            'date.after_or_equal' => "date must be after or equal to today",
         ];
     }
     protected function failedValidation(Validator $validator)

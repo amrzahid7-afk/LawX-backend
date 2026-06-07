@@ -42,7 +42,7 @@ class Proposal extends Model
 
     public function lawyer()
     {
-        return $this->belongsTo(User::class, 'assigned_lawyer_id');
+        return $this->belongsTo(User::class, 'lawer_id');
     }
     public function request()
     {

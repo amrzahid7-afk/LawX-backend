@@ -25,12 +25,10 @@ class CaseCreationRequest extends FormRequest
         $isOfficeManager = $userRole === 'admin' ? true : false;
 
         return [
-            // --- بيانات القضية الأساسية ---
             'title'             => ['required', 'string', 'min:5', 'max:255'],
             'description'       => ['required', 'string', 'min:10'],
             'court'             => ['required', 'string', 'min:3'],
 
-            // --- تم الإصلاح هنا: تم تغيير 'float' إلى 'numeric' ---
             'price'             => ['required', 'numeric', 'min:0'],
 
             'case_category'     => ['required', 'string', 'min:4'], // افترضنا أنه UUID ويوجد في جدول التصنيفات
@@ -45,10 +43,10 @@ class CaseCreationRequest extends FormRequest
                 'unique:cases,case_number'
             ],
 
-            // --- شروط الفوترة ---
             'collection_percentage' => [
-                'required_if:billing_type,percentage_collection',
-                'nullable', // يمكن إزالتها لأن required_if تفرض الوجود، ولكن تبقى للتوثيق
+                'required_if:billing_type,percentage_collection', // مطلوب فقط إذا كان النوع نسبة تحصيل
+                'prohibited_unless:billing_type,percentage_collection', // ممنوع إرساله ما لم يكن النوع نسبة تحصيل (هذا هو الحل)
+                'nullable', // اختياري لتفادي مشاكل null، لكن prohibited سيتولى الأمر
                 'numeric',
                 'min:0',
                 'max:100'
@@ -106,7 +104,6 @@ class CaseCreationRequest extends FormRequest
             ],
         ];
     }
-
     /**
      * Custom error messages for better UX
      */
@@ -125,7 +122,7 @@ class CaseCreationRequest extends FormRequest
 
             // الفوترة
             'collection_percentage.required_if' => "collection_percentage is required when billing type is percentage_collection",
-
+            'collection_percentage.prohibited_unless' => "The collection_percentage field is only allowed when billing type is percentage_collection.",
             // العملاء
             'clients.required' => "clients array is required",
             'clients.*.user_id.exists' => "One of the provided client IDs does not exist or is not a client",

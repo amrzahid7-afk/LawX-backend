@@ -26,31 +26,120 @@ class UpdateCaseRequest extends FormRequest
     public function rules(): array
     {
         $clientRoleId = Role::where('name', 'client')->value('id');
-        return [
-            'case_id'     => ['required', 'uuid', Rule::exists('cases', 'id')],
-            'title'       => ['nullable', 'string', 'min:5', 'max:255'],
-            'description' => ['nullable', 'string', 'min:10'],
-            'status' => ['nullable', 'string', Rule::in(['open', 'close', 'pending'])],
 
+        $userRole = $this->user()->role?->name ?? '';
+        $isOfficeManager = $userRole === 'admin' ? true : false;
+
+        return [
+            'case_id'           => ['required', 'uuid', Rule::exists('cases', 'id')],
+            'title'             => ['nullable', 'string', 'min:5', 'max:255'],
+            'description'       => ['nullable', 'string', 'min:10'],
+            'court'             => ['nullable', 'string', 'min:3'],
+
+            'price'             => ['nullable', 'numeric', 'min:0'],
+
+            'case_category'     => ['nullable', 'string', 'min:4'], // افترضنا أنه UUID ويوجد في جدول التصنيفات
+            'importance_stars'  => ['nullable', 'integer', 'min:1', 'max:5'],
+            'billing_type'      => ['nullable', 'in:fixed_proposal,percentage_collection,installments,pay_as_you_go'],
+            'lead_lawyer_id'    => ['nullable', "uuid", Rule::exists('users', 'id')],
+
+            'case_number' => [
+                'nullable',
+                'string',
+                'min:3',
+                'unique:cases,case_number'
+            ],
+
+            'collection_percentage' => [
+                'required_if:billing_type,percentage_collection', // مطلوب فقط إذا كان النوع نسبة تحصيل
+                'prohibited_unless:billing_type,percentage_collection', // ممنوع إرساله ما لم يكن النوع نسبة تحصيل (هذا هو الحل)
+                'nullable', // اختياري لتفادي مشاكل null، لكن prohibited سيتولى الأمر
+                'numeric',
+                'min:0',
+                'max:100'
+            ],
+
+            // --- العملاء (Array) ---
+            'clients'           => ['nullable', 'array', 'min:1'],
+            'clients.*.user_id' => [
+                'required',
+                'uuid',
+                Rule::exists('users', 'id')->where(function ($query) use ($clientRoleId) {
+                    if ($clientRoleId) {
+                        $query->where('role_id', $clientRoleId);
+                    }
+                })
+            ],
+            'clients.*.is_primary' => ['required', 'boolean'],
+
+            // --- الخصوم (Array) ---
+            'opponents'              => ['nullable', 'array', 'min:1'],
+            'opponents.*.name'       => ['required', 'string'],
+            'opponents.*.type'       => ['nullable', 'in:individual,company,government_entity'],
+            'opponents.*.national_id' => ['nullable', 'string'],
+            'opponents.*.phone'      => ['nullable', 'string'],
+            'opponents.*.email'      => ['nullable', 'email'],
+
+            // --- الفريق المكلف (Array) ---
+            'team' => $isOfficeManager ? ['nullable', 'array', 'min:1'] : ['prohibited'],
+
+            'team.*.user_id'     => [
+                'required',
+                'uuid',
+                // تحسين: التأكد من أن عضو الفريق ليس عميلاً (كما هو مطلوب في التعليق)
+                Rule::exists('users', 'id')->where(function ($query) use ($clientRoleId) {
+                    if ($clientRoleId) {
+                        $query->where('role_id', '!=', $clientRoleId);
+                    }
+                })
+            ],
+            'team.*.role_in_case' => ['required', 'string'],
+
+            // --- الأقساط الزمنية (Array) ---
+            'payment_milestones' => [
+                'required_if:billing_type,installments',
+                'prohibited_unless:billing_type,installments',
+                'array',
+                'min:1'
+            ],
+            'payment_milestones.*.title'    => ['required', 'string'],
+            'payment_milestones.*.amount'   => ['required', 'numeric', 'min:0'],
+            'payment_milestones.*.due_date' => [
+                'required',
+                'date',
+                'after:today'
+            ],
         ];
     }
     public function messages()
     {
         return [
-            'title.required' => "title is required",
-            'title.string' => "title must be a string",
-            'title.min' => "title must be at least 5 characters",
-            'title.max' => "title must be less than 255 characters",
-
-            'description.required' => "description is required",
-            'description.string' => "description must be a string",
-            'description.min' => "description must be at least 10 characters",
-
-            'client_id.required' => "client_id is required",
-            'client_id.uuid' => "client_id must be a uuid",
-            'client_id.exists' => "client_id not found",
+            // بيانات أساسية
+            'price.numeric' => "The price must be a number.",
+            'case_category.exists' => "The selected category is invalid.",
+            'billing_type.in' => "billing_type must be one of: fixed_proposal, percentage_collection, installments, pay_as_you_go",
+            // الفوترة
+            'collection_percentage.required_if' => "collection_percentage is required when billing type is percentage_collection",
+            'collection_percentage.prohibited_unless' => "The collection_percentage field is only allowed when billing type is percentage_collection.",
+            // العملاء
+            'clients.*.user_id.exists' => "One of the provided client IDs does not exist or is not a client",
+            'clients.*.is_primary.required' => "is_primary flag is required for each client",
+            // الخصوم
+            'opponents.*.name.required' => "Opponent name is required",
+            'opponents.*.type.in' => "Opponent type must be individual, company, or government_entity",
+            // الفريق
+            'team.prohibited' => "Independent lawyers cannot assign a team",
+            'team.*.user_id.exists' => "One of the provided team member IDs does not exist or is invalid",
+            'team.*.role_in_case.required' => "role_in_case is required for each team member",
+            // الأقساط
+            'payment_milestones.required_if' => "payment_milestones are required when billing type is installments",
+            'payment_milestones.prohibited_unless' => "payment_milestones are only allowed when billing type is installments",
+            'payment_milestones.*.amount.required' => "Milestone amount is required",
+            'payment_milestones.*.due_date.required' => "Milestone due date is required",
+            'payment_milestones.*.due_date.after' => "The due date must be strictly after today's date",
         ];
     }
+
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([

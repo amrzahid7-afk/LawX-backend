@@ -32,6 +32,10 @@ class CaseModel extends Model
         'court',
         'lead_lawyer_id'
     ];
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'case_id');
+    }
     public function sessions()
     {
         return $this->hasMany(Session::class, 'case_id');

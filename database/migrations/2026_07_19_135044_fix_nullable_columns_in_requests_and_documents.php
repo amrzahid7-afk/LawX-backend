@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('legal_requests', function (Blueprint $table) {
-            $table->uuid('assigned_lawyer_id')->nullable()->change();
-        });
+        // Schema::table('legal_requests', function (Blueprint $table) {
+        //     $table->uuid('assigned_lawyer_id')->nullable()->change();
+        // });
 
-        Schema::table('documents', function (Blueprint $table) {
-            $table->uuid('case_id')->nullable()->change();
-            $table->uuid('proposal_id')->nullable()->change();
-            $table->uuid('legal_request_id')->nullable()->change();
-        });
+        // Schema::table('documents', function (Blueprint $table) {
+        //     $table->uuid('case_id')->nullable()->change();
+        //     $table->uuid('proposal_id')->nullable()->change();
+        //     $table->uuid('legal_request_id')->nullable()->change();
+        // });
     }
 
     /**
