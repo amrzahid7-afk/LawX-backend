@@ -40,6 +40,7 @@ class PropposalService
                 'created_at' => $req->created_at->format('Y-m-d h'),
                 'budget_min' => $req->budget_min,
                 'budget_max' => $req->budget_max,
+                'status' => $req->status,
                 // 'client_info' => $clientInfo,
                 'documents_counts' => $documentcounts,
             ];
