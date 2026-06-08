@@ -35,9 +35,6 @@ use App\Services\Timeline\DocumentProvider;
 use App\Services\Timeline\InvoiceProvider;
 use App\Services\Timeline\TimelineAggregatorService;
 
-use Laravel\Sanctum\Sanctum;
-use App\Models\PersonalAccessToken;
-
 class AppServiceProvider extends ServiceProvider
 {
     /**

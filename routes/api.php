@@ -71,6 +71,7 @@ Route::prefix('/Case')->middleware('auth:sanctum')->group(function () {
     Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']); //  
     Route::post('/get_invoices_for_client', [InvoiceController::class, 'get_invoices_for_client']); //  
 });
+
 Route::prefix('/client_portal/legal_request')->middleware('auth:sanctum')->group(function () {
     Route::post('/create_request', [LegalRequestController::class, 'create']);  //  
     Route::post('/update_request', [LegalRequestController::class, 'update_request']);  //  

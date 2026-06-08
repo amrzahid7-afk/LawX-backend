@@ -34,6 +34,8 @@ namespace App\Models{
  * @property-read int|null $clients_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $invoices
+ * @property-read int|null $invoices_count
  * @property-read \App\Models\User|null $leadLawyer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Opponent> $opponents
  * @property-read int|null $opponents_count
@@ -103,7 +105,7 @@ namespace App\Models{
  * @property string $id
  * @property string $title
  * @property numeric $amount
- * @property string $due_date
+ * @property \Illuminate\Support\Carbon $due_date
  * @property string $status
  * @property string $case_id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -182,12 +184,14 @@ namespace App\Models{
  * @property string $type
  * @property string|null $nots
  * @property string|null $case_id
+ * @property string|null $invoice_id
  * @property string|null $legal_request_id
  * @property string|null $proposal_id
  * @property string $uploaded_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\CaseModel|null $case
+ * @property-read \App\Models\Invoice|null $invoice
  * @property-read \App\Models\Legal_request|null $legal_request
  * @property-read \App\Models\Proposal|null $proposal
  * @property-read \App\Models\User $uploadedBy
@@ -199,6 +203,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereFilePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereInvoiceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereLegalRequestId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereNots($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereProposalId($value)
@@ -287,9 +292,22 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property-read \App\Models\CaseModel|null $case
- * @property-read \App\Models\User|null $client
- * @property-read \App\Models\User|null $lawyer
+ * @property string $id
+ * @property string $case_id
+ * @property string $lawyer_id
+ * @property string $client_id
+ * @property numeric $total_amount
+ * @property string $status
+ * @property string $due_date
+ * @property string|null $items
+ * @property string|null $pdf_url
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\CaseModel $case
+ * @property-read \App\Models\User $client
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
+ * @property-read int|null $documents_count
+ * @property-read \App\Models\User $lawyer
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice query()
@@ -590,7 +608,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
- * @property-read \App\Models\User|null $lawyer
+ * @property-read \App\Models\User $lawyer
  * @property-read \App\Models\Legal_request $request
  * @method static \Database\Factories\ProposalFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Proposal newModelQuery()
@@ -674,10 +692,11 @@ namespace App\Models{
 /**
  * @property string $id
  * @property string $case_id
- * @property string $date
+ * @property \Illuminate\Support\Carbon $date
  * @property string $location
  * @property string $nots
  * @property string|null $result
+ * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\CaseModel $case
@@ -691,6 +710,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereLocation($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereNots($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereResult($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereUpdatedAt($value)
  */
 	class Session extends \Eloquent {}
@@ -804,6 +824,8 @@ namespace App\Models{
  * @property-read int|null $client_invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $lawyer_invoices
+ * @property-read int|null $lawyer_invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Legal_category> $legalCategories
  * @property-read int|null $legal_categories_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
