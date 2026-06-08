@@ -86,6 +86,39 @@ class User extends Authenticatable
     {
         return $this->hasMany(Invoice::class, 'lawyer_id');
     }
+    public function legalCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(Legal_category::class, 'user_legal_categories', 'user_id', 'category_id');
+    }
+
+    // علاقة 2: المستخدم (المحامي) يستقبل تقييمات من العملاء
+    public function reviewsReceived(): HasMany
+    {
+        return $this->hasMany(Review::class, 'lawyer_id');
+    }
+
+    // علاقة 3 (اختيارية): المستخدم (العميل) قام بكتابة تقييمات
+    public function reviewsGiven(): HasMany
+    {
+        return $this->hasMany(Review::class, 'client_id');
+    }
+    public function client_invoices()
+    {
+        return $this->hasMany(Invoice::class, 'client_id');
+    }
+    public function lawyer_invoices()
+    {
+        return $this->hasMany(Invoice::class, 'lawyer_id');
+    }
+    public function casesAsLawyer()
+{
+    return $this->hasMany(CaseModel::class, 'lawer_id');
+}
+
+public function casesAsClient()
+{
+    return $this->hasMany(CaseModel::class, 'client_id');
+}
     // relations methods 
     // public function office()
     // {

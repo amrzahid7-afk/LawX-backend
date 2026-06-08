@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CaseController;
+use App\Http\Controllers\Dashboard\alertsController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LegalRequestController;
@@ -96,6 +98,13 @@ Route::prefix('notifications/')->middleware('auth:sanctum')->group(function () {
 
     Route::get('/mark-all-read', [NotificationController::class, 'markAllAsRead']);
 });
+
+Route::prefix('/dashboard')->middleware('auth:sanctum')->group(function () {
+
+    route::get('/', [DashboardController::class, 'getStatistics']);
+    route::get('/alerts', [alertsController::class, 'index']);
+});
+
 // Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/verify_2FA', [AuthController::class, 'verify_2FA']);
 // Route::post('password/forgot', [AuthController::class, 'forgotPassword']);

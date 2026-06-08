@@ -6,6 +6,12 @@ use App\Traits\HasUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Office;
+use App\Models\Invoice;
+use App\Models\Casemillstone;
+use App\Models\User;
+use App\Models\Session;
+use App\Models\Document;
+use App\Models\Task;
 
 class CaseModel extends Model
 {

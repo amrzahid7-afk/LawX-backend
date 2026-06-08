@@ -1,0 +1,15 @@
+<?php
+namespace App\Services\Dashboard;
+use App\Contracts\Services\Dashboard\TodayScheduleInterface;
+use app\Models\User;
+
+class TeamPerformanceService implements TeamPerformanceInterface
+{
+    public function getTeamPerformance($user): array
+    {
+
+$query=User::withCount('tasks');
+
+
+    }
+    }
