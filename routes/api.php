@@ -12,6 +12,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserManagmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -91,6 +92,7 @@ Route::prefix('/Market_place')->middleware('auth:sanctum')->group(function () {
     Route::post('/update_proposal', [ProposalController::class, 'update_proposal']);
     Route::get('/delete_proposal/{proposal_id}', [ProposalController::class, 'delete_proposal']);
 });
+// notifications apis 
 Route::prefix('notifications/')->middleware('auth:sanctum')->group(function () {
 
     Route::get('/', [NotificationController::class, 'index']);
@@ -98,6 +100,10 @@ Route::prefix('notifications/')->middleware('auth:sanctum')->group(function () {
     Route::get('/{id}/mark-read', [NotificationController::class, 'markAsRead']);
 
     Route::get('/mark-all-read', [NotificationController::class, 'markAllAsRead']);
+});
+// user managment apis
+Route::prefix('ManageUsers/')->middleware('auth:sanctum')->group(function () {
+    Route::get('/get_clients', [UserManagmentController::class, 'get_clients']);
 });
 
 Route::prefix('/dashboard')->middleware('auth:sanctum')->group(function () {

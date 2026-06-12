@@ -172,7 +172,7 @@ class CaseService
                 'collection_percentage' => $case->collection_percentage,
                 // 'financial_status' => $case->financial_status,
                 'progress_percentage' => $case->progress_percentage,
-                'lawyer_id' => $case->lead_lawyer_id,
+                'Leader_lawyer_data' => $case->leadLawyer ? $case->leadLawyer->only(['id', 'full_name', 'email']) : null,
                 'created_at' => $case->created_at->format('Y-m-d'),
                 'clients' => $case->clients->map(function ($client) {
                     return [
@@ -198,7 +198,7 @@ class CaseService
                 'team' => $case->team->map(function ($member) {
                     return [
                         'user_id' => $member->id,
-                        'name' => $member->name,
+                        'name' => $member->full_name,
                         'role_in_case' => $member->pivot->role_in_case, // البيانات من جدول الربط
                         'email' => $member->email,
                     ];
@@ -276,6 +276,7 @@ class CaseService
             $case->description = $data['description'] ?? $case->description;
             $case->case_number = $data['case_number'] ?? $case->case_number;
             $case->case_category = $data['case_category'] ?? $case->case_category;
+            $case->status = $data['status'] ?? $case->status;
             $case->court = $data['court'] ?? $case->court;
 
             // تحويل السعر لرقم لضمان عدم وجود مشاكل مع قاعدة البيانات

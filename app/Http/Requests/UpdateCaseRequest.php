@@ -35,14 +35,12 @@ class UpdateCaseRequest extends FormRequest
             'title'             => ['nullable', 'string', 'min:5', 'max:255'],
             'description'       => ['nullable', 'string', 'min:10'],
             'court'             => ['nullable', 'string', 'min:3'],
-
             'price'             => ['nullable', 'numeric', 'min:0'],
-
             'case_category'     => ['nullable', 'string', 'min:4'], // افترضنا أنه UUID ويوجد في جدول التصنيفات
             'importance_stars'  => ['nullable', 'integer', 'min:1', 'max:5'],
             'billing_type'      => ['nullable', 'in:fixed_proposal,percentage_collection,installments,pay_as_you_go'],
             'lead_lawyer_id'    => ['nullable', "uuid", Rule::exists('users', 'id')],
-
+            'status'            => ['nullable', 'in:open,close,pending,archived'],
             'case_number' => [
                 'nullable',
                 'string',

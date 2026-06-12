@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\changePasswordRequest;
 use App\Http\Requests\Auth\ForgetPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\UpdateProfileRequest;
-use App\Http\Requests\Auth\Verify_2FA_Request;
 use App\Http\Requests\Auth\UploadAvatarRequest;
-use App\Http\Requests\Auth\changePasswordRequest;
+use App\Http\Requests\Auth\Verify_2FA_Request;
 use App\Services\AuthService;
 use Exception;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -29,6 +30,8 @@ class AuthController extends Controller
                 'status' => $data['status'],
                 'data' => $data['data']
             ], $data['code']);
+        } catch (HttpResponseException $e) {
+            throw $e;
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',

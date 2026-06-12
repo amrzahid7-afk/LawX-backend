@@ -30,6 +30,8 @@ class UpdateSessionRequest extends FormRequest
             'location' => 'nullable|string|max:255',
             'result' => 'nullable|string|max:255',
             'file' => 'nullable|file',
+            'status' => 'nullable|in:pending,completed,cancelled',
+            'nots' => 'nullable|string'
         ];
     }
     public function messages()
@@ -46,6 +48,7 @@ class UpdateSessionRequest extends FormRequest
             'result.string' => "result must be a string",
             'result.max' => "result must not exceed 255 characters",
             'file.file' => "file must be a valid file",
+            'status.in' => "status must be one of pending, completed, cancelled",
         ];
     }
     protected function failedValidation(Validator $validator)

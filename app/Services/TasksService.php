@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\Task;
 use App\Models\CaseModel;
+use App\Models\Task;
+use App\Models\User;
+use App\Notifications\Add_Task_Notification;
 
 class TasksService
 {
@@ -16,6 +18,9 @@ class TasksService
             'due_date' => $data['due_date'] ?? null,
             'assigned_to' => $data['assigned_to'],
         ]);
+        // send Notification 
+        $user = User::find($task->assigned_to);
+        $user->notify(new Add_Task_Notification($task->id, $user->id));
         return [
             'status' => 'success',
             'data' => [
@@ -94,6 +99,7 @@ class TasksService
             return [
                 'task_id' => $task->id,
                 'title' => $task->title,
+                'Due_date' => $task->due_date ? $task->due_date->format('Y-m-d h') : null,
                 'description' => $task->description,
                 'assigned_to' => [
                     'name' => $task->assignedTo->full_name ?? 'Unknown',

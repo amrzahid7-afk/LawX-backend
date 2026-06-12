@@ -69,7 +69,7 @@ class CaseCreationRequest extends FormRequest
             'opponents'              => ['required', 'array', 'min:1'],
             'opponents.*.name'       => ['required', 'string'],
             'opponents.*.type'       => ['required', 'in:individual,company,government_entity'],
-            'opponents.*.national_id' => ['nullable', 'string'],
+            'opponents.*.national_id' => ['nullable', 'string', 'distinct'],
             'opponents.*.phone'      => ['nullable', 'string'],
             'opponents.*.email'      => ['nullable', 'email'],
 

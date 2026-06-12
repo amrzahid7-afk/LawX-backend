@@ -188,7 +188,11 @@ class PropposalService
             'payment_terms' => $proposal->payment_terms,
             'price_currency' => strtoupper($proposal->price_currency),
             'documents' => $proposal->documents->map(function ($doc) {
-                return Storage::url($doc->file_path);
+                return [
+                    "url" => Storage::url($doc->file_path),
+                    "type" => $doc->type,
+                    "size" => floor(Storage::size($doc->file_path) / 1024) . "  MB"
+                ];
             })->toArray(),
         ];
         return [

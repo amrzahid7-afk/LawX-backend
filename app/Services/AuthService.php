@@ -9,17 +9,27 @@ use App\Models\User;
 use App\Models\VerificationCode;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class AuthService
 {
     public function login(array $credentials)
     {
-        $user = User::where('email', $credentials['email'])->first();
+        $user = User::where([
+            'email' => $credentials['email'],
+            // 'password' => bcrypt($credentials['password'])
+        ])->first();
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+            throw new HttpResponseException(response()->json([
+                'status' => 'Error',
+                'message' => 'The provided credentials do not match our records.'
+            ], 400));
+        }
         $user->tokens()->delete();
         $token = $user->createToken('api-token')->plainTextToken;
         $formatted_data = [

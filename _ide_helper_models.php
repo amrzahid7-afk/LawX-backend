@@ -816,10 +816,6 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $cases
  * @property-read int|null $cases_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $casesAsClient
- * @property-read int|null $cases_as_client_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $casesAsLawyer
- * @property-read int|null $cases_as_lawyer_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $client_invoices
  * @property-read int|null $client_invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents

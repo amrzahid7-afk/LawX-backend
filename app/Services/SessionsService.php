@@ -5,11 +5,13 @@ namespace App\Services;
 use App\Models\Document;
 use App\Models\Session;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\Add_Session_Notification;
 
 class SessionsService
 {
     public function add_new_session($data)
     {
+        // create session 
         $session = Session::create([
             'case_id' => $data['case_id'],
             'date' => $data['date'],
@@ -17,6 +19,11 @@ class SessionsService
             'nots' => $data['nots'],
             'result' => "null",
         ]);
+        // send notification
+        $clients = $session->case->clients;
+        foreach ($clients as $client) {
+            $client->notify(new Add_Session_Notification($session->id, $client->id));
+        }
         return [
             'status' => 'success',
             'data' => [
@@ -150,6 +157,7 @@ class SessionsService
             'location' => $data['location'] ?? $session->location,
             'nots'  => $data['nots'] ?? $session->nots,
             'result'  => $data['result'] ?? $session->result,
+            'status'  => $data['status'] ?? $session->status,
         ]);
         if (isset($data['file']) && $data['file']) {
             $documentService = app(DocumentService::class);
