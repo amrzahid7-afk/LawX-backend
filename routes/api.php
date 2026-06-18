@@ -16,6 +16,8 @@ use App\Http\Controllers\UserManagmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Api\LegislationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -106,6 +108,17 @@ Route::prefix('ManageUsers/')->middleware('auth:sanctum')->group(function () {
     Route::get('/get_clients', [UserManagmentController::class, 'get_clients']);
 });
 
+//  المكتبة القانونية (التشريعات والقوانين)
+Route::middleware('auth:sanctum')->prefix('/legislation')->group(function () {
+    // المحامي
+    Route::get('/get', [LegislationController::class, 'index']);
+    Route::get('/get_law_details/{law_id}', [LegislationController::class, 'get_law_details']);
+    Route::post('/semantic_search', [LegislationController::class, 'semantic_search']);
+    // النقابة
+    Route::post('/create_law', [LegislationController::class, 'create_law']);
+    Route::post('/update_law', [LegislationController::class, 'update_law']);
+    Route::get('/delete_law/{law_id}', [LegislationController::class, 'delete_law']);
+});
 Route::prefix('/dashboard')->middleware('auth:sanctum')->group(function () {
 
     route::get('/', [DashboardController::class, 'getStatistics']);

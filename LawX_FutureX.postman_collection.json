@@ -1,2745 +1,2289 @@
 {
-  "info": {
-    "_postman_id": "fe1005ac-e212-4bbf-948b-8d71ebe035db",
-    "name": "LawX_FutureX",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "34857970",
-    "_collection_link": "https://go.postman.co/collection/34857970-fe1005ac-e212-4bbf-948b-8d71ebe035db?source=collection_link"
-  },
-  "item": [
-    {
-      "name": "Session_Module",
-      "item": [
+    "info": {
+        "_postman_id": "fe1005ac-e212-4bbf-948b-8d71ebe035db",
+        "name": "LawX_FutureX",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "34857970",
+        "_collection_link": "https://go.postman.co/collection/34857970-fe1005ac-e212-4bbf-948b-8d71ebe035db?source=collection_link"
+    },
+    "item": [
         {
-          "name": "create_session",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+            "name": "Session_Module",
+            "item": [
                 {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
+                    "name": "create_session",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"case_id\": \"{{case_id}}\",\r\n        \"date\":\"2026-10-25 14:30\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/add_new_session",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "add_new_session"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update_session",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "case_id",
+                                    "value": "{{case_id}}",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "session_id",
+                                    "value": "{{session_id}}",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "date",
+                                    "value": "2028-10-25 14:30",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "location",
+                                    "value": "barzeh",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "nots",
+                                    "value": "updated",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "uuid": "94fc43e4-7c33-4082-b0a6-49a285121be6",
+                                    "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "result",
+                                    "value": "الحكم لصالح الموكل",
+                                    "type": "text",
+                                    "uuid": "a31811fb-364c-4b1b-a232-9a15b9b921c3"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "cancelled",
+                                    "type": "text",
+                                    "uuid": "649e342d-b3f0-4747-9bb1-f478ef2acf27"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/update_session",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "update_session"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete_session",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n        \"case_id\": \"ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb\",\r\n        \"date\":\"2002-5-6\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/delete_session/{{session_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "delete_session", "{{session_id}}"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get_All_Session_For_Case",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/get_sessions_for_case/{{case_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "Case",
+                                "get_sessions_for_case",
+                                "{{case_id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get_All_Session_For_lawer",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/Case/get_sessions_for_lawer",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "get_sessions_for_lawer"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get_All_Session_For_Client",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/get_sessions_for_client",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "get_sessions_for_client"]
+                        }
+                    },
+                    "response": []
                 }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n        \"case_id\": \"{{case_id}}\",\r\n        \"date\":\"2026-10-25 14:30\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/add_new_session",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "add_new_session"
-              ]
-            }
-          },
-          "response": []
+            ]
         },
         {
-          "name": "update_session",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+            "name": "Document_Module",
+            "item": [
                 {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
+                    "name": "upload_document",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "case_id",
+                                    "value": "{{case_id}}",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "type",
+                                    "value": "عقد بيع",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                                },
+                                {
+                                    "key": "nots",
+                                    "value": "بموجب هذل العقد تكون الملكية منقولة من البائع للشاري ",
+                                    "type": "text",
+                                    "uuid": "ade155f0-b40b-4500-8c81-5fdd4ffe2a73"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/upload_document",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "upload_document"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete_document",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": []
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/delete_document/{{document_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "Case",
+                                "delete_document",
+                                "{{document_id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get_Documents_For_Case",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/get_documents_for_case/{{case_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "Case",
+                                "get_documents_for_case",
+                                "{{case_id}}"
+                            ]
+                        }
+                    },
+                    "response": []
                 }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "case_id",
-                  "value": "{{case_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "session_id",
-                  "value": "{{session_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "date",
-                  "value": "2028-10-25 14:30",
-                  "type": "text"
-                },
-                {
-                  "key": "location",
-                  "value": "barzeh",
-                  "type": "text"
-                },
-                {
-                  "key": "nots",
-                  "value": "updated",
-                  "type": "text"
-                },
-                {
-                  "key": "file",
-                  "type": "file",
-                  "uuid": "94fc43e4-7c33-4082-b0a6-49a285121be6",
-                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be",
-                  "disabled": true
-                },
-                {
-                  "key": "result",
-                  "value": "الحكم لصالح الموكل",
-                  "type": "text",
-                  "uuid": "a31811fb-364c-4b1b-a232-9a15b9b921c3"
-                },
-                {
-                  "key": "status",
-                  "value": "cancelled",
-                  "type": "text",
-                  "uuid": "649e342d-b3f0-4747-9bb1-f478ef2acf27"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/update_session",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "update_session"
-              ]
-            }
-          },
-          "response": []
+            ]
         },
         {
-          "name": "delete_session",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+            "name": "Tasks_Module",
+            "item": [
                 {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
+                    "name": "create_task",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"case_id\": \"{{case_id}}\", \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"due_date\": \"2029-11-01\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"{{lawer_id}}\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/create_task",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "create_task"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "edit_task",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"task_id\": \"{{task_id}}\" , \r\n    \"title\": \"استخراج قيد  \" , \r\n    \"status\": \"completed\" , \r\n    \"due_date\":\"2029-01-25\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"{{admin_id}}\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/edit_task",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "edit_task"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_tasks_for_case",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/get_tasks_for_case/{{case_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "Case",
+                                "get_tasks_for_case",
+                                "{{case_id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_my_tasks",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/get_my_tasks",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "get_my_tasks"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete_task",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/delete_task/{{task_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "delete_task", "{{task_id}}"]
+                        }
+                    },
+                    "response": []
                 }
-              ]
-            },
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n        \"case_id\": \"ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb\",\r\n        \"date\":\"2002-5-6\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/delete_session/{{session_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "delete_session",
-                "{{session_id}}"
-              ]
-            }
-          },
-          "response": []
+            ]
         },
         {
-          "name": "Get_All_Session_For_Case",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+            "name": "Client_portal",
+            "item": [
                 {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
+                    "name": "create_legal_request",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title_request",
+                                    "value": "استشارة",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "description_request",
+                                    "value": "نزاع تركة",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "location_request",
+                                    "value": "importanttask",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "budget_min",
+                                    "value": "50000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "budget_max",
+                                    "value": "60000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "type",
+                                    "value": "private",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "assigned_lawyer_id",
+                                    "value": "{{lawer_id}}",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/client_portal/legal_request/create_request",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "client_portal",
+                                "legal_request",
+                                "create_request"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update_request",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "request_id",
+                                    "value": "{{legal_request_id}}",
+                                    "type": "text",
+                                    "uuid": "68411ddb-bf37-41b3-804d-f4aa3be1b28c"
+                                },
+                                {
+                                    "key": "title_request",
+                                    "value": "نزاع تركة 2222تتت",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "description_request",
+                                    "value": "newtask",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "location_request",
+                                    "value": "importanttask",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "budget_min",
+                                    "value": "5",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "budget_max",
+                                    "value": "6",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "type",
+                                    "value": "public",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "assigned_lawyer_id",
+                                    "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                                    "type": "text",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/client_portal/legal_request/update_request",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "client_portal",
+                                "legal_request",
+                                "update_request"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete_request",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/client_portal/legal_request/delete_request/{{request_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "client_portal",
+                                "legal_request",
+                                "delete_request",
+                                "{{request_id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_my_requests",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title_request",
+                                    "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "description_request",
+                                    "value": "newtask",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "location_request",
+                                    "value": "importanttask",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "budget_min",
+                                    "value": "5",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "budget_max",
+                                    "value": "6",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "type",
+                                    "value": "public",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "assigned_lawyer_id",
+                                    "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/client_portal/legal_request/get_my_requests",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "client_portal",
+                                "legal_request",
+                                "get_my_requests"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_offices_or_lawers_available",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/client_portal/legal_request/get_offices_or_lawers_available",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "client_portal",
+                                "legal_request",
+                                "get_offices_or_lawers_available"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_protofolio_for_lawer_or_office",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/client_portal/legal_request/get_protofolio_for_lawer_or_office/{{lawer_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "client_portal",
+                                "legal_request",
+                                "get_protofolio_for_lawer_or_office",
+                                "{{lawer_id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_proposals_for_my_requests",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title_request",
+                                    "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "description_request",
+                                    "value": "newtask",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "location_request",
+                                    "value": "importanttask",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "budget_min",
+                                    "value": "5",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "budget_max",
+                                    "value": "6",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "type",
+                                    "value": "public",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "assigned_lawyer_id",
+                                    "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/client_portal/legal_request/get_proposals_for_my_requests/{{legal_request_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "client_portal",
+                                "legal_request",
+                                "get_proposals_for_my_requests",
+                                "{{legal_request_id}}"
+                            ]
+                        }
+                    },
+                    "response": []
                 }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_sessions_for_case/{{case_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "get_sessions_for_case",
-                "{{case_id}}"
-              ]
-            }
-          },
-          "response": []
+            ]
         },
         {
-          "name": "Get_All_Session_For_lawer",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+            "name": "Market_place",
+            "item": [
                 {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
+                    "name": "get_my_requests",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/Market_place/get_legal_requests",
+                            "host": ["{{Domain}}"],
+                            "path": ["Market_place", "get_legal_requests"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_legal_request_details",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/Market_place/get_legal_request_details/{{legal_request_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "Market_place",
+                                "get_legal_request_details",
+                                "{{legal_request_id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "send_proposal",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "price",
+                                    "value": "16",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "estimated_days",
+                                    "value": "55555",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "message_for_client",
+                                    "value": " be carfull be carfull",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "valid_until",
+                                    "value": "2026-06-06",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "payment_terms",
+                                    "value": "first firts sakmcxksam first firts sakmcxksam",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "price_currency",
+                                    "value": "EGP",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "request_id",
+                                    "value": "{{request_id}}",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Market_place/send_proposal",
+                            "host": ["{{Domain}}"],
+                            "path": ["Market_place", "send_proposal"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_my_proposals",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/Market_place/get_my_proposals",
+                            "host": ["{{Domain}}"],
+                            "path": ["Market_place", "get_my_proposals"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_proposal_details",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/Market_place/get_proposal_details/{{proposal_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "Market_place",
+                                "get_proposal_details",
+                                "{{proposal_id}}"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update_proposal",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "proposal_id\n",
+                                    "value": "{{proposal_id}}",
+                                    "type": "text",
+                                    "uuid": "11b6231c-3045-4520-9816-474affa82daf"
+                                },
+                                {
+                                    "key": "request_id",
+                                    "value": "{{request_id}}",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "price",
+                                    "value": "1555",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "estimated_days",
+                                    "value": "555555",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "message_for_client",
+                                    "value": "be carfull be carfull",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "valid_until",
+                                    "value": "2028-06-06",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "payment_terms",
+                                    "value": "first firts sakmcxksam first firts sakmcxksam",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "price_currency",
+                                    "value": "USD",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Market_place/update_proposal",
+                            "host": ["{{Domain}}"],
+                            "path": ["Market_place", "update_proposal"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete_proposal",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/Market_place/delete_proposal/{{proposal_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": [
+                                "Market_place",
+                                "delete_proposal",
+                                "{{proposal_id}}"
+                            ]
+                        }
+                    },
+                    "response": []
                 }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_sessions_for_lawer",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "get_sessions_for_lawer"
-              ]
-            }
-          },
-          "response": []
+            ]
         },
         {
-          "name": "Get_All_Session_For_Client",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+            "name": "Case_Module",
+            "item": [
                 {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
+                    "name": "create_case",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"percentage_collection\",\r\n     \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        } ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n    \"team\": [\r\n        {\r\n             \"user_id\":\"{{lawer_id}}\",\r\n              \"role_in_case\": \"باحث قانوني\" \r\n              }\r\n    ]\r\n    // \"payment_milestones\": [\r\n    //     {\r\n    //         \"title\": \"دفعة بدء العمل\",\r\n    //         \"amount\": 5000.00,\r\n    //         \"due_date\": \"2029-11-01\" \r\n    //     }\r\n    // ]\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/create_case",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "create_case"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "update_case",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "// {\r\n//     \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n//     \"title\": \" private case\" ,\r\n//     \"description\": \"so hard case\"\r\n// }\r\n{\r\n    \"case_id\" : \"{{case_id}}\",\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-2222\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 500000.000,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n     \"status\": \"archived\" , // 'open', 'close', 'pending', 'archived' \r\n    // \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        {           \r\n              \"user_id\": \"{{client_id}}\", \"is_primary\": true \r\n             }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"email\": \"email@gmail.com\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    // \"team\": [\r\n    //     {\r\n    //          \"user_id\":\"30f84bb4-ce00-4d9c-ad5e-17797c668447\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           }\r\n    // ],\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/update_case",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "update_case"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_case_details",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{admin_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/Case/get_case_details/{{case_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "get_case_details", "{{case_id}}"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_cases",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/get_cases",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "get_cases"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "delete_case",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "DELETE",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"case_id\" : \"30608555-cede-4bde-8325-6cdb0f27294f\" ,\r\n    \"title\": \" public case\" ,\r\n    \"description\": \"very hard case\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/delete_case/{{case_id}}",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "delete_case", "{{case_id}}"]
+                        }
+                    },
+                    "response": []
                 }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
+            ]
+        },
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "login",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"email\": \"client@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Auth/login",
+                            "host": ["{{Domain}}"],
+                            "path": ["Auth", "login"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "password_forget",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"email\": \"client@example.com\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Auth/password/forgot",
+                            "host": ["{{Domain}}"],
+                            "path": ["Auth", "password", "forgot"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "password_reset",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"email\": \"lawyer@example.com\" ,\r\n    \"code\": \"5256606\" ,\r\n    \"token\": \"6k3ZxCrIxX7vOgmMH47WWZ33GUYVbvwszDdPUUd3rK5v91n5xBXyFv0BH4SM2qFm\" ,\r\n    \"password\": \"888888@@\",\r\n    \"password_confirmation\": \"888888@@\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Auth/password/reset",
+                            "host": ["{{Domain}}"],
+                            "path": ["Auth", "password", "reset"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "logout",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {}
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"case_id\" : \"30608555-cede-4bde-8325-6cdb0f27294f\" ,\r\n    \"title\": \" public case\" ,\r\n    \"description\": \"very hard case\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Auth/logout",
+                            "host": ["{{Domain}}"],
+                            "path": ["Auth", "logout"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "me",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true,
+                        "disabledSystemHeaders": {}
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"case_id\" : \"30608555-cede-4bde-8325-6cdb0f27294f\" ,\r\n    \"title\": \" public case\" ,\r\n    \"description\": \"very hard case\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Auth/me",
+                            "host": ["{{Domain}}"],
+                            "path": ["Auth", "me"]
+                        }
+                    },
+                    "response": []
                 }
-              }
+            ]
+        },
+        {
+            "name": "Invoices_Module",
+            "item": [
+                {
+                    "name": "create_invoice",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{lawer_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "case_id",
+                                    "value": "{{case_id}}",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "total_amount",
+                                    "value": "3000",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "due_date",
+                                    "value": "2029-11-01",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "items[0][title]",
+                                    "value": "أتعاب المحكمة التجارية",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "items[0][description]",
+                                    "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "items[0][amount]",
+                                    "value": "1500",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "items[1][title]",
+                                    "value": "أتعاب المحكمة التجارية",
+                                    "type": "text",
+                                    "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                                },
+                                {
+                                    "key": "items[1][description]",
+                                    "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                                    "type": "text",
+                                    "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                                },
+                                {
+                                    "key": "items[1][amount]",
+                                    "value": "1500",
+                                    "type": "text",
+                                    "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                                },
+                                {
+                                    "key": "documents[0]",
+                                    "type": "file",
+                                    "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                                    "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                                },
+                                {
+                                    "key": "documents[1]",
+                                    "type": "file",
+                                    "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                                    "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{Domain}}/Case/create_invoice",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "create_invoice"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get_invoices_for_client",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{Domain}}/Case/get_invoices_for_client",
+                            "host": ["{{Domain}}"],
+                            "path": ["Case", "get_invoices_for_client"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Notifications_Module",
+            "item": [
+                {
+                    "name": "All_notifications",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/api/notifications",
+                            "protocol": "http",
+                            "host": ["127", "0", "0", "1"],
+                            "port": "8000",
+                            "path": ["api", "notifications"]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "notification_mark-read",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/api/notifications/{{notification_id}}/mark-read",
+                            "protocol": "http",
+                            "host": ["127", "0", "0", "1"],
+                            "port": "8000",
+                            "path": [
+                                "api",
+                                "notifications",
+                                "{{notification_id}}",
+                                "mark-read"
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "mark-all-read",
+                    "protocolProfileBehavior": {
+                        "disabledSystemHeaders": {
+                            "accept": true
+                        }
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": [
+                                {
+                                    "key": "token",
+                                    "value": "{{client_token}}",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json",
+                                "type": "text"
+                            }
+                        ],
+                        "url": {
+                            "raw": "http://127.0.0.1:8000/api/notifications/mark-all-read",
+                            "protocol": "http",
+                            "host": ["127", "0", "0", "1"],
+                            "port": "8000",
+                            "path": ["api", "notifications", "mark-all-read"]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Testing",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{Domain}}/test",
+                    "host": ["{{Domain}}"],
+                    "path": ["test"]
+                }
             },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_sessions_for_client",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "get_sessions_for_client"
-              ]
-            }
-          },
-          "response": []
+            "response": []
+        },
+        {
+            "name": "get_clients",
+            "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                    "accept-encoding": true
+                }
+            },
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "{{admin_token}}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{Domain}}/ManageUsers/get_clients",
+                    "host": ["{{Domain}}"],
+                    "path": ["ManageUsers", "get_clients"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "tokens",
+            "request": {
+                "auth": {
+                    "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\r\n    \"token_name\": \"test\"\r\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{Domain}}/tokens/create",
+                    "host": ["{{Domain}}"],
+                    "path": ["tokens", "create"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "dashboard",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "{{lawer_token}}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [
+                    {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                    }
+                ],
+                "url": {
+                    "raw": "{{Domain}}/dashboard",
+                    "host": ["{{Domain}}"],
+                    "path": ["dashboard"]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "alerts",
+            "request": {
+                "auth": {
+                    "type": "bearer",
+                    "bearer": [
+                        {
+                            "key": "token",
+                            "value": "{{lawer_token}}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{Domain}}/dashboard/alerts",
+                    "host": ["{{Domain}}"],
+                    "path": ["dashboard", "alerts"]
+                }
+            },
+            "response": []
         }
-      ]
-    },
-    {
-      "name": "Document_Module",
-      "item": [
+    ],
+    "variable": [
         {
-          "name": "upload_document",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "case_id",
-                  "value": "{{case_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "type",
-                  "value": "عقد بيع",
-                  "type": "text"
-                },
-                {
-                  "key": "file",
-                  "type": "file",
-                  "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
-                },
-                {
-                  "key": "nots",
-                  "value": "بموجب هذل العقد تكون الملكية منقولة من البائع للشاري ",
-                  "type": "text",
-                  "uuid": "ade155f0-b40b-4500-8c81-5fdd4ffe2a73"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/upload_document",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "upload_document"
-              ]
-            }
-          },
-          "response": []
+            "key": "case_id",
+            "value": "",
+            "type": "default"
         },
         {
-          "name": "delete_document",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": []
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/delete_document/{{document_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "delete_document",
-                "{{document_id}}"
-              ]
-            }
-          },
-          "response": []
+            "key": "task_id",
+            "value": "",
+            "type": "default"
         },
         {
-          "name": "Get_Documents_For_Case",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_documents_for_case/{{case_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "get_documents_for_case",
-                "{{case_id}}"
-              ]
-            }
-          },
-          "response": []
+            "key": "session_id",
+            "value": "",
+            "type": "default"
+        },
+        {
+            "key": "request_id",
+            "value": "",
+            "type": "default"
+        },
+        {
+            "key": "proposal_id",
+            "value": "",
+            "type": "default"
+        },
+        {
+            "key": "lawer_id",
+            "value": "",
+            "type": "default"
+        },
+        {
+            "key": "client_id",
+            "value": "",
+            "type": "default"
+        },
+        {
+            "key": "notification_id",
+            "value": "",
+            "type": "default"
+        },
+        {
+            "key": "legal_request_id",
+            "value": "",
+            "type": "default"
+        },
+        {
+            "key": "document_id",
+            "value": "",
+            "type": "default"
+        },
+        {
+            "key": "Domain",
+            "value": "",
+            "type": "default"
         }
-      ]
-    },
-    {
-      "name": "Tasks_Module",
-      "item": [
-        {
-          "name": "create_task",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"case_id\": \"{{case_id}}\", \r\n    \"title\": \"استخراج قيد عقاري \" , \r\n    \"due_date\": \"2029-11-01\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"{{lawer_id}}\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/create_task",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "create_task"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "edit_task",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"task_id\": \"{{task_id}}\" , \r\n    \"title\": \"استخراج قيد  \" , \r\n    \"status\": \"completed\" , \r\n    \"due_date\":\"2029-01-25\", \r\n    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار \" , \r\n    \"assigned_to\": \"{{admin_id}}\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/edit_task",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "edit_task"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_tasks_for_case",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_tasks_for_case/{{case_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "get_tasks_for_case",
-                "{{case_id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_my_tasks",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_my_tasks",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "get_my_tasks"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete_task",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/delete_task/{{task_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "delete_task",
-                "{{task_id}}"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Client_portal",
-      "item": [
-        {
-          "name": "create_legal_request",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "title_request",
-                  "value": "استشارة",
-                  "type": "text"
-                },
-                {
-                  "key": "description_request",
-                  "value": "نزاع تركة",
-                  "type": "text"
-                },
-                {
-                  "key": "location_request",
-                  "value": "importanttask",
-                  "type": "text"
-                },
-                {
-                  "key": "budget_min",
-                  "value": "50000",
-                  "type": "text"
-                },
-                {
-                  "key": "budget_max",
-                  "value": "60000",
-                  "type": "text"
-                },
-                {
-                  "key": "type",
-                  "value": "private",
-                  "type": "text"
-                },
-                {
-                  "key": "assigned_lawyer_id",
-                  "value": "{{lawer_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "file",
-                  "type": "file",
-                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/create_request",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "client_portal",
-                "legal_request",
-                "create_request"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update_request",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "request_id",
-                  "value": "{{legal_request_id}}",
-                  "type": "text",
-                  "uuid": "68411ddb-bf37-41b3-804d-f4aa3be1b28c"
-                },
-                {
-                  "key": "title_request",
-                  "value": "نزاع تركة 2222تتت",
-                  "type": "text"
-                },
-                {
-                  "key": "description_request",
-                  "value": "newtask",
-                  "type": "text"
-                },
-                {
-                  "key": "location_request",
-                  "value": "importanttask",
-                  "type": "text"
-                },
-                {
-                  "key": "budget_min",
-                  "value": "5",
-                  "type": "text"
-                },
-                {
-                  "key": "budget_max",
-                  "value": "6",
-                  "type": "text"
-                },
-                {
-                  "key": "type",
-                  "value": "public",
-                  "type": "text"
-                },
-                {
-                  "key": "assigned_lawyer_id",
-                  "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
-                  "type": "text",
-                  "disabled": true
-                },
-                {
-                  "key": "file",
-                  "type": "file",
-                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/update_request",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "client_portal",
-                "legal_request",
-                "update_request"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete_request",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/delete_request/{{request_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "client_portal",
-                "legal_request",
-                "delete_request",
-                "{{request_id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_my_requests",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "title_request",
-                  "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
-                  "type": "text"
-                },
-                {
-                  "key": "description_request",
-                  "value": "newtask",
-                  "type": "text"
-                },
-                {
-                  "key": "location_request",
-                  "value": "importanttask",
-                  "type": "text"
-                },
-                {
-                  "key": "budget_min",
-                  "value": "5",
-                  "type": "text"
-                },
-                {
-                  "key": "budget_max",
-                  "value": "6",
-                  "type": "text"
-                },
-                {
-                  "key": "type",
-                  "value": "public",
-                  "type": "text"
-                },
-                {
-                  "key": "assigned_lawyer_id",
-                  "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
-                  "type": "text"
-                },
-                {
-                  "key": "file",
-                  "type": "file",
-                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/get_my_requests",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "client_portal",
-                "legal_request",
-                "get_my_requests"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_offices_or_lawers_available",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/get_offices_or_lawers_available",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "client_portal",
-                "legal_request",
-                "get_offices_or_lawers_available"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_protofolio_for_lawer_or_office",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/get_protofolio_for_lawer_or_office/{{lawer_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "client_portal",
-                "legal_request",
-                "get_protofolio_for_lawer_or_office",
-                "{{lawer_id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_proposals_for_my_requests",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "title_request",
-                  "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
-                  "type": "text"
-                },
-                {
-                  "key": "description_request",
-                  "value": "newtask",
-                  "type": "text"
-                },
-                {
-                  "key": "location_request",
-                  "value": "importanttask",
-                  "type": "text"
-                },
-                {
-                  "key": "budget_min",
-                  "value": "5",
-                  "type": "text"
-                },
-                {
-                  "key": "budget_max",
-                  "value": "6",
-                  "type": "text"
-                },
-                {
-                  "key": "type",
-                  "value": "public",
-                  "type": "text"
-                },
-                {
-                  "key": "assigned_lawyer_id",
-                  "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
-                  "type": "text"
-                },
-                {
-                  "key": "file",
-                  "type": "file",
-                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/client_portal/legal_request/get_proposals_for_my_requests/{{legal_request_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "client_portal",
-                "legal_request",
-                "get_proposals_for_my_requests",
-                "{{legal_request_id}}"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Market_place",
-      "item": [
-        {
-          "name": "get_my_requests",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Market_place/get_legal_requests",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Market_place",
-                "get_legal_requests"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_legal_request_details",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Market_place/get_legal_request_details/{{legal_request_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Market_place",
-                "get_legal_request_details",
-                "{{legal_request_id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "send_proposal",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "price",
-                  "value": "16",
-                  "type": "text"
-                },
-                {
-                  "key": "estimated_days",
-                  "value": "55555",
-                  "type": "text"
-                },
-                {
-                  "key": "message_for_client",
-                  "value": " be carfull be carfull",
-                  "type": "text"
-                },
-                {
-                  "key": "valid_until",
-                  "value": "2026-06-06",
-                  "type": "text"
-                },
-                {
-                  "key": "payment_terms",
-                  "value": "first firts sakmcxksam first firts sakmcxksam",
-                  "type": "text"
-                },
-                {
-                  "key": "price_currency",
-                  "value": "EGP",
-                  "type": "text"
-                },
-                {
-                  "key": "request_id",
-                  "value": "{{request_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "file",
-                  "type": "file",
-                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Market_place/send_proposal",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Market_place",
-                "send_proposal"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_my_proposals",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Market_place/get_my_proposals",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Market_place",
-                "get_my_proposals"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_proposal_details",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Market_place/get_proposal_details/{{proposal_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Market_place",
-                "get_proposal_details",
-                "{{proposal_id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update_proposal",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "proposal_id\n",
-                  "value": "{{proposal_id}}",
-                  "type": "text",
-                  "uuid": "11b6231c-3045-4520-9816-474affa82daf"
-                },
-                {
-                  "key": "request_id",
-                  "value": "{{request_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "price",
-                  "value": "1555",
-                  "type": "text"
-                },
-                {
-                  "key": "estimated_days",
-                  "value": "555555",
-                  "type": "text"
-                },
-                {
-                  "key": "message_for_client",
-                  "value": "be carfull be carfull",
-                  "type": "text"
-                },
-                {
-                  "key": "valid_until",
-                  "value": "2028-06-06",
-                  "type": "text"
-                },
-                {
-                  "key": "payment_terms",
-                  "value": "first firts sakmcxksam first firts sakmcxksam",
-                  "type": "text"
-                },
-                {
-                  "key": "price_currency",
-                  "value": "USD",
-                  "type": "text"
-                },
-                {
-                  "key": "file",
-                  "type": "file",
-                  "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Market_place/update_proposal",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Market_place",
-                "update_proposal"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete_proposal",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Market_place/delete_proposal/{{proposal_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Market_place",
-                "delete_proposal",
-                "{{proposal_id}}"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Case_Module",
-      "item": [
-        {
-          "name": "create_case",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"percentage_collection\",\r\n     \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        } ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n    \"team\": [\r\n        {\r\n             \"user_id\":\"{{lawer_id}}\",\r\n              \"role_in_case\": \"باحث قانوني\" \r\n              }\r\n    ]\r\n    // \"payment_milestones\": [\r\n    //     {\r\n    //         \"title\": \"دفعة بدء العمل\",\r\n    //         \"amount\": 5000.00,\r\n    //         \"due_date\": \"2029-11-01\" \r\n    //     }\r\n    // ]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/create_case",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "create_case"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update_case",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "// {\r\n//     \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n//     \"title\": \" private case\" ,\r\n//     \"description\": \"so hard case\"\r\n// }\r\n{\r\n    \"case_id\" : \"{{case_id}}\",\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-2222\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 500000.000,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n     \"status\": \"archived\" , // 'open', 'close', 'pending', 'archived' \r\n    // \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        {           \r\n              \"user_id\": \"{{client_id}}\", \"is_primary\": true \r\n             }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"email\": \"email@gmail.com\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    // \"team\": [\r\n    //     {\r\n    //          \"user_id\":\"30f84bb4-ce00-4d9c-ad5e-17797c668447\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           }\r\n    // ],\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/api/Case/update_case",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "update_case"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_case_details",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{admin_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_case_details/{{case_id}}",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "get_case_details",
-                "{{case_id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_cases",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/api/Case/get_cases",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "get_cases"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete_case",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"case_id\" : \"30608555-cede-4bde-8325-6cdb0f27294f\" ,\r\n    \"title\": \" public case\" ,\r\n    \"description\": \"very hard case\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/api/Case/delete_case/{{case_id}}",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "delete_case",
-                "{{case_id}}"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Authentication",
-      "item": [
-        {
-          "name": "login",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\": \"client@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Auth/login",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Auth",
-                "login"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "password_forget",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\": \"lawyer@example.com\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Auth/password/forgot",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Auth",
-                "password",
-                "forgot"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "password_reset",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"email\": \"lawyer@example.com\" ,\r\n    \"code\": \"5256606\" ,\r\n    \"token\": \"6k3ZxCrIxX7vOgmMH47WWZ33GUYVbvwszDdPUUd3rK5v91n5xBXyFv0BH4SM2qFm\" ,\r\n    \"password\": \"888888@@\",\r\n    \"password_confirmation\": \"888888@@\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Auth/password/reset",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Auth",
-                "password",
-                "reset"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "logout",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {}
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"case_id\" : \"30608555-cede-4bde-8325-6cdb0f27294f\" ,\r\n    \"title\": \" public case\" ,\r\n    \"description\": \"very hard case\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/api/Auth/logout",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Auth",
-                "logout"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "me",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {}
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"case_id\" : \"30608555-cede-4bde-8325-6cdb0f27294f\" ,\r\n    \"title\": \" public case\" ,\r\n    \"description\": \"very hard case\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:8000/api/Auth/me",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Auth",
-                "me"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Invoices_Module",
-      "item": [
-        {
-          "name": "create_invoice",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "case_id",
-                  "value": "{{case_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "total_amount",
-                  "value": "3000",
-                  "type": "text"
-                },
-                {
-                  "key": "due_date",
-                  "value": "2029-11-01",
-                  "type": "text"
-                },
-                {
-                  "key": "items[0][title]",
-                  "value": "أتعاب المحكمة التجارية",
-                  "type": "text"
-                },
-                {
-                  "key": "items[0][description]",
-                  "value": "إيداع صحيفة الدعوى ومرفقاتها",
-                  "type": "text"
-                },
-                {
-                  "key": "items[0][amount]",
-                  "value": "1500",
-                  "type": "text"
-                },
-                {
-                  "key": "items[1][title]",
-                  "value": "أتعاب المحكمة التجارية",
-                  "type": "text",
-                  "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
-                },
-                {
-                  "key": "items[1][description]",
-                  "value": "إيداع صحيفة الدعوى ومرفقاتها",
-                  "type": "text",
-                  "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
-                },
-                {
-                  "key": "items[1][amount]",
-                  "value": "1500",
-                  "type": "text",
-                  "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
-                },
-                {
-                  "key": "documents[0]",
-                  "type": "file",
-                  "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
-                  "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
-                },
-                {
-                  "key": "documents[1]",
-                  "type": "file",
-                  "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
-                  "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/create_invoice",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "create_invoice"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get_invoices_for_client",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/Case/get_invoices_for_client",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "Case",
-                "get_invoices_for_client"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Notifications_Module",
-      "item": [
-        {
-          "name": "All_notifications",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/notifications",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "notifications"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "notification_mark-read",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/notifications/{{notification_id}}/mark-read",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "notifications",
-                "{{notification_id}}",
-                "mark-read"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "mark-all-read",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/notifications/mark-all-read",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "notifications",
-                "mark-all-read"
-              ]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "Testing",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://127.0.0.1:8000/api/test",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "api",
-            "test"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "get_clients",
-      "protocolProfileBehavior": {
-        "disabledSystemHeaders": {
-          "accept-encoding": true
-        }
-      },
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{admin_token}}",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "GET",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "url": {
-          "raw": "http://127.0.0.1:8000/api/ManageUsers/get_clients",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "api",
-            "ManageUsers",
-            "get_clients"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "tokens",
-      "request": {
-        "auth": {
-          "type": "noauth"
-        },
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"token_name\": \"test\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:8000/api/tokens/create",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8000",
-          "path": [
-            "api",
-            "tokens",
-            "create"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "dashboard",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{lawer_token}}",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "GET",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "application/json",
-            "type": "text"
-          }
-        ],
-        "url": {
-          "raw": "http://127.0.0.1:8000/api/dashboard",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "api",
-            "dashboard"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "alerts",
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{lawer_token}}",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "http://127.0.0.1:8000/api/dashboard/alerts",
-          "protocol": "http",
-          "host": [
-            "127",
-            "0",
-            "0",
-            "1"
-          ],
-          "port": "8000",
-          "path": [
-            "api",
-            "dashboard",
-            "alerts"
-          ]
-        }
-      },
-      "response": []
-    }
-  ],
-  "variable": [
-    {
-      "key": "case_id",
-      "value": "",
-      "type": "default"
-    },
-    {
-      "key": "task_id",
-      "value": "",
-      "type": "default"
-    },
-    {
-      "key": "session_id",
-      "value": "",
-      "type": "default"
-    },
-    {
-      "key": "request_id",
-      "value": "",
-      "type": "default"
-    },
-    {
-      "key": "proposal_id",
-      "value": "",
-      "type": "default"
-    },
-    {
-      "key": "lawer_id",
-      "value": "",
-      "type": "default"
-    },
-    {
-      "key": "client_id",
-      "value": "",
-      "type": "default"
-    },
-    {
-      "key": "notification_id",
-      "value": "",
-      "type": "default"
-    },
-    {
-      "key": "legal_request_id",
-      "value": "",
-      "type": "default"
-    },
-    {
-      "key": "document_id",
-      "value": "",
-      "type": "default"
-    }
-  ]
+    ]
 }

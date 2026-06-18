@@ -407,6 +407,18 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation withoutTrashed()
+ */
+	class Legislation extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Message newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Message newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Message query()
