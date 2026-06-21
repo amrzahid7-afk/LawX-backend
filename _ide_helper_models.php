@@ -283,6 +283,31 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property int $id
+ * @property string $template_id
+ * @property string $file_id
+ * @property string|null $case_id
+ * @property string $generated_by
+ * @property string|null $used_values
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate whereCaseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate whereFileId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate whereGeneratedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate whereTemplateId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate whereUsedValues($value)
+ */
+	class GeneratedTemplate extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Hearing newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Hearing newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Hearing query()
@@ -407,12 +432,41 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property string $id
+ * @property string $title
+ * @property string $content
+ * @property string $law_number
+ * @property string|null $category_id
+ * @property string $status
+ * @property string $source
+ * @property \Illuminate\Support\Carbon|null $effective_date
+ * @property array<array-key, mixed>|null $embedding
+ * @property string $country
+ * @property string $level
+ * @property string|null $parent_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Legal_category|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Legislation> $children
+ * @property-read int|null $children_count
+ * @property-read Legislation|null $parent
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation withTrashed(bool $withTrashed = true)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereEffectiveDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereEmbedding($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereLawNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereLevel($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereSource($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereUpdatedAt($value)
  */
 	class Legislation extends \Eloquent {}
 }
@@ -726,6 +780,42 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereUpdatedAt($value)
  */
 	class Session extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property string $id
+ * @property string $title
+ * @property string $file_id
+ * @property array<array-key, mixed>|null $variables_json
+ * @property string|null $owner_id
+ * @property string $scope
+ * @property string $category
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \App\Models\Document $file
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\GeneratedTemplate> $generatedFiles
+ * @property-read int|null $generated_files_count
+ * @property-read \App\Models\User|null $owner
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate accessibleBy($ownerId)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate privateOf($ownerId)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate public()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereCategory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereFileId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereOwnerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereScope($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereVariablesJson($value)
+ */
+	class SmartTemplate extends \Eloquent {}
 }
 
 namespace App\Models{

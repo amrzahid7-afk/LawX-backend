@@ -1620,7 +1620,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{admin_token}}",
+                  "value": "{{lawer_token}}",
                   "type": "string"
                 }
               ]
@@ -1635,7 +1635,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"percentage_collection\",\r\n     \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        } ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n    \"team\": [\r\n        {\r\n             \"user_id\":\"{{lawer_id}}\",\r\n              \"role_in_case\": \"باحث قانوني\" \r\n              }\r\n    ]\r\n    // \"payment_milestones\": [\r\n    //     {\r\n    //         \"title\": \"دفعة بدء العمل\",\r\n    //         \"amount\": 5000.00,\r\n    //         \"due_date\": \"2029-11-01\" \r\n    //     }\r\n    // ]\r\n}",
+              "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"percentage_collection\",\r\n     \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n        //  ,\r\n        //   {\r\n        //     \"name\": \"شركة الأمل للتجارة\",\r\n        //     \"type\": \"company\",\r\n        //     \"national_id\": \"55\",\r\n        //     \"phone\": \"0551234567\"\r\n        // }\r\n    ] ,\r\n    \"team\": [\r\n        {\r\n             \"user_id\":\"{{lawer_id}}\",\r\n              \"role_in_case\": \"باحث قانوني\" \r\n              }\r\n    ]\r\n    // \"payment_milestones\": [\r\n    //     {\r\n    //         \"title\": \"دفعة بدء العمل\",\r\n    //         \"amount\": 5000.00,\r\n    //         \"due_date\": \"2029-11-01\" \r\n    //     }\r\n    // ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2460,7 +2460,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"المادة 15: شروط عقد الزواج\",\r\n    \"content\": \"يشترط لصحة العقد ركن وصيغة...\",\r\n    \"law_number\": \"ART-2024-0015\",\r\n    \"category_id\": \"25f8702a-0039-4131-8f28-175ded6b64d6\",\r\n    \"country\": \"syria\",\r\n    \"level\": \"article\"\r\n   // \"parent_id\": \"uuid-of-section-here\" // يجب أن يكون level هذا الأب = 'section'\r\n}",
+              "raw": "{\r\n    \"title\": \"المادة 15: شروط عقد الزواج\",\r\n    \"content\": \"يشترط لصحة العقد ركن وصيغة...\",\r\n    \"law_number\": \"ART-2026-0015\",\r\n    \"category_id\": \"25f8702a-0039-4131-8f28-175ded6b64d6\",\r\n    \"country\": \"syria\",\r\n    \"level\": \"article\"\r\n   // \"parent_id\": \"uuid-of-section-here\" // يجب أن يكون level هذا الأب = 'section'\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2712,6 +2712,394 @@
       ]
     },
     {
+      "name": "Templates_Module",
+      "item": [
+        {
+          "name": "upload",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "عقد إيجار موحد",
+                  "type": "text"
+                },
+                {
+                  "key": "scope",
+                  "value": "private",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "عقود",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
+                  "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.docx"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{Domain}}/templates/upload",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "templates",
+                "upload"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update_template",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "template_id",
+                  "value": "{{Template_ID}}",
+                  "type": "text",
+                  "uuid": "4d0c1077-5efb-4b53-9ee2-2b6938bd64c7"
+                },
+                {
+                  "key": "title",
+                  "value": "عقد بيعموحد",
+                  "type": "text"
+                },
+                {
+                  "key": "scope",
+                  "value": "public",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "سندات",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
+                  "src": "postman-cloud:///1f16c8d2-ed62-4250-b0c7-73dc72146144"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{Domain}}/templates/update_template",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "templates",
+                "update_template"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTemplates",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{Domain}}/templates/getTemplates",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "templates",
+                "getTemplates"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "show_template_details",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{Domain}}/templates/show_template_details?template_id={{template_id}}",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "templates",
+                "show_template_details"
+              ],
+              "query": [
+                {
+                  "key": "template_id",
+                  "value": "{{template_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete_template",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{Domain}}/templates/delete_template?template_id={{Template_ID}}",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "templates",
+                "delete_template"
+              ],
+              "query": [
+                {
+                  "key": "template_id",
+                  "value": "{{Template_ID}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "generate_template",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \r\n    // \"case_id\":\"{{case_id}}\" ,\r\n    \"template_id\":\"{{template_id}}\" ,\r\n     \"custom_values\": {\r\n        \"q\": \"أحمد محمد\",\r\n        \"f\": \"2026-06-21\",\r\n        \"signature_saler\": \"50000 ل.س\" ,\r\n        \"signature_tow\": \"50000 ل.س\" ,\r\n        \"phone_number1\": \"50000 ل.س\"\r\n    }\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{Domain}}/templates/generate_template",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "templates",
+                "generate_template"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "download_generated_file",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \r\n    // \"case_id\":\"{{case_id}}\" ,\r\n    \"template_id\":\"{{template_id}}\" ,\r\n     \"custom_values\": {\r\n        \"q\": \"أحمد محمد\",\r\n        \"f\": \"2026-06-21\",\r\n        \"signature_saler\": \"50000 ل.س\" ,\r\n        \"signature_tow\": \"50000 ل.س\" ,\r\n        \"phone_number1\": \"50000 ل.س\"\r\n    }\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{Domain}}/templates/download_generated_file?generated_id={{generated_teplate_id}}",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "templates",
+                "download_generated_file"
+              ],
+              "query": [
+                {
+                  "key": "generated_id",
+                  "value": "{{generated_teplate_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Testing",
       "request": {
         "method": "GET",
@@ -2912,6 +3300,21 @@
     },
     {
       "key": "Domain",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "Template_ID",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "template_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "generated_teplate_id",
       "value": "",
       "type": "default"
     }

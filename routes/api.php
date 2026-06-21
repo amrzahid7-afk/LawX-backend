@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\LegislationController;
+use App\Http\Controllers\Api\TemplateController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CaseController;
 use App\Http\Controllers\Dashboard\alertsController;
@@ -15,8 +17,6 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserManagmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\Api\LegislationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +119,24 @@ Route::middleware('auth:sanctum')->prefix('/legislation')->group(function () {
     Route::post('/update_law', [LegislationController::class, 'update_law']);
     Route::get('/delete_law/{law_id}', [LegislationController::class, 'delete_law']);
 });
+// templates apis
+Route::middleware(['auth:sanctum'])->prefix('/templates')->group(function () {
+    // رفع قالب جديد
+    Route::post('/upload', [TemplateController::class, 'upload']); // Done
+    // جلب القوالب المتاحة (قراءة)
+    Route::get('/getTemplates', [TemplateController::class, 'getTemplates']); //  Done
+    Route::get('/show_template_details', [TemplateController::class, 'show_template_details']);  //Done
+    // تحديث وحذف (للمالك فقط)
+    Route::post('/update_template', [TemplateController::class, 'update_template']); // Done
+
+
+
+    Route::get('/delete_template', [TemplateController::class, 'delete_template']);
+    // التوليد والتحميل
+    Route::post('/generate_template', [TemplateController::class, 'generate_template']);
+    Route::get('/download_generated_file', [TemplateController::class, 'download_generated_file']);
+});
+
 Route::prefix('/dashboard')->middleware('auth:sanctum')->group(function () {
 
     route::get('/', [DashboardController::class, 'getStatistics']);
