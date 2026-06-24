@@ -24,7 +24,7 @@ class LegislationController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'status' => 'nullable|in:active,amended,repealed',
-                'category_id' => 'nullable|string|exists:categories,id',
+                'category_id' => 'nullable|string|exists:legal_categories,id',
                 'country' => 'nullable|string|max:100',
             ], [
                 'category_id.exists' => 'التصنيف غير موجود',
@@ -48,17 +48,18 @@ class LegislationController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'Line' => $e->getLine()
+                'Line' => $e->getLine(),
+                'Class' => $e->getFile()
             ], 500);
         }
     }
     public function get_law_details($id)
     {
         try {
-            // validate ID
             $validator = Validator::make(['id' => $id], [
                 'id' => 'required|exists:legislations,id',
             ]);
+
             if ($validator->fails()) {
                 return response()->json([
                     'success' => false,
@@ -66,18 +67,20 @@ class LegislationController extends Controller
                     'errors' => $validator->errors(),
                 ], 422);
             }
-            // Call Service
-            $reponse = $this->legislationService->get_law_details($id);
-            // send response
+
+            $response = $this->legislationService->get_law_details($id);
+
             return response()->json([
                 'success' => true,
-                'message' => 'تم جلب التشريعات بنجاح',
-                'data' => $reponse['data'],
+                'message' => $response['message'],
+                'data' => $response['data'],
             ]);
         } catch (\Exception $e) {
             return response()->json([
+                'success' => false,
+                'message' => 'حدث خطأ في الخادم',
                 'error' => $e->getMessage(),
-                'Line' => $e->getLine()
+                'line' => $e->getLine()
             ], 500);
         }
     }
@@ -125,20 +128,21 @@ class LegislationController extends Controller
         }
     }
 
-    public function update_law(UpdateLegislationRequest $request, Legislation $legislation): JsonResponse
+    public function update_law(UpdateLegislationRequest $request): JsonResponse
     {
         try {
             $response = $this->legislationService->update_law($request->validated());
+
             return response()->json([
-                'success' => true,
-                'message' => 'تم تحديث التشريع بنجاح',
-                'data' => $response['data'],
-            ], 200);
+                'success' => $response['success'],
+                'message' => $response['message'],
+                'data'    => $response['data'],
+            ], $response['success'] ? 200 : 400);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'حدث خطأ في الخادم',
-                'error' => $e->getMessage(),
+                'error'   => $e->getMessage(),
             ], 500);
         }
     }

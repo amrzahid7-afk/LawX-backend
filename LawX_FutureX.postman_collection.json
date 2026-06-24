@@ -2322,96 +2322,32 @@
             ],
             "body": {
               "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "case_id",
-                  "value": "{{case_id}}",
-                  "type": "text"
-                },
-                {
-                  "key": "total_amount",
-                  "value": "3000",
-                  "type": "text"
-                },
-                {
-                  "key": "due_date",
-                  "value": "2029-11-01",
-                  "type": "text"
-                },
-                {
-                  "key": "items[0][title]",
-                  "value": "أتعاب المحكمة التجارية",
-                  "type": "text"
-                },
-                {
-                  "key": "items[0][description]",
-                  "value": "إيداع صحيفة الدعوى ومرفقاتها",
-                  "type": "text"
-                },
-                {
-                  "key": "items[0][amount]",
-                  "value": "1500",
-                  "type": "text"
-                },
-                {
-                  "key": "items[1][title]",
-                  "value": "أتعاب المحكمة التجارية",
-                  "type": "text",
-                  "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
-                },
-                {
-                  "key": "items[1][description]",
-                  "value": "إيداع صحيفة الدعوى ومرفقاتها",
-                  "type": "text",
-                  "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
-                },
-                {
-                  "key": "items[1][amount]",
-                  "value": "1500",
-                  "type": "text",
-                  "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
-                },
-                {
-                  "key": "documents[0]",
-                  "type": "file",
-                  "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
-                  "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
-                },
-                {
-                  "key": "documents[1]",
-                  "type": "file",
-                  "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
-                  "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
-                }
-              ]
+              "formdata": []
             },
             "url": {
-              "raw": "{{Domain}}/legislation/get",
+              "raw": "{{Domain}}/legislation/Get_legislation_with_filter_options?status=active &category_id={{law_category_id}}&country=syria",
               "host": [
                 "{{Domain}}"
               ],
               "path": [
                 "legislation",
-                "get"
+                "Get_legislation_with_filter_options"
               ],
               "query": [
                 {
                   "key": "status",
                   "value": "active ",
-                  "description": "values : active,amended,repealed",
-                  "disabled": true
+                  "description": "values : active,amended,repealed"
                 },
                 {
                   "key": "category_id",
-                  "value": "jiajsuuajnsjnamkm",
-                  "description": "UUID for legal category ",
-                  "disabled": true
+                  "value": "{{law_category_id}}",
+                  "description": "UUID for legal category "
                 },
                 {
                   "key": "country",
                   "value": "syria",
-                  "description": "Any country Name",
-                  "disabled": true
+                  "description": "Any country Name"
                 }
               ]
             }
@@ -2552,7 +2488,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"q\": \"زواج\", // search word or sentance\r\n    \"limit\": 10 // number of records needs (optional)\r\n}",
+              "raw": "{\r\n    \"q\": \"المعاملات المدنية\", // search word or sentance\r\n    \"limit\": 10 // number of records needs (optional)\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2600,7 +2536,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"المادة 15: شروط عقد الزواج\",\r\n    \"content\": \"يشترط لصحة العقد ركن وصيغة...\",\r\n    \"law_number\": \"ART-2026-0015\",\r\n    \"category_id\": \"25f8702a-0039-4131-8f28-175ded6b64d6\",\r\n    \"country\": \"syria\",\r\n    \"level\": \"article\"\r\n   // \"parent_id\": \"uuid-of-section-here\" // يجب أن يكون level هذا الأب = 'section'\r\n}",
+              "raw": "\r\n{\r\n    \"title\": \"قانون المعاملات المدنية السوري\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"L-2026-009\",\r\n    \"category_id\": \"212e117c-1e8d-4124-90b8-56c20a7c5e2c\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n         \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2648,7 +2584,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"title\": \"الباب الأول: الأحكام العامة (محدث)\",\r\n    \"law_id\": \"019eda7e-7b82-705e-8c73-090cfd2d7688\",\r\n    \"content\": \"تسري أحكام هذا القانون على كافة المعاملات المدنية والتجارية... (محدث)\"\r\n}",
+              "raw": "// {\r\n//     \"title\": \"الباب الأول: الأحكام العامة (محدث)\",\r\n//     \"law_id\": \"{{lawer_id}}\",\r\n//     \"content\": \"تسري أحكام هذا القانون على كافة المعاملات المدنية والتجارية... (محدث)\"\r\n// }\r\n{\r\n    \"law_id\": \"{{law_id}}\",\r\n    \"title\": \"قانون المعاملات المدنية السوري (نسخة محدثة)\",\r\n    \"content\": \"يهدف هذا النظام المعدل إلى تنظيم كافة المعاملات القانونية بين الأفراد...\",\r\n     //\"law_number\": \"L-2026-003\",\r\n    \"category_id\": \"212e117c-1e8d-4124-90b8-56c20a7c5e2c\",\r\n    \"status\": \"amended\",\r\n    \"effective_date\": \"2026-06-25\",\r\n    \"country\": \"syria\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد والمسؤولية التقصيرية\",\r\n    \"related_legislation_ids\": [\r\n        // \"019ef8c3-9e08-7028-a2f6-769e5826aaaa\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1 (معدلة)\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول وتوافقهما على وجه يثبت أثره في المعقود عليه.\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين وأهليتهما القانونية.\"\r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -3315,6 +3251,16 @@
     },
     {
       "key": "generated_teplate_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "law_category_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "law_id",
       "value": "",
       "type": "default"
     }

@@ -111,7 +111,7 @@ Route::prefix('ManageUsers/')->middleware('auth:sanctum')->group(function () {
 //  المكتبة القانونية (التشريعات والقوانين)
 Route::middleware('auth:sanctum')->prefix('/legislation')->group(function () {
     // المحامي
-    Route::get('/get', [LegislationController::class, 'index']);
+    Route::get('/Get_legislation_with_filter_options', [LegislationController::class, 'index']);
     Route::get('/get_law_details/{law_id}', [LegislationController::class, 'get_law_details']);
     Route::post('/semantic_search', [LegislationController::class, 'semantic_search']);
     // النقابة
