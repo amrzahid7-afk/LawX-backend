@@ -15,15 +15,16 @@ class SmartTemplate extends Model
 
     protected $fillable = [
         'title',
+        'template_desc',
         'file_id',
         'variables_json',
         'owner_id',
-        'scope',
+        // 'scope',
         'category',
     ];
 
     protected $casts = [
-        'variables_json' => 'array', // تحويل JSON إلى Array تلقائياً
+        'variables_json' => 'array',
     ];
 
     /**

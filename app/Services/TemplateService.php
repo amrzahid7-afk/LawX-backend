@@ -30,7 +30,7 @@ class TemplateService
                 'file_path' => $storedPath,
                 'type' => $extension,
                 'file_size' => $file->getSize(),
-                'uploaded_by' => Auth::id(),
+                'uploaded_by' => request()->user()->id,
             ]);
             // Extract variables From File with package PhpWord
             $variables = $this->extractVariablesFromFile($storedPath, $extension);
@@ -39,110 +39,28 @@ class TemplateService
                 'title' => $validatedData['title'],
                 'file_id' => $fileRecord->id,
                 'variables_json' => $variables,
-                'owner_id' => $validatedData['scope'] === 'private' ? Auth::id() : null,
-                'scope' => $validatedData['scope'],
+                'owner_id' => request()->user()->id,
+                'template_desc' => $validatedData['template_desc'],
+                // 'scope' => $validatedData['scope'],
                 'category' => $validatedData['category'],
             ]);
-
+            // Formatting Data 
+            $formattedVariables = [
+                "Template ID" => $template->id,
+                "variables Detected in Template" => $template->variables_json,
+                "Template Title" => $template->title,
+                "Template Description" => $template->template_desc,
+                "Template Category" => $template->category
+            ];
             return [
                 'success' => true,
                 'message' => 'تم رفع القالب بنجاح',
                 'data' => [
-                    'template' => $template->load(['file', 'owner'])
+                    $formattedVariables,
                 ],
             ];
         });
     }
-
-
-    public function getTemplates(array $filters)
-    {
-        $query = SmartTemplate::with(['file', 'owner'])->accessibleBy(request()->user()->id);
-
-        if (!empty($filters['category'])) {
-            $query->where('category', $filters['category']);
-        }
-
-        if (!empty($filters['scope']) && in_array($filters['scope'], ['public', 'private'])) {
-            if ($filters['scope'] === 'private') {
-                $query->where('owner_id', request()->user()->id);
-            } else {
-                $query->where('scope', 'public');
-            }
-        }
-
-        if (!empty($filters['search'])) {
-            $query->where('title', 'like', '%' . $filters['search'] . '%');
-        }
-
-        $templates = $query->latest()->paginate(20);
-
-        return [
-            'success' => true,
-            'message' => 'تم جلب القوالب بنجاح',
-            'data' => [
-                'templates' => $templates,
-                'pagination' => [
-                    'current_page' => $templates->currentPage(),
-                    'total_pages'  => $templates->lastPage(),
-                    'total_items'  => $templates->total(),
-                    'per_page'     => $templates->perPage(),
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * جلب تفاصيل قالب معين
-     */
-    public function getTemplateById(string $id)
-    {
-        $template = SmartTemplate::with(['file', 'owner', 'generatedFiles'])
-            ->accessibleBy(request()->user()->id)
-            ->find($id);
-        return [
-            'status' => true,
-            'message' => 'تم جلب تفاصيل القالب بنجاح',
-            'data' => ['template' => $template],
-        ];
-    }
-
-    /**
-     * تحديث قالب
-     */
-    // public function updateTemplate(array $validatedData)
-    // {
-
-    //     // get template by ID
-    //     $template = SmartTemplate::find($validatedData['template_id']);
-    //     // here will add the constraint to edit this template 
-    //     $template->update([
-    //         'title' => $validatedData['title'] ?? $template->title,
-    //         'scope' => $validatedData['scope'] ?? $template->scope,
-    //         'category' => $validatedData['category'] ?? $template->category,
-    //     ]);
-    //     if (isset($validatedData['file']) && $validatedData['file']) {
-    //         $file = $validatedData['file'];
-    //         $extension = $file->getClientOriginalExtension();
-    //         $storedPath = $file->store('templates/originals', 'public');
-    //         //  $template->file->delete();
-    //         $template->file->update([
-    //             'file_path' => $storedPath,
-    //             'type' => $extension,
-    //             'file_size' => $file->getSize(),
-    //         ]);
-
-    //         // ✅ إعادة استخراج المتغيرات باستخدام الـ Trait
-    //         $variables = $this->extractVariablesFromFile($storedPath, $extension);
-    //         $template->update(['variables_json' => $variables]);
-    //     }
-
-    //     return [
-    //         'success' => true,
-    //         'message' => 'تم تحديث القالب بنجاح',
-    //         'data' => ['template' => $template->load(['file', 'owner'])],
-    //     ];
-    // }
     public function updateTemplate(array $validatedData)
     {
         // 1. جلب القالب
@@ -157,10 +75,12 @@ class TemplateService
             ], 403));
         }
 
+        DB::BeginTransaction();
         // 3. تحديث البيانات الأساسية
         $template->update([
             'title'    => $validatedData['title'] ?? $template->title,
-            'scope'    => $validatedData['scope'] ?? $template->scope,
+            'template_desc'    => $validatedData['template_desc'] ?? $template->template_desc,
+            // 'scope'    => $validatedData['scope'] ?? $template->scope,
             'category' => $validatedData['category'] ?? $template->category,
         ]);
 
@@ -169,37 +89,128 @@ class TemplateService
             $file = $validatedData['file'];
             $extension = $file->getClientOriginalExtension();
 
-            // ✅ حفظ الملف الجديد في Storage
             $storedPath = $file->store('templates/originals', 'public');
 
-            // ✅ حذف الملف الفعلي القديم من Storage (وليس من قاعدة البيانات!)
             if ($template->file && $template->file->file_path) {
                 \Storage::disk('public')->delete($template->file->file_path);
             }
 
-            // ✅ تحديث سجل الملف في قاعدة البيانات (بدون حذفه!)
             $template->file->update([
                 'file_path' => $storedPath,
-                'type'      => $extension,
+                'type'      => "template",
                 'file_size' => $file->getSize(),
             ]);
 
-            // ✅ إعادة استخراج المتغيرات من الملف الجديد
             $variables = $this->extractVariablesFromFile($storedPath, $extension);
             $template->update(['variables_json' => $variables]);
+            DB::commit();
         }
-
+        $formattedVariables = [
+            "Template ID" => $template->id,
+            "variables Detected in Template" => $template->variables_json,
+            "Template Title" => $template->title,
+            "Template Description" => $template->template_desc,
+            "Template Category" => $template->category
+        ];
         return [
             'success' => true,
             'message' => 'تم تحديث القالب بنجاح',
             'data' => [
-                'template' => $template->load(['file', 'owner'])
+                $formattedVariables
             ],
         ];
     }
+
+    public function getTemplates(array $filters)
+    {
+        $query = SmartTemplate::query();
+
+        if (!empty($filters['category'])) {
+            $query->where('category', $filters['category']);
+        }
+
+        // if (!empty($filters['scope']) && in_array($filters['scope'], ['public', 'private'])) {
+        //     if ($filters['scope'] === 'private') {
+        //         $query->where('owner_id', request()->user()->id);
+        //     } else {
+        //         $query->where('scope', 'public');
+        //     }
+        // }
+
+        if (!empty($filters['search'])) {
+            $query->where('title', 'like', '%' . $filters['search'] . '%');
+        }
+
+        $templates = $query->latest()->paginate(20);
+        $formattedTemplates = collect($templates->items())->map(function ($template) {
+            return [
+                'Template_id'         => $template->id,
+                'title'      => $template->title,
+                'category'   => $template->category,     // مثل: عقود / مذكرات / سندات
+                // 'scope'      => $template->scope,        // عام (public) / خاص (private)
+                // 'owner_name' => $template->owner ? $template->owner->full_name : 'إدارة النقابة',
+                'Created_At_Date'       => $template->created_at->format('Y-m-d'), // صيغة التاريخ المتواجدة بالصورة
+            ];
+        });
+        return [
+            'success' => true,
+            'message' => 'تم جلب القوالب بنجاح',
+            'data'    => $formattedTemplates,
+            'pagination' => [
+                'current_page' => $templates->currentPage(),
+                'total_pages'  => $templates->lastPage(),
+                'total_items'  => $templates->total(),
+                'per_page'     => $templates->perPage(),
+                'next_page_url' => $templates->nextPageUrl(),
+                'prev_page_url' => $templates->previousPageUrl(),
+                'last_page_url' => $templates->url($templates->lastPage()),
+            ],
+        ];
+    }
+
     /**
-     * حذف قالب
+     * جلب تفاصيل قالب معين
      */
+    public function getTemplateById(string $id)
+    {
+        $template = SmartTemplate::with(['file', 'generatedFiles.uploadedBy'])->find($id);
+
+        $formatted_data = [
+            "Template_ID"          => $template->id,
+            "Template_name"        => $template->title,
+            "Template_description" => $template->template_desc,
+            "Template_category"    => $template->category,
+            "Template_created_at"  => $template->created_at->format('Y-m-d'),
+            "Template_updated_at"  => $template->updated_at->format('Y-m-d'),
+            "Template_variables"   => $template->variables_json,
+
+            "Template_file"        => $template->file && Storage::disk('public')->exists($template->file->file_path)
+                ? Storage::disk('public')->url($template->file->file_path)
+                : null,
+
+            "template_file_size"   => $template->file && Storage::disk('public')->exists($template->file->file_path)
+                ? round(Storage::disk('public')->size($template->file->file_path) / (1024 * 1024), 2) . ' MB'
+                : '0 MB',
+
+            "Generated_Files"      => $template->generatedFiles->map(function ($file) {
+                $exists = Storage::disk('public')->exists($file->file_path);
+                return [
+                    'file_url'        => $exists ? Storage::disk('public')->url($file->file_path) : null,
+                    'file_size'       => $exists
+                        ? round(Storage::disk('public')->size($file->file_path) / (1024 * 1024), 2) . ' MB'
+                        : '0 MB',
+                    'User_Who_create' => $file->uploadedBy ? $file->uploadedBy->name : 'غير معروف'
+                ];
+            }),
+        ];
+
+        return [
+            'status'  => true,
+            'message' => 'تم جلب تفاصيل القالب بنجاح',
+            'data'    => $formatted_data,
+        ];
+    }
+
     public function deleteTemplate()
     {
         $template = SmartTemplate::find(request()->template_id);
@@ -223,70 +234,69 @@ class TemplateService
         ];
     }
 
-    /**
-     * توليد ملف من قالب (FR-LB-02)
-     */
     public function generateFromTemplate($data)
     {
-        $template = \App\Models\SmartTemplate::find($data['template_id']);
-
-        if (!$template || !$template->file) {
-            throw new \Exception("القالب أو الملف المرتبط به غير موجود");
-        }
-
+        $template = SmartTemplate::with('file')->find($data['template_id']);
         $customValues = $data['custom_values'] ?? [];
 
         return DB::transaction(function () use ($template, $customValues) {
-
             $templateFilePath = $template->file->file_path;
 
-            // ✅ التأكد من وجود الملف الفعلي في الـ Storage
             if (!Storage::disk('public')->exists($templateFilePath)) {
                 throw new \Exception("ملف القالب غير موجود في التخزين: " . $templateFilePath);
             }
 
-            $outputFileName = Str::slug($template->title) . '_' . time() . '.docx';
-            $outputPath = 'templates/generated/' . $outputFileName;
+            // مسار ملف الـ Word المؤقت
+            $timestamp = time();
+            $docxFileName = Str::slug($template->title) . '_' . $timestamp . '.docx';
+            $docxPath = 'templates/generated/' . $docxFileName;
 
-            // ✅ ضمان أن المتغيرات مصفوفة (لتجنب خطأ foreach)
             $variables = is_array($template->variables_json) ? $template->variables_json : [];
 
-            // ✅ استدعاء دالة التوليد من الـ Trait
+            // call function to generate Word file 
             $success = $this->generateFromWordTemplate(
                 $templateFilePath,
                 $variables,
                 $customValues,
-                $outputPath
+                $docxPath
             );
 
             if (!$success) {
-                throw new \Exception("فشل في معالجة ملف القالب، تأكد من أن الملف بصيغة docx صالحة");
+                throw new \Exception("فشل في معالجة ملف القالب وتوليد صيغة Word");
             }
 
-            // حفظ الملف المولد في جدول Documents
-            $generatedFile = \App\Models\Document::create([
-                'file_path' => $outputPath,
-                'type' => 'docx',
-                'uploaded_by' => auth('sanctum')->id(),
+            // 2. استدعاء دالة التحويل إلى PDF المعتمدة على Spatie
+            $pdfPath = $this->convertToPdf($docxPath);
+
+            if (!$pdfPath) {
+                throw new \Exception("فشل في تحويل الملف إلى PDF عبر حزمة Spatie");
+            }
+
+            // 3. تنظيف التخزين وحذف ملف الـ Word المؤقت فوراً
+            Storage::disk('public')->delete($docxPath);
+
+            // 4. تسجيل الملف الـ PDF في قاعدة البيانات
+            $generatedFile = Document::create([
+                'file_path'   => $pdfPath,
+                'type'        => 'pdf',
+                'uploaded_by' => auth('sanctum')->check() ? auth('sanctum')->id() : null,
             ]);
 
-            $generated = \App\Models\GeneratedTemplate::create([
-                'template_id' => $template->id,
-                'file_id' => $generatedFile->id,
-                'generated_by' => auth('sanctum')->id(),
-                'used_values' => $customValues,
+            GeneratedTemplate::create([
+                'template_id'  => $template->id,
+                'file_id'      => $generatedFile->id,
+                'generated_by' => auth('sanctum')->check() ? auth('sanctum')->id() : null,
+                'used_values'  => $customValues,
             ]);
 
-            $downloadUrl = Storage::disk('public')->url($outputPath);
+            // رابط التحميل النهائي للملف الـ PDF
+            $downloadUrl = Storage::disk('public')->url($pdfPath);
 
+            // 5. الرد المطلوب تماماً (Success Message + Download URL)
             return [
-                'success' => true,
-                'message' => 'تم توليد الملف بنجاح',
-                'data' => [
-                    'generated' => $generated->load(['file', 'template']),
-                    'download_url' => $downloadUrl,
-                    'used_values' => $customValues,
-                ],
+                'success'      => true,
+                'message'      => 'تم توليد الملف بنجاح',
+                'download_url' => $downloadUrl,
             ];
         });
     }
@@ -304,22 +314,6 @@ class TemplateService
             'lawyer_name' => Auth::user()->name ?? '',
             'today_date' => now()->format('Y-m-d'),
             'office_name' => config('app.name', 'LawX Office'),
-        ];
-    }
-
-    public function getDownloadUrl(string $generatedId)
-    {
-        $generated = GeneratedTemplate::with('file')
-            ->where('generated_by', auth('sanctum')->user()->id)
-            ->find($generatedId);
-        $downloadUrl = Storage::disk('public')->url($generated->file->file_path);
-        return [
-            'success' => true,
-            'data' => [
-                'download_url' => $downloadUrl,
-                'file_name' => $generated->file->file_name,
-                'expires_at' => now()->addMinutes(10)->toIso8601String(),
-            ],
         ];
     }
 }

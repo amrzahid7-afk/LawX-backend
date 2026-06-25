@@ -6,6 +6,8 @@ use PhpOffice\PhpWord\TemplateProcessor;
 use Smalot\PdfParser\Parser;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use PhpOffice\PhpWord\IOFactory;
+use Spatie\Pdf\Pdf;
 
 trait HasTemplateVariables
 {
@@ -94,12 +96,8 @@ trait HasTemplateVariables
     /**
      * توليد ملف جديد من قالب (Word فقط - لأن PDF لا يدعم التعديل بسهولة)
      */
-    public function generateFromWordTemplate(
-        string $templateFilePath,
-        array $variables,
-        array $values,
-        string $outputPath
-    ): bool {
+    public function generateFromWordTemplate(string $templateFilePath, array $variables, array $values, string $outputPath): bool
+    {
         try {
             $fullTemplatePath = Storage::disk('public')->path($templateFilePath);
             $fullOutputPath = Storage::disk('public')->path($outputPath);
@@ -221,6 +219,79 @@ trait HasTemplateVariables
             }
         } catch (\Exception $e) {
             Log::error('Mustache replacement error: ' . $e->getMessage());
+        }
+    }
+    private function convertToPdf(string $docxRelativePath): ?string
+    {
+        try {
+            $fullDocxPath = Storage::disk('public')->path($docxRelativePath);
+
+            // بناء المسار النهائي لملف الـ PDF
+            $pdfRelativePath = preg_replace('/\.docx$/i', '.pdf', $docxRelativePath);
+            $fullPdfPath = Storage::disk('public')->path($pdfRelativePath);
+
+            // 1. قراءة ملف الـ Word وتحويله إلى كود HTML
+            $phpWord = IOFactory::load($fullDocxPath);
+            $htmlWriter = IOFactory::createWriter($phpWord, 'HTML');
+
+            ob_start();
+            $htmlWriter->save('php://output');
+            $htmlContent = ob_get_clean();
+
+            // 2. إضافة تنسيق الـ HTML
+            $wrappedHtml = '
+        <html dir="rtl" lang="ar">
+        <head>
+            <meta charset="utf-8">
+            <style>
+                body { font-family: "Arial", sans-serif; line-height: 1.6; }
+            </style>
+        </head>
+        <body>' . $htmlContent . '</body>
+        </html>';
+
+            // 3. استخدام حزمة Spatie والتوليد المباشر
+            \Spatie\LaravelPdf\Facades\Pdf::html($wrappedHtml)
+                ->withBrowsershot(function ($browsershot) {
+                    // إعدادات التوافق الأساسية للسيرفرات والأجهزة المحلية
+                    $browsershot->noSandbox()
+                        ->addChromiumArguments([
+                            '--disable-setuid-sandbox',
+                            '--disable-extensions',
+                            '--disable-dev-shm-usage'
+                        ]);
+
+                    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                        // تحديد مسارات Node الافتراضية
+                        $browsershot->setNodeBinary(env('NODE_BINARY', 'node'));
+                        $browsershot->setNpmBinary(env('NPM_BINARY', 'npm'));
+
+                        // ✅ مسارات متصفح Chrome الافتراضية الشائعة على أي جهاز ويندوز
+                        $possibleChromePaths = [
+                            'C:\Program Files\Google\Chrome\Application\chrome.exe',
+                            'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
+                        ];
+
+                        foreach ($possibleChromePaths as $path) {
+                            if (file_exists($path)) {
+                                $browsershot->setChromePath($path);
+                                break;
+                            }
+                        }
+                    }
+                    // 💡 على سيرفر Linux (Production) لاحقاً، الحزمة ستلتقط الـ Chromium المثبت على السيرفر تلقائياً بدون تدخل!
+                })
+                ->save($fullPdfPath);
+
+            if (file_exists($fullPdfPath)) {
+                Log::info("تم تحويل الملف إلى PDF بنجاح باستخدام Spatie PDF");
+                return $pdfRelativePath;
+            }
+
+            return null;
+        } catch (\Exception $e) {
+            Log::error("خطأ أثناء التحويل باستخدام Spatie: " . $e->getMessage());
+            throw new \Exception("فشل تحويل Spatie بسبب: " . $e->getMessage());
         }
     }
 }

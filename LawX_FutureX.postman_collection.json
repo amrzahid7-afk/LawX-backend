@@ -2685,11 +2685,6 @@
                   "type": "text"
                 },
                 {
-                  "key": "scope",
-                  "value": "private",
-                  "type": "text"
-                },
-                {
                   "key": "category",
                   "value": "عقود",
                   "type": "text"
@@ -2699,6 +2694,12 @@
                   "type": "file",
                   "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
                   "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.docx"
+                },
+                {
+                  "key": "template_desc",
+                  "value": "عقد إيجار موحد",
+                  "type": "text",
+                  "uuid": "a20636e8-4374-42fa-a371-57b48106a9fd"
                 }
               ]
             },
@@ -2752,12 +2753,12 @@
                 },
                 {
                   "key": "title",
-                  "value": "عقد بيعموحد",
+                  "value": "عقد بيع موحد",
                   "type": "text"
                 },
                 {
-                  "key": "scope",
-                  "value": "public",
+                  "key": "template_description",
+                  "value": "عقد بيع موحد",
                   "type": "text"
                 },
                 {
@@ -2958,7 +2959,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \r\n    // \"case_id\":\"{{case_id}}\" ,\r\n    \"template_id\":\"{{template_id}}\" ,\r\n     \"custom_values\": {\r\n        \"q\": \"أحمد محمد\",\r\n        \"f\": \"2026-06-21\",\r\n        \"signature_saler\": \"50000 ل.س\" ,\r\n        \"signature_tow\": \"50000 ل.س\" ,\r\n        \"phone_number1\": \"50000 ل.س\"\r\n    }\r\n\r\n}",
+              "raw": "{\r\n   // \"case_id\":\"{{case_id}}\" ,\r\n\"template_id\" : \"{{Template_ID}}\" ,\r\n     \"custom_values\": {\r\n       \"اسم البائع\": \"عمر الزهراوي\",\r\n       \"اسم الشاري\": \"عمر الزهلراوي\",\r\n       \"تاريخ البيع\": \"15-12-2000\",\r\n       \"رقم العقار\": \"516\",\r\n       \"وصف العقار \": \"أرض زراعية\",\r\n       \"توقيع الطرف الاول\": \"شسشسش\"\r\n    }  \r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2973,61 +2974,6 @@
               "path": [
                 "templates",
                 "generate_template"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "download_generated_file",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true,
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{lawer_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \r\n    // \"case_id\":\"{{case_id}}\" ,\r\n    \"template_id\":\"{{template_id}}\" ,\r\n     \"custom_values\": {\r\n        \"q\": \"أحمد محمد\",\r\n        \"f\": \"2026-06-21\",\r\n        \"signature_saler\": \"50000 ل.س\" ,\r\n        \"signature_tow\": \"50000 ل.س\" ,\r\n        \"phone_number1\": \"50000 ل.س\"\r\n    }\r\n\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{Domain}}/templates/download_generated_file?generated_id={{generated_teplate_id}}",
-              "host": [
-                "{{Domain}}"
-              ],
-              "path": [
-                "templates",
-                "download_generated_file"
-              ],
-              "query": [
-                {
-                  "key": "generated_id",
-                  "value": "{{generated_teplate_id}}"
-                }
               ]
             }
           },

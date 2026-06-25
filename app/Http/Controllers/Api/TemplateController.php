@@ -36,12 +36,14 @@ class TemplateController extends Controller
                 'status' => true,
                 'message' => ' تم رفع القالب',
                 'data' => $response,
-            ], 500);
+            ], 200);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'فشل في رفع القالب',
                 'error' => $e->getMessage(),
+                'Line' => $e->getLine(),
+                'Class' => $e->getFile(),
             ], 500);
         }
     }
@@ -63,6 +65,8 @@ class TemplateController extends Controller
                 'status' => false,
                 'message' => 'فشل في رفع القالب',
                 'error' => $e->getMessage(),
+                'Line' => $e->getLine(),
+                'Class' => $e->getFile(),
             ], 500);
         }
     }
@@ -176,37 +180,6 @@ class TemplateController extends Controller
                 'error' => $e->getMessage(),
                 'Line' => $e->getLine(),
                 'File' => $e->getFile(),
-            ], 500);
-        }
-    }
-
-    /**
-     * API 7: تحميل ملف مولد
-     */
-    public function download_generated_file()
-    {
-        try {
-            $generatedId = request()->generated_id;
-            $validator = Validator::make(['generated_id'  =>  $generatedId], [
-                'generated_id' => 'required|exists:generated_templates,id',
-            ], [
-                'generated_id.required' => 'Generated ID is required',
-                'generated_id.exists' => 'Generated ID does not exist',
-            ]);
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'بيانات المدخلات غير صحيحة',
-                    'errors' => $validator->errors(),
-                ]);
-            }
-            $response = $this->templateService->getDownloadUrl($generatedId);
-            return response()->json($response);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'فشل في جلب رابط التحميل',
-                'error' => $e->getMessage(),
             ], 500);
         }
     }

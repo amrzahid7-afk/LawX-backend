@@ -121,20 +121,12 @@ Route::middleware('auth:sanctum')->prefix('/legislation')->group(function () {
 });
 // templates apis
 Route::middleware(['auth:sanctum'])->prefix('/templates')->group(function () {
-    // رفع قالب جديد
     Route::post('/upload', [TemplateController::class, 'upload']); // Done
-    // جلب القوالب المتاحة (قراءة)
     Route::get('/getTemplates', [TemplateController::class, 'getTemplates']); //  Done
     Route::get('/show_template_details', [TemplateController::class, 'show_template_details']);  //Done
-    // تحديث وحذف (للمالك فقط)
     Route::post('/update_template', [TemplateController::class, 'update_template']); // Done
-
-
-
-    Route::get('/delete_template', [TemplateController::class, 'delete_template']);
-    // التوليد والتحميل
-    Route::post('/generate_template', [TemplateController::class, 'generate_template']);
-    Route::get('/download_generated_file', [TemplateController::class, 'download_generated_file']);
+    Route::get('/delete_template', [TemplateController::class, 'delete_template']); // Done
+    Route::post('/generate_template', [TemplateController::class, 'generate_template']); // Done
 });
 
 Route::prefix('/dashboard')->middleware('auth:sanctum')->group(function () {

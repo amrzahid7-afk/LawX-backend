@@ -13,6 +13,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             $table->string('title'); // اسم القالب (مثال: عقد إيجار موحد)
+            $table->text('template_desc');
 
             $table->uuid('file_id');
             $table->foreign('file_id')->references('id')->on('documents')->cascadeOnDelete();
@@ -22,17 +23,13 @@ return new class extends Migration
             $table->uuid('owner_id')->nullable();
             $table->foreign('owner_id')->references('id')->on('users')->nullOnDelete();
 
-            $table->enum('scope', ['public', 'private'])->default('private');
+            //  $table->enum('scope', ['public', 'private'])->default('private');
 
             // التصنيف (عقود، مذكرات، لوائح دعوى)
             $table->string('category')->index();
 
             $table->timestamps();
             $table->softDeletes();
-
-            // Indexes للسرعة
-            $table->index(['owner_id', 'scope']);
-            $table->index(['category', 'scope']);
         });
     }
 

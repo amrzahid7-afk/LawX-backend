@@ -13,12 +13,14 @@ class StoreTemplateRequest extends FormRequest
         return true;
     }
 
+
     public function rules(): array
     {
         return [
             'title' => 'required|string|max:255',
             'file' => 'required|file|mimes:docx,doc,pdf|max:10240', // 10MB
-            'scope' => 'required|in:public,private',
+            'template_desc' => 'nullable|string',
+            // 'scope' => 'required|in:public,private',
             'category' => 'required|string|max:100',
         ];
     }
@@ -32,8 +34,8 @@ class StoreTemplateRequest extends FormRequest
             'file.file' => 'يجب رفع ملف صالح',
             'file.mimes' => 'صيغة الملف يجب أن تكون docx, doc, أو pdf',
             'file.max' => 'حجم الملف يجب ألا يتجاوز 10 ميجابايت',
-            'scope.required' => 'نطاق القالب مطلوب',
-            'scope.in' => 'النطاق يجب أن يكون public أو private',
+            // 'scope.required' => 'نطاق القالب مطلوب',
+            // 'scope.in' => 'النطاق يجب أن يكون public أو private',
             'category.required' => 'تصنيف القالب مطلوب',
         ];
     }

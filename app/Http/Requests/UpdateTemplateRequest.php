@@ -21,7 +21,8 @@ class UpdateTemplateRequest extends FormRequest
             'template_id' => 'required|uuid|exists:smart_templates,id',
             'title' => 'sometimes|required|string|max:255',
             'file' => 'nullable|file|mimes:docx,doc,pdf|max:10240',
-            'scope' => 'sometimes|required|in:public,private',
+            // 'scope' => 'sometimes|required|in:public,private'
+            'template_description' => 'nullable|string',
             'category' => 'sometimes|required|string|max:100',
         ];
     }
@@ -35,6 +36,7 @@ class UpdateTemplateRequest extends FormRequest
             'template_id.required' => 'معرف القالب مطلوب',
             'template_id.exists' => 'معرف القالب غير صحيح',
             'template_id.uuid' => 'معرف القالب غير صحيح',
+            'template_description.string' => 'وصف القالب يجب ان يكون نص',
         ];
     }
 

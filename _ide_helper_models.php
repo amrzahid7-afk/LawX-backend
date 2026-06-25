@@ -283,14 +283,18 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property int $id
+ * @property string $id
  * @property string $template_id
  * @property string $file_id
  * @property string|null $case_id
  * @property string $generated_by
- * @property string|null $used_values
+ * @property array<array-key, mixed>|null $used_values
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $GeneratedBy
+ * @property-read \App\Models\CaseModel|null $case
+ * @property-read \App\Models\Document $file
+ * @property-read \App\Models\SmartTemplate $template
  * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate query()
@@ -439,21 +443,27 @@ namespace App\Models{
  * @property string|null $category_id
  * @property string $status
  * @property string $source
+ * @property string $country
  * @property \Illuminate\Support\Carbon|null $effective_date
  * @property array<array-key, mixed>|null $embedding
- * @property string $country
- * @property string $level
+ * @property array<array-key, mixed>|null $related_legislation_ids
+ * @property array<array-key, mixed>|null $articles
+ * @property string|null $book
+ * @property string|null $part
+ * @property string|null $chapter
  * @property string|null $parent_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Legal_category|null $category
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Legislation> $children
- * @property-read int|null $children_count
- * @property-read Legislation|null $parent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Legislation> $relatedLegislations
+ * @property-read int|null $related_legislations_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereArticles($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereBook($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereChapter($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereCountry($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereCreatedAt($value)
@@ -461,8 +471,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereEmbedding($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereLawNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereLevel($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation wherePart($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereRelatedLegislationIds($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereSource($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation whereTitle($value)
@@ -786,10 +797,10 @@ namespace App\Models{
 /**
  * @property string $id
  * @property string $title
+ * @property string $template_desc
  * @property string $file_id
  * @property array<array-key, mixed>|null $variables_json
  * @property string|null $owner_id
- * @property string $scope
  * @property string $category
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -810,7 +821,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereFileId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereOwnerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereScope($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereTemplateDesc($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SmartTemplate whereVariablesJson($value)
