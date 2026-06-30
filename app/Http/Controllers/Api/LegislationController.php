@@ -19,6 +19,19 @@ class LegislationController extends Controller
     {
         $this->legislationService = $legislationService;
     }
+    public function Get_legal_categories()
+    {
+        $categories = Legislation::distinct()->pluck('category_id');
+        $countries = Legislation::distinct()->pluck('country');
+        return response()->json([
+            'success' => true,
+            'message' => 'تم جلب التصنيفات  والبلدان بنجاح',
+            'data' => [
+                'categories' => $categories,
+                'countries' => $countries
+            ],
+        ]);
+    }
     public function index(Request $request)
     {
         try {

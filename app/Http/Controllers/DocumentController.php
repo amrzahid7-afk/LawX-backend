@@ -17,7 +17,7 @@ class DocumentController extends Controller
 
     public function upload_Document(UploadDocumentRequest $request)
     {
-        $result = $this->documentService->add_new_document($request->validated());
+        $result = $this->documentService->add_new_document($request, $request->validated());
         return response()->json([
             'status' => $result['status'],
             'data' => [

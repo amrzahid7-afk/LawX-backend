@@ -79,6 +79,7 @@ class LegislationService
         $formattedData = [
             'id' => $legislation->id,
             'title' => $legislation->title,
+            'content' => $legislation->content,
             'law_number' => $legislation->law_number,
             'status' => $legislation->status == 'active' ? 'ساري' : ($legislation->status == 'amended' ? 'معدل' : 'ملغى'),
             'country' => $legislation->country == 'syria' ? 'سوريا' : ($legislation->country == 'saudi' ? 'المملكة العربية السعودية' : 'الإمارات العربية المتحدة'),

@@ -39,7 +39,7 @@ class GeneratedTemplate extends Model
     {
         return $this->belongsTo(CaseModel::class, 'case_id');
     }
-    public function GeneratedBy()
+    public function generatedBy()
     {
         return $this->belongsTo(User::class, 'generated_by');
     }

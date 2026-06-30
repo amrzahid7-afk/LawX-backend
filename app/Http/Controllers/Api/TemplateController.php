@@ -24,6 +24,7 @@ class TemplateController extends Controller
     /**
      * API 1: رفع قالب جديد
      */
+
     public function upload(StoreTemplateRequest $request): JsonResponse
     {
         try {
@@ -48,12 +49,36 @@ class TemplateController extends Controller
         }
     }
 
+    public function get_templates_categories()
+    {
+        $categories = SmartTemplate::distinct()->pluck('category');
+        return response()->json([
+            'status' => true,
+            'message' => ' تم جلب التصنيفات ',
+            'data' => $categories,
+        ], 200);
+    }
     /**
      * API 2: جلب القوالب المتاحة
      */
     public function getTemplates(Request $request): JsonResponse
     {
         try {
+            // Valdiate the value of Category 
+            $validaor = Validator::make([
+                'category' => request()->category,
+                'title' => request()->title
+            ], [
+                'category' => 'nullable|exists:smart_templates,category',
+                'title' => 'nullable|string',
+            ]);
+            if ($validaor->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'بيانات المدخلات غير صحيحة',
+                    'errors' => $validaor->errors(),
+                ], 422);
+            }
             $response = $this->templateService->getTemplates($request->all());
             return response()->json([
                 'status' => true,
@@ -88,6 +113,13 @@ class TemplateController extends Controller
                 ], 422);
             }
             $response = $this->templateService->getTemplateById(request()->template_id);
+            // if ($response['status'] == "Fail") {
+            //     return response()->json([
+            //         'status' => false,
+            //         'message' => $response['message'],
+            //         'Error_data' => $response['Error_data']
+            //     ]);
+            // }
             return response()->json([
                 'status' => true,
                 'message' => ' تم جلب القالب',

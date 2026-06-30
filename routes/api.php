@@ -57,7 +57,9 @@ Route::prefix('/Case')->middleware('auth:sanctum')->group(function () {
     Route::post('/upload_document', [DocumentController::class, 'upload_Document']);   // 
     Route::get('/get_documents_for_case/{case_id}', [DocumentController::class, 'get_documents_for_case']);  // 
     Route::get('/delete_document/{document_id}', [DocumentController::class, 'delete_document']); // 
-    // Tasks apis  asasas
+    Route::get('/document_versions/{document_id}', [DocumentController::class, 'delete_document']); // Not Done
+
+    // Tasks apis  
     Route::post('/create_task', [TaskController::class, 'create_task']); // 
     Route::get('/get_my_tasks', [TaskController::class, 'get_my_tasks']); // to do 
     Route::get('/get_tasks_for_case/{case_id}', [TaskController::class, 'get_tasks_for_case']);
@@ -111,6 +113,8 @@ Route::prefix('ManageUsers/')->middleware('auth:sanctum')->group(function () {
 //  المكتبة القانونية (التشريعات والقوانين)
 Route::middleware('auth:sanctum')->prefix('/legislation')->group(function () {
     // المحامي
+
+    Route::get('/Get_legal_categories', [LegislationController::class, 'Get_legal_categories']);
     Route::get('/Get_legislation_with_filter_options', [LegislationController::class, 'index']);
     Route::get('/get_law_details/{law_id}', [LegislationController::class, 'get_law_details']);
     Route::post('/semantic_search', [LegislationController::class, 'semantic_search']);
@@ -123,6 +127,7 @@ Route::middleware('auth:sanctum')->prefix('/legislation')->group(function () {
 Route::middleware(['auth:sanctum'])->prefix('/templates')->group(function () {
     Route::post('/upload', [TemplateController::class, 'upload']); // Done
     Route::get('/getTemplates', [TemplateController::class, 'getTemplates']); //  Done
+    Route::get('/get_templates_categories', [TemplateController::class, 'get_templates_categories']); //  Done
     Route::get('/show_template_details', [TemplateController::class, 'show_template_details']);  //Done
     Route::post('/update_template', [TemplateController::class, 'update_template']); // Done
     Route::get('/delete_template', [TemplateController::class, 'delete_template']); // Done

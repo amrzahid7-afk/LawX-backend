@@ -15,16 +15,14 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->text('file_path');
             $table->string('type');
-            $table->text('nots')->nullable();
-
+            // $table->text('nots')->nullable();
+            $table->integer('file_size')->nullable();
             // Case ID
-            $table->uuid('case_id')->nullable(); // تعريف العمود أولاً
-            $table->foreign('case_id')->references('id')->on('cases')->onDelete('cascade'); // ثم تعريف العلاقة
-
-            // Invoice ID (هذا هو السطر المهم)
-            $table->uuid('invoice_id')->nullable(); // تأكد من وضع nullable قبل foreign
+            $table->uuid('case_id')->nullable();
+            $table->foreign('case_id')->references('id')->on('cases')->onDelete('cascade');
+            // Invoice ID
+            $table->uuid('invoice_id')->nullable();
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
-
             // Legal Request ID
             $table->uuid('legal_request_id')->nullable();
             $table->foreign('legal_request_id')->references('id')->on('legal_requests')->onDelete('cascade');
@@ -36,27 +34,48 @@ return new class extends Migration
             // Uploaded By
             $table->uuid('uploaded_by');
             $table->foreign('uploaded_by')->references('id')->on('users')->onDelete('cascade');
+            $table->text('extracted_text')->nullable();
 
+            $table->json('ai_tags')->nullable();
+
+            $table->text('ai_summary')->nullable();
+
+            $table->boolean('has_summary')->default(false);
+
+            $table->boolean('has_versions')->default(false);
+
+            $table->integer('version_number')->default(1);
+
+            $table->uuid('parent_id')->nullable();
+            $table->foreign('parent_id')->references('id')->on('documents')->nullOnDelete();
+
+            $table->index('parent_id');
+            $table->index('version_number');
+            $table->index('has_summary');
+            $table->index('has_versions');
+
+            $table->fullText('extracted_text');
             $table->timestamps();
         });
-        // Schema::create('documents', function (Blueprint $table) {
-        //     $table->uuid('id')->primary();
-        //     $table->text('file_path');
-        //     $table->string('type');
-        //     $table->text('nots')->nullable();
-        //     $table->ForeignUuid('case_id')->constrained('cases')->onDelete('cascade')->nullable();
-        //     $table->ForeignUuid('invoice_id')->constrained('invoices')->onDelete('cascade')->nullable();
-        //     $table->ForeignUuid('legal_request_id')->constrained('legal_requests')->onDelete('cascade')->nullable();
-        //     $table->ForeignUuid('proposal_id')->constrained('proposals')->onDelete('cascade')->nullable();
-        //     $table->ForeignUuid('uploaded_by')->constrained('users')->onDelete('cascade');
-        //     $table->timestamps();
-        // });
     }
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('documents');
+        Schema::table('documents', function (Blueprint $table) {
+            $table->dropForeign(['parent_id']);
+            $table->dropIndex(['parent_id', 'version_number', 'has_summary', 'has_versions']);
+            $table->dropFullText('extracted_text');
+            $table->dropColumn([
+                'extracted_text',
+                'ai_tags',
+                'ai_summary',
+                'has_summary',
+                'has_versions',
+                'version_number',
+                'parent_id'
+            ]);
+        });
     }
 };

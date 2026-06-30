@@ -42,7 +42,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-
+        if (class_exists(\Laravel\Ai\AiServiceProvider::class)) {
+            $this->app->register(\Laravel\Ai\AiServiceProvider::class);
+        }
         $this->app->bind(AlertsAggregatorInterface::class, AlertsService::class);
 
 

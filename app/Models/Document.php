@@ -17,14 +17,26 @@ class Document extends Model
     public $incrementing = false;
     protected $fillable = [
         'id',
-        'case_id',
         'file_path',
         'type',
-        'uploaded_by',
-        'nots',
+        'file_size',
+        'case_id',
+        'invoice_id',
         'legal_request_id',
         'proposal_id',
-        'invoice_id',
+        'uploaded_by',
+        'extracted_text',
+        'ai_tags',
+        'ai_summary',
+        'has_summary',
+        'has_versions',
+        'version_number',
+        'parent_id'
+    ];
+    protected $casts = [
+        'ai_tags' => 'array',
+        'has_summary' => 'boolean',
+        'has_versions' => 'boolean',
     ];
     // Define Factory Method 
     protected static function newFactory()
@@ -60,5 +72,14 @@ class Document extends Model
     public function proposal()
     {
         return $this->belongsTo(Proposal::class, 'proposal_id');
+    }
+    public function parent()
+    {
+        return $this->belongsTo(Document::class, 'parent_id');
+    }
+
+    public function versions()
+    {
+        return $this->hasMany(Document::class, 'parent_id');
     }
 }

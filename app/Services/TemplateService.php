@@ -28,7 +28,7 @@ class TemplateService
             // add document record in db 
             $fileRecord = Document::create([
                 'file_path' => $storedPath,
-                'type' => $extension,
+                'type' => 'template',
                 'file_size' => $file->getSize(),
                 'uploaded_by' => request()->user()->id,
             ]);
@@ -124,31 +124,19 @@ class TemplateService
     public function getTemplates(array $filters)
     {
         $query = SmartTemplate::query();
-
+        // Filter Templates instand Of category ,  title
         if (!empty($filters['category'])) {
             $query->where('category', $filters['category']);
         }
-
-        // if (!empty($filters['scope']) && in_array($filters['scope'], ['public', 'private'])) {
-        //     if ($filters['scope'] === 'private') {
-        //         $query->where('owner_id', request()->user()->id);
-        //     } else {
-        //         $query->where('scope', 'public');
-        //     }
-        // }
-
-        if (!empty($filters['search'])) {
-            $query->where('title', 'like', '%' . $filters['search'] . '%');
+        if (!empty($filters['title'])) {
+            $query->where('title', 'like', '%' . $filters['title'] . '%');
         }
-
         $templates = $query->latest()->paginate(20);
         $formattedTemplates = collect($templates->items())->map(function ($template) {
             return [
                 'Template_id'         => $template->id,
                 'title'      => $template->title,
                 'category'   => $template->category,     // مثل: عقود / مذكرات / سندات
-                // 'scope'      => $template->scope,        // عام (public) / خاص (private)
-                // 'owner_name' => $template->owner ? $template->owner->full_name : 'إدارة النقابة',
                 'Created_At_Date'       => $template->created_at->format('Y-m-d'), // صيغة التاريخ المتواجدة بالصورة
             ];
         });
@@ -171,44 +159,176 @@ class TemplateService
     /**
      * جلب تفاصيل قالب معين
      */
+    // public function getTemplateById(string $id)
+    // {
+    //     try {
+    //         $template = SmartTemplate::with(['file', 'generatedFiles.GeneratedBy'])->find($id);
+
+    //         $formatted_data = [
+    //             "Template_ID"          => $template->id,
+    //             "Template_name"        => $template->title,
+    //             "Template_description" => $template->template_desc,
+    //             "Template_category"    => $template->category,
+    //             "Template_created_at"  => $template->created_at->format('Y-m-d'),
+    //             "Template_updated_at"  => $template->updated_at->format('Y-m-d'),
+    //             "Template_variables"   => $template->variables_json,
+
+    //             "Template_file"        => $template->file && Storage::disk('public')->exists($template->file->file_path)
+    //                 ? Storage::disk('public')->url($template->file->file_path)
+    //                 : null,
+
+    //             "template_file_size"   => $template->file && Storage::disk('public')->exists($template->file->file_path)
+    //                 ? round(Storage::disk('public')->size($template->file->file_path) / (1024 * 1024), 2) . ' MB'
+    //                 : '0 MB',
+
+    //             "Generated_Files"      => $template->generatedFiles->map(function ($file) {
+    //                 $exists = Storage::disk('public')->exists($file->file->file_path);
+    //                 return [
+    //                     'file_url'        => $exists ? Storage::disk('public')->url($file->file->file_path) : null,
+    //                     'file_size'       => $file->file->file_size
+    //                         ? round(Storage::disk('public')->size($file->file->file_path) / (1024 * 1024), 2) . ' MB'
+    //                         : '0 MB',
+    //                     'User_Who_create' => $file->GeneratedBy ? $file->GeneratedBy->name : 'غير معروف'
+    //                 ];
+    //             }),
+    //         ];
+
+    //         return [
+    //             'status'  => true,
+    //             'message' => 'تم جلب تفاصيل القالب بنجاح',
+    //             'data'    => $formatted_data,
+    //         ];
+    //     } catch (\Exception $e) {
+    //         return [
+    //             'status' => "Fail",
+    //             'Message' => "Service Fail",
+    //             'Error_data' => [
+    //                 'Exception' => $e->getMessage(),
+    //                 'Line' => $e->getLine(),
+    //                 'File' => $e->getFile()
+    //             ]
+    //         ];
+    //     }
+    // }
+    // public function getTemplateById(string $id)
+    // {
+    //     try {
+    //         // قمنا بإضافة generatedFiles.file هنا
+    //         $template = SmartTemplate::with([
+    //             'file',
+    //             'generatedFiles.file',
+    //             'generatedFiles.generated_by'
+    //         ])->find($id);
+
+    //         $formatted_data = [
+    //             "Template_ID"          => $template->id,
+    //             "Template_name"        => $template->title,
+    //             "Template_description" => $template->template_desc,
+    //             "Template_category"    => $template->category,
+    //             "Template_created_at"  => $template->created_at->format('Y-m-d'),
+    //             "Template_updated_at"  => $template->updated_at->format('Y-m-d'),
+    //             "Template_variables"   => $template->variables_json,
+
+    //             "Template_file"        => $template->file && Storage::disk('public')->exists($template->file->file_path)
+    //                 ? Storage::disk('public')->url($template->file->file_path)
+    //                 : null,
+
+    //             "template_file_size"   => $template->file && Storage::disk('public')->exists($template->file->file_path)
+    //                 ? round(Storage::disk('public')->size($template->file->file_path) / (1024 * 1024), 2) . ' MB'
+    //                 : '0 MB',
+
+    //             "Generated_Files"      => $template->generatedFiles->map(function ($gFile) {
+    //                 // التأكد الآمن من وجود علاقة الملف والمسار
+    //                 $filePath = ($gFile->file) ? $gFile->file->file_path : null;
+    //                 $exists = $filePath ? Storage::disk('public')->exists($filePath) : false;
+
+    //                 return [
+    //                     'file_url'        => $exists ? Storage::disk('public')->url($filePath) : null,
+    //                     'file_size'       => $exists
+    //                         ? round(Storage::disk('public')->size($filePath) / (1024 * 1024), 2) . ' MB'
+    //                         : '0 MB',
+    //                     // هنا سيظهر الاسم بالشكل الصحيح الآن
+    //                     'User_Who_create' => $gFile->GeneratedBy ? $gFile->GeneratedBy->name : 'غير معروف'
+    //                 ];
+    //             }),
+    //         ];
+
+    //         return [
+    //             'status'  => true,
+    //             'message' => 'تم جلب تفاصيل القالب بنجاح',
+    //             'data'    => $formatted_data,
+    //         ];
+    //     } catch (\Exception $e) {
+    //         return [
+    //             'status' => "Fail",
+    //             'Message' => "Service Fail",
+    //             'Error_data' => [
+    //                 'Exception' => $e->getMessage(),
+    //                 'Line' => $e->getLine(),
+    //                 'File' => $e->getFile()
+    //             ]
+    //         ];
+    //     }
+    // }
     public function getTemplateById(string $id)
     {
-        $template = SmartTemplate::with(['file', 'generatedFiles.uploadedBy'])->find($id);
+        try {
+            // تحديث أسماء العلاقات لتشمل التحميل الصحيح للملف والمستخدم
+            $template = SmartTemplate::with([
+                'file',
+                'generatedFiles.file',
+                'generatedFiles.generatedBy' // حرف صغير g
+            ])->find($id);
 
-        $formatted_data = [
-            "Template_ID"          => $template->id,
-            "Template_name"        => $template->title,
-            "Template_description" => $template->template_desc,
-            "Template_category"    => $template->category,
-            "Template_created_at"  => $template->created_at->format('Y-m-d'),
-            "Template_updated_at"  => $template->updated_at->format('Y-m-d'),
-            "Template_variables"   => $template->variables_json,
+            $formatted_data = [
+                "Template_ID"          => $template->id,
+                "Template_name"        => $template->title,
+                "file_type"        => $template->file->type,
+                "Template_description" => $template->template_desc,
+                "Template_category"    => $template->category,
+                "Template_created_at"  => $template->created_at->format('Y-m-d'),
+                "Template_updated_at"  => $template->updated_at->format('Y-m-d'),
+                "Template_variables"   => $template->variables_json,
 
-            "Template_file"        => $template->file && Storage::disk('public')->exists($template->file->file_path)
-                ? Storage::disk('public')->url($template->file->file_path)
-                : null,
+                "Template_file"        => $template->file && Storage::disk('public')->exists($template->file->file_path)
+                    ? Storage::disk('public')->url($template->file->file_path)
+                    : null,
 
-            "template_file_size"   => $template->file && Storage::disk('public')->exists($template->file->file_path)
-                ? round(Storage::disk('public')->size($template->file->file_path) / (1024 * 1024), 2) . ' MB'
-                : '0 MB',
+                "template_file_size"   => $template->file && Storage::disk('public')->exists($template->file->file_path)
+                    ? round(Storage::disk('public')->size($template->file->file_path) / (1024 * 1024), 2) . ' MB'
+                    : '0 MB',
 
-            "Generated_Files"      => $template->generatedFiles->map(function ($file) {
-                $exists = Storage::disk('public')->exists($file->file_path);
-                return [
-                    'file_url'        => $exists ? Storage::disk('public')->url($file->file_path) : null,
-                    'file_size'       => $exists
-                        ? round(Storage::disk('public')->size($file->file_path) / (1024 * 1024), 2) . ' MB'
-                        : '0 MB',
-                    'User_Who_create' => $file->uploadedBy ? $file->uploadedBy->name : 'غير معروف'
-                ];
-            }),
-        ];
+                "Generated_Files"      => $template->generatedFiles->map(function ($gFile) {
+                    $filePath = $gFile->file ? $gFile->file->file_path : null;
+                    $exists = $filePath ? Storage::disk('public')->exists($filePath) : false;
 
-        return [
-            'status'  => true,
-            'message' => 'تم جلب تفاصيل القالب بنجاح',
-            'data'    => $formatted_data,
-        ];
+                    return [
+                        'file_url'        => $exists ? Storage::disk('public')->url($filePath) : null,
+                        'file_size'       => $exists
+                            ? round(Storage::disk('public')->size($filePath) / (1024 * 1024), 2) . ' MB'
+                            : '0 MB',
+                        // استدعاء الاسم باستخدام العلاقة الجديدة بحرف صغير g
+                        'User_Who_create' => $gFile->generatedBy ? $gFile->generatedBy->full_name : 'غير معروف'
+                    ];
+                }),
+            ];
+
+            return [
+                'status'  => true,
+                'message' => 'تم جلب تفاصيل القالب بنجاح',
+                'data'    => $formatted_data,
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status' => "Fail",
+                'Message' => "Service Fail",
+                'Error_data' => [
+                    'Exception' => $e->getMessage(),
+                    'Line' => $e->getLine(),
+                    'File' => $e->getFile()
+                ]
+            ];
+        }
     }
 
     public function deleteTemplate()
@@ -279,13 +399,13 @@ class TemplateService
             $generatedFile = Document::create([
                 'file_path'   => $pdfPath,
                 'type'        => 'pdf',
-                'uploaded_by' => auth('sanctum')->check() ? auth('sanctum')->id() : null,
+                'uploaded_by' =>  request()->user()->id,
             ]);
 
             GeneratedTemplate::create([
                 'template_id'  => $template->id,
                 'file_id'      => $generatedFile->id,
-                'generated_by' => auth('sanctum')->check() ? auth('sanctum')->id() : null,
+                'generated_by' => request()->user()->id,
                 'used_values'  => $customValues,
             ]);
 

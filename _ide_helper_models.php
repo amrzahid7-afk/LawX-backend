@@ -181,6 +181,13 @@ namespace App\Models{
 /**
  * @property string $id
  * @property string $file_path
+ * @property string|null $extracted_text
+ * @property array<array-key, mixed>|null $ai_tags
+ * @property string|null $ai_summary
+ * @property bool $has_summary
+ * @property bool $has_versions
+ * @property int $version_number
+ * @property string|null $parent_id
  * @property string $type
  * @property string|null $nots
  * @property string|null $case_id
@@ -193,23 +200,33 @@ namespace App\Models{
  * @property-read \App\Models\CaseModel|null $case
  * @property-read \App\Models\Invoice|null $invoice
  * @property-read \App\Models\Legal_request|null $legal_request
+ * @property-read Document|null $parent
  * @property-read \App\Models\Proposal|null $proposal
  * @property-read \App\Models\User $uploadedBy
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Document> $versions
+ * @property-read int|null $versions_count
  * @method static \Database\Factories\DocumentFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereAiSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereAiTags($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereCaseId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereExtractedText($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereFilePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereHasSummary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereHasVersions($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereInvoiceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereLegalRequestId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereNots($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereProposalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUploadedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereVersionNumber($value)
  */
 	class Document extends \Eloquent {}
 }
