@@ -380,13 +380,13 @@
                 {
                   "key": "file",
                   "type": "file",
-                  "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                  "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.pdf"
                 },
                 {
-                  "key": "nots",
-                  "value": "بموجب هذل العقد تكون الملكية منقولة من البائع للشاري ",
+                  "key": "parent_id",
+                  "value": "{{parent_file_id}}",
                   "type": "text",
-                  "uuid": "ade155f0-b40b-4500-8c81-5fdd4ffe2a73"
+                  "uuid": "aa12b2a0-a381-494e-8c34-3340e5f6d1b0"
                 }
               ]
             },
@@ -2355,6 +2355,50 @@
           "response": []
         },
         {
+          "name": "Get_legal_categories",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
+            "url": {
+              "raw": "{{Domain}}/legislation/Get_legal_categories",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "legislation",
+                "Get_legal_categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "get_law_details",
           "protocolProfileBehavior": {
             "disableBodyPruning": true,
@@ -2536,7 +2580,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "\r\n{\r\n    \"title\": \"قانون المعاملات المدنية السوري\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"L-2026-009\",\r\n    \"category_id\": \"212e117c-1e8d-4124-90b8-56c20a7c5e2c\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n         \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
+              "raw": "\r\n{\r\n    \"title\": \"قانون المعاملات المدنية السوري\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"L-2026-009\",\r\n    \"category_id\": \"1b78940b-59b3-4a7c-a2d0-115d0d216a3b\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2686,7 +2730,7 @@
                 },
                 {
                   "key": "category",
-                  "value": "عقود",
+                  "value": "أحكام",
                   "type": "text"
                 },
                 {
@@ -2788,6 +2832,78 @@
           "response": []
         },
         {
+          "name": "get_templates_categories",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{lawer_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "template_id",
+                  "value": "{{Template_ID}}",
+                  "type": "text",
+                  "uuid": "4d0c1077-5efb-4b53-9ee2-2b6938bd64c7"
+                },
+                {
+                  "key": "title",
+                  "value": "عقد بيع موحد",
+                  "type": "text"
+                },
+                {
+                  "key": "template_description",
+                  "value": "عقد بيع موحد",
+                  "type": "text"
+                },
+                {
+                  "key": "category",
+                  "value": "سندات",
+                  "type": "text"
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
+                  "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.docx"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{Domain}}/templates/get_templates_categories",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "templates",
+                "get_templates_categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "getTemplates",
           "protocolProfileBehavior": {
             "disableBodyPruning": true,
@@ -2819,17 +2935,75 @@
               "formdata": []
             },
             "url": {
-              "raw": "{{Domain}}/templates/getTemplates",
+              "raw": "{{Domain}}/templates/getTemplates?category=براءة&title=براءة ",
               "host": [
                 "{{Domain}}"
               ],
               "path": [
                 "templates",
                 "getTemplates"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "براءة"
+                },
+                {
+                  "key": "title",
+                  "value": "براءة "
+                }
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "getTemplates",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                },
+                "url": {
+                  "raw": "{{Domain}}/templates/getTemplates?category=عقود&title=براءة ",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "templates",
+                    "getTemplates"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "عقود"
+                    },
+                    {
+                      "key": "title",
+                      "value": "براءة "
+                    }
+                  ]
+                }
+              },
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": ""
+            }
+          ]
         },
         {
           "name": "show_template_details",
