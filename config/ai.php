@@ -83,7 +83,19 @@ return [
             'key' => env('OPENAI_API_KEY'),
             'url' => env('OPENAI_URL', 'https://api.openai.com/v1'),
         ],
-
+        'zai' => [
+            'driver' => 'openai',
+            'key' => env('Z_AI_KEY'),
+            'url' => env('Z_AI_URL', 'https://api.z.ai/v1'),
+            'models' => [
+                'text' => [
+                    'default' => 'glm-4-flash',
+                    'cheapest' => 'glm-4-flash',
+                    'smartest' => 'glm-4-plus',
+                ],
+            ],
+            // 'proxy' => 'http://username:password@IP_ADDRESS:PORT' will have private proxy 
+        ],
         'anthropic' => [
             'driver' => 'anthropic',
             'key' => env('ANTHROPIC_API_KEY'),
@@ -99,7 +111,6 @@ return [
             'embedding_deployment' => env('AZURE_OPENAI_EMBEDDING_DEPLOYMENT', 'text-embedding-3-small'),
             'image_deployment' => env('AZURE_OPENAI_IMAGE_DEPLOYMENT', 'gpt-image-1'),
         ],
-
         'bedrock' => [
             'driver' => 'bedrock',
             'region' => env('AWS_BEDROCK_REGION', 'us-east-1'),

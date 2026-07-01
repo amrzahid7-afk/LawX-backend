@@ -485,7 +485,7 @@
               }
             },
             "url": {
-              "raw": "{{Domain}}/Case/get_documents_for_case/{{case_id}}",
+              "raw": "{{Domain}}/Case/get_documents_for_case/{{case_id}}?tags[]=اتفاقية",
               "host": [
                 "{{Domain}}"
               ],
@@ -493,6 +493,17 @@
                 "Case",
                 "get_documents_for_case",
                 "{{case_id}}"
+              ],
+              "query": [
+                {
+                  "key": "tags[]",
+                  "value": "عقد",
+                  "disabled": true
+                },
+                {
+                  "key": "tags[]",
+                  "value": "اتفاقية"
+                }
               ]
             }
           },
@@ -3381,6 +3392,11 @@
     },
     {
       "key": "law_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "parent_file_id",
       "value": "",
       "type": "default"
     }

@@ -30,14 +30,20 @@ class DocumentController extends Controller
     {
         // validate case Id 
         $validate = Validator::make(
-            ['case_id' => $case_id],
             [
-                'case_id' => ['required', 'uuid', Rule::exists('cases', 'id')]
+                'case_id' => $case_id,
+                'tags'    => request()->tags
+            ],
+            [
+                'case_id' => ['required', 'uuid', Rule::exists('cases', 'id')],
+                'tags' => ['nullable', 'array'],
+                'tags.*' => ['string']
             ],
             [
                 'case_id.required' => 'Case ID is required',
                 'case_id.uuid' => 'Case ID must be a valid UUID',
-                'case_id.exists' => 'Case not found'
+                'case_id.exists' => 'Case not found',
+                'tags.array'       => 'Tags must be an array of strings'
             ]
         );
         if ($validate->fails()) {
