@@ -24,8 +24,10 @@ return new class extends Migration
             $table->string('lng')->nullable();
             $table->integer('experience_years')->default(0)->nullable();
             $table->text('bio')->nullable();
-            // $table->foreignId('city_id')->nullable()->constrained('cities');
+            $table->string('phone')->nullable()->unique();
+            $table->string('national_id')->nullable()->unique();
             $table->timestamps();
+            // $table->foreignId('city_id')->nullable()->constrained('cities');
             // $table->foreignUuid('office_id')->nullable()->constrained('offices')->onDelete('cascade');
             // $table->string('avatar')->nullable();
             // $table->boolean('activation_2FA')->default(false);

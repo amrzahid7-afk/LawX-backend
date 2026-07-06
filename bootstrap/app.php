@@ -19,7 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-
+        $middleware->alias([
+            'role' => \App\Http\Middleware\EnsureUserHasRole::class,
+            'platform' => \App\Http\Middleware\EnsurePlatformAccess::class,
+        ]);
         // $middleware->statefulApi();
     })
     ->withExceptions(function (Exceptions $exceptions) {

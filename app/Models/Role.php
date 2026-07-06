@@ -13,7 +13,7 @@ class Role extends Model
     // protected $keyType = 'string';
     public $incrementing = false;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['id', 'slug', 'label_ar'];
 
     public function users()
     {

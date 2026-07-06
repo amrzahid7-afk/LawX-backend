@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\RoleSlug;
+use App\Models\LawyerProfile;
 use App\Models\Task;
 use App\Traits\HasUuid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -45,9 +49,14 @@ class User extends Authenticatable
         'is_active' => 'boolean',
     ];
 
-    public function role()
+    public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function hasRole(RoleSlug $role): bool
+    {
+        return $this->role?->slug === $role->value;
     }
 
     public function cases()
@@ -86,21 +95,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Invoice::class, 'lawyer_id');
     }
-    // relations methods 
-    // public function office()
-    // {
-    //     return $this->belongsTo(Office::class);
-    // }
-    // public function employee()
-    // {
-    //     return $this->hasOne(Employee::class);
-    // }
-    // public function client()
-    // {
-    //     return $this->hasOne(Client::class);
-    // }
-    // public function salaryStructure()
-    // {
-    //     return $this->hasOne(SalaryStructure::class);
-    // }
+
+    public function lawyerProfile(): HasOne
+    {
+        return $this->hasOne(LawerProfile::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role->name === 'admin';
+    }
+
+    public function isLawyer(): bool
+    {
+        return $this->role->name === 'lawer';
+    }
 }

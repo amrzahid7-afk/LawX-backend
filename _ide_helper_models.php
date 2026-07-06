@@ -181,6 +181,13 @@ namespace App\Models{
 /**
  * @property string $id
  * @property string $file_path
+ * @property string $type
+ * @property int|null $file_size
+ * @property string|null $case_id
+ * @property string|null $invoice_id
+ * @property string|null $legal_request_id
+ * @property string|null $proposal_id
+ * @property string $uploaded_by
  * @property string|null $extracted_text
  * @property array<array-key, mixed>|null $ai_tags
  * @property string|null $ai_summary
@@ -188,13 +195,6 @@ namespace App\Models{
  * @property bool $has_versions
  * @property int $version_number
  * @property string|null $parent_id
- * @property string $type
- * @property string|null $nots
- * @property string|null $case_id
- * @property string|null $invoice_id
- * @property string|null $legal_request_id
- * @property string|null $proposal_id
- * @property string $uploaded_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\CaseModel|null $case
@@ -215,12 +215,12 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereExtractedText($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereFilePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereFileSize($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereHasSummary($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereHasVersions($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereInvoiceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereLegalRequestId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereNots($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereProposalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereType($value)
@@ -308,9 +308,9 @@ namespace App\Models{
  * @property array<array-key, mixed>|null $used_values
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $GeneratedBy
  * @property-read \App\Models\CaseModel|null $case
  * @property-read \App\Models\Document $file
+ * @property-read \App\Models\User $generatedBy
  * @property-read \App\Models\SmartTemplate $template
  * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|GeneratedTemplate newQuery()
@@ -370,6 +370,17 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereUpdatedAt($value)
  */
 	class Invoice extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property-read LawerProfile|null $supervisor
+ * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile query()
+ */
+	class LawerProfile extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -535,13 +546,30 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $cases
- * @property-read int|null $cases_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
- * @property-read int|null $users_count
+ * @property string $id
+ * @property string $name
+ * @property string $owner_lawyer_profile_id
+ * @property string $status
+ * @property string|null $reviewed_by
+ * @property \Illuminate\Support\Carbon|null $reviewed_at
+ * @property string|null $rejection_reason
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OfficeInvitation> $invitations
+ * @property-read int|null $invitations_count
+ * @property-read \App\Models\User|null $reviewedBy
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Office newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Office newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Office query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereOwnerLawyerProfileId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereRejectionReason($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereReviewedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereReviewedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereUpdatedAt($value)
  */
 	class Office extends \Eloquent {}
 }
@@ -553,6 +581,28 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeAddOn query()
  */
 	class OfficeAddOn extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property string $id
+ * @property string $office_id
+ * @property string $invited_lawyer_profile_id
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Office $office
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereInvitedLawyerProfileId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereOfficeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereUpdatedAt($value)
+ */
+	class OfficeInvitation extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -756,7 +806,8 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
- * @property string $name
+ * @property string $slug
+ * @property string $label_ar
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
@@ -766,7 +817,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Role query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereLabelAr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereUpdatedAt($value)
  */
 	class Role extends \Eloquent {}
@@ -942,6 +994,8 @@ namespace App\Models{
  * @property string|null $lng
  * @property int|null $experience_years
  * @property string|null $bio
+ * @property string|null $phone
+ * @property string|null $national_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $cases
@@ -980,7 +1034,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereIsActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereLat($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereLng($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereNationalId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  */

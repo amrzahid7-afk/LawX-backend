@@ -2,8 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Legal_request;
+use App\Enums\RoleSlug;
 use App\Models\Document;
+use App\Models\Legal_request;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -15,7 +16,7 @@ class LegalRequestFactory extends Factory
 
     public function definition(): array
     {
-        $client_role = Role::where('name', 'client')->first();
+        $client_role = Role::where('slug', RoleSlug::Client)->first();
         $client = User::where('role_id', $client_role->id)->inRandomOrder()->first();
 
         if (!$client) {
@@ -26,7 +27,7 @@ class LegalRequestFactory extends Factory
         $assigned_lawyer_id = null;
 
         if ($type === 'private') {
-            $lawyer_role = Role::where('name', 'lawer')->first();
+            $lawyer_role = Role::where('slug', RoleSlug::Lawyer)->first();
             $lawyer = User::where('role_id', $lawyer_role->id)->inRandomOrder()->first();
             if ($lawyer) {
                 $assigned_lawyer_id = $lawyer->id;

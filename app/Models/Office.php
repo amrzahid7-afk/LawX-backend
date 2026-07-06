@@ -2,34 +2,59 @@
 
 namespace App\Models;
 
-use App\Traits\HasUuid;
+use App\Models\OfficeInvitation;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-use App\Models\CaseModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Office extends Model
 {
-    use HasFactory, HasUuid;
-
-    protected $keyType = 'string';
-    public $incrementing = false;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'name',
-        'logo_url',
-        'phone',
-        'address',
-        'country',
-        'currency'
+        'owner_lawyer_profile_id',
+        'status',
+        // 'reviewed_by',
+        // 'reviewed_at',
+        // 'rejection_reason',
     ];
-    public function users()
+
+    protected $casts = [
+        // 'reviewed_at' => 'datetime',
+    ];
+
+    public function owner(): BelongsTo
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(LawerProfile::class, 'owner_lawyer_profile_id');
     }
 
-    public function cases()
+    public function reviewedBy(): BelongsTo
     {
-        return $this->hasMany(CaseModel::class);
+        return $this->belongsTo(User::class, 'reviewed_by');
+    }
+
+
+    public function invitations(): HasMany
+    {
+        return $this->hasMany(OfficeInvitation::class);
+    }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(LawerProfile::class, 'employed_office_id');
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->status === 'approved';
+    }
+
+    public function isPending(): bool
+    {
+        return $this->status === 'pending';
     }
 }

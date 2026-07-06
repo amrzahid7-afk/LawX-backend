@@ -74,9 +74,18 @@ class DocumentService
                 'version_number' => $parentID ? Document::find($data['parent_id'])->version_number + 1 : 1,
             ];
             $document = Document::create($documentData);
-
-            // Call Job To generate FullText , KeyWords , Summary in the File By AI Service
-            ProcessDocumentUploadJob::dispatch($document->id);
+            if ($parentID == null) {
+                // Call Job To generate FullText , KeyWords , Summary in the File By AI Service
+                ProcessDocumentUploadJob::dispatch($document->id);
+            } else {
+                // put the same Ai values(tags , summary ,extracted text) of the parent document to the new document if it is a version of an existing document
+                $parentDocument = Document::find($parentID);
+                $document->update([
+                    'ai_tags' => $parentDocument->ai_tags ?? null,
+                    'ai_summary' => $parentDocument->ai_summary ?? null,
+                    'extracted_text' => $parentDocument->extracted_text ?? null,
+                ]);
+            }
             // $user = auth('sanctum')->user();
             // $response = DocumentAnalyzerAgent::make($user)
             //     // ->model('gemini-2.5-flash')

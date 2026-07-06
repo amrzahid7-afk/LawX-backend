@@ -148,10 +148,9 @@ class LegalRequestService
     public function get_offices_or_lawers_available(Request $request)
     {
         // getting lawer & office admin role
-        $lawyerRoleId = Role::where('name', 'lawer')->first()->id;
-        $officeManagerRoleId = Role::where('name', 'admin')->first()->id;
+        $lawyerRoleId = Role::where('slug', 'lawyer')->first()->id;
         // dd('1');
-        $query = User::whereIn('role_id', [$lawyerRoleId, $officeManagerRoleId])
+        $query = User::whereIn('role_id', [$lawyerRoleId])
             ->where('is_active', true)
             ->with(['legalCategories']) // جلب التخصصات لعرضها في القائمة
             ->withAvg('reviewsReceived as rate', 'rating') // حساب متوسط التقييم مرة واحدة

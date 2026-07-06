@@ -1,0 +1,126 @@
+<?php
+
+use App\Http\Controllers\Api\LegislationController;
+use App\Http\Controllers\Api\TemplateController;
+use App\Http\Controllers\CaseController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LegalRequestController;
+use App\Http\Controllers\ProposalController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserManagmentController;
+use Illuminate\Support\Facades\Route;
+
+// cases
+Route::prefix('/Case')->group(function () {
+    Route::post('/create_case', [CaseController::class, 'create']);
+    Route::post('/update_case', [CaseController::class, 'update']);
+    Route::get('/get_cases', [CaseController::class, 'view_list']);
+    Route::get('/get_case_details/{case_id}', [CaseController::class, 'get_case_details']);
+    Route::delete('/delete_case/{case_id}', [CaseController::class, 'delete_case']);
+});
+
+// docs
+Route::prefix('documents')->group(function () {
+    Route::post('/upload_document', [DocumentController::class, 'upload_Document']);
+    Route::get('/get_documents_for_case/{case_id}', [DocumentController::class, 'get_documents_for_case']);
+    Route::get('/delete_document/{document_id}', [DocumentController::class, 'delete_document']);
+    Route::get('/{document_id}/versions', [DocumentController::class, 'get_document_versions']);
+
+    // التوقيع الإلكتروني (DocuSign) — مفقود بالكامل بالملف الأصلي
+    // Route::post('/{document_id}/signature-request', [DocumentSignatureController::class, 'request']);
+    // Route::get('/{document_id}/signature-status', [DocumentSignatureController::class, 'status']);
+});
+// tasks 
+Route::prefix('tasks')->group(function () {
+    Route::post('/create_task', [TaskController::class, 'create_task']);
+    Route::get('/get_my_tasks', [TaskController::class, 'get_my_tasks']);
+    Route::get('/get_tasks_for_case/{case_id}', [TaskController::class, 'get_tasks_for_case']);
+    Route::post('/edit_task', [TaskController::class, 'edit_task']);
+    Route::get('/delete_task/{task_id}', [TaskController::class, 'delete_task']);
+});
+// sessions 
+Route::prefix('sessions')->group(function () {
+    Route::post('/add_new_session', [SessionController::class, 'addSession']);
+    Route::get('/get_sessions_for_case/{case_id}', [SessionController::class, 'get_sessions_for_case']);
+    Route::get('/get_sessions_for_lawer', [SessionController::class, 'get_sessions_for_lawer']);
+    Route::post('/update_session', [SessionController::class, 'update_session']);
+    Route::delete('/delete_session/{session_id}', [SessionController::class, 'delete_session']);
+});
+// invoices 
+
+Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']);
+//     // Invoices apis
+//     Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']); //  
+//     Route::post('/get_invoices_for_client', [InvoiceController::class, 'get_invoices_for_client']); //  
+
+// Market 
+Route::prefix('/Market_place')->group(function () {
+    Route::get('/get_legal_requests', [ProposalController::class, 'get_legal_requests']);
+    Route::get('/get_legal_request_details/{request_id}', [LegalRequestController::class, 'get_legal_request_details']);
+    Route::get('/get_my_proposals', [ProposalController::class, 'get_my_proposals']);
+    Route::get('/get_proposal_details/{proposal_id}', [ProposalController::class, 'get_proposal_details']);
+    Route::post('/send_proposal', [ProposalController::class, 'send_proposal']);
+    Route::post('/update_proposal', [ProposalController::class, 'update_proposal']);
+    Route::get('/delete_proposal/{proposal_id}', [ProposalController::class, 'delete_proposal']);
+});
+
+Route::get('/get_clients', [UserManagmentController::class, 'get_clients']);
+
+
+// Laws Apis
+Route::prefix('legislation')->group(function () {
+    Route::get('/Get_legal_categories', [LegislationController::class, 'Get_legal_categories']);
+    Route::get('/Get_legislation_with_filter_options', [LegislationController::class, 'index']);
+    Route::get('/get_law_details/{law_id}', [LegislationController::class, 'get_law_details']);
+    Route::post('/semantic_search', [LegislationController::class, 'semantic_search']);
+});
+
+// templates Apis
+Route::prefix('templates')->group(function () {
+    Route::get('/getTemplates', [TemplateController::class, 'getTemplates']);
+    Route::get('/get_templates_categories', [TemplateController::class, 'get_templates_categories']);
+    Route::get('/show_template_details', [TemplateController::class, 'show_template_details']);
+    Route::post('/generate_template', [TemplateController::class, 'generate_template']);
+});
+
+
+ // templates apis
+// Route::middleware(['auth:sanctum'])->prefix('/templates')->group(function () {
+//     Route::post('/upload', [TemplateController::class, 'upload']); // Done
+//     Route::get('/getTemplates', [TemplateController::class, 'getTemplates']); //  Done
+//     Route::get('/get_templates_categories', [TemplateController::class, 'get_templates_categories']); //  Done
+//     Route::get('/show_template_details', [TemplateController::class, 'show_template_details']);  //Done
+//     Route::post('/update_template', [TemplateController::class, 'update_template']); // Done
+//     Route::get('/delete_template', [TemplateController::class, 'delete_template']); // Done
+//     Route::post('/generate_template', [TemplateController::class, 'generate_template']); // Done
+// });
+   //
+
+//     Route::get('/Get_legal_categories', [LegislationController::class, 'Get_legal_categories']);
+//     Route::get('/Get_legislation_with_filter_options', [LegislationController::class, 'index']);
+//     Route::get('/get_law_details/{law_id}', [LegislationController::class, 'get_law_details']);
+//     Route::post('/semantic_search', [LegislationController::class, 'semantic_search']);
+
+// Sessions apis
+//     Route::post('/add_new_session', [SessionController::class, 'addSession']);
+//     Route::get('/get_sessions_for_case/{case_id}', [SessionController::class, 'get_sessions_for_case']);
+//     Route::get('/get_sessions_for_lawer', [SessionController::class, 'get_sessions_for_lawer']);
+//     Route::get('/get_sessions_for_client', [SessionController::class, 'get_sessions_for_client']);
+//     Route::delete('/delete_session/{session_id}', [SessionController::class, 'delete_session']); // 
+//     Route::post('/update_session', [SessionController::class, 'update_session']); //
+//     
+
+
+
+   // Tasks apis  
+//     Route::post('/create_task', [TaskController::class, 'create_task']); // 
+//     Route::get('/get_my_tasks', [TaskController::class, 'get_my_tasks']); // to do 
+//     Route::get('/get_tasks_for_case/{case_id}', [TaskController::class, 'get_tasks_for_case']);
+//     Route::post('/edit_task', [TaskController::class, 'edit_task']); // 
+//     Route::get('/delete_task/{task_id}', [TaskController::class, 'delete_task']); // 
+// Route::post('/upload_document', [DocumentController::class, 'upload_Document']);   // 
+//     Route::get('/get_documents_for_case/{case_id}', [DocumentController::class, 'get_documents_for_case']);  // 
+//     Route::get('/delete_document/{document_id}', [DocumentController::class, 'delete_document']); // 
+//     Route::get('/document_versions/{document_id}', [DocumentController::class, 'delete_document']); // Not Done

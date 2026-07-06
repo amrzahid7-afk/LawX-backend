@@ -12,9 +12,16 @@ return new class extends Migration
 
     public function up(): void
     {
+        // Schema::create('roles', function (Blueprint $table) {
+        //     $table->id(); // BigInt ID
+        //     $table->string('name'); // Admin, Lawyer, Client...
+        //     $table->timestamps();
+
+        // });
         Schema::create('roles', function (Blueprint $table) {
-            $table->id(); // BigInt ID
-            $table->string('name'); // Admin, Lawyer, Client...
+            $table->id();
+            $table->string('slug')->unique();
+            $table->string('label_ar');
             $table->timestamps();
         });
     }

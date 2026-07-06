@@ -24,7 +24,7 @@ class CaseService
             // create the case
             $case = CaseModel::create([
                 'client_id' => $data['clients'][0]['user_id'], // assuming the first client is the primary one
-                'lead_lawyer_id' => $data['lead_lawyer_id'],
+                'lead_lawyer_id' => $user->id,
                 'title' => $data['title'],
                 'case_category' => $data['case_category'],
                 'description' => $data['description'],
@@ -47,10 +47,7 @@ class CaseService
             // check if opponents exist in the request and create them
             if (isset($data['opponents'])) {
                 foreach ($data['opponents'] as $opponentData) {
-                    // 1. البحث أولاً
                     $opponent = Opponent::where('national_id', $opponentData['national_id'] ?? null)->first();
-
-                    // 2. الإنشاء إذا لم يكن موجوداً (باستخدام الطريقة الآمنة)
                     if (!$opponent) {
                         $opponent = Opponent::create([
                             'id' => Str::uuid()->toString(),

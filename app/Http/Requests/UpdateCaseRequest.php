@@ -2,11 +2,14 @@
 
 namespace App\Http\Requests;
 
+use App\Models\LawerProfile;
+use App\Models\Office;
+use App\Models\OfficeInvitation;
 use App\Models\Role;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class UpdateCaseRequest extends FormRequest
 {
@@ -25,10 +28,21 @@ class UpdateCaseRequest extends FormRequest
      */
     public function rules(): array
     {
-        $clientRoleId = Role::where('name', 'client')->value('id');
+        $clientRoleId = Role::where('slug', 'client')->value('id');
+        $currentUser = $this->user();
+        $lawyerProfileId = $currentUser->lawyerProfile?->id;
 
-        $userRole = $this->user()->role?->name ?? '';
-        $isOfficeManager = $userRole === 'admin' ? true : false;
+        $hasTeam = false;
+
+        if ($lawyerProfileId) {
+            $office = Office::where('owner_lawyer_profile_id', $lawyerProfileId)->first();
+
+            if ($office) {
+                $hasTeam = OfficeInvitation::where('office_id', $office->id)
+                    ->where('status', 'accepted')
+                    ->exists();
+            }
+        }
 
         return [
             'case_id'           => ['required', 'uuid', Rule::exists('cases', 'id')],
@@ -39,7 +53,7 @@ class UpdateCaseRequest extends FormRequest
             'case_category'     => ['nullable', 'string', 'min:4'], // افترضنا أنه UUID ويوجد في جدول التصنيفات
             'importance_stars'  => ['nullable', 'integer', 'min:1', 'max:5'],
             'billing_type'      => ['nullable', 'in:fixed_proposal,percentage_collection,installments,pay_as_you_go'],
-            'lead_lawyer_id'    => ['nullable', "uuid", Rule::exists('users', 'id')],
+            // 'lead_lawyer_id'    => ['nullable', "uuid", Rule::exists('users', 'id')],
             'status'            => ['nullable', 'in:open,close,pending,archived'],
             'case_number' => [
                 'nullable',
@@ -79,17 +93,12 @@ class UpdateCaseRequest extends FormRequest
             'opponents.*.email'      => ['nullable', 'email'],
 
             // --- الفريق المكلف (Array) ---
-            'team' => $isOfficeManager ? ['nullable', 'array', 'min:1'] : ['prohibited'],
+            'team' => $hasTeam ? ['nullable', 'array'] : ['prohibited'],
 
             'team.*.user_id'     => [
-                'required',
+                'required_with:team',
                 'uuid',
-                // تحسين: التأكد من أن عضو الفريق ليس عميلاً (كما هو مطلوب في التعليق)
-                Rule::exists('users', 'id')->where(function ($query) use ($clientRoleId) {
-                    if ($clientRoleId) {
-                        $query->where('role_id', '!=', $clientRoleId);
-                    }
-                })
+                'exists:users,id'
             ],
             'team.*.role_in_case' => ['required', 'string'],
 
@@ -109,6 +118,58 @@ class UpdateCaseRequest extends FormRequest
             ],
         ];
     }
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $team = $this->input('team');
+
+            // إذا لم يكن هناك فريق أو كانت هناك أخطاء سابقة، تخطي هذا التحقق
+            if (empty($team) || $validator->errors()->any()) {
+                return;
+            }
+
+            $currentUser = $this->user();
+            $lawyerProfileId = $currentUser->lawyerProfile?->id;
+
+            if (!$lawyerProfileId) {
+                return;
+            }
+
+            // جلب مكتب المحامي
+            $office = Office::where('owner_lawyer_profile_id', $lawyerProfileId)->first();
+
+            if (!$office) {
+                return;
+            }
+
+            // جلب معرفات الملفات الشخصية للمحامين المقبولين في المكتب
+            $acceptedProfileIds = OfficeInvitation::where('office_id', $office->id)
+                ->where('status', 'accepted')
+                ->pluck('invited_lawyer_profile_id')
+                ->toArray();
+
+            // تحويلها إلى معرفات المستخدمين
+            $validUserIds = LawerProfile::whereIn('id', $acceptedProfileIds)
+                ->pluck('user_id')
+                ->toArray();
+
+            // التحقق من كل عضو في الفريق
+            foreach ($team as $index => $member) {
+                $userId = $member['user_id'] ?? null;
+
+                if (!$userId) {
+                    continue;
+                }
+
+                if (!in_array($userId, $validUserIds)) {
+                    $validator->errors()->add(
+                        "team.{$index}.user_id",
+                        "المحامي المحدد ليس عضواً نشطاً في فريق مكتبك."
+                    );
+                }
+            }
+        });
+    }
     public function messages()
     {
         return [
@@ -126,8 +187,9 @@ class UpdateCaseRequest extends FormRequest
             'opponents.*.name.required' => "Opponent name is required",
             'opponents.*.type.in' => "Opponent type must be individual, company, or government_entity",
             // الفريق
-            'team.prohibited' => "Independent lawyers cannot assign a team",
-            'team.*.user_id.exists' => "One of the provided team member IDs does not exist or is invalid",
+
+            'team.prohibited' => "You cannot assign a team because you don't have active members in your office.",
+            'team.*.user_id.exists' => "The selected user does not exist.",
             'team.*.role_in_case.required' => "role_in_case is required for each team member",
             // الأقساط
             'payment_milestones.required_if' => "payment_milestones are required when billing type is installments",

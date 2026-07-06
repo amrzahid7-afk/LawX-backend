@@ -44,9 +44,9 @@ class changePasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            'current_password.required' => 'current password is required',
-            'current_password.string' => 'current password must be string',
-            'new_password.required' => 'new password is required',
+            'current_password.required' => 'كلمة السر القديمة مطلوبة',
+            'current_password.string' => 'كلمة السر القديمة يجب ان تكون نص ',
+            'new_password.required' => 'كلمة السر الجديدة مطلوبة ',
             'new_password.string' => 'new password must be string',
             'new_password.min' => 'new password must be at least 8 characters',
             'new_password.mixedCase' => 'new password must contain at least one uppercase and one lowercase letter',

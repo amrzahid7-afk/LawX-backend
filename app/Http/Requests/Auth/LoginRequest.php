@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
     {
         return [
 
-            'email' => 'required|string|email|min:11|max:20|exists:users,email',
+            'email' => 'required|string|email|min:11|max:100|exists:users,email',
             'password' => 'required|string|min:8|max:20'
         ];
     }
@@ -36,7 +36,7 @@ class LoginRequest extends FormRequest
             'email.exists' => 'email not found',
             'email.email' => 'invalid email',
             'email.min' => 'email must be at least 11 characters',
-            'email.max' => 'email must be less than 20 characters',
+            'email.max' => 'email must be less than 100 characters',
             'email.string' => 'email must be a string',
             'password.requied' => 'password is required',
             'password.min' => 'password must be at least 8 characters',

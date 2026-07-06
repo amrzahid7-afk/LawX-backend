@@ -9,10 +9,12 @@ use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\UpdateProfileRequest;
 use App\Http\Requests\Auth\UploadAvatarRequest;
 use App\Http\Requests\Auth\Verify_2FA_Request;
+use App\Http\Requests\VerifyLawyerRequest;
 use App\Services\AuthService;
 use Exception;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -21,6 +23,64 @@ class AuthController extends Controller
     public function __construct(AuthService $authService)
     {
         $this->authService = $authService;
+    }
+    public function registerClient(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'full_name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'email', 'unique:users,email'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'phone_number' => ['required', 'string', 'min:10'],
+            ]);
+            if ($validator->fails()) {
+                return sendError('Validation Error :', $validator->errors()->toArray(), 422);
+            }
+            $token = $this->authService->registerClient($request->all());
+            return sendResponse(['Token' => $token], 'Client registration successful.', 201);
+        } catch (\Throwable $th) {
+            return sendError('Client registration failed.', [
+                'message' => $th->getMessage(),
+                'file'    => $th->getFile(),
+                'line'    => $th->getLine()
+            ], 500);
+        }
+    }
+    public function verifySyndicate(VerifyLawyerRequest $request)
+    {
+        try {
+            $validatedData = $request->validated();
+            $result = $this->authService->verifySyndicate($validatedData);
+            return sendResponse($result, 'Verification successful.', 200);
+        } catch (\Throwable $th) {
+            return sendError('Verification failed.', [
+                'message' => $th->getMessage(),
+                'file'    => $th->getFile(),
+                'line'    => $th->getLine()
+            ], 500);
+        }
+    }
+    public function register(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'lawyer_profile_id' => ['required', 'exists:lawyer_profiles,id'],
+                'email' => ['required', 'email', 'unique:users,email'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'phone_number' => ['required', 'string', 'min:10'],
+            ]);
+            if ($validator->fails()) {
+                return sendError('Validation Error :', $validator->errors()->toArray(), 422);
+            }
+            $result = $this->authService->register($request->all());
+            return sendResponse($result, 'Registration successful.', 201);
+        } catch (\Throwable $th) {
+            return sendError('Registration failed.', [
+                'message' => $th->getMessage(),
+                'file'    => $th->getFile(),
+                'line'    => $th->getLine()
+            ], 500);
+        }
     }
     public function login(LoginRequest $request)
     {

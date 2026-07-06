@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\RoleSlug;
 use App\Models\Document;
 use App\Models\Legal_request;
 use App\Models\Proposal;
@@ -16,7 +17,7 @@ class ProposalFactory extends Factory
 
     public function definition(): array
     {
-        $lawyer_role = Role::where('name', 'lawer')->first();
+        $lawyer_role = Role::where('slug', RoleSlug::Lawyer)->first();
         $lawyer = User::where('role_id', $lawyer_role->id)->inRandomOrder()->first();
 
         if (!$lawyer) {

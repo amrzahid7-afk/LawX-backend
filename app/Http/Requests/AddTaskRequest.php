@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Models\LawerProfile;
+use App\Models\Office;
+use App\Models\OfficeInvitation;
 use App\Models\User;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class AddTaskRequest extends FormRequest
 {
@@ -34,9 +37,49 @@ class AddTaskRequest extends FormRequest
                 'required',
                 'exists:users,id',
                 function ($attribute, $value, $fail) {
-                    $user = User::find($value);
-                    if (!$user || !in_array($user->role->name, ['lawer', 'admin', 'office_manager', 'independent_lawyer'])) {
-                        $fail('The assigned user must be a lawer');
+                    // 1. جلب المستخدم المُسند إليه
+                    $assignedUser = User::find($value);
+
+                    if (!$assignedUser) {
+                        $fail('The assigned user does not exist');
+                        return;
+                    }
+
+                    // 2. التحقق من دوره باستخدام slug (وليس name)
+                    if (!$assignedUser->role || !in_array($assignedUser->role->slug, ['lawyer'])) {
+                        $fail('The assigned user must be a lawyer');
+                        return;
+                    }
+                    // 3. جلب بيانات المحامي الحالي
+                    $currentUser = $this->user();
+                    $lawyerProfileId = $currentUser->lawyerProfile?->id;
+                    if (!$lawyerProfileId) {
+                        $fail('You do not have a lawyer profile');
+                        return;
+                    }
+                    // 4. جلب مكتب المحامي الحالي
+                    $office = Office::where('owner_lawyer_profile_id', $lawyerProfileId)->first();
+                    if (!$office) {
+                        $fail('You cannot assign tasks because you do not own an office');
+                        return;
+                    }
+                    // 5. السماح للمحامي بتسليم مهمة لنفسه (صاحب المكتب)
+                    if ($assignedUser->id === $currentUser->id) {
+                        return;
+                    }
+                    // 6. جلب ملف المحامي الشخصي للمستخدم المُسند إليه
+                    $assignedProfile = LawerProfile::where('user_id', $value)->first();
+                    if (!$assignedProfile) {
+                        $fail('The assigned user does not have a lawyer profile');
+                        return;
+                    }
+                    // 7. التحقق من أنه عضو مقبول في المكتب
+                    $isAcceptedMember = OfficeInvitation::where('office_id', $office->id)
+                        ->where('invited_lawyer_profile_id', $assignedProfile->id)
+                        ->where('status', 'accepted')
+                        ->exists();
+                    if (!$isAcceptedMember) {
+                        $fail('The assigned user is not an active member of your office');
                     }
                 }
             ],

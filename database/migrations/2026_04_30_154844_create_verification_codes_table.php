@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
+
+    /**                         
      * Run the migrations.
      */
     /// 'id', 'user_id', 'code', 'type', 'expires_at', 'is_used'
