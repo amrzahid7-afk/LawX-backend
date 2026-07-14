@@ -30,7 +30,10 @@ class OfficeInvitation extends Model
 
     public function accept(): void
     {
-        $this->update(['status' => 'accepted']);
+        $this->update([
+            'status' => 'accepted',
+            'responded_at' => now()->format('Y-m-d H:i:s')
+        ]);
 
         $this->invitedLawyer->update([
             'employed_office_id' => $this->office_id,
@@ -39,6 +42,16 @@ class OfficeInvitation extends Model
 
     public function reject(): void
     {
-        $this->update(['status' => 'rejected']);
+        $this->update([
+            'status' => 'rejected',
+            'responded_at' => now()->format('Y-m-d H:i:s')
+        ]);
+    }
+    public function cancelled(): void
+    {
+        $this->update([
+            'status' => 'cancelled',
+            'responded_at' => now()->format('Y-m-d H:i:s')
+        ]);
     }
 }

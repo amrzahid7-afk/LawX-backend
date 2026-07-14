@@ -20,7 +20,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"syndicate@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
+                  "raw": "{\r\n    \"email\": \"lawyer@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -28,12 +28,12 @@
                   }
                 },
                 "url": {
-                  "raw": "{{Domain}}/Auth/login",
+                  "raw": "{{Domain}}/auth/login",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
-                    "Auth",
+                    "auth",
                     "login"
                   ]
                 }
@@ -254,37 +254,37 @@
                     },
                     {
                       "key": "email",
-                      "value": "ibrahim@gmail.com",
+                      "value": "aymn@gmail.co",
                       "type": "text",
                       "uuid": "8af9b086-5be6-4c25-8e34-b52a0f60cecf"
                     },
                     {
                       "key": "password",
-                      "value": "ibrahim@gmail.com",
+                      "value": "aymn@gmail.com",
                       "type": "text",
                       "uuid": "02a00848-5849-41a1-ad43-538559083b11"
+                    },
+                    {
+                      "key": "password_confirmation",
+                      "value": "aymn@gmail.com",
+                      "type": "text",
+                      "uuid": "dea6b01b-f551-40bc-a0e2-cebac6679d47"
                     },
                     {
                       "key": "phone_number",
                       "value": "0968339198",
                       "type": "text",
                       "uuid": "527c229b-ddac-478d-899a-5f0453872b36"
-                    },
-                    {
-                      "key": "password_confirmation",
-                      "value": "ibrahim@gmail.com",
-                      "type": "text",
-                      "uuid": "dea6b01b-f551-40bc-a0e2-cebac6679d47"
                     }
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/Auth/lawyer/register",
+                  "raw": "{{Domain}}/auth/lawyer/register",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
-                    "Auth",
+                    "auth",
                     "lawyer",
                     "register"
                   ]
@@ -1596,6 +1596,1380 @@
                 }
               },
               "response": []
+            }
+          ]
+        },
+        {
+          "name": "Manage Office",
+          "item": [
+            {
+              "name": "activate_my_office",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "lawer_profile_id",
+                      "value": "{{lawer_profile_id}}",
+                      "type": "text",
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/activate_office",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Manage_Offices",
+                    "activate_office"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "activate_my_office",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "lawer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        }
+                      ],
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/activate_office",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "activate_office"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 14 Jul 2026 13:43:01 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Office activated successfully.\",\n    \"data\": {\n        \"id\": \"019f60db-54c4-73ba-92e1-880fd0764047\",\n        \"name\": \"ابراهيم حبشية's Office\",\n        \"owner_lawyer_profile_id\": \"019f60db-54c3-7097-96b0-d05776f1112f\",\n        \"status\": \"active\",\n        \"created_at\": \"2026-07-14T13:40:14.000000Z\",\n        \"updated_at\": \"2026-07-14T13:43:01.000000Z\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "invite_lawer_to_office",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "invited_lawyer_profile_id",
+                      "value": "{{lawer_profile_id}}",
+                      "type": "text",
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    },
+                    {
+                      "key": "office_id",
+                      "value": "{{office_id}}",
+                      "type": "text",
+                      "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/invite_lawer_to_office",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Manage_Offices",
+                    "invite_lawer_to_office"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "invite_lawer_to_office",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        },
+                        {
+                          "key": "office_id",
+                          "value": "{{office_id}}",
+                          "type": "text",
+                          "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/invite_lawer_to_office",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "invite_lawer_to_office"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 14 Jul 2026 13:44:14 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Invitation sent successfully.\",\n    \"data\": {\n        \"invited_lawyer_profile_id\": \"019f60db-0ac4-7046-ad86-7ca21dc63fed\",\n        \"status\": \"pending\",\n        \"office_id\": \"019f60db-54c4-73ba-92e1-880fd0764047\",\n        \"id\": \"019f60de-fce0-70a8-b82f-3fa7829d8c9a\",\n        \"updated_at\": \"2026-07-14T13:44:14.000000Z\",\n        \"created_at\": \"2026-07-14T13:44:14.000000Z\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "my_sended_invitations",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true,
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "invited_lawyer_profile_id",
+                      "value": "{{lawer_profile_id}}",
+                      "type": "text",
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    },
+                    {
+                      "key": "office_id",
+                      "value": "{{office_id}}",
+                      "type": "text",
+                      "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/my_sended_invitations?lawer_profile_id={{lawer_profile_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Manage_Offices",
+                    "my_sended_invitations"
+                  ],
+                  "query": [
+                    {
+                      "key": "lawer_profile_id",
+                      "value": "{{lawer_profile_id}}"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "my_sended_invitations",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        },
+                        {
+                          "key": "office_id",
+                          "value": "{{office_id}}",
+                          "type": "text",
+                          "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/my_sended_invitations?lawer_profile_id={{lawer_profile_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "my_sended_invitations"
+                      ],
+                      "query": [
+                        {
+                          "key": "lawer_profile_id",
+                          "value": "{{lawer_profile_id}}"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 14 Jul 2026 14:00:05 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"My sended invitations retrieved successfully.\",\n    \"data\": [\n        {\n            \"invitation_id\": \"019f60de-fce0-70a8-b82f-3fa7829d8c9a\",\n            \"Lawer_that_invited_name\": \"أيمن عرابي\",\n            \"status\": \"pending\",\n            \"responded_at\": null,\n            \"created_at\": \"2026-07-14T13:44:14.000000Z\",\n            \"updated_at\": \"2026-07-14T13:44:14.000000Z\"\n        }\n    ]\n}"
+                }
+              ]
+            },
+            {
+              "name": "my_received_invitations",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true,
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "invited_lawyer_profile_id",
+                      "value": "{{lawer_profile_id}}",
+                      "type": "text",
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    },
+                    {
+                      "key": "office_id",
+                      "value": "{{office_id}}",
+                      "type": "text",
+                      "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/my_received_invitations?lawer_profile_id={{lawer_profile_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Manage_Offices",
+                    "my_received_invitations"
+                  ],
+                  "query": [
+                    {
+                      "key": "lawer_profile_id",
+                      "value": "{{lawer_profile_id}}"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "my_received_invitations",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        },
+                        {
+                          "key": "office_id",
+                          "value": "{{office_id}}",
+                          "type": "text",
+                          "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/my_received_invitations?lawer_profile_id={{lawer_profile_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "my_received_invitations"
+                      ],
+                      "query": [
+                        {
+                          "key": "lawer_profile_id",
+                          "value": "{{lawer_profile_id}}"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 14 Jul 2026 13:57:10 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"My received invitations retrieved successfully.\",\n    \"data\": [\n        {\n            \"invitation_id\": \"019f60de-fce0-70a8-b82f-3fa7829d8c9a\",\n            \"office_name\": \"ابراهيم حبشية's Office\",\n            \"owner_office_name\": \"ابراهيم حبشية\",\n            \"status\": \"pending\",\n            \"responded_at\": null,\n            \"created_at\": \"2026-07-14T13:44:14.000000Z\",\n            \"updated_at\": \"2026-07-14T13:44:14.000000Z\"\n        }\n    ]\n}"
+                }
+              ]
+            },
+            {
+              "name": "accept_invitation",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "invited_lawyer_profile_id",
+                      "value": "{{lawer_profile_id}}",
+                      "type": "text",
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    },
+                    {
+                      "key": "office_id",
+                      "value": "{{office_id}}",
+                      "type": "text",
+                      "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/accept_invitation?invitation_id={{invitaion_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Manage_Offices",
+                    "accept_invitation"
+                  ],
+                  "query": [
+                    {
+                      "key": "invitation_id",
+                      "value": "{{invitaion_id}}"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "accept_invitation",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        },
+                        {
+                          "key": "office_id",
+                          "value": "{{office_id}}",
+                          "type": "text",
+                          "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/accept_invitation?invitation_id={{invitaion_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "accept_invitation"
+                      ],
+                      "query": [
+                        {
+                          "key": "invitation_id",
+                          "value": "{{invitaion_id}}"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 14 Jul 2026 14:08:57 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Invitation accepted successfully.\",\n    \"data\": {\n        \"invitation_id\": \"019f60de-fce0-70a8-b82f-3fa7829d8c9a\",\n        \"office_name\": \"ابراهيم حبشية's Office\",\n        \"owner_office_name\": \"ابراهيم حبشية\",\n        \"Lawer_that_invited_name\": \"أيمن عرابي\",\n        \"status\": \"accepted\",\n        \"responded_at\": null,\n        \"created_at\": \"2026-07-14T13:44:14.000000Z\",\n        \"updated_at\": \"2026-07-14T14:08:57.000000Z\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "reject_invitation",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "invited_lawyer_profile_id",
+                      "value": "{{lawer_profile_id}}",
+                      "type": "text",
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    },
+                    {
+                      "key": "office_id",
+                      "value": "{{office_id}}",
+                      "type": "text",
+                      "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/reject_invitation?invitation_id={{invitaion_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Manage_Offices",
+                    "reject_invitation"
+                  ],
+                  "query": [
+                    {
+                      "key": "invitation_id",
+                      "value": "{{invitaion_id}}"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "reject_invitation",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        },
+                        {
+                          "key": "office_id",
+                          "value": "{{office_id}}",
+                          "type": "text",
+                          "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/reject_invitation?invitation_id={{invitaion_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "reject_invitation"
+                      ],
+                      "query": [
+                        {
+                          "key": "invitation_id",
+                          "value": "{{invitaion_id}}"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 14 Jul 2026 16:44:34 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Invitation rejected successfully.\",\n    \"data\": {\n        \"invitation_id\": \"019f60de-fce0-70a8-b82f-3fa7829d8c9a\",\n        \"office_name\": \"ابراهيم حبشية's Office\",\n        \"owner_office_name\": \"ابراهيم حبشية\",\n        \"Lawer_that_invited_name\": \"أيمن عرابي\",\n        \"status\": \"rejected\",\n        \"responded_at\": null,\n        \"created_at\": \"2026-07-14T13:44:14.000000Z\",\n        \"updated_at\": \"2026-07-14T16:44:34.000000Z\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "remove_invitation",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "invited_lawyer_profile_id",
+                      "value": "{{lawer_profile_id}}",
+                      "type": "text",
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    },
+                    {
+                      "key": "office_id",
+                      "value": "{{office_id}}",
+                      "type": "text",
+                      "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/remove_invitation?invitation_id={{invitaion_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Manage_Offices",
+                    "remove_invitation"
+                  ],
+                  "query": [
+                    {
+                      "key": "invitation_id",
+                      "value": "{{invitaion_id}}"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "remove_invitation",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        },
+                        {
+                          "key": "office_id",
+                          "value": "{{office_id}}",
+                          "type": "text",
+                          "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/remove_invitation?invitation_id={{invitaion_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "remove_invitation"
+                      ],
+                      "query": [
+                        {
+                          "key": "invitation_id",
+                          "value": "{{invitaion_id}}"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 14 Jul 2026 16:48:50 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Invitation removed successfully.\",\n    \"data\": {\n        \"invitation_id\": \"019f60de-fce0-70a8-b82f-3fa7829d8c9a\",\n        \"office_name\": \"ابراهيم حبشية's Office\",\n        \"owner_office_name\": \"ابراهيم حبشية\",\n        \"Lawer_that_invited_name\": \"أيمن عرابي\",\n        \"status\": \"cancelled\",\n        \"responded_at\": null,\n        \"created_at\": \"2026-07-14T13:44:14.000000Z\",\n        \"updated_at\": \"2026-07-14T16:48:50.000000Z\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "remove_lawer_from_office",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "invited_lawyer_profile_id",
+                      "value": "{{lawer_profile_id}}",
+                      "type": "text",
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    },
+                    {
+                      "key": "office_id",
+                      "value": "{{office_id}}",
+                      "type": "text",
+                      "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/remove_lawer_from_office?lawer_profile_id={{lawer_profile_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Manage_Offices",
+                    "remove_lawer_from_office"
+                  ],
+                  "query": [
+                    {
+                      "key": "lawer_profile_id",
+                      "value": "{{lawer_profile_id}}"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "remove_lawer_from_office",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        },
+                        {
+                          "key": "office_id",
+                          "value": "{{office_id}}",
+                          "type": "text",
+                          "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a",
+                          "disabled": true
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/remove_lawer_from_office?lawer_profile_id={{lawer_profile_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "remove_lawer_from_office"
+                      ],
+                      "query": [
+                        {
+                          "key": "lawer_profile_id",
+                          "value": "{{lawer_profile_id}}"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 14 Jul 2026 17:36:22 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Lawyer removed from office successfully.\",\n    \"data\": {\n        \"id\": \"019f60db-0ac4-7046-ad86-7ca21dc63fed\",\n        \"full_name\": \"أيمن عرابي\",\n        \"national_id\": \"6666666666\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "get_all_lawers_in_my_office",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true,
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "invited_lawyer_profile_id",
+                      "value": "{{lawer_profile_id}}",
+                      "type": "text",
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    },
+                    {
+                      "key": "office_id",
+                      "value": "{{office_id}}",
+                      "type": "text",
+                      "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/get_all_lawers_in_my_office",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Manage_Offices",
+                    "get_all_lawers_in_my_office"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "get_all_lawers_in_my_office",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        },
+                        {
+                          "key": "office_id",
+                          "value": "{{office_id}}",
+                          "type": "text",
+                          "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a",
+                          "disabled": true
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/get_all_lawers_in_my_office",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "get_all_lawers_in_my_office"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 14 Jul 2026 17:51:36 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"All lawyers in office retrieved successfully.\",\n    \"data\": [\n        {\n            \"id\": \"019f60db-0ac4-7046-ad86-7ca21dc63fed\",\n            \"full_name\": \"أيمن عرابي\",\n            \"national_id\": \"6666666666\",\n            \"syndicate_card_number\": \"88888888\",\n            \"syndicate_branch\": \"دمشق\",\n            \"birth_date\": \"2002-01-01\",\n            \"birth_place\": \"دمشق\",\n            \"father_name\": \"خليل\",\n            \"mother_name\": \"ابتهاج\",\n            \"mother_family_name\": \"عسلية\"\n        }\n    ]\n}"
+                }
+              ]
             }
           ]
         },
@@ -3853,13 +5227,13 @@
               "formdata": [
                 {
                   "key": "national_id",
-                  "value": "01010261588",
+                  "value": "5555",
                   "type": "text",
                   "uuid": "fae6f840-37b3-40ab-a33e-a086f1c9fad9"
                 },
                 {
                   "key": "full_name",
-                  "value": "ابراهيم",
+                  "value": "ابراهيم حبشية",
                   "type": "text",
                   "uuid": "8f8e1057-7b60-4a27-a0d1-1a6d0337d7ca"
                 },
@@ -3901,7 +5275,7 @@
                 },
                 {
                   "key": "syndicate_card_number",
-                  "value": "151588",
+                  "value": "55555",
                   "type": "text",
                   "uuid": "f774b787-3a66-4498-8675-0c8d21950925"
                 },
@@ -3913,7 +5287,8 @@
                 },
                 {
                   "key": "lawyer_state",
-                  "value": "trainee",
+                  "value": "licensed",
+                  "description": " // licsened , trainee",
                   "type": "text",
                   "uuid": "25141a50-35c5-4e6b-a9a7-70b0e525a53b"
                 }
@@ -5218,6 +6593,21 @@
     },
     {
       "key": "lawyer_profile_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "lawer_profile_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "invitaion_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "office_id",
       "value": "",
       "type": "default"
     }

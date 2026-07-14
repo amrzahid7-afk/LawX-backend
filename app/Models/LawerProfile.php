@@ -35,7 +35,9 @@ class LawerProfile extends Model
         'is_claimed',
         'claimed_at',
         'supervised_by_lawyer_id',
+        'employed_In_office_id',
         'created_by',
+        'user_id',
     ];
 
     protected $casts = [
@@ -50,7 +52,7 @@ class LawerProfile extends Model
 
     public function employedOffice(): BelongsTo
     {
-        return $this->belongsTo(Office::class, 'employed_office_id');
+        return $this->belongsTo(Office::class, 'employed_In_office_id');
     }
     public function ownedOffice(): HasOne
     {

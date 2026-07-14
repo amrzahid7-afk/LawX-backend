@@ -43,18 +43,23 @@ class Office extends Model
         return $this->hasMany(OfficeInvitation::class);
     }
 
-    public function employees(): HasMany
+    public function employees()
     {
-        return $this->hasMany(LawerProfile::class, 'employed_office_id');
+        return $this->belongsToMany(
+            LawerProfile::class,
+            'office_invitations', // اسم الجدول الوسيط
+            'office_id',          // المفتاح الأجنبي في جدول الوسيط الخاص بـ Office
+            'invited_lawyer_profile_id' // المفتاح الأجنبي في جدول الوسيط الخاص بـ Lawyer
+        )->withPivot('status', 'invited_by', 'responded_at'); // لإحضار بيانات إضافية من الجدول الوسيط إذا لزم الأمر
     }
 
-    public function isApproved(): bool
-    {
-        return $this->status === 'approved';
-    }
+    // public function isApproved(): bool
+    // {
+    //     return $this->status === 'approved';
+    // }
 
-    public function isPending(): bool
-    {
-        return $this->status === 'pending';
-    }
+    // public function isPending(): bool
+    // {
+    //     return $this->status === 'pending';
+    // }
 }

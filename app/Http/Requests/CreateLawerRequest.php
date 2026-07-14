@@ -37,7 +37,7 @@ class CreateLawerRequest extends FormRequest
             'civil_registry_number' => ['required', 'string'],
             'syndicate_card_number' => ['required', 'string', 'unique:lawyer_profiles,syndicate_card_number'],
             'syndicate_branch' => ['required', 'string'],
-            'lawyer_state' => ['required', Rule::in(['trainee', 'independent'])],
+            'lawyer_state' => ['required', Rule::in(['trainee', 'licensed'])],
         ];
     }
     public function messages()
@@ -66,7 +66,7 @@ class CreateLawerRequest extends FormRequest
             'syndicate_branch.required' => 'Syndicate branch is required.',
             'syndicate_branch.string' => 'Syndicate branch must be a string.',
             'lawyer_state.required' => "Lawyer state is required.",
-            "lawyer_state.in" => "Lawyer state must be either trainee or independent.",
+            "lawyer_state.in" => "Lawyer state must be either trainee or licensed.",
         ];
     }
     protected function failedValidation(Validator $validator)

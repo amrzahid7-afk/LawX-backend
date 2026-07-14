@@ -6,11 +6,37 @@ use App\Http\Controllers\CaseController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LegalRequestController;
+use App\Http\Controllers\ManageOfficeController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserManagmentController;
 use Illuminate\Support\Facades\Route;
+
+
+// Manage Offices
+Route::prefix('/Manage_Offices')->group(function () {
+    // api to make lawer can manage the lawers in his office 
+    Route::post('/activate_office', [ManageOfficeController::class, 'activate_office']);
+    // api for invite another lawer to join the office
+    Route::post('/invite_lawer_to_office', [ManageOfficeController::class, 'invite_lawer_to_office']);
+    // api for My sended invitations to other lawers to join my office (Here I am the owner of the office)
+    Route::get('/my_sended_invitations', [ManageOfficeController::class, 'my_sended_invitations']);
+    // api for My received invitations from other lawers to join their offices (Here I am the invited lawer to join offices & I dont have Office )
+    Route::get('/my_received_invitations', [ManageOfficeController::class, 'my_received_invitations']);
+    // api for remove invitation that I sent to another lawer to join my office (Here I am the owner of the office)
+    Route::post('/remove_invitation', [ManageOfficeController::class, 'remove_invitation']);
+
+    // api for accept invitation to join an office
+    Route::post('/accept_invitation', [ManageOfficeController::class, 'accept_invitation']);
+    // api for reject invitation to join an office
+    Route::post('/reject_invitation', [ManageOfficeController::class, 'reject_invitation']);
+    // api for remove a lawer from my office (Here I am the owner of the office)
+    Route::post('/remove_lawer_from_office', [ManageOfficeController::class, 'remove_lawer_from_office']);
+
+    // api for get all lawers in my office (Here I am the owner of the office)
+    Route::get('/get_all_lawers_in_my_office', [ManageOfficeController::class, 'get_all_lawers_in_my_office']);
+});
 
 // cases
 Route::prefix('/Case')->group(function () {

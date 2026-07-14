@@ -18,7 +18,7 @@ class ManageSyndicateUsersService
             throw new \Exception('Unauthorized. Please log in first.', 401);
         }
         DB::beginTransaction();
-        LawerProfile::create([
+        $lawer_profile = LawerProfile::create([
             'national_id'           => $data['national_id'],
             // 'national_Id_data'      => $data['national_id_data'],
             'full_name'             => $data['full_name'],
@@ -33,6 +33,13 @@ class ManageSyndicateUsersService
             'lawyer_state'          => $data['lawyer_state'],
             'created_by'            => $userId,
         ]);
+        if ($data['lawyer_state'] === 'licensed') {
+            Office::create([
+                'name' => $data['full_name'] . "'s Office",
+                'owner_lawyer_profile_id' => $lawer_profile->id,
+                'status' => 'suspended',
+            ]);
+        }
         DB::commit();
         return true;
     }

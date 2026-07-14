@@ -67,7 +67,7 @@ class AuthService
             'is_claimed' => true,
             'claimed_at' => now()->format('Y-m-d'),
         ]);
-
+        $profile->save();
         $token = $user->createToken('LawyerToken')->plainTextToken;
         DB::commit();
         return sendResponse(['token' => $token,], 'Registration successful.', 201);
