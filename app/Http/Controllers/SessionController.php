@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddSessionRequest;
 use App\Http\Requests\UpdateSessionRequest;
+use App\Models\CaseModel;
+use App\Models\Session;
 use App\Services\SessionsService;
 use Faker\Core\Uuid;
+use Illuminate\Support\Facades\Gate;
 
 class SessionController extends Controller
 {
@@ -18,7 +21,16 @@ class SessionController extends Controller
     public function addSession(AddSessionRequest $request)
     {
         try {
-            $session = $this->session_service->add_new_session($request->validated());
+            // validate data
+            $data = $request->validated();
+            // validate permissions 
+            $case = CaseModel::find($data['case_id']);
+            if (Gate::denies('addSession', [Session::class, $case])) {
+                return  sendError("Unauthorized , You do not have permission to add a session for this case.", [], 403);
+            }
+            // logic in service class
+            $session = $this->session_service->add_new_session($data);
+
             return response()->json([
                 'status' => $session['status'],
                 'data' => $session['data'],
@@ -33,6 +45,7 @@ class SessionController extends Controller
     }
     public function get_sessions_for_case($case_id)
     {
+        // validate case_id
         $validate = validator()->make(
             ['case_id' => $case_id],
             ['case_id' => 'required|uuid|exists:cases,id'],
@@ -47,6 +60,11 @@ class SessionController extends Controller
                 'status' => false,
                 'message' => $validate->errors()->first(),
             ], 422);
+        }
+        // validate permission
+        $case = CaseModel::find($case_id);
+        if (Gate::denies('get_sessions_for_case', [Session::class, $case])) {
+            return sendError("Unauthorized , You do not have permission to view sessions for this case.", [], 403);
         }
         try {
             $sessions = $this->session_service->getSessions($case_id);
@@ -64,6 +82,10 @@ class SessionController extends Controller
     public function get_sessions_for_lawer()
     {
         try {
+            // validate permission
+            if (Gate::denies('get_sessions_for_lawer', Session::class)) {
+                return sendError("Unauthorized , You do not have permission to view sessions ", [], 403);
+            }
             $sessions = $this->session_service->get_sessions_for_lawer();
             return response()->json([
                 'status' => $sessions['status'],
@@ -109,6 +131,11 @@ class SessionController extends Controller
                 'message' => $validate->errors()->first(),
             ], 422);
         }
+        // validate permission
+        $session = Session::find($session_id);
+        if (Gate::denies('delete_session', [Session::class, $session])) {
+            return sendError("Unauthorized , You do not have permission to delete this session.", [], 403);
+        }
         // calling Service function
         $sessions = $this->session_service->delete_session($session_id);
         // sending response
@@ -122,6 +149,10 @@ class SessionController extends Controller
         try {
             // validate data 
             $data = $request->validated();
+            // validate permission
+            if (Gate::denies('update_session', Session::find($data['session_id']))) {
+                return sendError("Unauthorized , You do not have permission to update this session.", [], 403);
+            }
             // logic in service class 
             $sessions = $this->session_service->update_session($data);
             // sending response 

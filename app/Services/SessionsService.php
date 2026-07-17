@@ -96,39 +96,59 @@ class SessionsService
     }
     public function get_sessions_for_lawer()
     {
-        // get lawer object
         $lawer = auth('sanctum')->user();
-        // get sessions just for this lawer (Authenticated)
-        $sessions = Session::with('case.leadLawyer')->whereHas('case', function ($query) use ($lawer) {
-            $query->where('lead_lawyer_id', $lawer->id);
+        $profile = $lawer->lawyerProfile;
+        // get sessions for lawer    
+        $sessions = Session::with('case')->whereHas('case', function ($query) use ($lawer, $profile) {
+            // sessions for personal work 
+            $query->where('lead_lawyer_id', $lawer->id)
+                // sessions for my office
+                ->orWhereHas('office', function ($q) use ($profile) {
+                    $q->where('owner_lawyer_profile_id', $profile->id);
+                })
+                // sessions for my cases teams (Employee)
+                ->orWhereHas('team', function ($q) use ($lawer) {
+                    $q->where('users.id', $lawer->id);
+                });
         })->get();
-        // returning resposne data
         return [
             'status' => 'success',
             'data' => [
-                'message' => 'Fetch sessions For lawer successfully',
+                'message' => 'Fetch sessions For lawyer successfully',
                 'data' => $sessions
             ],
             'code' => '200'
         ];
     }
+    // public function get_sessions_for_lawer()
+    // {
+    //     // get lawer object
+    //     $lawer = auth('sanctum')->user();
+    //     // get sessions just for this lawer (Authenticated)
+    //     $sessions = Session::with('case.leadLawyer')->whereHas('case', function ($query) use ($lawer) {
+    //         $query->where('lead_lawyer_id', $lawer->id);
+    //     })->get();
+    //     // returning resposne data
+    //     return [
+    //         'status' => 'success',
+    //         'data' => [
+    //             'message' => 'Fetch sessions For lawer successfully',
+    //             'data' => $sessions
+    //         ],
+    //         'code' => '200'
+    //     ];
+    // }
     public function get_sessions_for_client()
     {
-        // جلب كائن العميل المسجل حالياً
         $client = auth('sanctum')->user();
 
-        // جلب الجلسات
         $sessions = Session::with('case.clients') // تم التعديل هنا: case.clients بدلاً من case.client
             ->whereHas('case', function ($query) use ($client) {
-                // البحث داخل القضايا المرتبطة بهذا العميل
                 $query->whereHas('clients', function ($q) use ($client) {
-                    // التحقق من أن العميل موجود في جدول case_clients المرتبط بالقضية
                     $q->where('users.id', $client->id);
                 });
             })
             ->get();
-
-        // إرجاع البيانات
         return [
             'status' => 'success',
             'data' => [

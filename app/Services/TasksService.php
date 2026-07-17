@@ -63,6 +63,7 @@ class TasksService
             'code' => '200'
         ];
     }
+
     public function get_tasks_for_case($case_id)
     {
         $case = CaseModel::with(['leadLawyer', 'clients', 'team'])->find($case_id);
@@ -133,23 +134,65 @@ class TasksService
             'code' => '200'
         ];
     }
-    public function get_my_tasks()
+    // public function get_my_tasks()
+    // {
+    //     $user = auth('sanctum')->user();
+    //     $tasks = $user->tasks()->with(['case'])->get();
+    //     $formattedTasks = $tasks->map(function ($task) {
+    //         return [
+    //             'task_id' => $task->id,
+    //             'task_title' => $task->title,
+    //             'task_description' => $task->description,
+    //             'task_due_date' => $task->due_date->format('Y-m-d'),
+    //             'task_status' => $task->status,
+    //             'case_number' => $task->case->case_number,
+    //             'case_title' => $task->case->title,
+    //             'case_category' => $task->case->case_category,
+    //             'case_description' => $task->case->description,
+    //         ];
+    //     });
+    //     return [
+    //         'status' => 'success',
+    //         'data' => [
+    //             'message' => 'Task Fetching successfully',
+    //             'tasks' => $formattedTasks
+    //         ],
+    //         'code' => '200'
+    //     ];
+    // }
+    public function get_my_tasks($request)
     {
         $user = auth('sanctum')->user();
-        $tasks = $user->tasks()->with(['case'])->get();
+        $scope = $request->input('scope', 'all');
+
+        $tasksQuery = $user->tasks()->with(['case']);
+
+        if ($scope === 'office') {
+            $tasksQuery->whereHas('case', function ($query) {
+                $query->whereNotNull('office_id');
+            });
+        } elseif ($scope === 'personal') {
+            $tasksQuery->whereHas('case', function ($query) {
+                $query->whereNull('office_id');
+            });
+        }
+
+        $tasks = $tasksQuery->get();
+
         $formattedTasks = $tasks->map(function ($task) {
             return [
                 'task_id' => $task->id,
                 'task_title' => $task->title,
                 'task_description' => $task->description,
-                'task_due_date' => $task->due_date->format('Y-m-d'),
+                'task_due_date' => $task->due_date ? $task->due_date->format('Y-m-d') : null,
                 'task_status' => $task->status,
                 'case_number' => $task->case->case_number,
                 'case_title' => $task->case->title,
                 'case_category' => $task->case->case_category,
-                'case_description' => $task->case->description,
+                'is_personal_case' => is_null($task->case->office_id),
             ];
         });
+
         return [
             'status' => 'success',
             'data' => [

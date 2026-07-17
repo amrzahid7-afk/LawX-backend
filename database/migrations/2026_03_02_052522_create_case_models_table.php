@@ -52,6 +52,8 @@ return new class extends Migration
             $table->integer('progress_percentage')->default(0);
             $table->string('court', 255)->nullable();
             $table->foreignUuid('lead_lawyer_id')->nullable()->constrained('users')->onDelete('cascade');
+            // $table->foreignUuid('office_id')->nullable()->constrained('offices')->onDelete('cascade');
+            $table->uuid('office_id')->nullable();
             $table->timestamps();
         });
     }

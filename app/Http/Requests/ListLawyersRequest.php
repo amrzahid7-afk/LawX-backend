@@ -17,7 +17,7 @@ class ListLawyersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lawyer_state' => ['nullable', Rule::in(['trainee', 'independent'])],
+            'lawyer_state' => ['nullable', Rule::in(['trainee', 'licensed'])],
             'is_suspended' => ['nullable', 'boolean'],
             'search_fullname' => ['nullable', 'string', 'max:100'],
             'search_syndicate_card_number' => ['nullable', 'string', 'max:100'],
@@ -28,7 +28,7 @@ class ListLawyersRequest extends FormRequest
     public function messages()
     {
         return [
-            'lawyer_state.in' => 'The lawyer state must be either trainee or independent.',
+            'lawyer_state.in' => 'The lawyer state must be either trainee or licensed.',
             'is_suspended.boolean' => 'The is_suspended field must be true or false.',
             'is_office_owner.boolean' => 'The is_office_owner field must be true or false.',
             'search.string' => 'The search field must be a string.',

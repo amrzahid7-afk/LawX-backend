@@ -18,6 +18,13 @@ return new class extends Migration
                 ->references('id')->on('offices')
                 ->nullOnDelete();
         });
+        Schema::table('cases', function (Blueprint $table) {
+            // الآن نضيف العلاقة بأمان لأن جميع الجداول قد تم إنشاؤها مسبقاً
+            $table->foreign('office_id')
+                ->references('id')
+                ->on('offices')
+                ->onDelete('cascade');
+        });
     }
 
     public function down(): void

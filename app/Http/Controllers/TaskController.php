@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\TasksService;
-use Illuminate\Http\Request;
 use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\EditTaskRequest;
+use App\Models\CaseModel;
+use App\Models\Task;
+use App\Models\User;
+use App\Services\TasksService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
@@ -20,6 +24,12 @@ class TaskController extends Controller
         try {
             // validate data
             $data = $request->validated();
+            //validate permissions 
+            $case = CaseModel::find($data['case_id']);
+            $assigned_To_lawer = User::find($data['assigned_to']);
+            if (Gate::denies('create_task', [$case, $assigned_To_lawer])) {
+                return sendError('Un authorized , you dont have permission to create task For this case or this employee', [], 403);
+            }
             // logic In service class 
             $result  = $this->tasks_service->addTask($data);
             // sending response
@@ -52,6 +62,11 @@ class TaskController extends Controller
                     'code' => '400'
                 ]);
             }
+            // validate permissions
+            $case = CaseModel::find($case_id);
+            if (Gate::denies('get_tasks_for_case',  $case)) {
+                return sendError('Un authorized , you dont have permission to show tasks for this case ', [], 403);
+            }
             // logic In Service Class 
             $result  = $this->tasks_service->get_tasks_for_case($case_id);
             // sending response
@@ -71,6 +86,11 @@ class TaskController extends Controller
         try {
             // validate data 
             $data = $request->validated();
+            // validate permissions
+            $task = Task::find($data['task_id']);
+            if (Gate::denies('edit_task', $task)) {
+                return sendError('Un authorized , you dont have permission to edit this task ', [], 403);
+            }
             // logic in service class 
             $result = $this->tasks_service->edit_task($data);
             // sending response 
@@ -101,6 +121,11 @@ class TaskController extends Controller
                     'data' => $validator->errors(),
                 ], 400);
             }
+            // validate permissions
+            $task = Task::find($task_id);
+            if (Gate::denies('delete_task', $task)) {
+                return sendError('Un authorized , you dont have permission to delete this task ', [], 403);
+            }
             // Call Service function
             $result = $this->tasks_service->delete_task($task_id);
             // sending response
@@ -115,10 +140,14 @@ class TaskController extends Controller
             ], 500);
         }
     }
-    public function get_my_tasks()
+    public function get_my_tasks(Request $request)
     {
         try {
-            $tasks = $this->tasks_service->get_my_tasks();
+            // validate permissions
+            if (Gate::denies('get_my_tasks', Task::class)) {
+                return sendError('Un authorized , you dont have permission to show your tasks ', [], 403);
+            }
+            $tasks = $this->tasks_service->get_my_tasks($request);
             return response()->json([
                 'status' => $tasks['status'],
                 'data' => $tasks['data'],

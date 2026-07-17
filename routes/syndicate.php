@@ -15,7 +15,13 @@ Route::patch('/lawyers/{lawyer_id}/suspend', [ManageSyndicateUsers::class, 'togg
 // Api : make specific lawers from trainee to licsend
 Route::patch('/lawyers/{lawyer_id}/promote', [ManageSyndicateUsers::class, 'promoteTrainee']);
 // tamplates Apis 
-Route::post('/upload', [TemplateController::class, 'upload']);
-Route::get('/getTemplates', [TemplateController::class, 'getTemplates']);
-Route::patch('/update_template', [TemplateController::class, 'update_template']);
-Route::delete('/delete_template', [TemplateController::class, 'delete_template']);
+Route::prefix('templates')->group(function () {
+    Route::post('/upload', [TemplateController::class, 'upload']);
+    Route::post('/update_template', [TemplateController::class, 'update_template']);
+    Route::get('/getTemplates', [TemplateController::class, 'getTemplates']);
+    Route::delete('/delete_template', [TemplateController::class, 'delete_template']);
+
+    Route::get('/getTemplates', [TemplateController::class, 'getTemplates']);
+    Route::get('/get_templates_categories', [TemplateController::class, 'get_templates_categories']);
+    Route::get('/show_template_details', [TemplateController::class, 'show_template_details']);
+});

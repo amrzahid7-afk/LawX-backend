@@ -20,8 +20,22 @@ class LegalRequestService
     {
         $file = isset($data['file']) ? $data['file'] : null;
         unset($data['file']);
+        $lawer = User::with('lawyerProfile')
+            ->whereHas('lawyerProfile', function ($q) {
+                $q->where('is_suspended', false);
+                $q->where('lawyer_state', 'licensed');
+            })
+            ->find($data['assigned_lawyer_id']);
+        if ($lawer == null) {
+            return [
+                'status' => 'error',
+                'data' => [
+                    'message' => 'Assigned lawyer not found or not eligible'
+                ],
+                'code' => '404'
+            ];
+        }
         $legal_request = Legal_request::create([
-
             'title_request' => $data['title_request'],
             'description_request' => $data['description_request'],
             'location_request' => $data['location_request'],
@@ -150,11 +164,18 @@ class LegalRequestService
         // getting lawer & office admin role
         $lawyerRoleId = Role::where('slug', 'lawyer')->first()->id;
         // dd('1');
-        $query = User::whereIn('role_id', [$lawyerRoleId])
+        $query = User::with('lawyerProfile')
+            // ->where('lawyerProfile.lawyer_state', 'independent')
+            // ->where('lawyerProfile.is_suspended', false)
+            ->whereHas('lawyerProfile', function ($q) {
+                $q->where('lawyer_state', 'independent')
+                    ->where('is_suspended', false);
+            })
+            ->whereIn('role_id', [$lawyerRoleId])
             ->where('is_active', true)
-            ->with(['legalCategories']) // جلب التخصصات لعرضها في القائمة
-            ->withAvg('reviewsReceived as rate', 'rating') // حساب متوسط التقييم مرة واحدة
-            ->withCount('cases as cases_count'); // عدد القضايا مرة واحدةلمدينة
+            ->with(['legalCategories'])
+            ->withAvg('reviewsReceived as rate', 'rating')
+            ->withCount('cases as cases_count');
         // dd('1');
 
         // getting data with city filter

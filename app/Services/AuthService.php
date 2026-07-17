@@ -38,12 +38,28 @@ class AuthService
             ->first();
         // if no matched data 
         if (!$lawer_profile) {
-            return sendError('البيانات المدخلة غير مطابقة لسجلات النقابة.', [], 404);
+            return [
+                'message' => 'لا يوجد سجلات مطابقة لبيانات النقابة المدخلة.',
+                'status' => 'error',
+                'code' => 404
+            ];
+            // return sendError('البيانات المدخلة غير مطابقة لسجلات النقابة.', [], 404);
         }
         // if there are exist account 
         if ($lawer_profile->is_claimed) {
+            return [
+                'message' => 'هذا الملف الشخصي مسجل بالفعل في النظام مسبقاً.',
+                'status' => 'error',
+                'code' => 400
+            ];
             return sendError('هذا الملف الشخصي مسجل بالفعل في النظام مسبقاً.', [], 400);
         }
+        return [
+            'status' => 'success',
+            'data' => $lawer_profile->id,
+            'message' => 'تم التحقق من بيانات النقابة بنجاح، يمكنك إكمال عملية التسجيل.',
+            'code' => 200
+        ];
         return sendResponse([
             'lawyer_profile_id' => $lawer_profile->id,
             'message' => 'تم التحقق من بيانات النقابة بنجاح، يمكنك إكمال عملية التسجيل.'
@@ -101,7 +117,7 @@ class AuthService
             'ID' => $user->id,
             'full_name' => $user->full_name,
             'email' => $user->email,
-            'role' => $user->role->name,
+            'role' => $user->role->slug,
             'is_active' => $user->is_active,
             'created_at' => $user->created_at->format('y m d'),
         ];

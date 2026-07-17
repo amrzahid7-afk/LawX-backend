@@ -36,8 +36,13 @@ class CaseModel extends Model
         'financial_status',
         'progress_percentage',
         'court',
-        'lead_lawyer_id'
+        'lead_lawyer_id',
+        'office_id'
     ];
+    public function office()
+    {
+        return $this->belongsTo(Office::class, 'office_id');
+    }
     public function invoices()
     {
         return $this->hasMany(Invoice::class, 'case_id');

@@ -26,7 +26,10 @@ class Office extends Model
     protected $casts = [
         // 'reviewed_at' => 'datetime',
     ];
-
+    public function office_cases()
+    {
+        return $this->hasMany(CaseModel::class, 'office_id');
+    }
     public function owner(): BelongsTo
     {
         return $this->belongsTo(LawerProfile::class, 'owner_lawyer_profile_id');
@@ -40,17 +43,19 @@ class Office extends Model
 
     public function invitations(): HasMany
     {
-        return $this->hasMany(OfficeInvitation::class);
+        return $this->hasMany(OfficeInvitation::class, 'office_id');
     }
 
     public function employees()
     {
         return $this->belongsToMany(
             LawerProfile::class,
-            'office_invitations', // اسم الجدول الوسيط
-            'office_id',          // المفتاح الأجنبي في جدول الوسيط الخاص بـ Office
-            'invited_lawyer_profile_id' // المفتاح الأجنبي في جدول الوسيط الخاص بـ Lawyer
-        )->withPivot('status', 'invited_by', 'responded_at'); // لإحضار بيانات إضافية من الجدول الوسيط إذا لزم الأمر
+            'office_invitations',
+            'office_id',
+            'invited_lawyer_profile_id'
+        )
+            ->withPivot('status')
+            ->wherePivot('status', 'accepted');
     }
 
     // public function isApproved(): bool

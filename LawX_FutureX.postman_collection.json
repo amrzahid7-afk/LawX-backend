@@ -20,7 +20,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"lawyer@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
+                  "raw": "{\r\n    \"email\": \"omar@gmail.com\" ,\r\n    \"password\": \"password\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -50,12 +50,12 @@
                   "formdata": [
                     {
                       "key": "national_id",
-                      "value": "01010261588",
+                      "value": "7777",
                       "type": "text"
                     },
                     {
                       "key": "full_name",
-                      "value": "ابراهيم",
+                      "value": "علي عسلية",
                       "type": "text"
                     },
                     {
@@ -90,7 +90,7 @@
                     },
                     {
                       "key": "syndicate_card_number",
-                      "value": "151588",
+                      "value": "7777",
                       "type": "text"
                     },
                     {
@@ -100,18 +100,18 @@
                     },
                     {
                       "key": "lawyer_state",
-                      "value": "trainee",
+                      "value": "licensed",
                       "type": "text"
                     }
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/Auth/lawyer/verify-syndicate",
+                  "raw": "{{Domain}}/auth/lawyer/verify-syndicate",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
-                    "Auth",
+                    "auth",
                     "lawyer",
                     "verify-syndicate"
                   ]
@@ -254,19 +254,19 @@
                     },
                     {
                       "key": "email",
-                      "value": "aymn@gmail.co",
+                      "value": "ali@gmail.co",
                       "type": "text",
                       "uuid": "8af9b086-5be6-4c25-8e34-b52a0f60cecf"
                     },
                     {
                       "key": "password",
-                      "value": "aymn@gmail.com",
+                      "value": "password",
                       "type": "text",
                       "uuid": "02a00848-5849-41a1-ad43-538559083b11"
                     },
                     {
                       "key": "password_confirmation",
-                      "value": "aymn@gmail.com",
+                      "value": "password",
                       "type": "text",
                       "uuid": "dea6b01b-f551-40bc-a0e2-cebac6679d47"
                     },
@@ -391,22 +391,22 @@
                   "formdata": [
                     {
                       "key": "full_name",
-                      "value": "عمر الزهراوي",
+                      "value": "ali",
                       "type": "text"
                     },
                     {
                       "key": "email",
-                      "value": "sara@gmail.com",
+                      "value": "ali@gmail.com",
                       "type": "text"
                     },
                     {
                       "key": "password",
-                      "value": "omar@gmail.com",
+                      "value": "password",
                       "type": "text"
                     },
                     {
                       "key": "password_confirmation",
-                      "value": "omar@gmail.com",
+                      "value": "password",
                       "type": "text"
                     },
                     {
@@ -1376,7 +1376,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"percentage_collection\",\r\n     \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n        //  ,\r\n        //   {\r\n        //     \"name\": \"شركة الأمل للتجارة\",\r\n        //     \"type\": \"company\",\r\n        //     \"national_id\": \"55\",\r\n        //     \"phone\": \"0551234567\"\r\n        // }\r\n    ]\r\n    //  ,\r\n    // \"team\": [\r\n    //     {\r\n    //                      \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           } ,\r\n    //           {\r\n    //          \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           }\r\n    // ]\r\n    // \"payment_milestones\": [\r\n    //     {\r\n    //         \"title\": \"دفعة بدء العمل\",\r\n    //         \"amount\": 5000.00,\r\n    //         \"due_date\": \"2029-11-01\" \r\n    //     }\r\n    // ]\r\n}",
+                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n    //  ,\r\n    // \"team\": [\r\n    //     {\r\n    //                      \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           } ,\r\n    //           {\r\n    //          \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           }\r\n    // ]\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1395,7 +1395,81 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "create_case",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n    //  ,\r\n    // \"team\": [\r\n    //     {\r\n    //                      \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           } ,\r\n    //           {\r\n    //          \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           }\r\n    // ]\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Case/create_case",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Case",
+                        "create_case"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 15 Jul 2026 17:00:07 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"create case successfully\",\n        \"case_id\": \"e972162f-3567-4303-a2a4-e910ee52d567\"\n    }\n}"
+                }
+              ]
             },
             {
               "name": "update_case",
@@ -1444,7 +1518,81 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "update_case",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "// {\r\n//     \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n//     \"title\": \" private case\" ,\r\n//     \"description\": \"so hard case\"\r\n// }\r\n{\r\n    \"case_id\" : \"{{case_id}}\",\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-2222\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 500000.000,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n     \"status\": \"archived\" , // 'open', 'close', 'pending', 'archived' \r\n    // \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        {           \r\n              \"user_id\": \"{{client_id}}\", \"is_primary\": true \r\n             }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"email\": \"email@gmail.com\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    // \"team\": [\r\n    //     {\r\n    //          \"user_id\":\"30f84bb4-ce00-4d9c-ad5e-17797c668447\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           }\r\n    // ],\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Case/update_case",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Case",
+                        "update_case"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 15 Jul 2026 17:00:45 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"update case successfully\"\n    }\n}"
+                }
+              ]
             },
             {
               "name": "get_case_details",
@@ -1490,7 +1638,73 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "get_case_details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Case/get_case_details/{{case_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Case",
+                        "get_case_details",
+                        "{{case_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 15 Jul 2026 17:00:59 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get case details successfully\",\n        \"case\": {\n            \"id\": \"e972162f-3567-4303-a2a4-e910ee52d567\",\n            \"title\": \"قضية تحصيل ديون تجارية\",\n            \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\n            \"court\": \"المحكمة التجارية بالرياض\",\n            \"price\": 500000,\n            \"case_category\": \"جنائي\",\n            \"case_number\": \"5-2222\",\n            \"status\": \"archived\",\n            \"importance_stars\": 4,\n            \"billing_type\": \"installments\",\n            \"collection_percentage\": null,\n            \"progress_percentage\": 0,\n            \"Leader_lawyer_data\": {\n                \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                \"full_name\": \"عمر الزهراوي\",\n                \"email\": \"omar@gmail.co\"\n            },\n            \"created_at\": \"2026-07-15\",\n            \"clients\": [\n                {\n                    \"user_id\": \"31920fa3-08ea-4644-94cc-c8f753725bfe\",\n                    \"name\": \"Client User\",\n                    \"email\": \"client@example.com\",\n                    \"phone\": null,\n                    \"is_primary\": true\n                }\n            ],\n            \"opponents\": [\n                {\n                    \"id\": \"e843d4b0-1a3c-4546-a9cb-d438e458d751\",\n                    \"name\": \"شركة الأمل للتجارة\",\n                    \"type\": \"company\",\n                    \"national_id\": \"1234567890\",\n                    \"phone\": \"0551234567\",\n                    \"email\": \"email@gmail.com\"\n                }\n            ],\n            \"team\": [],\n            \"invoices\": [],\n            \"financialSummary\": {\n                \"total_invoices_count\": 0,\n                \"total_paid_amount\": 0,\n                \"total_unpaid_amount\": 0,\n                \"paid_count\": 0,\n                \"unpaid_count\": 0,\n                \"payment_status\": \"Paid\"\n            },\n            \"payment_milestones\": [\n                {\n                    \"id\": \"10215b80-638b-4a79-a345-7970c2441bd5\",\n                    \"title\": \"دفعة بدء العمل\",\n                    \"amount\": \"5000.00\",\n                    \"due_date\": \"2029-11-01T00:00:00.000000Z\",\n                    \"status\": \"pending\"\n                }\n            ],\n            \"last_session\": null,\n            \"next_session\": null\n        }\n    }\n}"
+                }
+              ]
             },
             {
               "name": "get_cases",
@@ -1534,7 +1748,7 @@
                   }
                 },
                 "url": {
-                  "raw": "{{Domain}}/lawyer/Case/get_cases",
+                  "raw": "{{Domain}}/lawyer/Case/get_cases?scope=private",
                   "host": [
                     "{{Domain}}"
                   ],
@@ -1542,10 +1756,98 @@
                     "lawyer",
                     "Case",
                     "get_cases"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "private",
+                      "description": "office  ||  private  //  تمثل التاب المطلوبة "
+                    }
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "get_cases",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Case/get_cases?scope=private",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Case",
+                        "get_cases"
+                      ],
+                      "query": [
+                        {
+                          "key": "scope",
+                          "value": "private",
+                          "description": "office  ||  private  //  تمثل التاب المطلوبة "
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 15 Jul 2026 17:01:20 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"status\": \"success\",\n        \"data\": {\n            \"message\": \"get cases successfully\",\n            \"cases\": [\n                {\n                    \"id\": \"e972162f-3567-4303-a2a4-e910ee52d567\",\n                    \"title\": \"قضية تحصيل ديون تجارية\",\n                    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\n                    \"status\": \"archived\",\n                    \"team\": [],\n                    \"documents_count\": 0,\n                    \"created_at\": \"2026-07-15\"\n                }\n            ]\n        },\n        \"code\": \"200\"\n    }\n}"
+                }
+              ]
             },
             {
               "name": "delete_case",
@@ -1595,7 +1897,82 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "delete_case",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"case_id\" : \"30608555-cede-4bde-8325-6cdb0f27294f\" ,\r\n    \"title\": \" public case\" ,\r\n    \"description\": \"very hard case\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Case/delete_case/{{case_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Case",
+                        "delete_case",
+                        "{{case_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 15 Jul 2026 17:01:25 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Delete case successfully\"\n    }\n}"
+                }
+              ]
             }
           ]
         },
@@ -1635,14 +2012,7 @@
                 ],
                 "body": {
                   "mode": "formdata",
-                  "formdata": [
-                    {
-                      "key": "lawer_profile_id",
-                      "value": "{{lawer_profile_id}}",
-                      "type": "text",
-                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
-                    }
-                  ]
+                  "formdata": []
                 },
                 "url": {
                   "raw": "{{Domain}}/lawyer/Manage_Offices/activate_office",
@@ -1778,13 +2148,6 @@
                       "value": "{{lawer_profile_id}}",
                       "type": "text",
                       "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
-                    },
-                    {
-                      "key": "office_id",
-                      "value": "{{office_id}}",
-                      "type": "text",
-                      "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a",
-                      "disabled": true
                     }
                   ]
                 },
@@ -1934,7 +2297,7 @@
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/lawyer/Manage_Offices/my_sended_invitations?lawer_profile_id={{lawer_profile_id}}",
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/my_sended_invitations",
                   "host": [
                     "{{Domain}}"
                   ],
@@ -1946,7 +2309,8 @@
                   "query": [
                     {
                       "key": "lawer_profile_id",
-                      "value": "{{lawer_profile_id}}"
+                      "value": "{{lawer_profile_id}}",
+                      "disabled": true
                     }
                   ]
                 }
@@ -2091,7 +2455,7 @@
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/lawyer/Manage_Offices/my_received_invitations?lawer_profile_id={{lawer_profile_id}}",
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/my_received_invitations",
                   "host": [
                     "{{Domain}}"
                   ],
@@ -2099,12 +2463,6 @@
                     "lawyer",
                     "Manage_Offices",
                     "my_received_invitations"
-                  ],
-                  "query": [
-                    {
-                      "key": "lawer_profile_id",
-                      "value": "{{lawer_profile_id}}"
-                    }
                   ]
                 }
               },
@@ -3364,6 +3722,12 @@
                     "key": "X-App-Platform",
                     "value": "web",
                     "type": "text"
+                  },
+                  {
+                    "key": "scope",
+                    "value": "office",
+                    "description": " personal ,  office",
+                    "type": "text"
                   }
                 ],
                 "body": {
@@ -3502,7 +3866,81 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "create_session",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n        \"case_id\": \"{{case_id}}\",\r\n        \"date\":\"2026-10-25 14:30\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/sessions/add_new_session",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "sessions",
+                        "add_new_session"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 17 Jul 2026 17:57:24 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"create session successfully\",\n        \"data\": {\n            \"case_id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n            \"date\": \"2026-10-25T14:30:00.000000Z\",\n            \"location\": \"mazzeh\",\n            \"nots\": \"no thing\",\n            \"result\": \"null\",\n            \"id\": \"02ff1a46-facf-4928-9a3e-bb96684a6e2f\",\n            \"updated_at\": \"2026-07-17T17:57:23.000000Z\",\n            \"created_at\": \"2026-07-17T17:57:23.000000Z\",\n            \"case\": {\n                \"id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n                \"case_number\": \"5-8888\",\n                \"title\": \"قضية تحصيل ديون تجارية\",\n                \"price\": 50,\n                \"case_category\": \"جنائي\",\n                \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\n                \"result\": \"pending\",\n                \"importance_stars\": 4,\n                \"billing_type\": \"installments\",\n                \"collection_percentage\": null,\n                \"status\": \"open\",\n                \"financial_status\": \"unpaid\",\n                \"progress_percentage\": 0,\n                \"court\": \"المحكمة التجارية بالرياض\",\n                \"lead_lawyer_id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                \"office_id\": \"019f66b1-6904-717c-a619-1d6190d86561\",\n                \"created_at\": \"2026-07-17T16:40:57.000000Z\",\n                \"updated_at\": \"2026-07-17T16:40:57.000000Z\",\n                \"clients\": [\n                    {\n                        \"id\": \"31920fa3-08ea-4644-94cc-c8f753725bfe\",\n                        \"full_name\": \"Client User\",\n                        \"email\": \"client@example.com\",\n                        \"role_id\": 3,\n                        \"is_active\": true,\n                        \"address\": \"الرياض، حي الملز\",\n                        \"city\": \"Riyadh\",\n                        \"lat\": \"24.7136\",\n                        \"lng\": \"46.6753\",\n                        \"experience_years\": null,\n                        \"bio\": null,\n                        \"phone\": null,\n                        \"national_id\": null,\n                        \"created_at\": \"2026-07-15T16:51:10.000000Z\",\n                        \"updated_at\": \"2026-07-15T16:51:10.000000Z\",\n                        \"pivot\": {\n                            \"case_id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n                            \"user_id\": \"31920fa3-08ea-4644-94cc-c8f753725bfe\",\n                            \"is_primary\": 1\n                        }\n                    }\n                ]\n            }\n        }\n    }\n}"
+                }
+              ]
             },
             {
               "name": "update_session",
@@ -3596,7 +4034,121 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "update_session",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "case_id",
+                          "value": "{{case_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "session_id",
+                          "value": "{{session_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "date",
+                          "value": "2028-10-25 14:30",
+                          "type": "text"
+                        },
+                        {
+                          "key": "location",
+                          "value": "barzeh",
+                          "type": "text"
+                        },
+                        {
+                          "key": "nots",
+                          "value": "updated",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "uuid": "94fc43e4-7c33-4082-b0a6-49a285121be6",
+                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be",
+                          "disabled": true
+                        },
+                        {
+                          "key": "result",
+                          "value": "الحكم لصالح الموكل",
+                          "type": "text",
+                          "uuid": "a31811fb-364c-4b1b-a232-9a15b9b921c3"
+                        },
+                        {
+                          "key": "status",
+                          "value": "cancelled",
+                          "type": "text",
+                          "uuid": "649e342d-b3f0-4747-9bb1-f478ef2acf27"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/sessions/update_session",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "sessions",
+                        "update_session"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 17 Jul 2026 18:12:40 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Update session successfully\",\n        \"data\": {\n            \"id\": \"02ff1a46-facf-4928-9a3e-bb96684a6e2f\",\n            \"case_id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n            \"date\": \"2028-10-25T14:30:00.000000Z\",\n            \"location\": \"barzeh\",\n            \"nots\": \"updated\",\n            \"result\": \"الحكم لصالح الموكل\",\n            \"status\": \"cancelled\",\n            \"created_at\": \"2026-07-17T17:57:23.000000Z\",\n            \"updated_at\": \"2026-07-17T18:12:37.000000Z\"\n        }\n    }\n}"
+                }
+              ]
             },
             {
               "name": "delete_session",
@@ -3642,7 +4194,73 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "delete_session",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/sessions/delete_session/{{session_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "sessions",
+                        "delete_session",
+                        "{{session_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 17 Jul 2026 18:12:55 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"delete session successfully\"\n    }\n}"
+                }
+              ]
             },
             {
               "name": "Get_All_Session_For_Case",
@@ -3698,7 +4316,82 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "Get_All_Session_For_Case",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/sessions/get_sessions_for_case/{{case_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "sessions",
+                        "get_sessions_for_case",
+                        "{{case_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 17 Jul 2026 18:02:18 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Fetch session successfully\",\n        \"sessions\": [\n            {\n                \"session_id\": \"02ff1a46-facf-4928-9a3e-bb96684a6e2f\",\n                \"case_number\": \"5-8888\",\n                \"date\": \"2026-10-25 14:30\",\n                \"location\": \"mazzeh\",\n                \"nots\": \"no thing\",\n                \"status\": \"pending\",\n                \"result\": \"null\",\n                \"created_at\": \"2026-07-17 17:57\"\n            }\n        ],\n        \"session_files\": []\n    }\n}"
+                }
+              ]
             },
             {
               "name": "Get_All_Session_For_lawer",
@@ -3743,7 +4436,72 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "Get_All_Session_For_lawer",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/sessions/get_sessions_for_lawer",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "sessions",
+                        "get_sessions_for_lawer"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 17 Jul 2026 18:11:38 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Fetch sessions For lawer successfully\",\n        \"data\": [\n            {\n                \"id\": \"02ff1a46-facf-4928-9a3e-bb96684a6e2f\",\n                \"case_id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n                \"date\": \"2026-10-25T14:30:00.000000Z\",\n                \"location\": \"mazzeh\",\n                \"nots\": \"no thing\",\n                \"result\": \"null\",\n                \"status\": \"pending\",\n                \"created_at\": \"2026-07-17T17:57:23.000000Z\",\n                \"updated_at\": \"2026-07-17T17:57:23.000000Z\",\n                \"case\": {\n                    \"id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n                    \"case_number\": \"5-8888\",\n                    \"title\": \"قضية تحصيل ديون تجارية\",\n                    \"price\": 50,\n                    \"case_category\": \"جنائي\",\n                    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\n                    \"result\": \"pending\",\n                    \"importance_stars\": 4,\n                    \"billing_type\": \"installments\",\n                    \"collection_percentage\": null,\n                    \"status\": \"open\",\n                    \"financial_status\": \"unpaid\",\n                    \"progress_percentage\": 0,\n                    \"court\": \"المحكمة التجارية بالرياض\",\n                    \"lead_lawyer_id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                    \"office_id\": \"019f66b1-6904-717c-a619-1d6190d86561\",\n                    \"created_at\": \"2026-07-17T16:40:57.000000Z\",\n                    \"updated_at\": \"2026-07-17T16:40:57.000000Z\",\n                    \"lead_lawyer\": {\n                        \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                        \"full_name\": \"عمر الزهراوي\",\n                        \"email\": \"omar@gmail.com\",\n                        \"role_id\": 2,\n                        \"is_active\": true,\n                        \"address\": null,\n                        \"city\": null,\n                        \"lat\": null,\n                        \"lng\": null,\n                        \"experience_years\": 0,\n                        \"bio\": null,\n                        \"phone\": null,\n                        \"national_id\": null,\n                        \"created_at\": \"2026-07-15T16:56:32.000000Z\",\n                        \"updated_at\": \"2026-07-15T16:56:32.000000Z\"\n                    }\n                }\n            }\n        ]\n    }\n}"
+                }
+              ]
             }
           ]
         },
@@ -5026,6 +5784,11 @@
                     "key": "Accept",
                     "value": "application/json",
                     "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
                   }
                 ],
                 "body": {
@@ -5045,7 +5808,7 @@
                       "key": "file",
                       "type": "file",
                       "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
-                      "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.docx"
+                      "src": "postman-cloud:///1f16c8d2-ed62-4250-b0c7-73dc72146144"
                     },
                     {
                       "key": "template_desc",
@@ -5056,11 +5819,12 @@
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/templates/upload",
+                  "raw": "{{Domain}}/syndicate/templates/upload",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
+                    "syndicate",
                     "templates",
                     "upload"
                   ]
@@ -5081,7 +5845,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{syndicate_token}}",
                       "type": "string"
                     }
                   ]
@@ -5091,6 +5855,144 @@
                   {
                     "key": "Accept",
                     "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "template_id",
+                      "value": "{{Template_ID}}",
+                      "type": "text",
+                      "uuid": "4d0c1077-5efb-4b53-9ee2-2b6938bd64c7"
+                    },
+                    {
+                      "key": "title",
+                      "value": "عقد بيع موحد",
+                      "type": "text"
+                    },
+                    {
+                      "key": "template_description",
+                      "value": "عقد بيع موحد",
+                      "type": "text"
+                    },
+                    {
+                      "key": "category",
+                      "value": "سندات",
+                      "type": "text"
+                    },
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
+                      "src": "postman-cloud:///1f16c8d2-ed62-4250-b0c7-73dc72146144"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/syndicate/templates/update_template",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "syndicate",
+                    "templates",
+                    "update_template"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete_template",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{syndicate_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                },
+                "url": {
+                  "raw": "{{Domain}}/syndicate/templates/delete_template?template_id={{Template_ID}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "syndicate",
+                    "templates",
+                    "delete_template"
+                  ],
+                  "query": [
+                    {
+                      "key": "template_id",
+                      "value": "{{Template_ID}}"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "get_templates_categories",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true,
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{syndicate_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
                     "type": "text"
                   }
                 ],
@@ -5127,20 +6029,21 @@
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/templates/update_template",
+                  "raw": "{{Domain}}/syndicate/templates/get_templates_categories",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
+                    "syndicate",
                     "templates",
-                    "update_template"
+                    "get_templates_categories"
                   ]
                 }
               },
               "response": []
             },
             {
-              "name": "delete_template",
+              "name": "getTemplates",
               "protocolProfileBehavior": {
                 "disableBodyPruning": true,
                 "disabledSystemHeaders": {
@@ -5153,7 +6056,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{syndicate_token}}",
                       "type": "string"
                     }
                   ]
@@ -5164,6 +6067,11 @@
                     "key": "Accept",
                     "value": "application/json",
                     "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
                   }
                 ],
                 "body": {
@@ -5171,18 +6079,129 @@
                   "formdata": []
                 },
                 "url": {
-                  "raw": "{{Domain}}/templates/delete_template?template_id={{Template_ID}}",
+                  "raw": "{{Domain}}/syndicate/templates/getTemplates",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
+                    "syndicate",
                     "templates",
-                    "delete_template"
+                    "getTemplates"
+                  ],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "براءة",
+                      "disabled": true
+                    },
+                    {
+                      "key": "title",
+                      "value": "براءة ",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "getTemplates",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/templates/getTemplates?category=عقود&title=براءة ",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "templates",
+                        "getTemplates"
+                      ],
+                      "query": [
+                        {
+                          "key": "category",
+                          "value": "عقود"
+                        },
+                        {
+                          "key": "title",
+                          "value": "براءة "
+                        }
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": ""
+                }
+              ]
+            },
+            {
+              "name": "show_template_details",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true,
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{syndicate_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                },
+                "url": {
+                  "raw": "{{Domain}}/syndicate/templates/show_template_details?template_id={{template_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "syndicate",
+                    "templates",
+                    "show_template_details"
                   ],
                   "query": [
                     {
                       "key": "template_id",
-                      "value": "{{Template_ID}}"
+                      "value": "{{template_id}}"
                     }
                   ]
                 }
@@ -5227,13 +6246,13 @@
               "formdata": [
                 {
                   "key": "national_id",
-                  "value": "5555",
+                  "value": "8888",
                   "type": "text",
                   "uuid": "fae6f840-37b3-40ab-a33e-a086f1c9fad9"
                 },
                 {
                   "key": "full_name",
-                  "value": "ابراهيم حبشية",
+                  "value": "محمد الباشا",
                   "type": "text",
                   "uuid": "8f8e1057-7b60-4a27-a0d1-1a6d0337d7ca"
                 },
@@ -5275,7 +6294,7 @@
                 },
                 {
                   "key": "syndicate_card_number",
-                  "value": "55555",
+                  "value": "8888",
                   "type": "text",
                   "uuid": "f774b787-3a66-4498-8675-0c8d21950925"
                 },
@@ -5288,7 +6307,7 @@
                 {
                   "key": "lawyer_state",
                   "value": "licensed",
-                  "description": " // licsened , trainee",
+                  "description": " // licensed, trainee",
                   "type": "text",
                   "uuid": "25141a50-35c5-4e6b-a9a7-70b0e525a53b"
                 }
@@ -5680,7 +6699,7 @@
               ]
             },
             "url": {
-              "raw": "{{Domain}}/syndicate/get_lawers?lawyer_state=independent&is_suspended=0&search_fullname=ابراهيم&search_syndicate_card_number&search_national_id&per_page=20",
+              "raw": "{{Domain}}/syndicate/get_lawers?lawyer_state=licensed&is_suspended=0&search_fullname=ابراهيم&search_syndicate_card_number&search_national_id&per_page=20",
               "host": [
                 "{{Domain}}"
               ],
@@ -5691,8 +6710,8 @@
               "query": [
                 {
                   "key": "lawyer_state",
-                  "value": "independent",
-                  "description": "'trainee', 'independent'"
+                  "value": "licensed",
+                  "description": "'trainee', 'licensed'"
                 },
                 {
                   "key": "is_suspended",

@@ -56,7 +56,7 @@ class DocumentService
     //         'code' => '200'
     //     ];
     // }
-    public function add_new_document($request, $data)
+    public function add_new_document($data)
     {
         try {
             DB::beginTransaction();

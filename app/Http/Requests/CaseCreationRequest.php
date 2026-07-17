@@ -28,7 +28,9 @@ class CaseCreationRequest extends FormRequest
         $hasTeam = false;
 
         if ($lawyerProfileId) {
-            $office = Office::where('owner_lawyer_profile_id', $lawyerProfileId)->first();
+            $office = Office::where('owner_lawyer_profile_id', $lawyerProfileId)
+                ->where('status', 'active')
+                ->first();
 
             if ($office) {
                 $hasTeam = OfficeInvitation::where('office_id', $office->id)

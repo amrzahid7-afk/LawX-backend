@@ -10,6 +10,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
 
 class CaseController extends Controller
 {
@@ -20,6 +21,9 @@ class CaseController extends Controller
     }
     public function create(CaseCreationRequest $request)
     {
+        if (Gate::denies('create_case', CaseModel::class)) {
+            return sendError("you are trainee Lawyer Or your Account is suspened ", [], 403);
+        }
         try {
             // validated data
             // dd("done");
@@ -48,6 +52,7 @@ class CaseController extends Controller
     }
     public function get_case_details($case_id)
     {
+
         try {
             // validate case_id is uuid and exists in cases table
             $validate = Validator::make(
@@ -67,6 +72,10 @@ class CaseController extends Controller
                     'message' => 'Invalid case ID',
                     'error'   => $validate->errors()
                 ], 422);
+            }
+            // validate permission 
+            if (Gate::denies('get_case_details', CaseModel::find($case_id))) {
+                return sendError('un Authorized , you  dont have permission to shoe Details For this case ', [], 403);
             }
             // calling case service
             $case = $this->caseService->get_case_details($case_id);;
@@ -88,9 +97,15 @@ class CaseController extends Controller
 
     public function update(UpdateCaseRequest $request)
     {
+
         try {
             // validated data
             $validated_data = $request->validated();
+            // validate permission 
+            if (Gate::denies('update', CaseModel::find($request->input('case_id')))) {
+                return sendError('un Authorized , you  dont have permission to update this case ', [], 403);
+            }
+
             // calling case service
             $case = $this->caseService->updateCase($validated_data);
             // return response
@@ -108,8 +123,10 @@ class CaseController extends Controller
     }
     public function view_list(Request $request)
     {
+        if (Gate::denies('view_list', CaseModel::class)) {
+            return sendError("Un Authorized , ", [], 403);
+        }
         try {
-
             $cases = $this->caseService->get_cases($request);
             return response()->json([
                 'status' => 'success',
@@ -144,6 +161,10 @@ class CaseController extends Controller
                     'message' => 'Invalid case ID',
                     'error'   => $validate->errors()
                 ], 422);
+            }
+            // validate permission 
+            if (Gate::denies('delete_case', CaseModel::find($case_id))) {
+                return sendError('un Authorized , you  dont have permission to update this case ', [], 403);
             }
             // calling case service
             $cases = $this->caseService->delete_case($case_id);

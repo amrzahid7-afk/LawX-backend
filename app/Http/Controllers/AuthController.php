@@ -51,7 +51,7 @@ class AuthController extends Controller
         try {
             $validatedData = $request->validated();
             $result = $this->authService->verifySyndicate($validatedData);
-            return sendResponse($result, 'Verification successful.', 200);
+            return sendResponse($result['data'] ?? [], $result['status'] . ' : ' . $result['message'], $result['code']);
         } catch (\Throwable $th) {
             return sendError('Verification failed.', [
                 'message' => $th->getMessage(),
