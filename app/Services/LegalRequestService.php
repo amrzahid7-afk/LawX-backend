@@ -15,7 +15,50 @@ use App\Notifications\Send_Request_Notification;
 
 class LegalRequestService
 {
-
+    public function get_legal_requests()
+    {
+        // lawer ID
+        $lawer_id = request()->user()->id;
+        $requests  = Legal_request::where(function ($query) use ($lawer_id) {
+            $query->where('assigned_lawyer_id', $lawer_id)
+                ->where('status', 'open')
+                ->where('type', 'private');
+        })->orWhere([
+            ['type', 'public'],
+            ['status', 'open']
+        ])->with(['documents', 'client'])->get();
+        $groupedData = [];
+        // Formatting data
+        $requests->each(function ($req) use (&$groupedData) {
+            $documentcounts = $req->documents->count();
+            // $clientInfo = [
+            //     'full_name' => $req->client->full_name ?? null,
+            //     'email' => $req->client->email ?? null,
+            // ];
+            $processedRequest = [
+                'id' => $req->id,
+                'title_request' => $req->title_request,
+                'description_request' => $req->description_request,
+                'type_request' => $req->type,
+                'location_request' => $req->location_request,
+                'created_at' => $req->created_at->format('Y-m-d h'),
+                'budget_min' => $req->budget_min,
+                'budget_max' => $req->budget_max,
+                'status' => $req->status,
+                // 'client_info' => $clientInfo,
+                'documents_counts' => $documentcounts,
+            ];
+            $groupedData[] = $processedRequest;
+        });
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'get legal requests successfully',
+                'data' => $groupedData
+            ],
+            'code' => '200'
+        ];
+    }
     public function createLegalRequest($data)
     {
         $file = isset($data['file']) ? $data['file'] : null;

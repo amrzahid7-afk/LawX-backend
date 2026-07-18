@@ -75,7 +75,6 @@ Route::prefix('sessions')->group(function () {
     Route::delete('/delete_session/{session_id}', [SessionController::class, 'delete_session']);
 });
 // invoices 
-
 Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']);
 //     // Invoices apis
 //     Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']); //  
@@ -83,7 +82,7 @@ Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']);
 
 // Market 
 Route::prefix('/Market_place')->group(function () {
-    Route::get('/get_legal_requests', [ProposalController::class, 'get_legal_requests']);
+    Route::get('/get_legal_requests', [LegalRequestController::class, 'get_legal_requests']);
     Route::get('/get_legal_request_details/{request_id}', [LegalRequestController::class, 'get_legal_request_details']);
     Route::get('/get_my_proposals', [ProposalController::class, 'get_my_proposals']);
     Route::get('/get_proposal_details/{proposal_id}', [ProposalController::class, 'get_proposal_details']);

@@ -20,7 +20,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"omar@gmail.com\" ,\r\n    \"password\": \"password\"\r\n}",
+                  "raw": "{\r\n    \"email\": \"ibrahim@gmail.co\" ,\r\n    \"password\": \"password\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -4665,7 +4665,72 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "get_my_requests",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Market_place/get_legal_requests",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Market_place",
+                        "get_legal_requests"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 10:29:08 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get legal requests successfully\",\n        \"data\": [\n            {\n                \"id\": \"0301afe7-841d-4faf-b313-b13000510885\",\n                \"title_request\": \"Eum consequuntur recusandae.\",\n                \"description_request\": \"Sint minima esse sequi possimus nisi. Ut placeat sunt sequi sit consequatur. Eos dolore est molestias eos harum. Quis quisquam eos quod rerum quia quod.\",\n                \"type_request\": \"public\",\n                \"location_request\": \"Cartwrighthaven, New Jersey\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"130.00\",\n                \"budget_max\": \"667.00\",\n                \"status\": \"close\",\n                \"documents_counts\": 3\n            },\n            {\n                \"id\": \"080be605-bd8b-49bf-9de2-5cb5f8c03f31\",\n                \"title_request\": \"Voluptate nesciunt soluta voluptas.\",\n                \"description_request\": \"Assumenda id quis consequatur a necessitatibus. Aut laborum laboriosam doloremque magnam nisi qui fuga non. Autem recusandae odit autem voluptas. Natus facilis mollitia omnis perspiciatis voluptatum vel enim nisi.\",\n                \"type_request\": \"public\",\n                \"location_request\": \"Georgeburgh, Arizona\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"189.00\",\n                \"budget_max\": \"740.00\",\n                \"status\": \"in_progress\",\n                \"documents_counts\": 3\n            },\n            {\n                \"id\": \"084f36b5-a1bc-4b20-8f6f-5317709c8548\",\n                \"title_request\": \"Assumenda aut quos omnis id.\",\n                \"description_request\": \"Doloribus sunt quidem suscipit consequatur et. Corporis voluptatem fugiat quia provident quos at eum. Aut dolorem expedita inventore velit. Illo quia incidunt tenetur.\",\n                \"type_request\": \"public\",\n                \"location_request\": \"Jaclynbury, North Carolina\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"273.00\",\n                \"budget_max\": \"513.00\",\n                \"status\": \"open\",\n                \"documents_counts\": 1\n            },\n            {\n                \"id\": \"3a02df31-0f05-45f7-a7e3-691e1322eb01\",\n                \"title_request\": \"Sunt odio tempora.\",\n                \"description_request\": \"Cumque at aliquam vero ullam quam id. Cumque harum iste exercitationem voluptatem nam dolorum. Impedit reiciendis est ut corporis ipsum. Quidem occaecati voluptas neque neque voluptatem expedita.\",\n                \"type_request\": \"public\",\n                \"location_request\": \"Port Antoninashire, South Dakota\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"174.00\",\n                \"budget_max\": \"503.00\",\n                \"status\": \"in_progress\",\n                \"documents_counts\": 2\n            },\n            {\n                \"id\": \"3d9a02bd-4622-4dd8-81e4-ec0f6f4f5d2c\",\n                \"title_request\": \"Optio esse laudantium.\",\n                \"description_request\": \"Aut sit nihil praesentium in sint commodi. Velit eos in quae ducimus sit. Illo sequi eius provident quibusdam. Consequatur dolorem voluptas ut officia quod. Accusantium consequuntur non tempore et.\",\n                \"type_request\": \"public\",\n                \"location_request\": \"South Shaynaborough, Indiana\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"449.00\",\n                \"budget_max\": \"661.00\",\n                \"status\": \"open\",\n                \"documents_counts\": 1\n            },\n            {\n                \"id\": \"711d3cc1-9dfc-40cf-b33e-377cc9384690\",\n                \"title_request\": \"Natus corporis beatae.\",\n                \"description_request\": \"Ut velit repellat aliquam pariatur. Et voluptates architecto ea nam minima ab deleniti. Ipsum est recusandae est velit accusantium quae enim. Deleniti deserunt voluptatem voluptas commodi rerum facilis. Maxime iusto molestiae rerum et ratione reiciendis.\",\n                \"type_request\": \"private\",\n                \"location_request\": \"Grantbury, Kansas\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"363.00\",\n                \"budget_max\": \"921.00\",\n                \"status\": \"open\",\n                \"documents_counts\": 1\n            },\n            {\n                \"id\": \"7a9ecc05-c8c9-478b-ac3d-d0c53b815245\",\n                \"title_request\": \"Corrupti doloribus et modi.\",\n                \"description_request\": \"Id quidem eum est omnis. Omnis quia impedit quisquam aut debitis veritatis. Blanditiis rerum magnam nemo dolorem iste sed. Quo odio quasi quia provident consequatur ducimus sequi. Error ut qui et.\",\n                \"type_request\": \"public\",\n                \"location_request\": \"West Rachelchester, Illinois\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"490.00\",\n                \"budget_max\": \"752.00\",\n                \"status\": \"open\",\n                \"documents_counts\": 2\n            },\n            {\n                \"id\": \"82197b6a-12b3-4496-b54e-c9a03d6924b1\",\n                \"title_request\": \"Est excepturi et.\",\n                \"description_request\": \"Voluptatibus illo rerum animi et. Hic dolorem et sit libero debitis corporis. Omnis deserunt et aut cupiditate iste eveniet. Non ullam molestiae illo neque placeat. Quisquam autem consequatur eligendi perspiciatis facilis. Suscipit odit tempore sequi quia vel in dolor.\",\n                \"type_request\": \"private\",\n                \"location_request\": \"West Charley, Oregon\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"424.00\",\n                \"budget_max\": \"531.00\",\n                \"status\": \"open\",\n                \"documents_counts\": 3\n            },\n            {\n                \"id\": \"97f18a7c-0599-4593-b5f1-2da8277b6ea3\",\n                \"title_request\": \"At nulla qui nostrum.\",\n                \"description_request\": \"Sunt error facilis qui id quis dolores. Alias non consectetur in pariatur sunt quia. Aperiam sunt nemo fuga ipsam atque. Et deleniti ab quis tempore quo id architecto.\",\n                \"type_request\": \"public\",\n                \"location_request\": \"Hellenshire, Michigan\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"500.00\",\n                \"budget_max\": \"749.00\",\n                \"status\": \"close\",\n                \"documents_counts\": 1\n            },\n            {\n                \"id\": \"fb390c6e-5890-4ab3-bde0-ac57f29075e6\",\n                \"title_request\": \"Perspiciatis veritatis est facilis.\",\n                \"description_request\": \"Autem dolorem est voluptatum laborum at aperiam ratione. Veritatis eos ipsam et iusto velit sunt. Dolores voluptatem itaque doloremque deleniti alias consequatur cum. Non eligendi aliquid et aspernatur. Quisquam similique accusamus dolores eum omnis eos.\",\n                \"type_request\": \"public\",\n                \"location_request\": \"New Modesto, District of Columbia\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"165.00\",\n                \"budget_max\": \"803.00\",\n                \"status\": \"in_progress\",\n                \"documents_counts\": 2\n            },\n            {\n                \"id\": \"fed6418b-2bad-49fa-b855-14e12c3f2f2e\",\n                \"title_request\": \"Et tenetur velit qui.\",\n                \"description_request\": \"Rerum quasi doloremque occaecati harum sunt nihil consequatur asperiores. Saepe qui rerum ab. Veniam autem eligendi et placeat omnis. Laborum culpa quo quisquam sunt dolore. Cumque commodi ratione veniam et adipisci hic et. Et velit voluptatem voluptatem recusandae dolorem molestiae aliquam. Numquam veritatis dicta qui nam.\",\n                \"type_request\": \"public\",\n                \"location_request\": \"New Jo, Louisiana\",\n                \"created_at\": \"2026-07-15 04\",\n                \"budget_min\": \"436.00\",\n                \"budget_max\": \"622.00\",\n                \"status\": \"in_progress\",\n                \"documents_counts\": 2\n            }\n        ]\n    }\n}"
+                }
+              ]
             },
             {
               "name": "get_legal_request_details",
@@ -4711,7 +4776,73 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "get_legal_request_details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Market_place/get_legal_request_details/{{legal_request_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Market_place",
+                        "get_legal_request_details",
+                        "{{legal_request_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 09:58:31 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"get legal request details successfully\",\n        \"data\": {\n            \"id\": \"0301afe7-841d-4faf-b313-b13000510885\",\n            \"title_request\": \"Eum consequuntur recusandae.\",\n            \"description_request\": \"Sint minima esse sequi possimus nisi. Ut placeat sunt sequi sit consequatur. Eos dolore est molestias eos harum. Quis quisquam eos quod rerum quia quod.\",\n            \"location_request\": \"Cartwrighthaven, New Jersey\",\n            \"budget_min\": \"130.00\",\n            \"budget_max\": \"667.00\",\n            \"created_at\": \"2026-07-15 04:51 PM\",\n            \"status\": \"close\",\n            \"type\": \"public\",\n            \"documents\": [\n                {\n                    \"id\": \"944ffc7d-77d9-42a6-b59b-ba5e09c9a7d8\",\n                    \"file_url\": \"http://127.0.0.1:8000/storage/documents/3ec53da5-ad90-47f8-96bf-a95ee73267b3.pdf\",\n                    \"file_size\": 459,\n                    \"name\": \"pdf\"\n                },\n                {\n                    \"id\": \"ad6dead8-2a5f-4198-824e-a54d29adb7b0\",\n                    \"file_url\": \"http://127.0.0.1:8000/storage/documents/8c4700f6-ae48-49f8-97c3-8790c68c1616.pdf\",\n                    \"file_size\": 459,\n                    \"name\": \"pdf\"\n                },\n                {\n                    \"id\": \"b939cb04-8583-48b1-9755-7e99f91701ce\",\n                    \"file_url\": \"http://127.0.0.1:8000/storage/documents/00134dbf-17a8-4cbc-9c5a-2b8554773870.pdf\",\n                    \"file_size\": 459,\n                    \"name\": \"pdf\"\n                }\n            ],\n            \"client_info\": {\n                \"full_name\": \"Client User\",\n                \"email\": \"client@example.com\"\n            }\n        }\n    }\n}"
+                }
+              ]
             },
             {
               "name": "send_proposal",
@@ -4801,98 +4932,117 @@
                   ]
                 }
               },
-              "response": []
-            },
-            {
-              "name": "get_my_proposals",
-              "protocolProfileBehavior": {
-                "disabledSystemHeaders": {
-                  "accept": true
-                }
-              },
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{lawer_token}}",
-                      "type": "string"
+              "response": [
+                {
+                  "name": "send_proposal",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "price",
+                          "value": "16",
+                          "type": "text"
+                        },
+                        {
+                          "key": "estimated_days",
+                          "value": "55555",
+                          "type": "text"
+                        },
+                        {
+                          "key": "message_for_client",
+                          "value": " be carfull be carfull",
+                          "type": "text"
+                        },
+                        {
+                          "key": "valid_until",
+                          "value": "2026-06-06",
+                          "type": "text"
+                        },
+                        {
+                          "key": "payment_terms",
+                          "value": "first firts sakmcxksam first firts sakmcxksam",
+                          "type": "text"
+                        },
+                        {
+                          "key": "price_currency",
+                          "value": "EGP",
+                          "type": "text"
+                        },
+                        {
+                          "key": "request_id",
+                          "value": "{{legal_request_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Market_place/send_proposal",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Market_place",
+                        "send_proposal"
+                      ]
                     }
-                  ]
-                },
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
                   },
-                  {
-                    "key": "X-App-Platform",
-                    "value": "web",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{Domain}}/lawyer/Market_place/get_my_proposals",
-                  "host": [
-                    "{{Domain}}"
-                  ],
-                  "path": [
-                    "lawyer",
-                    "Market_place",
-                    "get_my_proposals"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "get_proposal_details",
-              "protocolProfileBehavior": {
-                "disabledSystemHeaders": {
-                  "accept": true
-                }
-              },
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
                     {
-                      "key": "token",
-                      "value": "{{lawer_token}}",
-                      "type": "string"
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 10:31:31 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
                     }
-                  ]
-                },
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  },
-                  {
-                    "key": "X-App-Platform",
-                    "value": "web",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{Domain}}/lawyer/Market_place/get_proposal_details/{{proposal_id}}",
-                  "host": [
-                    "{{Domain}}"
                   ],
-                  "path": [
-                    "lawyer",
-                    "Market_place",
-                    "get_proposal_details",
-                    "{{proposal_id}}"
-                  ]
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"create proposal successfully\",\n        \"proposal_id\": \"0c86f7b4-c2d8-4ad9-ba0e-f36d7a0da2a9\"\n    }\n}"
                 }
-              },
-              "response": []
+              ]
             },
             {
               "name": "update_proposal",
@@ -4988,7 +5138,123 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "update_proposal",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "proposal_id\n",
+                          "value": "{{proposal_id}}",
+                          "type": "text",
+                          "uuid": "11b6231c-3045-4520-9816-474affa82daf"
+                        },
+                        {
+                          "key": "request_id",
+                          "value": "{{legal_request_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "price",
+                          "value": "1555",
+                          "type": "text"
+                        },
+                        {
+                          "key": "estimated_days",
+                          "value": "555555",
+                          "type": "text"
+                        },
+                        {
+                          "key": "message_for_client",
+                          "value": "be carfull be carfull",
+                          "type": "text"
+                        },
+                        {
+                          "key": "valid_until",
+                          "value": "2028-06-06",
+                          "type": "text"
+                        },
+                        {
+                          "key": "payment_terms",
+                          "value": "first firts sakmcxksam first firts sakmcxksam",
+                          "type": "text"
+                        },
+                        {
+                          "key": "price_currency",
+                          "value": "USD",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Market_place/update_proposal",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Market_place",
+                        "update_proposal"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 10:35:09 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"update proposal successfully\"\n    }\n}"
+                }
+              ]
             },
             {
               "name": "delete_proposal",
@@ -5034,7 +5300,359 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "delete_proposal",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Market_place/delete_proposal/{{proposal_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Market_place",
+                        "delete_proposal",
+                        "{{proposal_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 10:38:20 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Unauthorized , You do not have permission to delete this proposal \"\n}"
+                }
+              ]
+            },
+            {
+              "name": "get_my_proposals",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Market_place/get_my_proposals",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Market_place",
+                    "get_my_proposals"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "get_my_proposals",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Market_place/get_my_proposals",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Market_place",
+                        "get_my_proposals"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 09:38:16 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get my proposals successfully\",\n        \"data\": []\n    }\n}"
+                },
+                {
+                  "name": "get_my_proposals",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Market_place/get_my_proposals",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Market_place",
+                        "get_my_proposals"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:06:51 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get my proposals successfully\",\n        \"data\": [\n            {\n                \"proposal_id\": \"14c26aa2-8555-4532-86a1-5b1b028ad1d0\",\n                \"title_request\": \"Eum consequuntur recusandae.\",\n                \"title_description\": \"Sint minima esse sequi possimus nisi. Ut placeat sunt sequi sit consequatur. Eos dolore est molestias eos harum. Quis quisquam eos quod rerum quia quod.\",\n                \"price\": \"16.00\",\n                \"price_currency\": \"EGP\",\n                \"estimated_days\": \"55555\",\n                \"created_at\": \"2026-07-18 10\",\n                \"status\": \"pending\",\n                \"valid_until\": \"2026-06-06\"\n            },\n            {\n                \"proposal_id\": \"17881df3-31ae-46d6-b6f1-05f8cd075e47\",\n                \"title_request\": \"Eum consequuntur recusandae.\",\n                \"title_description\": \"Sint minima esse sequi possimus nisi. Ut placeat sunt sequi sit consequatur. Eos dolore est molestias eos harum. Quis quisquam eos quod rerum quia quod.\",\n                \"price\": \"16.00\",\n                \"price_currency\": \"EGP\",\n                \"estimated_days\": \"55555\",\n                \"created_at\": \"2026-07-18 09\",\n                \"status\": \"pending\",\n                \"valid_until\": \"2026-06-06\"\n            },\n            {\n                \"proposal_id\": \"6c582e2c-842a-4783-83f5-8453f84faa49\",\n                \"title_request\": \"Assumenda aut quos omnis id.\",\n                \"title_description\": \"Doloribus sunt quidem suscipit consequatur et. Corporis voluptatem fugiat quia provident quos at eum. Aut dolorem expedita inventore velit. Illo quia incidunt tenetur.\",\n                \"price\": \"16.00\",\n                \"price_currency\": \"EGP\",\n                \"estimated_days\": \"55555\",\n                \"created_at\": \"2026-07-18 09\",\n                \"status\": \"pending\",\n                \"valid_until\": \"2026-06-06\"\n            },\n            {\n                \"proposal_id\": \"bf6ff2ba-836f-4c58-a697-ba74ea3912a7\",\n                \"title_request\": \"Eum consequuntur recusandae.\",\n                \"title_description\": \"Sint minima esse sequi possimus nisi. Ut placeat sunt sequi sit consequatur. Eos dolore est molestias eos harum. Quis quisquam eos quod rerum quia quod.\",\n                \"price\": \"16.00\",\n                \"price_currency\": \"EGP\",\n                \"estimated_days\": \"55555\",\n                \"created_at\": \"2026-07-18 10\",\n                \"status\": \"pending\",\n                \"valid_until\": \"2026-06-06\"\n            },\n            {\n                \"proposal_id\": \"f5067676-86fd-4b9e-9ac1-3b2dc57be87d\",\n                \"title_request\": \"Eum consequuntur recusandae.\",\n                \"title_description\": \"Sint minima esse sequi possimus nisi. Ut placeat sunt sequi sit consequatur. Eos dolore est molestias eos harum. Quis quisquam eos quod rerum quia quod.\",\n                \"price\": \"16.00\",\n                \"price_currency\": \"EGP\",\n                \"estimated_days\": \"55555\",\n                \"created_at\": \"2026-07-18 11\",\n                \"status\": \"pending\",\n                \"valid_until\": \"2026-06-06\"\n            }\n        ]\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "get_proposal_details",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Market_place/get_proposal_details/{{proposal_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Market_place",
+                    "get_proposal_details",
+                    "{{proposal_id}}"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "get_proposal_details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Market_place/get_proposal_details/{{proposal_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Market_place",
+                        "get_proposal_details",
+                        "{{proposal_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:09:00 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"get proposal details successfully\",\n        \"data\": {\n            \"lawyer_name\": \"عمر الزهراوي\",\n            \"lawyer_address\": null,\n            \"lawyer_legalCategories\": [],\n            \"lawyer_review\": 0,\n            \"title_request\": \"Eum consequuntur recusandae.\",\n            \"title_description\": \"Sint minima esse sequi possimus nisi. Ut placeat sunt sequi sit consequatur. Eos dolore est molestias eos harum. Quis quisquam eos quod rerum quia quod.\",\n            \"price\": \"16.00\",\n            \"estimated_days\": \"55555\",\n            \"message_for_client\": \"be carfull be carfull\",\n            \"status\": \"pending\",\n            \"created_at\": \"2026-07-18 10\",\n            \"valid_until\": \"2026-06-06\",\n            \"payment_terms\": \"first firts sakmcxksam first firts sakmcxksam\",\n            \"price_currency\": \"EGP\",\n            \"documents\": [\n                {\n                    \"url\": \"http://127.0.0.1:8000/storage/documents/proposals/LbkVSxq4SJLXdjCW0xSDa009linp93t8J5GRxaso.pdf\",\n                    \"type\": \"pdf\",\n                    \"size\": \"1444  MB\"\n                }\n            ]\n        }\n    }\n}"
+                }
+              ]
             }
           ]
         },
@@ -5089,7 +5707,76 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "Get_legal_categories",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/legislation/Get_legal_categories",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "legislation",
+                        "Get_legal_categories"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:09:32 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": true,\n    \"message\": \"تم جلب التصنيفات  والبلدان بنجاح\",\n    \"data\": {\n        \"categories\": [],\n        \"countries\": []\n    }\n}"
+                }
+              ]
             },
             {
               "name": "Get_legislation_with_filter_options",
@@ -5156,7 +5843,93 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "validation_ERROR",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/legislation/Get_legislation_with_filter_options?status=active &category_id={{law_category_id}}&country=syria",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "legislation",
+                        "Get_legislation_with_filter_options"
+                      ],
+                      "query": [
+                        {
+                          "key": "status",
+                          "value": "active ",
+                          "description": "values : active,amended,repealed"
+                        },
+                        {
+                          "key": "category_id",
+                          "value": "{{law_category_id}}",
+                          "description": "UUID for legal category "
+                        },
+                        {
+                          "key": "country",
+                          "value": "syria",
+                          "description": "Any country Name"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Content",
+                  "code": 422,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:09:53 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": false,\n    \"message\": \"بيانات المدخلات غير صحيحة\",\n    \"errors\": {\n        \"category_id\": [\n            \"التصنيف غير موجود\"\n        ]\n    }\n}"
+                }
+              ]
             },
             {
               "name": "get_law_details",
@@ -5207,7 +5980,77 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "validation_ERROR",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/legislation/get_law_details/{{law_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "legislation",
+                        "get_law_details",
+                        "{{law_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Content",
+                  "code": 422,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:10:05 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": false,\n    \"message\": \"بيانات المدخلات غير صحيحة\",\n    \"errors\": {\n        \"id\": [\n            \"The selected id is invalid.\"\n        ]\n    }\n}"
+                }
+              ]
             },
             {
               "name": "semantic_search",
@@ -5261,7 +6104,81 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "semantic_search",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"q\": \"المعاملات المدنية\", // search word or sentance\r\n    \"limit\": 10 // number of records needs (optional)\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/legislation/semantic_search",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "legislation",
+                        "semantic_search"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:10:39 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": true,\n    \"data\": []\n}"
+                }
+              ]
             }
           ],
           "description": "هذا المجلد يحتوي على المسارات الخاصة بميزة المكتبة القانونية الذكية"
@@ -5345,7 +6262,104 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "get_templates_categories",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "template_id",
+                          "value": "{{Template_ID}}",
+                          "type": "text",
+                          "uuid": "4d0c1077-5efb-4b53-9ee2-2b6938bd64c7"
+                        },
+                        {
+                          "key": "title",
+                          "value": "عقد بيع موحد",
+                          "type": "text"
+                        },
+                        {
+                          "key": "template_description",
+                          "value": "عقد بيع موحد",
+                          "type": "text"
+                        },
+                        {
+                          "key": "category",
+                          "value": "سندات",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
+                          "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.docx"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/templates/get_templates_categories",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "templates",
+                        "get_templates_categories"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:11:05 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": true,\n    \"message\": \" تم جلب التصنيفات \",\n    \"data\": [\n        \"سندات\"\n    ]\n}"
+                }
+              ]
             },
             {
               "name": "getTemplates",
@@ -5407,13 +6421,18 @@
               },
               "response": [
                 {
-                  "name": "getTemplates",
+                  "name": "validation_ERROR",
                   "originalRequest": {
                     "method": "GET",
                     "header": [
                       {
                         "key": "Accept",
                         "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
                         "type": "text"
                       }
                     ],
@@ -5422,36 +6441,144 @@
                       "formdata": []
                     },
                     "url": {
-                      "raw": "{{Domain}}/templates/getTemplates?category=عقود&title=براءة ",
+                      "raw": "{{Domain}}/lawyer/templates/getTemplates",
                       "host": [
                         "{{Domain}}"
                       ],
                       "path": [
+                        "lawyer",
                         "templates",
                         "getTemplates"
                       ],
                       "query": [
                         {
                           "key": "category",
-                          "value": "عقود"
+                          "value": "براءة",
+                          "disabled": true
                         },
                         {
                           "key": "title",
-                          "value": "براءة "
+                          "value": "براءة ",
+                          "disabled": true
                         }
                       ]
                     }
                   },
-                  "_postman_previewlanguage": "",
-                  "header": [],
-                  "cookie": [
+                  "status": "Unprocessable Content",
+                  "code": 422,
+                  "_postman_previewlanguage": null,
+                  "header": [
                     {
-                      "expires": "Invalid Date",
-                      "domain": "",
-                      "path": ""
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:11:46 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
                     }
                   ],
-                  "body": ""
+                  "cookie": [],
+                  "body": "{\n    \"status\": false,\n    \"message\": \"بيانات المدخلات غير صحيحة\",\n    \"errors\": {\n        \"category\": [\n            \"The selected category is invalid.\"\n        ]\n    }\n}"
+                },
+                {
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/templates/getTemplates",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "templates",
+                        "getTemplates"
+                      ],
+                      "query": [
+                        {
+                          "key": "category",
+                          "value": "براءة",
+                          "disabled": true
+                        },
+                        {
+                          "key": "title",
+                          "value": "براءة ",
+                          "disabled": true
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:12:16 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": true,\n    \"message\": \" تم جلب القالب\",\n    \"data\": {\n        \"success\": true,\n        \"message\": \"تم جلب القوالب بنجاح\",\n        \"data\": [\n            {\n                \"Template_id\": \"019f6b52-9525-71ab-aa63-4d274c6a3aed\",\n                \"title\": \"عقد بيع موحد\",\n                \"category\": \"سندات\",\n                \"Created_At_Date\": \"2026-07-16\"\n            }\n        ],\n        \"pagination\": {\n            \"current_page\": 1,\n            \"total_pages\": 1,\n            \"total_items\": 1,\n            \"per_page\": 20,\n            \"next_page_url\": null,\n            \"prev_page_url\": null,\n            \"last_page_url\": \"http://127.0.0.1:8000/api/lawyer/templates/getTemplates?page=1\"\n        }\n    }\n}"
                 }
               ]
             },
@@ -5509,7 +6636,82 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/templates/show_template_details?template_id={{template_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "templates",
+                        "show_template_details"
+                      ],
+                      "query": [
+                        {
+                          "key": "template_id",
+                          "value": "{{template_id}}"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:12:44 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": true,\n    \"message\": \" تم جلب القالب\",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"تم جلب تفاصيل القالب بنجاح\",\n        \"data\": {\n            \"Template_ID\": \"019f6b52-9525-71ab-aa63-4d274c6a3aed\",\n            \"Template_name\": \"عقد بيع موحد\",\n            \"file_type\": \"template\",\n            \"Template_description\": \"عقد إيجار موحد\",\n            \"Template_category\": \"سندات\",\n            \"Template_created_at\": \"2026-07-16\",\n            \"Template_updated_at\": \"2026-07-16\",\n            \"Template_variables\": [],\n            \"Template_file\": \"http://127.0.0.1:8000/storage/templates/originals/FTxjKuJTrXWJUEyUOtzBcNMAZpCcvERRx7xNs0td.docx\",\n            \"template_file_size\": \"0.01 MB\",\n            \"Generated_Files\": []\n        }\n    }\n}"
+                }
+              ]
             },
             {
               "name": "generate_template",
@@ -5563,7 +6765,81 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "generate_template",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n   // \"case_id\":\"{{case_id}}\" ,\r\n\"template_id\" : \"{{Template_ID}}\" ,\r\n     \"custom_values\": {\r\n       \"اسم البائع\": \"عمر الزهراوي\",\r\n       \"اسم الشاري\": \"عمر الزهلراوي\",\r\n       \"تاريخ البيع\": \"15-12-2000\",\r\n       \"رقم العقار\": \"516\",\r\n       \"وصف العقار \": \"أرض زراعية\",\r\n       \"توقيع الطرف الاول\": \"شسشسش\"\r\n    }  \r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/templates/generate_template",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "templates",
+                        "generate_template"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:13:14 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": true,\n    \"message\": \"تم توليد الملف بنجاح\",\n    \"download_url\": \"http://127.0.0.1:8000/storage/templates/generated/aakd-byaa-mohd_1784373191.pdf\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -5609,7 +6885,71 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "get_clients",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/lawyer/get_clients",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "get_clients"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 18 Jul 2026 11:05:25 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"clients\": [\n        {\n            \"id\": \"1e0d8f3c-4bbb-4b73-ae2e-9740c3f727ce\",\n            \"full_name\": \"hatem\",\n            \"email\": \"hatem@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:10:04.000000Z\",\n            \"updated_at\": \"2026-07-15T17:10:04.000000Z\"\n        },\n        {\n            \"id\": \"1ee7512f-4d53-4c72-b609-280a6fffe8c5\",\n            \"full_name\": \"sara\",\n            \"email\": \"sara@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:09:34.000000Z\",\n            \"updated_at\": \"2026-07-15T17:09:34.000000Z\"\n        },\n        {\n            \"id\": \"31920fa3-08ea-4644-94cc-c8f753725bfe\",\n            \"full_name\": \"Client User\",\n            \"email\": \"client@example.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": \"الرياض، حي الملز\",\n            \"city\": \"Riyadh\",\n            \"lat\": \"24.7136\",\n            \"lng\": \"46.6753\",\n            \"experience_years\": null,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T16:51:10.000000Z\",\n            \"updated_at\": \"2026-07-15T16:51:10.000000Z\"\n        },\n        {\n            \"id\": \"4622d294-c587-4b41-a491-6882b4874208\",\n            \"full_name\": \"mohammad\",\n            \"email\": \"mohammad##@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-18T10:52:41.000000Z\",\n            \"updated_at\": \"2026-07-18T10:52:41.000000Z\"\n        },\n        {\n            \"id\": \"61e04230-dec4-4dd5-8734-666482b7cccb\",\n            \"full_name\": \"amar\",\n            \"email\": \"amar@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:09:45.000000Z\",\n            \"updated_at\": \"2026-07-15T17:09:45.000000Z\"\n        },\n        {\n            \"id\": \"d49a3792-ebbb-42ed-8ac5-957c05fe909f\",\n            \"full_name\": \"ali\",\n            \"email\": \"ali@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:10:14.000000Z\",\n            \"updated_at\": \"2026-07-15T17:10:14.000000Z\"\n        },\n        {\n            \"id\": \"de24055a-947d-47c9-84a6-83123e00b252\",\n            \"full_name\": \"emad\",\n            \"email\": \"emad@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:09:56.000000Z\",\n            \"updated_at\": \"2026-07-15T17:09:56.000000Z\"\n        }\n    ]\n}"
+            }
+          ]
         }
       ]
     },
@@ -7627,6 +8967,21 @@
     },
     {
       "key": "office_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "lawer_token",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "client_token",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "trainee_lawer_token",
       "value": "",
       "type": "default"
     }

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProposalRequest;
 use App\Http\Requests\UpdateProposalRequest;
+use App\Models\Proposal;
+use App\Models\Legal_request;
 use App\Services\PropposalService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -16,40 +19,13 @@ class ProposalController extends Controller
     {
         $this->propposal_service = $propposal_service;
     }
-    public function get_legal_requests()
-    {
-        try {
-            $data = $this->propposal_service->get_legal_requests();
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine()
-            ], 500);
-        }
-    }
-    public function send_proposal(ProposalRequest $request)
-    {
-        try {
-            $proposal = $request->validated();
-            $data = $this->propposal_service->send_proposal($proposal);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine()
-            ], 500);
-        }
-    }
     public function get_my_proposals()
     {
         try {
+            // validate permission
+            if (Gate::denies('get_my_proposals', Proposal::class)) {
+                return sendError("Unauthorized , You do not have permission to view my proposals ", [], 403);
+            }
             $data = $this->propposal_service->get_my_proposals();
             return response()->json([
                 'status' => $data['status'],
@@ -62,9 +38,11 @@ class ProposalController extends Controller
             ], 500);
         }
     }
+
     public function get_proposal_details($proposal_id)
     {
         try {
+            // validate data
             $validator = Validator::make(
                 ['proposal_id' => $proposal_id],
                 ['proposal_id' => ['required', 'uuid', Rule::exists('proposals', 'id')]],
@@ -80,7 +58,31 @@ class ProposalController extends Controller
                     'error' => $validator->errors()->first()
                 ], 422);
             }
+            // valdiate permission
+            if (Gate::denies('get_proposal_details', Proposal::find($proposal_id))) {
+                return sendError("Unauthorized , You do not have permission to view this proposal ", [], 403);
+            }
+            // call service
             $data = $this->propposal_service->get_proposal_details($proposal_id);
+            //send response
+            return sendResponse($data['data'], $data['status'], $data['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'Line' => $e->getLine()
+            ], 500);
+        }
+    }
+    public function send_proposal(ProposalRequest $request)
+    {
+        try {
+            // validate data 
+            $proposal = $request->validated();
+            // validate permission
+            if (Gate::denies('send_proposal', [Proposal::class, Legal_request::find($proposal['request_id'])])) {
+                return sendError("Unauthorized , You do not have permission to send this proposal ", [], 403);
+            }
+            $data = $this->propposal_service->send_proposal($proposal);
             return response()->json([
                 'status' => $data['status'],
                 'data' => $data['data']
@@ -92,15 +94,20 @@ class ProposalController extends Controller
             ], 500);
         }
     }
+
     public function update_proposal(UpdateProposalRequest $request)
     {
         try {
+            // validate data
             $proposal = $request->validated();
+            // validate permission
+            if (Gate::denies('update_proposal', Proposal::find($proposal['proposal_id']))) {
+                return sendError("Unauthorized , You do not have permission to update this proposal ", [], 403);
+            }
+            // call service
             $data = $this->propposal_service->update_proposal($proposal);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
+            //send response
+            return sendResponse($data['data'], $data['status'], $data['code']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
@@ -112,6 +119,7 @@ class ProposalController extends Controller
     public function delete_proposal($proposal_id)
     {
         try {
+            // validate data
             $validator = Validator::make(
                 ['proposal_id' => $proposal_id],
                 ['proposal_id' => ['required', 'uuid', Rule::exists('proposals', 'id')]],
@@ -122,16 +130,16 @@ class ProposalController extends Controller
                 ]
             );
             if ($validator->fails()) {
-                return response()->json([
-                    'message' => 'Invalid proposal ID',
-                    'error' => $validator->errors()->first()
-                ], 422);
+                return sendError('Validation failed', $validator->errors()->toArray(), 422);
             }
+            // validate permission
+            if (Gate::denies('delete_proposal', Proposal::find($proposal_id))) {
+                return sendError("Unauthorized , You do not have permission to delete this proposal ", [], 403);
+            }
+            // call service
             $data = $this->propposal_service->delete_proposal($proposal_id);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
+            // send response
+            return sendResponse($data['data'], $data['status'], $data['code']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),

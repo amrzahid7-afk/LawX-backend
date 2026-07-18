@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateInvoiceRequest;
+use App\Models\CaseModel;
+use App\Models\Invoice;
 use App\Services\InvoiceService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class InvoiceController extends Controller
 {
@@ -18,13 +21,14 @@ class InvoiceController extends Controller
         try {
             // Validate the request data
             $validatedData = $request->validated();
+            //validate permission 
+            if (Gate::denies('create_invoice', [Invoice::class, CaseModel::find($validatedData['case_id'])])) {
+                return sendError('un Authorized , you  dont have permission to create invoice ', [], 403);
+            }
             // Call the service to create the invoice
             $response = $this->invoiceService->createInvoice($validatedData);
             // return the response    
-            return response()->json([
-                'status' => $response['status'],
-                'data' =>  $response['data']
-            ], $response['code']);
+            return sendResponse($response['data'], $response['status'], $response['code']);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
@@ -39,10 +43,7 @@ class InvoiceController extends Controller
     {
         try {
             $invoices = $this->invoiceService->get_invoices_for_client($request);
-            return response()->json([
-                'status' => 'success',
-                'data' => $invoices
-            ], 200);
+            return sendResponse($invoices['data'], $invoices['status'], $invoices['code']);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
