@@ -56,7 +56,11 @@ class SessionPolicy
             $this->isCaseLeader($user, $session->case) ||
             $this->isCaseTeamMember($user, $session->case);
     }
-    public function get_sessions_for_lawer()
+    public function get_sessions_for_lawer(User $user)
+    {
+        return true;
+    }
+    public function get_sessions_for_client(User $user)
     {
         return true;
     }

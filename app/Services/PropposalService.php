@@ -203,4 +203,61 @@ class PropposalService
             'code' => 200
         ];
     }
+    public function getProposals($request_id)
+    {
+        $proposals = Proposal::where('request_id', $request_id)
+            ->with(['lawyer', 'documents', 'request'])
+            ->get();
+
+        $result = [];
+
+        if ($proposals->isNotEmpty()) {
+            $requestTitle = $proposals->first()->request->title_request;
+
+            $formattedProposals = $proposals->map(function ($proposal) {
+                $documentsData = $proposal->documents->map(function ($doc) {
+                    return [
+                        'id' => $doc->id,
+                        'file_url' => Storage::url($doc->file_path),
+                        'type' => $doc->type
+                    ];
+                });
+
+                $lawyerInfo = null;
+                if ($proposal->lawyer) {
+                    $lawyerInfo = [
+                        'id' => $proposal->lawyer->id,
+                        'name' => $proposal->lawyer->full_name,
+                        'avatar' => $proposal->lawyer->avatar ?? null
+                    ];
+                }
+
+                return [
+                    'id' => trim($proposal->id),
+                    'price' => $proposal->price,
+                    'currency' => $proposal->price_currency,
+                    'estimated_days' => $proposal->estimated_days,
+                    'message' => $proposal->message_for_client,
+                    // التصحيح: إزالة ->format لأن valid_until يأتي كنص جاهز من قاعدة البيانات
+                    'valid_until' => $proposal->valid_until,
+                    'payment_terms' => $proposal->payment_terms,
+                    'status' => $proposal->status,
+                    'created_at' => $proposal->created_at->format('Y-m-d h:i A'), // هذا يبقى كما هو لأنه datetime
+                    'lawyer' => $lawyerInfo,
+                    'documents' => $documentsData
+                ];
+            });
+
+            $result[$requestTitle] = $formattedProposals;
+        }
+
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'get proposals successfully',
+                'data' => $result
+            ],
+            'code' => '200'
+        ];
+    }
 }

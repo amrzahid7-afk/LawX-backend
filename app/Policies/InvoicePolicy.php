@@ -20,11 +20,8 @@ class InvoicePolicy
     }
     public function create_invoice(User $user, CaseModel $case): bool
     {
-        // المتدرب ممنوع من إنشاء الفواتير
         $isTrainee = $user->lawyerProfile && $user->lawyerProfile->lawyer_state === 'trainee';
         if ($isTrainee) return false;
-
-        // يجب أن يكون مديراً للقضية
         return $this->isCaseManager($user, $case);
     }
     public function get_invoices_for_client(User $user)

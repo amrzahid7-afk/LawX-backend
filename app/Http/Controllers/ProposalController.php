@@ -148,4 +148,35 @@ class ProposalController extends Controller
             ], 500);
         }
     }
+    public function get_proposals($request_id)
+    {
+        try {
+            // validate data
+            $validator = Validator::make(
+                ['request_id' => $request_id],
+                ['request_id' => ['required', 'uuid', Rule::exists('legal_requests', 'id')]],
+                [
+                    'request_id.required' => 'Request ID is required',
+                    'request_id.uuid' => 'Request ID must be a valid UUID',
+                    'request_id.exists' => 'Request not found'
+                ]
+            );
+            if ($validator->fails()) {
+                return sendError('Validation failed', $validator->errors()->toArray(), 422);
+            }
+            // validate permission
+            if (Gate::denies('get_proposals', [Proposal::class, Legal_request::find($request_id)])) {
+                return sendError("Unauthorized , You do not have permission to view Proposals For this Request ", [], 403);
+            }
+            // call service
+            $data = $this->propposal_service->getProposals($request_id);
+            // send response
+            return sendResponse($data['data'], $data['status'], $data['code']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'Line' => $e->getLine()
+            ], 500);
+        }
+    }
 }

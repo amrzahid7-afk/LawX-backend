@@ -40,4 +40,11 @@ class ProposalPolicy
         $is_for_me = $user->id === $proposal->lawer_id;
         return $this->get_my_proposals($user) && $is_for_me;
     }
+    public function get_proposals(User $user, Legal_request $request)
+    {
+        // return true;
+        // Proposal Is For this client 
+        // $is_for_me = ;
+        return  $request->client_id == $user->id;
+    }
 }

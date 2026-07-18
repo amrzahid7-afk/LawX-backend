@@ -75,12 +75,16 @@ class LegalRequestController extends Controller
     public function create(LegalRequestRequest $request)
     {
         try {
+            // validate data 
             $validated_data = $request->validated();
+            // validate permission 
+            if (Gate::denies('create', Legal_request::class)) {
+                return sendError("Unauthorized , You do not have permission to create legal requests ", [], 403);
+            }
+            // call Service
             $data = $this->legalRequestService->createLegalRequest($validated_data);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
+            // send response 
+            return sendResponse($data['data'], $data['status'], $data['code']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
@@ -91,12 +95,16 @@ class LegalRequestController extends Controller
     public function update_request(UpdateLegalRequestRequest $request)
     {
         try {
+            // validate data
             $validated_data = $request->validated();
+            // validate permission
+            if (Gate::denies('update_request', Legal_request::find($validated_data['request_id']))) {
+                return sendError("Unauthorized , You do not have permission to update this legal request ", [], 403);
+            }
+            // call service
             $data = $this->legalRequestService->updateLegalRequest($validated_data);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
+            // send response
+            return sendResponse($data['data'], $data['status'], $data['code']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
@@ -107,6 +115,7 @@ class LegalRequestController extends Controller
     public function delete_request($request_id)
     {
         try {
+            // validate data
             $validator = Validator::make(['request_id' => $request_id], [
                 'request_id' => 'required|uuid|exists:legal_requests,id',
             ], [
@@ -115,16 +124,16 @@ class LegalRequestController extends Controller
                 'request_id.exists' => 'Request ID does not exist',
             ]);
             if ($validator->fails()) {
-                return response()->json([
-                    'message' => 'Invalid request ID',
-                    'error' => $validator->errors()->first()
-                ], 422);
+                return sendError('Validation failed', $validator->errors()->toArray(), 422);
             }
+            // validate permission 
+            if (Gate::denies('delete_request', Legal_request::find($request_id))) {
+                return sendError("Unauthorized , You do not have permission to delete this legal request ", [], 403);
+            }
+            // call service
             $data = $this->legalRequestService->deleteLegalRequest($request_id);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
+            // send response
+            return sendResponse($data['data'], $data['status'], $data['code']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
@@ -135,82 +144,18 @@ class LegalRequestController extends Controller
     public function get_my_requests(Request $request)
     {
         try {
-            // $client_id = $request->user()->id;
-            // dd(auth('api')->user());
-            // dd($request->user());
-            $requests = $this->legalRequestService->getMyRequests();
-            return response()->json([
-                'status' => $requests['status'],
-                'data' => $requests['data']
-            ], $requests['code']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine()
-            ], 500);
-        }
-    }
-    public function get_offices_or_lawers(Request $request)
-    {
-        try {
-            $data = $this->legalRequestService->get_offices_or_lawers_available($request);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine(),
-                'class' => $e->getFile()
-            ], 500);
-        }
-    }
-    public function get_proposals($request_id)
-    {
-        try {
-            $data = $this->legalRequestService->getProposals($request_id);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine()
-            ], 500);
-        }
-    }
-
-    public function get_protofolio_for_lawer_or_office($lawer_id)
-    {
-        try {
-            $validator = Validator::make(
-                ['lawer_id' => $lawer_id],
-                [
-                    'lawer_id' => ['required', 'exists:users,id'],
-                ],
-                [
-                    'lawer_id.required' => 'Lawyer/Office ID is required',
-                    'lawer_id.exists' => 'Lawyer/Office ID does not exist',
-                ]
-            );
-            if ($validator->fails()) {
-                return response()->json([
-                    'message' => 'Invalid Lawyer/Office ID',
-                    'error' => $validator->errors()->first()
-                ], 422);
+            // validate permission
+            if (Gate::denies('get_my_requests', Legal_request::class)) {
+                return sendError("Unauthorized , You do not have permission to get your legal requests ", [], 403);
             }
-            $data = $this->legalRequestService->getProtofolioForLawerOrOffice($lawer_id);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
+            // call service
+            $requests = $this->legalRequestService->getMyRequests();
+            // send response
+            return sendResponse($requests['data'], $requests['status'], $requests['code']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),
-                'Line' => $e->getLine(),
-                'class' => $e->getFile()
+                'Line' => $e->getLine()
             ], 500);
         }
     }

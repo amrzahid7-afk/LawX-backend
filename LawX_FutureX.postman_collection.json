@@ -817,7 +817,117 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "title_request",
+                          "value": "استشارة",
+                          "type": "text"
+                        },
+                        {
+                          "key": "description_request",
+                          "value": "نزاع تركة",
+                          "type": "text"
+                        },
+                        {
+                          "key": "location_request",
+                          "value": "importanttask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_min",
+                          "value": "50000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_max",
+                          "value": "60000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "type",
+                          "value": "private",
+                          "type": "text"
+                        },
+                        {
+                          "key": "assigned_lawyer_id",
+                          "value": "{{lawer_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/create_request",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "create_request"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:42:54 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"create legal_request successfully\",\n        \"data\": {\n            \"title_request\": \"استشارة\",\n            \"description_request\": \"نزاع تركة\",\n            \"location_request\": \"importanttask\",\n            \"budget_min\": \"50000\",\n            \"budget_max\": \"60000\",\n            \"type\": \"private\",\n            \"status\": \"open\",\n            \"created_at\": \"2026-07-18T11:42:54.000000Z\",\n            \"client_id\": \"4622d294-c587-4b41-a491-6882b4874208\",\n            \"assigned_lawyer_id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n            \"id\": \"f2bf1db4-0a6f-4242-9001-bf0ab227be86\",\n            \"updated_at\": \"2026-07-18T11:42:54.000000Z\",\n            \"file_url\": \"http://127.0.0.1:8000/storage/documents/fI7sZ8t0AQXrxY2kVeC7ArVa2e0cuAPgwp7EzleD.pdf\"\n        }\n    }\n}"
+                }
+              ]
             },
             {
               "name": "update_request",
@@ -914,7 +1024,240 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "request_id",
+                          "value": "{{legal_request_id}}",
+                          "type": "text",
+                          "uuid": "68411ddb-bf37-41b3-804d-f4aa3be1b28c"
+                        },
+                        {
+                          "key": "title_request",
+                          "value": "نزاع تركة 2222تتت",
+                          "type": "text"
+                        },
+                        {
+                          "key": "description_request",
+                          "value": "newtask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "location_request",
+                          "value": "importanttask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_min",
+                          "value": "5",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_max",
+                          "value": "6",
+                          "type": "text"
+                        },
+                        {
+                          "key": "type",
+                          "value": "public",
+                          "type": "text"
+                        },
+                        {
+                          "key": "assigned_lawyer_id",
+                          "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                          "type": "text",
+                          "disabled": true
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/update_request",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "update_request"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:47:42 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"update legal request successfully\",\n        \"data\": {\n            \"id\": \"f2bf1db4-0a6f-4242-9001-bf0ab227be86\",\n            \"title_request\": \"نزاع تركة 2222تتت\",\n            \"description_request\": \"newtask\",\n            \"location_request\": \"importanttask\",\n            \"budget_min\": \"5\",\n            \"budget_max\": \"6\",\n            \"type\": \"public\",\n            \"status\": \"open\",\n            \"client_id\": \"4622d294-c587-4b41-a491-6882b4874208\",\n            \"assigned_lawyer_id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n            \"created_at\": \"2026-07-18T11:42:54.000000Z\",\n            \"updated_at\": \"2026-07-18T11:47:42.000000Z\"\n        }\n    }\n}"
+                },
+                {
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "request_id",
+                          "value": "{{legal_request_id}}",
+                          "type": "text",
+                          "uuid": "68411ddb-bf37-41b3-804d-f4aa3be1b28c"
+                        },
+                        {
+                          "key": "title_request",
+                          "value": "نزاع تركة 2222تتت",
+                          "type": "text"
+                        },
+                        {
+                          "key": "description_request",
+                          "value": "newtask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "location_request",
+                          "value": "importanttask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_min",
+                          "value": "5",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_max",
+                          "value": "6",
+                          "type": "text"
+                        },
+                        {
+                          "key": "type",
+                          "value": "public",
+                          "type": "text"
+                        },
+                        {
+                          "key": "assigned_lawyer_id",
+                          "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                          "type": "text",
+                          "disabled": true
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/update_request",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "update_request"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:48:08 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Unauthorized , You do not have permission to update this legal request \"\n}"
+                }
+              ]
             },
             {
               "name": "delete_request",
@@ -948,7 +1291,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{Domain}}/client/legal-requests/delete_request/{{request_id}}",
+                  "raw": "{{Domain}}/client/legal-requests/delete_request/{{legal_request_id}}",
                   "host": [
                     "{{Domain}}"
                   ],
@@ -956,11 +1299,142 @@
                     "client",
                     "legal-requests",
                     "delete_request",
-                    "{{request_id}}"
+                    "{{legal_request_id}}"
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/delete_request/{{legal_request_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "delete_request",
+                        "{{legal_request_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:52:24 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"delete legal request successfully\"\n    }\n}"
+                },
+                {
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/delete_request/{{legal_request_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "delete_request",
+                        "{{legal_request_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:53:58 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Unauthorized , You do not have permission to delete this legal request \"\n}"
+                }
+              ]
             },
             {
               "name": "get_my_requests",
@@ -1051,97 +1525,117 @@
                   ]
                 }
               },
-              "response": []
-            },
-            {
-              "name": "providers",
-              "protocolProfileBehavior": {
-                "disabledSystemHeaders": {
-                  "accept": true
-                }
-              },
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{client_token}}",
-                      "type": "string"
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "title_request",
+                          "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                          "type": "text"
+                        },
+                        {
+                          "key": "description_request",
+                          "value": "newtask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "location_request",
+                          "value": "importanttask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_min",
+                          "value": "5",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_max",
+                          "value": "6",
+                          "type": "text"
+                        },
+                        {
+                          "key": "type",
+                          "value": "public",
+                          "type": "text"
+                        },
+                        {
+                          "key": "assigned_lawyer_id",
+                          "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/get_my_requests",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "get_my_requests"
+                      ]
                     }
-                  ]
-                },
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
                   },
-                  {
-                    "key": "X-App-Platform",
-                    "value": "mobile",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{Domain}}/client/providers",
-                  "host": [
-                    "{{Domain}}"
-                  ],
-                  "path": [
-                    "client",
-                    "providers"
-                  ]
-                }
-              },
-              "response": []
-            },
-            {
-              "name": "get_protofolio_for_lawer",
-              "protocolProfileBehavior": {
-                "disabledSystemHeaders": {
-                  "accept": true
-                }
-              },
-              "request": {
-                "auth": {
-                  "type": "bearer",
-                  "bearer": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
                     {
-                      "key": "token",
-                      "value": "{{client_token}}",
-                      "type": "string"
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 11:59:30 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
                     }
-                  ]
-                },
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  },
-                  {
-                    "key": "X-App-Platform",
-                    "value": "mobile",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{Domain}}/client/providers/{{lawer_id}}/portfolio",
-                  "host": [
-                    "{{Domain}}"
                   ],
-                  "path": [
-                    "client",
-                    "providers",
-                    "{{lawer_id}}",
-                    "portfolio"
-                  ]
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"get my requests successfully\",\n        \"data\": {\n            \"private\": [\n                {\n                    \"id\": \"d41421f6-e47b-4ccd-81c5-3218e2fc939c\",\n                    \"title_request\": \"استشارة\",\n                    \"description_request\": \"نزاع تركة\",\n                    \"location_request\": \"importanttask\",\n                    \"budget_min\": \"50000.00\",\n                    \"budget_max\": \"60000.00\",\n                    \"type\": \"private\",\n                    \"status\": \"open\",\n                    \"created_at\": \"2026-07-18 11:42 AM\",\n                    \"documents\": [\n                        {\n                            \"id\": \"861236ae-e7f0-41dc-921c-6d077929e234\",\n                            \"file_url\": \"http://127.0.0.1:8000/storage/documents/osTQH7RRmdH1UuEzGzU2OGFCBbgvKxxZJikzqXfM.pdf\",\n                            \"file_size\": 1479257,\n                            \"name\": \"pdf\",\n                            \"nots\": null\n                        }\n                    ],\n                    \"assigned_lawyer_id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\"\n                }\n            ]\n        }\n    }\n}"
                 }
-              },
-              "response": []
+              ]
             },
             {
               "name": "get_proposals_for_my_requests",
@@ -1233,7 +1727,338 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "title_request",
+                          "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                          "type": "text"
+                        },
+                        {
+                          "key": "description_request",
+                          "value": "newtask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "location_request",
+                          "value": "importanttask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_min",
+                          "value": "5",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_max",
+                          "value": "6",
+                          "type": "text"
+                        },
+                        {
+                          "key": "type",
+                          "value": "public",
+                          "type": "text"
+                        },
+                        {
+                          "key": "assigned_lawyer_id",
+                          "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/get_proposals_for_my_requests/{{legal_request_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "get_proposals_for_my_requests",
+                        "{{legal_request_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 12:04:39 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get proposals successfully\",\n        \"data\": {\n            \"Assumenda aut quos omnis id.\": [\n                {\n                    \"id\": \"2d576016-5b07-41ed-b6cb-f90ec46c1f87\",\n                    \"price\": \"4729.44\",\n                    \"currency\": \"syp\",\n                    \"estimated_days\": \"60 days\",\n                    \"message\": \"Est molestiae facilis ratione molestiae dolor ipsa.\",\n                    \"valid_until\": \"2026-08-14T00:00:00.000000Z\",\n                    \"payment_terms\": \"50% upfront, 50% on completion\",\n                    \"status\": \"rejected\",\n                    \"created_at\": \"2026-07-15 04:51 PM\",\n                    \"lawyer\": {\n                        \"id\": \"8d104466-9033-4b22-9459-809b5f6456ce\",\n                        \"name\": \"Lawyer User\",\n                        \"avatar\": null\n                    },\n                    \"documents\": [\n                        {\n                            \"id\": \"aa13b21d-7f46-42fe-8524-ac7e9bb95aeb\",\n                            \"file_url\": \"http://127.0.0.1:8000/storage/documents/39351133-d46c-4729-862b-6b0d3b5f48d7.pdf\",\n                            \"type\": \"pdf\"\n                        }\n                    ]\n                },\n                {\n                    \"id\": \"6c582e2c-842a-4783-83f5-8453f84faa49\",\n                    \"price\": \"16.00\",\n                    \"currency\": \"EGP\",\n                    \"estimated_days\": \"55555\",\n                    \"message\": \"be carfull be carfull\",\n                    \"valid_until\": \"2026-06-06T00:00:00.000000Z\",\n                    \"payment_terms\": \"first firts sakmcxksam first firts sakmcxksam\",\n                    \"status\": \"pending\",\n                    \"created_at\": \"2026-07-18 09:49 AM\",\n                    \"lawyer\": {\n                        \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                        \"name\": \"عمر الزهراوي\",\n                        \"avatar\": null\n                    },\n                    \"documents\": [\n                        {\n                            \"id\": \"aedfc8ac-9ba8-4f09-b218-226d6d8eb59b\",\n                            \"file_url\": \"http://127.0.0.1:8000/storage/documents/proposals/AZgadSt7aAmNipDuLNvoYBTwcgQZN90cR1r4PGoZ.pdf\",\n                            \"type\": \"pdf\"\n                        }\n                    ]\n                }\n            ]\n        }\n    }\n}"
+                },
+                {
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "title_request",
+                          "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                          "type": "text"
+                        },
+                        {
+                          "key": "description_request",
+                          "value": "newtask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "location_request",
+                          "value": "importanttask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_min",
+                          "value": "5",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_max",
+                          "value": "6",
+                          "type": "text"
+                        },
+                        {
+                          "key": "type",
+                          "value": "public",
+                          "type": "text"
+                        },
+                        {
+                          "key": "assigned_lawyer_id",
+                          "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/get_proposals_for_my_requests/{{legal_request_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "get_proposals_for_my_requests",
+                        "{{legal_request_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 12:15:26 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Unauthorized , You do not have permission to view Proposals For this Request \"\n}"
+                },
+                {
+                  "name": "Validation failed",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "title_request",
+                          "value": "ca1c7675-02b9-4206-9d1b-6d9d92cd3dcb",
+                          "type": "text"
+                        },
+                        {
+                          "key": "description_request",
+                          "value": "newtask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "location_request",
+                          "value": "importanttask",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_min",
+                          "value": "5",
+                          "type": "text"
+                        },
+                        {
+                          "key": "budget_max",
+                          "value": "6",
+                          "type": "text"
+                        },
+                        {
+                          "key": "type",
+                          "value": "public",
+                          "type": "text"
+                        },
+                        {
+                          "key": "assigned_lawyer_id",
+                          "value": "57750a65-7a92-4f5c-b4aa-744c14b19e0a",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/get_proposals_for_my_requests/{{legal_request_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "get_proposals_for_my_requests",
+                        "{{legal_request_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Content",
+                  "code": 422,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 12:15:47 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Validation failed\",\n    \"details\": {\n        \"request_id\": [\n            \"Request not found\"\n        ]\n    }\n}"
+                }
+              ]
             }
           ]
         },
@@ -1289,7 +2114,80 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "Get_All_Session_For_Client",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{Domain}}/client/sessions",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "sessions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 18 Jul 2026 11:31:07 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Fetch sessions For client successfully\",\n        \"data\": []\n    }\n}"
+            }
+          ]
         },
         {
           "name": "get_invoices_for_client",
@@ -1333,7 +2231,327 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "get_invoices_for_client",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/invoices",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "invoices"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 18 Jul 2026 11:35:01 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Invoices retrieved successfully\",\n        \"invoices\": []\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "providers",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-App-Platform",
+                "value": "mobile",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{Domain}}/client/providers?city&category_id=&min_rate",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "client",
+                "providers"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": null,
+                  "type": "text"
+                },
+                {
+                  "key": "category_id",
+                  "value": "",
+                  "description": "// need lawer in specific Category ",
+                  "type": "text"
+                },
+                {
+                  "key": "min_rate",
+                  "value": null,
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "providers",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/providers",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "providers"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": null,
+                      "disabled": true
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "",
+                      "description": "// need lawer in specific Category ",
+                      "disabled": true
+                    },
+                    {
+                      "key": "min_rate",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 18 Jul 2026 13:10:18 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get lawers , offices successfully\",\n        \"data\": [\n            {\n                \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                \"full_name\": \"عمر الزهراوي\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"5dcf5c56-0c99-455c-b4d1-38f574397472\",\n                \"full_name\": \"علي عسلية\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"e09ba432-2968-4821-9b0b-6fdaa84d6660\",\n                \"full_name\": \"محمد الباشا\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "get_protofolio_for_lawer",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-App-Platform",
+                "value": "mobile",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{Domain}}/client/providers/{{lawer_id}}/portfolio",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "client",
+                "providers",
+                "{{lawer_id}}",
+                "portfolio"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get_protofolio_for_lawer",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/providers/{{lawer_id}}/portfolio",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "providers",
+                    "{{lawer_id}}",
+                    "portfolio"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 18 Jul 2026 13:11:04 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get protofolio for lawer or office successfully\",\n        \"data\": {\n            \"lawyer_name\": \"عمر الزهراوي\",\n            \"role\": \"User\",\n            \"address\": null,\n            \"phone_number\": \"0968339198\",\n            \"rate\": 0,\n            \"experience_years_count\": 0.007790229199518011,\n            \"number_of_cases\": 1,\n            \"percent_of_cases_won\": \"0.00\",\n            \"legal_categories\": [],\n            \"bio_for_lawyer\": null,\n            \"opinion_of_clients\": []\n        }\n    }\n}"
+            }
+          ]
         }
       ]
     },

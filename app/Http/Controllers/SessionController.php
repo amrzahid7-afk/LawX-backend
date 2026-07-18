@@ -101,11 +101,14 @@ class SessionController extends Controller
     public function get_sessions_for_client()
     {
         try {
+            // validate permission
+            if (Gate::denies('get_sessions_for_client', Session::class)) {
+                return sendError("Unauthorized , You do not have permission to view sessions ", [], 403);
+            }
+            // call service
             $sessions = $this->session_service->get_sessions_for_client();
-            return response()->json([
-                'status' => $sessions['status'],
-                'data' => $sessions['data'],
-            ], $sessions['code']);
+            // send response
+            return sendResponse($sessions['data'], $sessions['status'], $sessions['code']);
         } catch (\Exception $e) {
             return response()->json([
                 'error' => $e->getMessage(),

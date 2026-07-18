@@ -42,7 +42,13 @@ class InvoiceController extends Controller
     public function get_invoices_for_client(Request $request)
     {
         try {
+            // validate permission
+            if (Gate::denies('get_invoices_for_client', Invoice::class)) {
+                return sendError("Unauthorized , You do not have permission to view invoices ", [], 403);
+            }
+            // call servcie
             $invoices = $this->invoiceService->get_invoices_for_client($request);
+            // send response
             return sendResponse($invoices['data'], $invoices['status'], $invoices['code']);
         } catch (\Exception $e) {
             return response()->json([
