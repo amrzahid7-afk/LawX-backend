@@ -18,6 +18,8 @@ if (!function_exists('sendError')) {
         $response = [
             'status'  => 'error',
             'message' => $error,
+            'error_details' => $errorDetails,
+
         ];
         if (!empty($errorDetails) && config('app.debug')) {
             $response['details'] = $errorDetails;

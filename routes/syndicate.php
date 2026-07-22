@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\TemplateController;
+use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\ManageSyndicateUsers;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,10 @@ Route::prefix('templates')->group(function () {
     Route::get('/getTemplates', [TemplateController::class, 'getTemplates']);
     Route::get('/get_templates_categories', [TemplateController::class, 'get_templates_categories']);
     Route::get('/show_template_details', [TemplateController::class, 'show_template_details']);
+});
+//Electonic signature module 
+Route::prefix('electonic_signature')->group(function () {
+    Route::get('/get_signing_url/{signature_request_id}', [SignatureController::class, 'getSigningUrl']);
+    Route::get('/get_files_require_sign', [SignatureController::class, 'getSyndicateFiles']);
+    Route::get('/review_file/{signature_request_id}', [SignatureController::class, 'reviewFile']);
 });

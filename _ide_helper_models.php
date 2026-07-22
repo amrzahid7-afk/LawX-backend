@@ -28,6 +28,7 @@ namespace App\Models{
  * @property int $progress_percentage
  * @property string|null $court
  * @property string|null $lead_lawyer_id
+ * @property string|null $office_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $clients
@@ -37,6 +38,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $invoices
  * @property-read int|null $invoices_count
  * @property-read \App\Models\User|null $leadLawyer
+ * @property-read \App\Models\Office|null $office
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Opponent> $opponents
  * @property-read int|null $opponents_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Case_payment_milestone> $paymentMilestones
@@ -61,6 +63,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereImportanceStars($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereLeadLawyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereOfficeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereProgressPercentage($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|CaseModel whereResult($value)
@@ -374,11 +377,61 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property string $id
+ * @property string|null $user_id
+ * @property string|null $employed_in_office_id
+ * @property string $national_id
+ * @property string|null $full_name
+ * @property string|null $birth_date
+ * @property string|null $birth_place
+ * @property string|null $father_name
+ * @property string|null $mother_name
+ * @property string|null $mother_family_name
+ * @property string|null $civil_registry_number
+ * @property string $syndicate_card_number
+ * @property string $syndicate_branch
+ * @property string $lawyer_state
+ * @property string|null $supervised_by_lawyer_id
+ * @property \Illuminate\Support\Carbon|null $trainee_approved_independent_at
+ * @property bool $is_claimed
+ * @property \Illuminate\Support\Carbon|null $claimed_at
+ * @property bool $is_suspended
+ * @property string|null $created_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Office|null $employedOffice
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Office> $employedOffices
+ * @property-read int|null $employed_offices_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OfficeInvitation> $officeInvitations
+ * @property-read int|null $office_invitations_count
+ * @property-read \App\Models\Office|null $ownedOffice
  * @property-read LawerProfile|null $supervisor
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereBirthDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereBirthPlace($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereCivilRegistryNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereClaimedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereCreatedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereEmployedInOfficeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereFatherName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereFullName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereIsClaimed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereIsSuspended($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereLawyerState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereMotherFamilyName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereMotherName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereNationalId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereSupervisedByLawyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereSyndicateBranch($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereSyndicateCardNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereTraineeApprovedIndependentAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereUserId($value)
  */
 	class LawerProfile extends \Eloquent {}
 }
@@ -550,13 +603,15 @@ namespace App\Models{
  * @property string $name
  * @property string $owner_lawyer_profile_id
  * @property string $status
- * @property string|null $reviewed_by
- * @property \Illuminate\Support\Carbon|null $reviewed_at
- * @property string|null $rejection_reason
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\LawerProfile> $employees
+ * @property-read int|null $employees_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OfficeInvitation> $invitations
  * @property-read int|null $invitations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $office_cases
+ * @property-read int|null $office_cases_count
+ * @property-read \App\Models\LawerProfile $owner
  * @property-read \App\Models\User|null $reviewedBy
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Office newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Office newQuery()
@@ -565,9 +620,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereOwnerLawyerProfileId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereRejectionReason($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereReviewedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereReviewedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Office whereUpdatedAt($value)
  */
@@ -588,17 +640,22 @@ namespace App\Models{
  * @property string $id
  * @property string $office_id
  * @property string $invited_lawyer_profile_id
+ * @property string|null $invited_by
  * @property string $status
+ * @property string|null $responded_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\LawerProfile $invitedLawyer
  * @property-read \App\Models\Office $office
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereInvitedBy($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereInvitedLawyerProfileId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereOfficeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereRespondedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereUpdatedAt($value)
  */
@@ -864,6 +921,28 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property-read \App\Models\Document|null $document
+ * @property-read \App\Models\User|null $lawyer
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Signer> $signers
+ * @property-read int|null $signers_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest query()
+ */
+	class SignatureRequest extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer query()
+ */
+	class Signer extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @property string $id
  * @property string $title
  * @property string $template_desc
@@ -1004,6 +1083,7 @@ namespace App\Models{
  * @property-read int|null $client_invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
+ * @property-read \App\Models\LawerProfile|null $lawyerProfile
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $lawyer_invoices
  * @property-read int|null $lawyer_invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Legal_category> $legalCategories

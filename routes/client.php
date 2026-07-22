@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ProposalController;
@@ -26,3 +27,10 @@ Route::get('/invoices', [InvoiceController::class, 'get_invoices_for_client']);
 //     Route::post('/sign', [DocumentSignatureController::class, 'sign']);
 //     Route::get('/status', [DocumentSignatureController::class, 'status']);
 // });
+
+// signature
+Route::prefix('electonic_signature')->group(function () {
+    Route::get('/get_signing_url/{signature_request_id}', [SignatureController::class, 'getSigningUrl']);
+    Route::get('/get_files_require_sign', [SignatureController::class, 'getClientFiles']);
+    Route::get('/review_file/{signature_request_id}', [SignatureController::class, 'reviewFile']);
+});

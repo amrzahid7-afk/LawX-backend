@@ -13,3 +13,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/docusign/callback', function () {
+    return 'تمت الموافقة بنجاح! يمكنك الآن إغلاق هذه الصفحة والعودة لـ Postman.';
+});

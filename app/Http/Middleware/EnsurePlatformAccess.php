@@ -26,18 +26,15 @@ class EnsurePlatformAccess
             $user->role?->slug === RoleSlug::Client->value
             && ! in_array($platform, self::CLIENT_ALLOWED_PLATFORMS, true)
         ) {
-            return response()->json(['message' => 'العميل يستخدم تطبيق الموبايل فقط.'], 403);
+            return response()->json(['message' => 'this access will be from mobile App only '], 403);
         }
 
         if (
             $user->role?->slug === RoleSlug::Syndicate->value
             && ! in_array($platform, self::SYNDICATE_ALLOWED_PLATFORMS, true)
         ) {
-            return response()->json(['message' => 'النقابة تستخدم لوحة التحكم فقط.'], 403);
+            return response()->json(['message' => 'this access will be from web App  only '], 403);
         }
-
-        // المحامي (lawyer) بجميع حالاته: بلا قيد على الجهاز.
-
         return $next($request);
     }
 }

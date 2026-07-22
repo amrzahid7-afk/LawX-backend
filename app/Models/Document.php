@@ -18,6 +18,7 @@ class Document extends Model
     protected $fillable = [
         'id',
         'file_path',
+        'signed_file_path',
         'type',
         'file_size',
         'case_id',

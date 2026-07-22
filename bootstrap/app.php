@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -28,10 +29,12 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (AuthenticationException $e, Request $request) {
             if ($request->is('api/*')) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'التوكن المرسل غير صحيح أو منتهي الصلاحية، يرجى تسجيل الدخول مجدداً.',
-                ], 401);
+                return sendError('Un Authenticated User', ['message' => 'Un Authenticate , please Login and try again'], 401);
+            }
+        });
+        $exceptions->render(function (AuthorizationException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return sendError('Un Authorized Access', ['message' => 'You do not have permission to access this page'], 403);
             }
         });
     })->create();
