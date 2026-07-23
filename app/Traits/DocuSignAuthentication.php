@@ -1,4 +1,8 @@
 <?php
+// Edit Kimi K3 Code - النسخة النهائية المُصلّحة
+// 1. الكل Signer عادي (بدون Seal)
+// 2. توقيع متوازي (routing_order = 1 للكل) - إصلاح REcipient_NOT_IN_SEQUENCE
+// 3. اسم المستخدم أسفل التوقيع
 
 namespace App\Traits;
 
@@ -10,12 +14,12 @@ use DocuSign\eSign\Model\EnvelopeDefinition;
 use DocuSign\eSign\Model\EventNotification;
 use DocuSign\eSign\Model\Recipients;
 use DocuSign\eSign\Model\RecipientViewRequest;
-use DocuSign\eSign\Model\SealSign;
 use DocuSign\eSign\Model\Signer as DocusignSigner;
 use DocuSign\eSign\Model\SignHere;
+use DocuSign\eSign\Model\Text;
+use DocuSign\eSign\Model\Tabs;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use DocuSign\eSign\Model\Tabs;
 
 trait DocuSignAuthentication
 {
@@ -26,30 +30,24 @@ trait DocuSignAuthentication
     private function authenticate()
     {
         try {
-            // get the keys From .env File 
             $clientId = env('DOCUSIGN_INTEGRATION_KEY');
             $userId = env('DOCUSIGN_USER_ID');
             $rsaKeyId = env('DOCUSIGN_RSA_KEY_ID');
             $privateKeyPath = storage_path(env('DOCUSIGN_PRIVATE_KEY_PATH'));
-            // validate the config data For Docusign integration
+
             if (!$clientId || !$userId) {
-                throw new \Exception('  Missing DocuSign credentials in .env');
+                throw new \Exception('Missing DocuSign credentials in .env');
             }
 
-            // check if the private key file exists
             if (!file_exists($privateKeyPath)) {
-                throw new \Exception(" Private key for Encryption Of Connection File not found : " . $privateKeyPath);
+                throw new \Exception("Private key file not found: " . $privateKeyPath);
             }
 
-            // get the private key value From  private key file
             $privateKey = file_get_contents($privateKeyPath);
 
-            // Make  New Socket with DocuSign
             $this->apiClient = new ApiClient();
-            // Set DocuSign Base Path
             $this->apiClient->getOAuth()->setOAuthBasePath('account-d.docusign.com');
 
-            // provide the socket With  out credentials
             $response = $this->apiClient->requestJWTUserToken(
                 $clientId,
                 $userId,
@@ -59,19 +57,16 @@ trait DocuSignAuthentication
                 $rsaKeyId
             );
 
-            // get the access token from the socket response
             $this->accessToken = $response[0]['access_token'];
 
-            // set the access token in each request with Docu sign  
             $this->apiClient->getConfig()->addDefaultHeader(
                 'Authorization',
                 'Bearer ' . $this->accessToken
             );
 
-            // Set DocuSign Base Path
             $this->apiClient->getConfig()->setHost('https://demo.docusign.net/restapi');
 
-            Log::info(' Authenticated with DocuSign Successfully  ');
+            Log::info('Authenticated with DocuSign Successfully');
         } catch (\Exception $e) {
             Log::error('DocuSign Auth Error: ' . $e->getMessage());
             throw new \Exception('فشلت المصادقة مع DocuSign: ' . $e->getMessage());
@@ -84,6 +79,16 @@ trait DocuSignAuthentication
             $this->authenticate();
         }
     }
+
+    /**
+     * ═══════════════════════════════════════════════════════════════════════
+     * ║  الدالة النهائية: createEnvelope                                    ║
+     * ║  1. الكل Signer عادي (بدون Seal)                                   ║
+     * ║  2. توقيع متوازي (routing_order = 1 للكل)                          ║
+     *     ← هذا يُصلّح خطأ REcipient_NOT_IN_SEQUENCE                        ║
+     *  3. اسم المستخدم أسفل التوقيع                                       ║
+     * ═══════════════════════════════════════════════════════════════════════
+     */
     public function createEnvelope(SignatureRequest $signatureRequest)
     {
         $this->ensureAuthenticated();
@@ -91,93 +96,93 @@ trait DocuSignAuthentication
         $filePath = $signatureRequest->document->file_path;
 
         if (!Storage::exists($filePath)) {
-            throw new \Exception(" File Not Found In LawX Server : {$filePath}");
+            throw new \Exception("File Not Found: {$filePath}");
         }
-        // this model Is for put the document that will be signed 
+
         $document = new DocusignDocument([
             'document_id' => '1',
             'document_base64' => base64_encode(Storage::get($filePath)),
-            'name' => $signatureRequest->document->type,
+            'name' => $signatureRequest->document->type ?? 'Document',
             'file_extension' => pathinfo($filePath, PATHINFO_EXTENSION)
         ]);
 
         $signersArray = [];
+
         foreach ($signatureRequest->signers as $index => $signer) {
             $recipientId = (string)($index + 1);
+            $userName = $signer->user->full_name ?? 'Unknown';
 
-            // if ($signer->sign_type === 'stamp') {
-            //     $tab = new SealSign([
-            //         'document_id' => '1',
-            //         'page_number' => $signer->page_number ?? 1,
-            //         'x_position' => $signer->x_position,
-            //         'y_position' => $signer->y_position,
-            //         'width' => $signer->width,
-            //         'height' => $signer->height,
-            //         'locked' => true,
-            //         'required' => true
-            //     ]);
-            //     $tabsArray = ['seal_signs' => [$tab]];
-            // } else {
-            //     $tab = new SignHere([
-            //         'document_id' => '1',
-            //         'page_number' => $signer->page_number ?? 1,
-            //         'x_position' => $signer->x_position,
-            //         'y_position' => $signer->y_position,
-            //         'width' => $signer->width,
-            //         'height' => $signer->height,
-            //         'locked' => true,
-            //         'required' => true
-            //     ]);
-            //     $tabsArray = ['sign_here' => [$tab]];
-            // }
-            // $docusignSigner = new DocusignSigner([
-            //     'email' => $signer->user->email,
-            //     'name' => $signer->user->full_name,
-            //     'recipient_id' => $recipientId,
-            //     'client_user_id' => (string) $signer->user->id,
-            //     'can_create_tabs' => false,
-            //     'tabs' => $tabsArray
-            // ]);
-            if ($signer->sign_type === 'seal') {
-                $tab = new SealSign([
-                    'document_id' => '1',
-                    'page_number' => (int) ($signer->page_number ?? 1),
-                    'x_position' => (int) $signer->x_position,
-                    'y_position' => (int) $signer->y_position,
-                    'width' => (int) $signer->width,
-                    'height' => (int) $signer->height,
-                    'locked' => true,
-                    'required' => true
-                ]);
-                $tabsArray = ['seal_signs' => [$tab]];
-            } else {
-                $tab = new SignHere([
-                    'document_id' => '1',
-                    'page_number' => (int) ($signer->page_number ?? 1),
-                    'x_position' => (int) $signer->x_position,
-                    'y_position' => (int) $signer->y_position,
-                    'width' => (int) $signer->width,
-                    'height' => (int) $signer->height,
-                    'locked' => true,
-                    'required' => true
-                ]);
-                $tabsArray = ['sign_here' => [$tab]];
-            }
+            $tabs = new Tabs();
+            $signHereTabs = [];
+            $textTabs = [];
 
+            // ──── موضع التوقيع الأساسي ────
+            $baseX = (float)$signer->x_position;
+            $baseY = (float)$signer->y_position;
+
+            /*
+             * ╔════════════════════════════════════════════════════════════════════╗
+             * ║  1. SignHere Tab (التوقيع)                                        ║
+             * ╚════════════════════════════════════════════════════════════════════╝
+             */
+            $signHere = new SignHere([
+                'document_id' => '1',
+                'page_number' => (string)($signer->page_number ?? 1),
+                'x_position' => (string)$baseX,
+                'y_position' => (string)$baseY,
+                'width' => (int)($signer->width ?? 100),
+                'height' => (int)($signer->height ?? 50),
+                'optional' => 'false',
+                'tab_label' => 'Sign_Here_' . $recipientId,
+            ]);
+            $signHereTabs[] = $signHere;
+
+            /*
+             * ╔════════════════════════════════════════════════════════════════════╗
+             * ║  2. Text Tab (اسم المستخدم أسفل التوقيع)                          ║
+             * ╚════════════════════════════════════════════════════════════════════╝
+             */
+            $nameText = new Text([
+                'document_id' => '1',
+                'page_number' => (string)($signer->page_number ?? 1),
+                'x_position' => (string)$baseX,
+                'y_position' => (string)($baseY + ($signer->height ?? 50) + 15),
+                'width' => (int)($signer->width ?? 150),
+                'height' => 20,
+                'value' => $userName,
+                'locked' => 'true',
+                'tab_label' => 'Name_' . $recipientId,
+                'font_size' => 'Size12',
+                'bold' => 'true',
+            ]);
+            $textTabs[] = $nameText;
+
+            $tabs->setSignHereTabs($signHereTabs);
+            $tabs->setTextTabs($textTabs);
+
+            /*
+             * ╔════════════════════════════════════════════════════════════════════╗
+             * ║  إنشاء Signer (للجميع - عادي)                                    ║
+             * ║  routing_order = '1' للكل = توقيع متوازي                         ║
+             * ║  هذا يُصلّح: REcipient_NOT_IN_SEQUENCE                              ║
+             * ╚════════════════════════════════════════════════════════════════════╝
+             */
             $docusignSigner = new DocusignSigner([
                 'email' => $signer->user->email,
-                'name' => $signer->user->full_name,
+                'name' => $userName,
                 'recipient_id' => $recipientId,
-                'client_user_id' => (string) $signer->user->id,
+                'routing_order' => '1',  // ← الكل = 1 = متوازي = لا يوجد ترتيب
+                'client_user_id' => $recipientId,
+                'tabs' => $tabs,
                 'can_create_tabs' => false,
-                'tabs' => $tabsArray
             ]);
+
             $signer->update(['docusign_recipient_id' => $recipientId]);
             $signersArray[] = $docusignSigner;
         }
-        // send notification To ( Ngrok -> Laravel)  Tool when the document is signed
+
         $eventNotification = new EventNotification([
-            'url' => 'https://stowing-cleft-slinging.ngrok-free.dev/api/docusign-webhook',
+            'url' => env('DOCUSIGN_WEBHOOK_URL', 'https://your-domain.com/api/docusign-webhook'),
             'logging_enabled' => 'true',
             'envelope_events' => [
                 ['envelope_event_status_code' => 'signed'],
@@ -186,7 +191,6 @@ trait DocuSignAuthentication
             'require_acknowledgment' => 'true'
         ]);
 
-        // Create Envelope (Put All Data in one Record For Send  To DocuSign Platform )
         $envelopeDefinition = new EnvelopeDefinition([
             'email_subject' => 'يرجى توقيع المستند: ' . ($signatureRequest->document->title ?? 'مستند'),
             'documents' => [$document],
@@ -194,15 +198,14 @@ trait DocuSignAuthentication
             'status' => 'sent',
             'event_notification' => $eventNotification
         ]);
+
         $envelopeApi = new EnvelopesApi($this->apiClient);
 
         try {
-            // send the Request to DocuSign Servers 
-            \Log::info('DocuSign Payload: ' . $envelopeDefinition->__toString());
+            Log::info('DocuSign Payload: ' . $envelopeDefinition->__toString());
             $result = $envelopeApi->createEnvelope($this->accountId, $envelopeDefinition);
             return $result->getEnvelopeId();
         } catch (\Exception $e) {
-            // If docu sign refuse the request because Authentication in valid retry Authenticate and resend the request
             if (strpos($e->getMessage(), '401') !== false) {
                 $this->authenticate();
                 $result = $envelopeApi->createEnvelope($this->accountId, $envelopeDefinition);
@@ -214,40 +217,289 @@ trait DocuSignAuthentication
 
     public function getRecipientViewUrl($envelopeId, $signer, $returnUrl)
     {
-        // Ensure that the user is authenticated
         $this->ensureAuthenticated();
-        // Create Recipient View Request
+
+        $clientUserId = $signer->docusign_recipient_id ?? (string)$signer->user->id;
+
         $recipientViewRequest = new RecipientViewRequest([
             'authentication_method' => 'none',
             'email' => $signer->user->email,
             'user_name' => $signer->user->full_name,
             'recipient_id' => $signer->docusign_recipient_id,
             'return_url' => $returnUrl,
-            'client_user_id' => (string) $signer->user->id,
+            'client_user_id' => $clientUserId,
         ]);
-        // initialize the  Request to send it to DocuSign
+
         $envelopeApi = new EnvelopesApi($this->apiClient);
-        // send the Request to DocuSign Servers
+
         $viewUrl = $envelopeApi->createRecipientView(
             $this->accountId,
             $envelopeId,
             $recipientViewRequest
         );
-        // get the View URL response from DocuSign
+
         return $viewUrl->getUrl();
     }
-    // Function For get the document after Signing Completing 
+
     public function downloadSignedDocument($envelopeId, $localSavePath)
     {
-        // validate Authentication with docusign 
         $this->ensureAuthenticated();
-        // make  new Connection with docusign server 
         $envelopeApi = new EnvelopesApi($this->apiClient);
-        // get the document from DocuSign
         $documentBytes = $envelopeApi->getDocument($this->accountId, $envelopeId, '1');
-        // store the signed document in local storage
         Storage::put($localSavePath, $documentBytes);
-        // return the local save path
         return $localSavePath;
     }
 }
+// Old Code it is Work 
+
+// namespace App\Traits;
+
+// use App\Models\SignatureRequest;
+// use DocuSign\eSign\Api\EnvelopesApi;
+// use DocuSign\eSign\Client\ApiClient;
+// use DocuSign\eSign\Model\Document as DocusignDocument;
+// use DocuSign\eSign\Model\EnvelopeDefinition;
+// use DocuSign\eSign\Model\EventNotification;
+// use DocuSign\eSign\Model\Recipients;
+// use DocuSign\eSign\Model\RecipientViewRequest;
+// use DocuSign\eSign\Model\SealSign;
+// use DocuSign\eSign\Model\Signer as DocusignSigner;
+// use DocuSign\eSign\Model\SignHere;
+// use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Storage;
+// use DocuSign\eSign\Model\Tabs;
+
+// trait DocuSignAuthentication
+// {
+//     protected $apiClient;
+//     protected $accessToken;
+//     protected $accountId;
+
+//     private function authenticate()
+//     {
+//         try {
+//             // get the keys From .env File 
+//             $clientId = env('DOCUSIGN_INTEGRATION_KEY');
+//             $userId = env('DOCUSIGN_USER_ID');
+//             $rsaKeyId = env('DOCUSIGN_RSA_KEY_ID');
+//             $privateKeyPath = storage_path(env('DOCUSIGN_PRIVATE_KEY_PATH'));
+//             // validate the config data For Docusign integration
+//             if (!$clientId || !$userId) {
+//                 throw new \Exception('  Missing DocuSign credentials in .env');
+//             }
+
+//             // check if the private key file exists
+//             if (!file_exists($privateKeyPath)) {
+//                 throw new \Exception(" Private key for Encryption Of Connection File not found : " . $privateKeyPath);
+//             }
+
+//             // get the private key value From  private key file
+//             $privateKey = file_get_contents($privateKeyPath);
+
+//             // Make  New Socket with DocuSign
+//             $this->apiClient = new ApiClient();
+//             // Set DocuSign Base Path
+//             $this->apiClient->getOAuth()->setOAuthBasePath('account-d.docusign.com');
+
+//             // provide the socket With  out credentials
+//             $response = $this->apiClient->requestJWTUserToken(
+//                 $clientId,
+//                 $userId,
+//                 $privateKey,
+//                 'signature impersonation',
+//                 3600,
+//                 $rsaKeyId
+//             );
+
+//             // get the access token from the socket response
+//             $this->accessToken = $response[0]['access_token'];
+
+//             // set the access token in each request with Docu sign  
+//             $this->apiClient->getConfig()->addDefaultHeader(
+//                 'Authorization',
+//                 'Bearer ' . $this->accessToken
+//             );
+
+//             // Set DocuSign Base Path
+//             $this->apiClient->getConfig()->setHost('https://demo.docusign.net/restapi');
+
+//             Log::info(' Authenticated with DocuSign Successfully  ');
+//         } catch (\Exception $e) {
+//             Log::error('DocuSign Auth Error: ' . $e->getMessage());
+//             throw new \Exception('فشلت المصادقة مع DocuSign: ' . $e->getMessage());
+//         }
+//     }
+
+//     private function ensureAuthenticated()
+//     {
+//         if (!$this->accessToken) {
+//             $this->authenticate();
+//         }
+//     }
+//     public function createEnvelope(SignatureRequest $signatureRequest)
+//     {
+//         $this->ensureAuthenticated();
+
+//         $filePath = $signatureRequest->document->file_path;
+
+//         if (!Storage::exists($filePath)) {
+//             throw new \Exception(" File Not Found In LawX Server : {$filePath}");
+//         }
+//         // this model Is for put the document that will be signed 
+//         $document = new DocusignDocument([
+//             'document_id' => '1',
+//             'document_base64' => base64_encode(Storage::get($filePath)),
+//             'name' => $signatureRequest->document->type,
+//             'file_extension' => pathinfo($filePath, PATHINFO_EXTENSION)
+//         ]);
+
+//         $signersArray = [];
+//         foreach ($signatureRequest->signers as $index => $signer) {
+//             $recipientId = (string)($index + 1);
+
+//             // if ($signer->sign_type === 'stamp') {
+//             //     $tab = new SealSign([
+//             //         'document_id' => '1',
+//             //         'page_number' => $signer->page_number ?? 1,
+//             //         'x_position' => $signer->x_position,
+//             //         'y_position' => $signer->y_position,
+//             //         'width' => $signer->width,
+//             //         'height' => $signer->height,
+//             //         'locked' => true,
+//             //         'required' => true
+//             //     ]);
+//             //     $tabsArray = ['seal_signs' => [$tab]];
+//             // } else {
+//             //     $tab = new SignHere([
+//             //         'document_id' => '1',
+//             //         'page_number' => $signer->page_number ?? 1,
+//             //         'x_position' => $signer->x_position,
+//             //         'y_position' => $signer->y_position,
+//             //         'width' => $signer->width,
+//             //         'height' => $signer->height,
+//             //         'locked' => true,
+//             //         'required' => true
+//             //     ]);
+//             //     $tabsArray = ['sign_here' => [$tab]];
+//             // }
+//             // $docusignSigner = new DocusignSigner([
+//             //     'email' => $signer->user->email,
+//             //     'name' => $signer->user->full_name,
+//             //     'recipient_id' => $recipientId,
+//             //     'client_user_id' => (string) $signer->user->id,
+//             //     'can_create_tabs' => false,
+//             //     'tabs' => $tabsArray
+//             // ]);
+//             if ($signer->sign_type === 'seal') {
+//                 $tab = new SealSign([
+//                     'document_id' => '1',
+//                     'page_number' => (int) ($signer->page_number ?? 1),
+//                     'x_position' => (int) $signer->x_position,
+//                     'y_position' => (int) $signer->y_position,
+//                     'width' => (int) $signer->width,
+//                     'height' => (int) $signer->height,
+//                     'locked' => true,
+//                     'required' => true
+//                 ]);
+//                 $tabsArray = ['seal_signs' => [$tab]];
+//             } else {
+//                 $tab = new SignHere([
+//                     'document_id' => '1',
+//                     'page_number' => (int) ($signer->page_number ?? 1),
+//                     'x_position' => (int) $signer->x_position,
+//                     'y_position' => (int) $signer->y_position,
+//                     'width' => (int) $signer->width,
+//                     'height' => (int) $signer->height,
+//                     'locked' => true,
+//                     'required' => true
+//                 ]);
+//                 $tabsArray = ['sign_here' => [$tab]];
+//             }
+
+//             $docusignSigner = new DocusignSigner([
+//                 'email' => $signer->user->email,
+//                 'name' => $signer->user->full_name,
+//                 'recipient_id' => $recipientId,
+//                 'client_user_id' => (string) $signer->user->id,
+//                 'can_create_tabs' => false,
+//                 'tabs' => $tabsArray
+//             ]);
+//             $signer->update(['docusign_recipient_id' => $recipientId]);
+//             $signersArray[] = $docusignSigner;
+//         }
+//         // send notification To ( Ngrok -> Laravel)  Tool when the document is signed
+//         $eventNotification = new EventNotification([
+//             'url' => 'https://stowing-cleft-slinging.ngrok-free.dev/api/docusign-webhook',
+//             'logging_enabled' => 'true',
+//             'envelope_events' => [
+//                 ['envelope_event_status_code' => 'signed'],
+//                 ['envelope_event_status_code' => 'completed']
+//             ],
+//             'require_acknowledgment' => 'true'
+//         ]);
+
+//         // Create Envelope (Put All Data in one Record For Send  To DocuSign Platform )
+//         $envelopeDefinition = new EnvelopeDefinition([
+//             'email_subject' => 'يرجى توقيع المستند: ' . ($signatureRequest->document->title ?? 'مستند'),
+//             'documents' => [$document],
+//             'recipients' => new Recipients(['signers' => $signersArray]),
+//             'status' => 'sent',
+//             'event_notification' => $eventNotification
+//         ]);
+//         $envelopeApi = new EnvelopesApi($this->apiClient);
+
+//         try {
+//             // send the Request to DocuSign Servers 
+//             \Log::info('DocuSign Payload: ' . $envelopeDefinition->__toString());
+//             $result = $envelopeApi->createEnvelope($this->accountId, $envelopeDefinition);
+//             return $result->getEnvelopeId();
+//         } catch (\Exception $e) {
+//             // If docu sign refuse the request because Authentication in valid retry Authenticate and resend the request
+//             if (strpos($e->getMessage(), '401') !== false) {
+//                 $this->authenticate();
+//                 $result = $envelopeApi->createEnvelope($this->accountId, $envelopeDefinition);
+//                 return $result->getEnvelopeId();
+//             }
+//             throw $e;
+//         }
+//     }
+
+//     public function getRecipientViewUrl($envelopeId, $signer, $returnUrl)
+//     {
+//         // Ensure that the user is authenticated
+//         $this->ensureAuthenticated();
+//         // Create Recipient View Request
+//         $recipientViewRequest = new RecipientViewRequest([
+//             'authentication_method' => 'none',
+//             'email' => $signer->user->email,
+//             'user_name' => $signer->user->full_name,
+//             'recipient_id' => $signer->docusign_recipient_id,
+//             'return_url' => $returnUrl,
+//             'client_user_id' => (string) $signer->user->id,
+//         ]);
+//         // initialize the  Request to send it to DocuSign
+//         $envelopeApi = new EnvelopesApi($this->apiClient);
+//         // send the Request to DocuSign Servers
+//         $viewUrl = $envelopeApi->createRecipientView(
+//             $this->accountId,
+//             $envelopeId,
+//             $recipientViewRequest
+//         );
+//         // get the View URL response from DocuSign
+//         return $viewUrl->getUrl();
+//     }
+//     // Function For get the document after Signing Completing 
+//     public function downloadSignedDocument($envelopeId, $localSavePath)
+//     {
+//         // validate Authentication with docusign 
+//         $this->ensureAuthenticated();
+//         // make  new Connection with docusign server 
+//         $envelopeApi = new EnvelopesApi($this->apiClient);
+//         // get the document from DocuSign
+//         $documentBytes = $envelopeApi->getDocument($this->accountId, $envelopeId, '1');
+//         // store the signed document in local storage
+//         Storage::put($localSavePath, $documentBytes);
+//         // return the local save path
+//         return $localSavePath;
+//     }
+// }
