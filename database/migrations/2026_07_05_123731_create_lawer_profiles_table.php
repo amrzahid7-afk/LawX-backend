@@ -37,6 +37,7 @@ return new class extends Migration
             $table->timestamp('claimed_at')->nullable();
             $table->boolean('is_suspended')->default(false);
             $table->uuid('created_by')->nullable();
+            //$table->softDeletes();
             $table->timestamps();
 
             // مفاتيح آمنة فقط (جداولها موجودة مسبقاً)

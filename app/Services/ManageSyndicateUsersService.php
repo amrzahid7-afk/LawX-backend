@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 
 class ManageSyndicateUsersService
 {
+
     public function createLawyer(array $data)
     {
         $userId = auth('sanctum')->id();
@@ -84,6 +85,7 @@ class ManageSyndicateUsersService
             $targetDate = $lawyer->created_at->addYears(2);
             $diff = now()->diff($targetDate);
             $timeParts = [];
+
             if ($diff->y > 0) {
                 $timeParts[] = $diff->y . ($diff->y == 1 ? ' سنة' : ($diff->y == 2 ? ' سنتين' : ' سنوات'));
             }
@@ -93,14 +95,110 @@ class ManageSyndicateUsersService
             if ($diff->d > 0) {
                 $timeParts[] = $diff->d . ($diff->d == 1 ? ' يوم' : ($diff->d == 2 ? ' يومين' : ' أيام'));
             }
+
             $formattedRemainingTime = implode(' و ', $timeParts);
             throw new \Exception("لا يمكن ترقية المحامي؛ لم يكمل فترة التدريب القانونية (سنتين) بعد. متبقي: {$formattedRemainingTime}.", 422);
         }
+
         DB::beginTransaction();
-        $lawyer->update([
-            'lawyer_state' => 'independent',
-            'trainee_approved_independent_at' => now(),
-        ]);
-        DB::commit();
+        try {
+            $lawyer->update([
+                'lawyer_state' => 'independent',
+                'trainee_approved_independent_at' => now(),
+            ]);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th; // نترك الاستثناء غير المتوقع ليتعامل معه الـ Controller
+        }
     }
+    public function updateLawyer(string $lawyer_id, array $data): bool
+    {
+        $lawyer = LawerProfile::findOrFail($lawyer_id);
+        DB::beginTransaction();
+        try {
+            if (isset($data['lawyer_state']) && $data['lawyer_state'] === 'licensed' && $lawyer->lawyer_state !== 'licensed') {
+                if (!$lawyer->ownedOffice()->exists()) {
+                    Office::create([
+                        'name' => ($data['full_name'] ?? $lawyer->full_name) . "'s Office",
+                        'owner_lawyer_profile_id' => $lawyer->id,
+                        'status' => 'suspended',
+                    ]);
+                }
+            }
+            DB::table('lawyer_profiles')
+                ->where('id', $lawyer_id)
+                ->update(array_merge($data, ['updated_at' => now()]));
+            DB::commit();
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+
+    public function deleteLawyer(string $lawyer_id): bool
+    {
+        $lawyer = LawerProfile::find($lawyer_id);
+
+        if (!$lawyer) {
+            throw new \Exception('المحامي غير موجود بالنظام أو تم حذفه بالفعل!', 404);
+        }
+
+        DB::beginTransaction();
+        try {
+            // ستقوم بحذف المحامي حذفاً ناعماً (Soft Delete) بسبب استخدام التريت في الموديل
+            $lawyer->delete();
+
+            // اختياري: إذا أردت تعليق أو حذف المكتب المرتبط به تلقائياً عند حذفه
+            if ($lawyer->ownedOffice) {
+                $lawyer->ownedOffice()->update(['status' => 'suspended']);
+            }
+
+            DB::commit();
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+    // public function promoteTrainee($lawyer_id): void
+    // {
+    //     $lawyer = LawerProfile::find($lawyer_id);
+
+    //     if (! $lawyer) {
+    //         throw new \Exception('المحامي الذي أدخلته غير موجود في النظام!', 404);
+    //     }
+
+    //     if ($lawyer->lawyer_state !== 'trainee') {
+    //         throw new \Exception('لا يمكن ترقية هذا المحامي لأنه ليس في مرحلة التدريب حالياً (مستقل بالفعل).', 400);
+    //     }
+
+    //     if (! is_null($lawyer->trainee_approved_independent_at)) {
+    //         throw new \Exception('تمت ترقية هذا المحامي مسبقاً.', 409);
+    //     }
+
+    //     if (now()->lt($lawyer->created_at->addYears(2))) {
+    //         $targetDate = $lawyer->created_at->addYears(2);
+    //         $diff = now()->diff($targetDate);
+    //         $timeParts = [];
+    //         if ($diff->y > 0) {
+    //             $timeParts[] = $diff->y . ($diff->y == 1 ? ' سنة' : ($diff->y == 2 ? ' سنتين' : ' سنوات'));
+    //         }
+    //         if ($diff->m > 0) {
+    //             $timeParts[] = $diff->m . ($diff->m == 1 ? ' شهر' : ($diff->m == 2 ? ' شهرين' : ' أشهر'));
+    //         }
+    //         if ($diff->d > 0) {
+    //             $timeParts[] = $diff->d . ($diff->d == 1 ? ' يوم' : ($diff->d == 2 ? ' يومين' : ' أيام'));
+    //         }
+    //         $formattedRemainingTime = implode(' و ', $timeParts);
+    //         throw new \Exception("لا يمكن ترقية المحامي؛ لم يكمل فترة التدريب القانونية (سنتين) بعد. متبقي: {$formattedRemainingTime}.", 422);
+    //     }
+    //     DB::beginTransaction();
+    //     $lawyer->update([
+    //         'lawyer_state' => 'independent',
+    //         'trainee_approved_independent_at' => now(),
+    //     ]);
+    //     DB::commit();
+    // }
 }

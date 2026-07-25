@@ -27,7 +27,7 @@ class TaskController extends Controller
             //validate permissions 
             $case = CaseModel::find($data['case_id']);
             $assigned_To_lawer = User::find($data['assigned_to']);
-            if (Gate::denies('create_task', [$case, $assigned_To_lawer])) {
+            if (Gate::denies('create_task', [Task::class, $case,  $assigned_To_lawer])) {
                 return sendError('Un authorized , you dont have permission to create task For this case or this employee', [], 403);
             }
             // logic In service class 
@@ -64,7 +64,7 @@ class TaskController extends Controller
             }
             // validate permissions
             $case = CaseModel::find($case_id);
-            if (Gate::denies('get_tasks_for_case',  $case)) {
+            if (Gate::denies('get_tasks_for_case', [Task::class, $case])) {
                 return sendError('Un authorized , you dont have permission to show tasks for this case ', [], 403);
             }
             // logic In Service Class 

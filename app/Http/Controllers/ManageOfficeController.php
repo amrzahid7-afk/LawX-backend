@@ -2,14 +2,21 @@
 // New Code
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ListLawyersRequest;
 use App\Models\LawerProfile;
 use App\Models\Office;
 use App\Models\OfficeInvitation;
+use App\Services\ManageSyndicateUsersService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 class ManageOfficeController extends Controller
 {
+    private ManageSyndicateUsersService $manageSyndicateUsersService;
+    public function __construct()
+    {
+        $this->manageSyndicateUsersService = new ManageSyndicateUsersService();
+    }
 
     public function activate_office(Request $request)
     {
@@ -33,10 +40,11 @@ class ManageOfficeController extends Controller
     public function invite_lawer_to_office(Request $request)
     {
         $request->validate(['invited_lawyer_profile_id' => 'required|uuid|exists:lawyer_profiles,id']);
+        $invited_lawer_profile = LawerProfile::find($request->input('invited_lawyer_profile_id'));
         $profile = auth('sanctum')->user()->lawyerProfile;
         $my_office = Office::where('owner_lawyer_profile_id', $profile->id)->first();
-        if (Gate::denies('invite_lawer_to_office', $my_office)) {
-            return sendError('You can not invite lawyer to office.', [], 404);
+        if (Gate::denies('invite_lawer_to_office', [Office::class, $invited_lawer_profile])) {
+            return sendError(' Un Authorized,You can not invite lawyer to office.', [], 403);
         }
         if ($request->input('invited_lawyer_profile_id') === $profile->id) {
             return sendError('Cannot invite yourself.', [], 400);
@@ -99,12 +107,10 @@ class ManageOfficeController extends Controller
 
     public function my_received_invitations(Request $request)
     {
-        // لا نحتاج lawer_profile_id من الـ Request
         $profile = auth('sanctum')->user()->lawyerProfile;
-        // validate that the user is not have office 
         $office = Office::where('owner_lawyer_profile_id', $profile->id)
             ->first() ?? null;
-        if (Gate::denies('my_received_invitations', $office)) {
+        if (Gate::denies('my_received_invitations', Office::class)) {
             return sendError('Un Authorized ,You can not recieve invitations', [], 400);
         }
         // get the invitations
@@ -154,7 +160,7 @@ class ManageOfficeController extends Controller
     {
         $request->validate(['invitation_id' => 'required|uuid|exists:office_invitations,id']);
         $invitation = OfficeInvitation::find($request->input('invitation_id'));
-        if (! Gate::allows('remove_invitation', $invitation)) {
+        if (! Gate::allows('remove_invitation', [Office::class, $invitation])) {
             return sendError('Unauthorized . the invitation is not for you or its status is not  pending', [], 403);
         }
         $invitation->delete();
@@ -204,6 +210,20 @@ class ManageOfficeController extends Controller
         });
 
         return sendResponse($lawyers, 'Retrieved successfully.', 200);
+    }
+    public function search_for_lawers(ListLawyersRequest $request)
+    {
+        try {
+            $vaidated_data = $request->validated();
+            $lawyers = $this->manageSyndicateUsersService->getLawyers($vaidated_data);
+            return sendResponse($lawyers, 'Lawyers retrieved successfully.', 200);
+        } catch (\Throwable $th) {
+            return sendError('Failed to retrieve lawyers.', [
+                'message' => $th->getMessage(),
+                'file'    => $th->getFile(),
+                'line'    => $th->getLine()
+            ], 500);
+        }
     }
 }
 // old code to be deleted

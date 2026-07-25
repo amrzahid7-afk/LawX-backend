@@ -10,20 +10,27 @@ class TaskPolicy
 {
     public function create_task(User $user, CaseModel $case, User $assignedToLawyer)
     {
+        // return true;
         $isLicensedLawyer = $user->lawyerProfile && $user->lawyerProfile->lawyer_state === 'licensed';
-        if (!$isLicensedLawyer) return false;
+        // dd($isLicensedLawyer);
+        if ($isLicensedLawyer != true) return false;
 
         $isLeadLawyer = $user->id === $case->lead_lawyer_id;
         $isOfficeManager = $user->lawyerProfile && $user->lawyerProfile->ownedOffice && $user->lawyerProfile->ownedOffice->id == $case->office_id;
-
-        if (!($isLeadLawyer || $isOfficeManager)) {
+        // dd(($isLeadLawyer || $isOfficeManager));
+        if (($isLeadLawyer || $isOfficeManager) != true) {
             return false;
         }
 
+        // $isAssignedLawyerInTeam = $case->team->contains('user_id', $assignedToLawyer->id);
         $isAssignedLawyerInTeam = $case->team->contains('id', $assignedToLawyer->id);
-        $isAssigningToHimself = $assignedToLawyer->id === $user->id;
-
-        return $isAssignedLawyerInTeam || $isAssigningToHimself;
+        $isAssigningToHimself = ($assignedToLawyer->id === $user->id);
+        // dd(($isAssignedLawyerInTeam || $isAssigningToHimself));
+        // dd($case->team->toArray());
+        // dd($isAssignedLawyerInTeam);
+        if (($isAssignedLawyerInTeam || $isAssigningToHimself) == true) {
+            return true;
+        }
     }
 
     public function get_tasks_for_case(User $user, CaseModel $case)

@@ -2,38 +2,34 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Laravel\Sanctum\Sanctum;
-use App\Models\PersonalAccessToken;
-
+use App\Contracts\Services\Dashboard\AlertProviderInterface;  // قد لا تحتاجه في الـ bind مباشرة
+use App\Contracts\Services\Dashboard\AlertsAggregatorInterface;
 use App\Contracts\Services\Dashboard\CaseStatisticsInterface;
-use App\Services\Dashboard\CaseStatisticsService;
 use App\Contracts\Services\Dashboard\FinancialStatisticsInterface;
-use App\Services\Dashboard\FinancialStatisticsService;
+use App\Contracts\Services\Dashboard\NotificationsInterface;
 use App\Contracts\Services\Dashboard\TeamPerformanceInterface;
-use App\Services\Dashboard\TeamPerformanceService;
 use App\Contracts\Services\Dashboard\TodayScheduleInterface;
-use App\Services\Dashboard\TodayScheduleService;
+use App\Contracts\Services\Timeline\TimelineEventProviderInterface;
+use App\Models\PersonalAccessToken;
+use App\Models\Task;
+use App\Policies\TaskPolicy;
 use App\Services\Dashboard\Alerts\AlertsService;
 use App\Services\Dashboard\Alerts\OverdueInvoiceAlertProvider;
 use App\Services\Dashboard\Alerts\UnreadNotificationAlertProvider;
-
-// ✅ استورد الإنترفيسات الجديدة بدلاً من القديمة
-use App\Contracts\Services\Dashboard\AlertsAggregatorInterface;
-use App\Contracts\Services\Dashboard\AlertProviderInterface;  // قد لا تحتاجه في الـ bind مباشرة
-
-// ❌ يمكنك حذف أو تعليق السطر التالي (لن تستخدمه بعد الآن)
-// use App\Contracts\Services\Dashboard\AlertsInterface;
-
-use App\Contracts\Services\Dashboard\NotificationsInterface;
+use App\Services\Dashboard\CaseStatisticsService;
+use App\Services\Dashboard\FinancialStatisticsService;
 use App\Services\Dashboard\NotificationsService;
-use App\Contracts\Services\Timeline\TimelineEventProviderInterface;
+use App\Services\Dashboard\TeamPerformanceService;
+use App\Services\Dashboard\TodayScheduleService;
 use App\Services\Timeline\CaseCreatedProvider;
-use App\Services\Timeline\SessionProvider;
-use App\Services\Timeline\TaskProvider;
 use App\Services\Timeline\DocumentProvider;
 use App\Services\Timeline\InvoiceProvider;
+use App\Services\Timeline\SessionProvider;
+use App\Services\Timeline\TaskProvider;
 use App\Services\Timeline\TimelineAggregatorService;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
+use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -85,5 +81,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+        // Gate::policy(Task::class, TaskPolicy::class);
     }
 }

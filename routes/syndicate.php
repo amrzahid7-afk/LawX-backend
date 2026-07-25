@@ -15,6 +15,11 @@ Route::get('/get_lawers', [ManageSyndicateUsers::class, 'get_lawers']);
 Route::patch('/lawyers/{lawyer_id}/suspend', [ManageSyndicateUsers::class, 'toggleSuspension']);
 // Api : make specific lawers from trainee to licsend
 Route::patch('/lawyers/{lawyer_id}/promote', [ManageSyndicateUsers::class, 'promoteTrainee']);
+// Api : Update specific lawyer details
+Route::put('/lawyers/{lawyer_id}/update', [ManageSyndicateUsers::class, 'updateLawyer']);
+// Api : Delete specific lawyer (Soft Delete)
+Route::delete('/lawyers/{lawyer_id}/delete', [ManageSyndicateUsers::class, 'deleteLawyer']);
+
 // tamplates Apis 
 Route::prefix('templates')->group(function () {
     Route::post('/upload', [TemplateController::class, 'upload']);

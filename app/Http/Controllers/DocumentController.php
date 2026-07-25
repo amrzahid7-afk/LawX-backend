@@ -19,7 +19,7 @@ class DocumentController extends Controller
     }
     public function upload_Document(UploadDocumentRequest $request)
     {
-        if (Gate::denies('upload_Document', CaseModel::find($request->case_id))) {
+        if (Gate::denies('upload_Document', [Document::class, CaseModel::find($request->case_id)])) {
             return sendError('Unauthorized , You are not allowed to upload documents for this case', [], 403);
         }
         $result = $this->documentService->add_new_document($request->validated());
@@ -59,7 +59,7 @@ class DocumentController extends Controller
             ], 422);
         }
         // validate permissiosn for the user to access the case
-        if (Gate::denies('get_documents_for_case', CaseModel::find($case_id))) {
+        if (Gate::denies('get_documents_for_case', [Document::class, CaseModel::find($case_id)])) {
             return sendError('Unauthorized , You are not allowed to view documents for this case', [], 403);
         }
         // calling Service function 

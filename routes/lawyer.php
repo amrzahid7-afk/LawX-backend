@@ -2,14 +2,16 @@
 
 use App\Http\Controllers\Api\LegislationController;
 use App\Http\Controllers\Api\TemplateController;
-use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\CaseController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LawyerProfileController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ManageOfficeController;
+use App\Http\Controllers\ManageSyndicateUsers;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserManagmentController;
 use Illuminate\Support\Facades\Route;
@@ -27,16 +29,16 @@ Route::prefix('/Manage_Offices')->group(function () {
     Route::get('/my_received_invitations', [ManageOfficeController::class, 'my_received_invitations']);
     // api for remove invitation that I sent to another lawer to join my office (Here I am the owner of the office)
     Route::post('/remove_invitation', [ManageOfficeController::class, 'remove_invitation']);
-
     // api for accept invitation to join an office
     Route::post('/accept_invitation', [ManageOfficeController::class, 'accept_invitation']);
     // api for reject invitation to join an office
     Route::post('/reject_invitation', [ManageOfficeController::class, 'reject_invitation']);
     // api for remove a lawer from my office (Here I am the owner of the office)
     Route::post('/remove_lawer_from_office', [ManageOfficeController::class, 'remove_lawer_from_office']);
-
     // api for get all lawers in my office (Here I am the owner of the office)
     Route::get('/get_all_lawers_in_my_office', [ManageOfficeController::class, 'get_all_lawers_in_my_office']);
+    // search for lawer 
+    Route::get('/search_for_lawers', [ManageOfficeController::class, 'search_for_lawers']);
 });
 
 // cases
@@ -87,9 +89,6 @@ Route::prefix('sessions')->group(function () {
 });
 // invoices 
 Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']);
-//     // Invoices apis
-//     Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']); //  
-//     Route::post('/get_invoices_for_client', [InvoiceController::class, 'get_invoices_for_client']); //  
 
 // Market 
 Route::prefix('/Market_place')->group(function () {
@@ -119,4 +118,8 @@ Route::prefix('templates')->group(function () {
     Route::get('/get_templates_categories', [TemplateController::class, 'get_templates_categories']);
     Route::get('/show_template_details', [TemplateController::class, 'show_template_details']);
     Route::post('/generate_template', [TemplateController::class, 'generate_template']);
+});
+// profile
+Route::prefix('profile')->group(function () {
+    Route::get('get_lawyer_profile', [LawyerProfileController::class, 'getLawyerProfileData']);
 });

@@ -13,6 +13,7 @@ class Case_team extends Model
     protected $keyType = 'string';
     protected $table = 'case_teams';
     public $incrementing = false;
+    public $timestamps  = false;
 
     protected $fillable = [
         'id',

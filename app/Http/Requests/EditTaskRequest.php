@@ -36,7 +36,7 @@ class EditTaskRequest extends FormRequest
                 function ($attribute, $value, $fail) {
                     if ($value) {
                         $user = \App\Models\User::find($value);
-                        if (!$user || !in_array($user->role->name, ['lawer', 'admin', 'office_manager', 'independent_lawyer'])) {
+                        if (!$user || !in_array($user->role->slug, ['lawyer', 'admin', 'office_manager', 'independent_lawyer'])) {
                             $fail('The assigned user must be a lawer');
                         }
                     }

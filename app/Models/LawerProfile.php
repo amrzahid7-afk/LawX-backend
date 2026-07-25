@@ -9,25 +9,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 // app/Models/LayerProfile.php
 class LawerProfile extends Model
 {
-    use HasUuids;
+    use HasUuids; //, SoftDeletes;
     protected $keyType = 'string';
     protected $table = 'lawyer_profiles'; /// lawyer_profiles
     public $incrementing = false;
     protected $fillable = [
         'full_name',
-        'national_id', // رقم الهوية الوطنية
-        // 'national_Id_data',
-        'full_name',
+        'national_id',
         'birth_date',
         'birth_place',
         'father_name',
         'mother_name',
         'mother_family_name',
-        'civil_registry_number', // رقم القيد في الهوية
+        'civil_registry_number',
         'syndicate_card_number',
         'syndicate_branch',
         'lawyer_state',
@@ -47,9 +46,6 @@ class LawerProfile extends Model
         'claimed_at' => 'datetime',
         // 'national_Id_data' => 'array',
     ];
-
-
-
     public function employedOffice(): BelongsTo
     {
         return $this->belongsTo(Office::class, 'employed_In_office_id');
@@ -58,7 +54,6 @@ class LawerProfile extends Model
     {
         return $this->hasOne(Office::class, 'owner_lawyer_profile_id');
     }
-
     public function officeInvitations(): HasMany
     {
         return $this->hasMany(OfficeInvitation::class, 'invited_lawyer_profile_id');

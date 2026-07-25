@@ -7,6 +7,7 @@ use App\Models\CaseModel;
 use App\Models\Office;
 use App\Models\Opponent;
 use App\Models\User;
+use App\Models\Case_team;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -400,11 +401,16 @@ class CaseService // أو اسم الكلاس الخاص بك
 
             // 3. تحديث العملاء (فقط لصاحب القضية أو صاحب المكتب)
             if (isset($data['clients']) && is_array($data['clients']) && ($isLeadLawyer || $isOfficeOwner)) {
-                $syncData = [];
-                foreach ($data['clients'] as $client) {
-                    $syncData[$client['user_id']] = ['is_primary' => $client['is_primary']];
+                Case_team::where('case_id', $case->id)->delete();
+                foreach ($data['team'] as $member) {
+                    Case_team::create([
+                        'case_id'      => $case->id,
+                        'user_id'      => $member['user_id'],
+                        'role_in_case' => $member['role_in_case']
+                        // 'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                        // 'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                    ]);
                 }
-                $case->clients()->sync($syncData);
             }
 
             // 4. تحديث الخصوم
@@ -425,13 +431,16 @@ class CaseService // أو اسم الكلاس الخاص بك
                 }
             }
 
-            // 5. تحديث الفريق (فقط لصاحب المكتب)
             if (isset($data['team']) && is_array($data['team']) && $isOfficeOwner) {
-                $syncTeamData = [];
+                Case_team::where('case_id', $case->id)->delete();
+
                 foreach ($data['team'] as $member) {
-                    $syncTeamData[$member['user_id']] = ['role_in_case' => $member['role_in_case']];
+                    Case_team::create([
+                        'case_id'      => $case->id,
+                        'user_id'      => $member['user_id'],
+                        'role_in_case' => $member['role_in_case'],
+                    ]);
                 }
-                $case->team()->sync($syncTeamData);
             }
 
             // 6. تحديث الأقساط المالية (فقط لصاحب المكتب أو صاحب القضية المستقلة)
