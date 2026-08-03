@@ -20,7 +20,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"ali@gmail.co\" ,\r\n    \"password\": \"password\"\r\n}",
+                  "raw": "{\r\n    \"email\": \"omar@gmail.co\" ,\r\n    \"password\": \"password\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -50,12 +50,12 @@
                   "formdata": [
                     {
                       "key": "national_id",
-                      "value": "1111",
+                      "value": "3333",
                       "type": "text"
                     },
                     {
                       "key": "full_name",
-                      "value": "أحمد",
+                      "value": "علي",
                       "type": "text"
                     },
                     {
@@ -90,7 +90,7 @@
                     },
                     {
                       "key": "syndicate_card_number",
-                      "value": "1111",
+                      "value": "3333",
                       "type": "text"
                     },
                     {
@@ -100,7 +100,7 @@
                     },
                     {
                       "key": "lawyer_state",
-                      "value": "trainee",
+                      "value": "licensed",
                       "type": "text"
                     }
                   ]
@@ -254,7 +254,7 @@
                     },
                     {
                       "key": "email",
-                      "value": "Ahmad@gmail.co",
+                      "value": "ali@gmail.co",
                       "type": "text",
                       "uuid": "8af9b086-5be6-4c25-8e34-b52a0f60cecf"
                     },
@@ -2710,13 +2710,20 @@
               }
             ],
             "url": {
-              "raw": "{{Domain}}/client/invoices",
+              "raw": "{{Domain}}/client/invoices?filter=unpaid",
               "host": [
                 "{{Domain}}"
               ],
               "path": [
                 "client",
                 "invoices"
+              ],
+              "query": [
+                {
+                  "key": "filter",
+                  "value": "unpaid",
+                  "description": "'unpaid', 'partial', 'paid', 'overdue'"
+                }
               ]
             }
           },
@@ -2783,6 +2790,244 @@
               ],
               "cookie": [],
               "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Invoices retrieved successfully\",\n        \"invoices\": []\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "pay_invoice_for_Case",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-App-Platform",
+                "value": "mobile",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{Domain}}/client/pay_invoice/{{invoice_id}}",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "client",
+                "pay_invoice",
+                "{{invoice_id}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/pay_invoice/{{invoice_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "pay_invoice",
+                    "{{invoice_id}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 09:44:28 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Checkout session created successfully\",\n        \"checkout_url\": \"https://checkout.stripe.com/c/pay/cs_test_b1ufyskGNAa6U10xKxAI8T017zlpRmvhlyia3bLlVL6wrN8SxPdx5fkawr#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWnFgdnFaMDRXdT0wVkcwPWhBclNdVFR3Nm1gRG93R1xiUn1pZlNIaHZicnFGcEJoTktrd3B3S1J%2FQU99RGt%2FRGE2VGc1YWlhcGlcQzxrdWpRNmB1SlVpVjA9V2Y2VF81NX9Ja3E0T2JHJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJmNjY2NjYycpJ2lkfGpwcVF8dWAnPydocGlxbFpscWBoJyknYGtkZ2lgVWlkZmBtamlhYHd2Jz9xd3BgeCUl\"\n    }\n}"
+            },
+            {
+              "name": "Unauthorized , client try pay salary invoice",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/pay_invoice/{{invoice_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "pay_invoice",
+                    "{{invoice_id}}"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 09:52:37 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"error\",\n    \"message\": \"Unauthorized, you cannot pay this invoice\",\n    \"error_details\": []\n}"
+            },
+            {
+              "name": "error , Error With Out Vpn",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/pay_invoice/{{invoice_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "pay_invoice",
+                    "{{invoice_id}}"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 01 Aug 2026 13:16:13 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"error\",\n    \"message\": \"Failed to initiate payment\",\n    \"Message\": \"We're sorry, but we're unable to serve your request.\",\n    \"Line\": 139\n}"
             }
           ]
         },
@@ -3063,7 +3308,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -3083,7 +3328,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n    //  ,\r\n    // \"team\": [\r\n    //     {\r\n    //                      \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           } ,\r\n    //           {\r\n    //          \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           }\r\n    // ]\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    \"team\": [\r\n        {\r\n        \"user_id\":\"{{lawer_id}}\",\r\n        \"role_in_case\": \"باحث قانوني\" \r\n        } \r\n            //   {\r\n            //  \"user_id\":\"{{lawer_id}}\",\r\n            //   \"role_in_case\": \"باحث قانوني\" \r\n            //   }\r\n    ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -3699,7 +3944,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -3829,7 +4074,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -3855,6 +4100,12 @@
                       "value": "{{lawer_profile_id}}",
                       "type": "text",
                       "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    },
+                    {
+                      "key": "salary_expected",
+                      "value": "30000",
+                      "type": "text",
+                      "uuid": "a850210b-8169-40d3-abbe-851e9aebd4ff"
                     }
                   ]
                 },
@@ -4193,7 +4444,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -4351,7 +4602,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_omar_token}}",
                       "type": "string"
                     }
                   ]
@@ -4482,7 +4733,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_omar_token}}",
                       "type": "string"
                     }
                   ]
@@ -5109,7 +5360,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -5293,7 +5544,7 @@
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/lawyer/Manage_Offices/search_for_lawers?lawyer_state=licensed",
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/search_for_lawers?lawyer_state=licensed&search_fullname=عمر",
                   "host": [
                     "{{Domain}}"
                   ],
@@ -5315,9 +5566,7 @@
                     },
                     {
                       "key": "search_fullname",
-                      "value": "ابراهيم",
-                      "type": "text",
-                      "disabled": true
+                      "value": "عمر"
                     },
                     {
                       "key": "search_syndicate_card_number",
@@ -5928,7 +6177,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -6592,7 +6841,7 @@
               },
               "response": [
                 {
-                  "name": "get_tasks_for_case",
+                  "name": "success",
                   "originalRequest": {
                     "method": "GET",
                     "header": [
@@ -6651,7 +6900,7 @@
                     },
                     {
                       "key": "Date",
-                      "value": "Sat, 25 Jul 2026 00:00:05 GMT"
+                      "value": "Sun, 02 Aug 2026 06:32:12 GMT"
                     },
                     {
                       "key": "Content-Type",
@@ -6663,7 +6912,7 @@
                     }
                   ],
                   "cookie": [],
-                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"fetch tasks successfully\",\n        \"data\": {\n            \"case\": {\n                \"id\": \"ea8b3d54-4c57-4bf3-a716-bc5170ce2c8f\",\n                \"title\": \"قضية تحصيل ديون تجارية\",\n                \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\n                \"lead_lawyer\": {\n                    \"name\": \"علي\"\n                },\n                \"clients\": [\n                    {\n                        \"id\": \"537e11bc-a994-452a-8c31-5f2f2ddadf6e\",\n                        \"name\": \"Client User\",\n                        \"is_primary\": true\n                    }\n                ],\n                \"team\": [\n                    {\n                        \"id\": \"cc25ab40-c99c-4c46-b2c9-ef00fb0b4376\",\n                        \"name\": \"محمد الباشا\",\n                        \"role_in_case\": \"باحث قانوني\"\n                    },\n                    {\n                        \"id\": \"6cd08351-97ff-4213-a0ad-eca4c63eb806\",\n                        \"name\": \"أحمد\",\n                        \"role_in_case\": \"باحث قانوني\"\n                    }\n                ],\n                \"status\": \"archived\",\n                \"created_at\": \"2026-07-24 06\"\n            },\n            \"tasks\": [\n                {\n                    \"task_id\": \"58e04db5-0d01-46f7-9d68-4ce962bf5729\",\n                    \"title\": \"استخراج قيد\",\n                    \"Due_date\": \"2029-01-25 12\",\n                    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار\",\n                    \"assigned_to\": {\n                        \"name\": \"محمد الباشا\",\n                        \"role\": \"Unknown\"\n                    },\n                    \"status\": \"completed\",\n                    \"created_at\": \"2026-07-24 11\"\n                },\n                {\n                    \"task_id\": \"6e4b32ed-8806-41f4-afce-beb11eb5abbc\",\n                    \"title\": \"استخراج قيد عقاري\",\n                    \"Due_date\": \"2029-11-01 12\",\n                    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار\",\n                    \"assigned_to\": {\n                        \"name\": \"علي\",\n                        \"role\": \"Unknown\"\n                    },\n                    \"status\": \"pending\",\n                    \"created_at\": \"2026-07-24 11\"\n                },\n                {\n                    \"task_id\": \"bea7a17d-d9f2-433f-8cf1-bf080ea73d91\",\n                    \"title\": \"استخراج قيد عقاري\",\n                    \"Due_date\": \"2029-11-01 12\",\n                    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار\",\n                    \"assigned_to\": {\n                        \"name\": \"محمد الباشا\",\n                        \"role\": \"Unknown\"\n                    },\n                    \"status\": \"pending\",\n                    \"created_at\": \"2026-07-24 10\"\n                },\n                {\n                    \"task_id\": \"d3a74510-7e29-457c-aef3-0683ac075984\",\n                    \"title\": \"استخراج قيد عقاري\",\n                    \"Due_date\": \"2029-11-01 12\",\n                    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار\",\n                    \"assigned_to\": {\n                        \"name\": \"علي\",\n                        \"role\": \"Unknown\"\n                    },\n                    \"status\": \"pending\",\n                    \"created_at\": \"2026-07-24 10\"\n                }\n            ]\n        }\n    }\n}"
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"fetch tasks successfully\",\n        \"data\": {\n            \"case\": {\n                \"id\": \"a909707c-300b-4b63-a91f-cd772a74367f\",\n                \"title\": \"قضية تحصيل ديون تجارية\",\n                \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\n                \"lead_lawyer\": {\n                    \"name\": \"ابراهيم\"\n                },\n                \"clients\": [\n                    {\n                        \"id\": \"08b45077-e2b0-409d-87e1-a14731e65ada\",\n                        \"name\": \"Client User\",\n                        \"is_primary\": true\n                    }\n                ],\n                \"team\": [\n                    {\n                        \"id\": \"5a166c39-75b7-4b8d-b3ac-866cd3cfa61e\",\n                        \"name\": \"علي\",\n                        \"role_in_case\": \"باحث قانوني\"\n                    }\n                ],\n                \"status\": \"open\",\n                \"created_at\": \"2026-08-02 05\"\n            },\n            \"tasks\": [\n                {\n                    \"task_id\": \"9c4fc597-7d36-48db-bdc5-a5d0ffb506fe\",\n                    \"title\": \"استخراج قيد عقاري\",\n                    \"Due_date\": \"2029-11-01 12\",\n                    \"description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار\",\n                    \"assigned_to\": {\n                        \"name\": \"علي\",\n                        \"role\": \"Unknown\"\n                    },\n                    \"status\": \"pending\",\n                    \"created_at\": \"2026-08-02 05\",\n                    \"expenses\": [\n                        {\n                            \"expense_id\": \"101bcfb2-fb49-461c-b400-062dfec165c6\",\n                            \"amount\": \"10.00\",\n                            \"description\": \"any thing\",\n                            \"status\": \"pending\",\n                            \"expense_date\": \"2026-08-02\"\n                        },\n                        {\n                            \"expense_id\": \"cc0bac66-05a9-4325-8ae3-cd1d3e1496b4\",\n                            \"amount\": \"10.00\",\n                            \"description\": \"any thing\",\n                            \"status\": \"pending\",\n                            \"expense_date\": \"2026-08-02\"\n                        }\n                    ]\n                }\n            ]\n        }\n    }\n}"
                 }
               ]
             },
@@ -6681,7 +6930,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_ali_token}}",
                       "type": "string"
                     }
                   ]
@@ -6728,7 +6977,7 @@
               },
               "response": [
                 {
-                  "name": "get_my_tasks",
+                  "name": "success",
                   "originalRequest": {
                     "method": "GET",
                     "header": [
@@ -6792,7 +7041,7 @@
                     },
                     {
                       "key": "Date",
-                      "value": "Sat, 25 Jul 2026 00:00:27 GMT"
+                      "value": "Sun, 02 Aug 2026 06:33:40 GMT"
                     },
                     {
                       "key": "Content-Type",
@@ -6804,7 +7053,7 @@
                     }
                   ],
                   "cookie": [],
-                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Task Fetching successfully\",\n        \"tasks\": [\n            {\n                \"task_id\": \"6e4b32ed-8806-41f4-afce-beb11eb5abbc\",\n                \"task_title\": \"استخراج قيد عقاري\",\n                \"task_description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار\",\n                \"task_due_date\": \"2029-11-01\",\n                \"task_status\": \"pending\",\n                \"case_number\": \"5-2222\",\n                \"case_title\": \"قضية تحصيل ديون تجارية\",\n                \"case_category\": \"جنائي\",\n                \"is_personal_case\": false\n            },\n            {\n                \"task_id\": \"d3a74510-7e29-457c-aef3-0683ac075984\",\n                \"task_title\": \"استخراج قيد عقاري\",\n                \"task_description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار\",\n                \"task_due_date\": \"2029-11-01\",\n                \"task_status\": \"pending\",\n                \"case_number\": \"5-2222\",\n                \"case_title\": \"قضية تحصيل ديون تجارية\",\n                \"case_category\": \"جنائي\",\n                \"is_personal_case\": false\n            }\n        ]\n    }\n}"
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Task Fetching successfully\",\n        \"tasks\": [\n            {\n                \"task_id\": \"9c4fc597-7d36-48db-bdc5-a5d0ffb506fe\",\n                \"task_title\": \"استخراج قيد عقاري\",\n                \"task_description\": \"استخراج قيد عقاري مع بيان ملكية الحصة السهمية لكل مالك بالعقار\",\n                \"task_due_date\": \"2029-11-01\",\n                \"task_status\": \"pending\",\n                \"case_number\": \"5-8888\",\n                \"case_title\": \"قضية تحصيل ديون تجارية\",\n                \"case_category\": \"جنائي\",\n                \"is_personal_case\": false,\n                \"expenses\": [\n                    {\n                        \"expense_id\": \"101bcfb2-fb49-461c-b400-062dfec165c6\",\n                        \"amount\": \"10.00\",\n                        \"description\": \"any thing\",\n                        \"status\": \"pending\",\n                        \"expense_date\": \"2026-08-02\"\n                    },\n                    {\n                        \"expense_id\": \"cc0bac66-05a9-4325-8ae3-cd1d3e1496b4\",\n                        \"amount\": \"10.00\",\n                        \"description\": \"any thing\",\n                        \"status\": \"pending\",\n                        \"expense_date\": \"2026-08-02\"\n                    }\n                ]\n            }\n        ]\n    }\n}"
                 }
               ]
             },
@@ -6936,6 +7185,631 @@
                   ],
                   "cookie": [],
                   "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Task deleted successfully\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "add_Expense_for_task",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_ali_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "task_id",
+                      "value": "{{task_id}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "10",
+                      "type": "text"
+                    },
+                    {
+                      "key": "description",
+                      "value": "any thing",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/tasks/add_Expense_for_task",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "tasks",
+                    "add_Expense_for_task"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Un Authenticated",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "task_id",
+                          "value": "{{task_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "amount",
+                          "value": "10",
+                          "type": "text"
+                        },
+                        {
+                          "key": "description",
+                          "value": "any thing",
+                          "type": "text"
+                        }
+                      ],
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/tasks/add_Expense_for_task",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "tasks",
+                        "add_Expense_for_task"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 01 Aug 2026 19:26:16 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Un Authenticated User\",\n    \"error_details\": {\n        \"message\": \"Un Authenticate , please Login and try again\"\n    }\n}"
+                },
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "task_id",
+                          "value": "{{task_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "amount",
+                          "value": "10",
+                          "type": "text"
+                        },
+                        {
+                          "key": "description",
+                          "value": "any thing",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/tasks/add_Expense_for_task",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "tasks",
+                        "add_Expense_for_task"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 02 Aug 2026 05:55:29 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Expense added successfully\",\n        \"expense\": {\n            \"amount\": \"10\",\n            \"description\": \"any thing\",\n            \"status\": \"pending\",\n            \"expense_date\": \"2026-08-02\",\n            \"task_id\": \"9c4fc597-7d36-48db-bdc5-a5d0ffb506fe\",\n            \"id\": \"101bcfb2-fb49-461c-b400-062dfec165c6\",\n            \"updated_at\": \"2026-08-02T05:55:29.000000Z\",\n            \"created_at\": \"2026-08-02T05:55:29.000000Z\"\n        }\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "get_expenses_for_task",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true,
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_ali_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/tasks/get_expenses_for_task/{{task_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "tasks",
+                    "get_expenses_for_task",
+                    "{{task_id}}"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Un Authenticated",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/tasks/get_expenses_for_task/{{task_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "tasks",
+                        "get_expenses_for_task",
+                        "{{task_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "",
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 02 Aug 2026 04:21:44 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Un Authenticated User\",\n    \"error_details\": {\n        \"message\": \"Un Authenticate , please Login and try again\"\n    }\n}"
+                },
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/tasks/get_expenses_for_task/{{task_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "tasks",
+                        "get_expenses_for_task",
+                        "{{task_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 02 Aug 2026 06:31:58 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Expenses fetched successfully\",\n        \"expenses\": [\n            {\n                \"expense_id\": \"101bcfb2-fb49-461c-b400-062dfec165c6\",\n                \"amount\": \"10.00\",\n                \"description\": \"any thing\",\n                \"status\": \"pending\",\n                \"expense_date\": \"2026-08-02\"\n            },\n            {\n                \"expense_id\": \"cc0bac66-05a9-4325-8ae3-cd1d3e1496b4\",\n                \"amount\": \"10.00\",\n                \"description\": \"any thing\",\n                \"status\": \"pending\",\n                \"expense_date\": \"2026-08-02\"\n            }\n        ]\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "aprove_expense_for_task",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true,
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_office_manager_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": []
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/tasks/aprove_expensive_for_task/{{expense_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "tasks",
+                    "aprove_expensive_for_task",
+                    "{{expense_id}}"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Un authorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/tasks/aprove_expensive_for_task/{{expense_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "tasks",
+                        "aprove_expensive_for_task",
+                        "{{expense_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 02 Aug 2026 06:35:13 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Un authorized , you dont have permission to approve this expense \",\n    \"error_details\": []\n}"
+                },
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/tasks/aprove_expensive_for_task/{{expense_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "tasks",
+                        "aprove_expensive_for_task",
+                        "{{expense_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 02 Aug 2026 06:38:55 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Expense approved successfully\",\n        \"expense\": {\n            \"id\": \"101bcfb2-fb49-461c-b400-062dfec165c6\",\n            \"task_id\": \"9c4fc597-7d36-48db-bdc5-a5d0ffb506fe\",\n            \"amount\": \"10.00\",\n            \"description\": \"any thing\",\n            \"status\": \"approved\",\n            \"expense_date\": \"2026-08-02T00:00:00.000000Z\",\n            \"created_at\": \"2026-08-02T05:55:29.000000Z\",\n            \"updated_at\": \"2026-08-02T06:38:55.000000Z\"\n        }\n    }\n}"
                 }
               ]
             }
@@ -7651,7 +8525,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -7679,7 +8553,7 @@
                     },
                     {
                       "key": "total_amount",
-                      "value": "3000",
+                      "value": "8000",
                       "type": "text"
                     },
                     {
@@ -7699,7 +8573,7 @@
                     },
                     {
                       "key": "items[0][amount]",
-                      "value": "1500",
+                      "value": "4000",
                       "type": "text"
                     },
                     {
@@ -7716,7 +8590,7 @@
                     },
                     {
                       "key": "items[1][amount]",
-                      "value": "1500",
+                      "value": "40000",
                       "type": "text",
                       "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
                     },
@@ -7731,16 +8605,24 @@
                       "type": "file",
                       "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
                       "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                    },
+                    {
+                      "key": "type",
+                      "value": "For_case",
+                      "description": "salary ,For_case",
+                      "type": "text",
+                      "uuid": "23b3723a-71bf-4d66-84bb-27f748c14a49"
                     }
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/lawyer/create_invoice",
+                  "raw": "{{Domain}}/lawyer/invoices/create_invoice",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
                     "lawyer",
+                    "invoices",
                     "create_invoice"
                   ]
                 }
@@ -7873,6 +8755,1394 @@
                   ],
                   "cookie": [],
                   "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Invoice created successfully\",\n        \"invoice_ID\": \"b21d8e01-91f3-4c6e-9f6e-4838c2eda0c5\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "get_invoices_for_lawer (Salary For Emp , Invoice For Client)",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true,
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_office_manager_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "case_id",
+                      "value": "{{case_id}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "total_amount",
+                      "value": "8000",
+                      "type": "text"
+                    },
+                    {
+                      "key": "due_date",
+                      "value": "2029-11-01",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][title]",
+                      "value": "أتعاب المحكمة التجارية",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][description]",
+                      "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][amount]",
+                      "value": "4000",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[1][title]",
+                      "value": "أتعاب المحكمة التجارية",
+                      "type": "text",
+                      "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                    },
+                    {
+                      "key": "items[1][description]",
+                      "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                      "type": "text",
+                      "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                    },
+                    {
+                      "key": "items[1][amount]",
+                      "value": "40000",
+                      "type": "text",
+                      "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                    },
+                    {
+                      "key": "documents[0]",
+                      "type": "file",
+                      "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                      "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                    },
+                    {
+                      "key": "documents[1]",
+                      "type": "file",
+                      "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                      "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                    },
+                    {
+                      "key": "type",
+                      "value": "For_case",
+                      "description": "salary ,For_case",
+                      "type": "text",
+                      "uuid": "23b3723a-71bf-4d66-84bb-27f748c14a49"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/invoices/get_invoices_for_lawer",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "invoices",
+                    "get_invoices_for_lawer"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "create_invoice",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "case_id",
+                          "value": "{{case_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "total_amount",
+                          "value": "3000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "due_date",
+                          "value": "2029-11-01",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][amount]",
+                          "value": "1500",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[1][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text",
+                          "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                        },
+                        {
+                          "key": "items[1][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text",
+                          "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                        },
+                        {
+                          "key": "items[1][amount]",
+                          "value": "1500",
+                          "type": "text",
+                          "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                        },
+                        {
+                          "key": "documents[0]",
+                          "type": "file",
+                          "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                          "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                        },
+                        {
+                          "key": "documents[1]",
+                          "type": "file",
+                          "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                          "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/create_invoice",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "create_invoice"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 25 Jul 2026 00:02:54 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Invoice created successfully\",\n        \"invoice_ID\": \"b21d8e01-91f3-4c6e-9f6e-4838c2eda0c5\"\n    }\n}"
+                },
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "case_id",
+                          "value": "{{case_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "total_amount",
+                          "value": "8000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "due_date",
+                          "value": "2029-11-01",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][amount]",
+                          "value": "4000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[1][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text",
+                          "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                        },
+                        {
+                          "key": "items[1][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text",
+                          "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                        },
+                        {
+                          "key": "items[1][amount]",
+                          "value": "40000",
+                          "type": "text",
+                          "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                        },
+                        {
+                          "key": "documents[0]",
+                          "type": "file",
+                          "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                          "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                        },
+                        {
+                          "key": "documents[1]",
+                          "type": "file",
+                          "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                          "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                        },
+                        {
+                          "key": "type",
+                          "value": "For_case",
+                          "description": "salary ,For_case",
+                          "type": "text",
+                          "uuid": "23b3723a-71bf-4d66-84bb-27f748c14a49"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/invoices/get_invoices_for_lawer",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "invoices",
+                        "get_invoices_for_lawer"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Mon, 03 Aug 2026 07:05:37 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Invoices retrieved successfully\",\n        \"invoices\": {\n            \"salary\": {\n                \"unpaid\": [\n                    {\n                        \"id\": \"75443ac7-7f7a-453c-97c7-ec8b565c20ae\",\n                        \"total_amount\": \"30000.00\",\n                        \"due_date\": \"2026-08-06T00:00:00.000000Z\",\n                        \"status\": \"unpaid\",\n                        \"created_at\": \"2026-08-03 07\",\n                        \"files\": [],\n                        \"salary_details\": {\n                            \"month\": 8,\n                            \"year\": 2026,\n                            \"base_salary\": \"30000.00\",\n                            \"total_approved_expenses\": \"0.00\",\n                            \"net_salary\": \"30000.00\"\n                        }\n                    }\n                ],\n                \"paid\": [\n                    {\n                        \"id\": \"90aa18a4-acab-4433-9103-6cd130b5bbd5\",\n                        \"total_amount\": \"30000.00\",\n                        \"due_date\": \"2026-08-06T00:00:00.000000Z\",\n                        \"status\": \"paid\",\n                        \"created_at\": \"2026-08-03 03\",\n                        \"files\": [],\n                        \"salary_details\": {\n                            \"month\": 8,\n                            \"year\": 2026,\n                            \"base_salary\": \"30000.00\",\n                            \"total_approved_expenses\": \"0.00\",\n                            \"net_salary\": \"30000.00\"\n                        }\n                    },\n                    {\n                        \"id\": \"f4d31d72-14ac-48cb-937d-3a6594fa11a7\",\n                        \"total_amount\": \"30000.00\",\n                        \"due_date\": \"2026-08-06T00:00:00.000000Z\",\n                        \"status\": \"paid\",\n                        \"created_at\": \"2026-08-03 06\",\n                        \"files\": [],\n                        \"salary_details\": {\n                            \"month\": 8,\n                            \"year\": 2026,\n                            \"base_salary\": \"30000.00\",\n                            \"total_approved_expenses\": \"0.00\",\n                            \"net_salary\": \"30000.00\"\n                        }\n                    }\n                ]\n            },\n            \"For_case\": {\n                \"unpaid\": [\n                    {\n                        \"id\": \"ed0b60fe-ef81-47af-ab1b-590ddf9bad38\",\n                        \"total_amount\": \"8000.00\",\n                        \"due_date\": \"2029-11-01T00:00:00.000000Z\",\n                        \"status\": \"unpaid\",\n                        \"created_at\": \"2026-08-03 06\",\n                        \"files\": [\n                            {\n                                \"file_url\": \"http://127.0.0.1:8000/storage/invoices/NtZ1yIMuTJeF3BSUIuqWBlDWb5lO5Hho1IhCsqd8.pdf\",\n                                \"file_name\": \"invoice\",\n                                \"file_size\": 1462412\n                            },\n                            {\n                                \"file_url\": \"http://127.0.0.1:8000/storage/invoices/sMomY3Tn3L31OOoE7l5ojZXMtW0DdSTKyhZizKoG.pdf\",\n                                \"file_name\": \"invoice\",\n                                \"file_size\": 171469\n                            }\n                        ],\n                        \"case_title\": \"قضية تحصيل ديون تجارية\",\n                        \"client_name\": \"Client User\",\n                        \"items\": [\n                            {\n                                \"title\": \"أتعاب المحكمة التجارية\",\n                                \"amount\": \"4000\",\n                                \"description\": \"إيداع صحيفة الدعوى ومرفقاتها\"\n                            },\n                            {\n                                \"title\": \"أتعاب المحكمة التجارية\",\n                                \"amount\": \"40000\",\n                                \"description\": \"إيداع صحيفة الدعوى ومرفقاتها\"\n                            }\n                        ]\n                    }\n                ]\n            }\n        }\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "pay_salary",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_office_manager_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "case_id",
+                      "value": "{{case_id}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "total_amount",
+                      "value": "3000",
+                      "type": "text"
+                    },
+                    {
+                      "key": "due_date",
+                      "value": "2029-11-01",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][title]",
+                      "value": "أتعاب المحكمة التجارية",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][description]",
+                      "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][amount]",
+                      "value": "1500",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[1][title]",
+                      "value": "أتعاب المحكمة التجارية",
+                      "type": "text",
+                      "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                    },
+                    {
+                      "key": "items[1][description]",
+                      "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                      "type": "text",
+                      "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                    },
+                    {
+                      "key": "items[1][amount]",
+                      "value": "1500",
+                      "type": "text",
+                      "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                    },
+                    {
+                      "key": "documents[0]",
+                      "type": "file",
+                      "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                      "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                    },
+                    {
+                      "key": "documents[1]",
+                      "type": "file",
+                      "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                      "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/invoices/pay_salary/{{invoice_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "invoices",
+                    "pay_salary",
+                    "{{invoice_id}}"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Error_with_out_vpn",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "case_id",
+                          "value": "{{case_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "total_amount",
+                          "value": "3000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "due_date",
+                          "value": "2029-11-01",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][amount]",
+                          "value": "1500",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[1][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text",
+                          "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                        },
+                        {
+                          "key": "items[1][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text",
+                          "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                        },
+                        {
+                          "key": "items[1][amount]",
+                          "value": "1500",
+                          "type": "text",
+                          "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                        },
+                        {
+                          "key": "documents[0]",
+                          "type": "file",
+                          "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                          "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                        },
+                        {
+                          "key": "documents[1]",
+                          "type": "file",
+                          "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                          "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/pay_salary/{{invoice_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "pay_salary",
+                        "{{invoice_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 01 Aug 2026 05:49:21 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Failed to initiate payment\",\n    \"Message\": \"We're sorry, but we're unable to serve your request.\",\n    \"Line\": 139\n}"
+                },
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "case_id",
+                          "value": "{{case_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "total_amount",
+                          "value": "3000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "due_date",
+                          "value": "2029-11-01",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][amount]",
+                          "value": "1500",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[1][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text",
+                          "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                        },
+                        {
+                          "key": "items[1][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text",
+                          "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                        },
+                        {
+                          "key": "items[1][amount]",
+                          "value": "1500",
+                          "type": "text",
+                          "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                        },
+                        {
+                          "key": "documents[0]",
+                          "type": "file",
+                          "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                          "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                        },
+                        {
+                          "key": "documents[1]",
+                          "type": "file",
+                          "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                          "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/pay_salary/{{invoice_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "pay_salary",
+                        "{{invoice_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 01 Aug 2026 05:50:28 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"Checkout session created successfully\",\n        \"checkout_url\": \"https://checkout.stripe.com/c/pay/cs_test_b1Dld1lRbSvrkYfdnlvkc6XXT4SY7qhMBMqHgH2w3LhKaMOYj1JktGON9N#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdicGRmZGhqaWBTZHdsZGtxJz8nZmprcXdqaScpJ2R1bE5gfCc%2FJ3VuWnFgdnFaMDRXdT0wVkcwPWhBclNdVFR3Nm1gRG93R1xiUn1pZlNIaHZicnFGcEJoTktrd3B3S1J%2FQU99RGt%2FRGE2VGc1YWlhcGlcQzxrdWpRNmB1SlVpVjA9V2Y2VF81NX9Ja3E0T2JHJyknY3dqaFZgd3Ngdyc%2FcXdwYCknZ2RmbmJ3anBrYUZqaWp3Jz8nJmNjY2NjYycpJ2lkfGpwcVF8dWAnPydocGlxbFpscWBoJyknYGtkZ2lgVWlkZmBtamlhYHd2Jz9xd3BgeCUl\"\n    }\n}"
+                },
+                {
+                  "name": "Unauthorized , lawer try pay invoice for client",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "case_id",
+                          "value": "{{case_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "total_amount",
+                          "value": "3000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "due_date",
+                          "value": "2029-11-01",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][amount]",
+                          "value": "1500",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[1][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text",
+                          "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                        },
+                        {
+                          "key": "items[1][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text",
+                          "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                        },
+                        {
+                          "key": "items[1][amount]",
+                          "value": "1500",
+                          "type": "text",
+                          "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                        },
+                        {
+                          "key": "documents[0]",
+                          "type": "file",
+                          "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                          "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                        },
+                        {
+                          "key": "documents[1]",
+                          "type": "file",
+                          "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                          "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/pay_salary/{{invoice_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "pay_salary",
+                        "{{invoice_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 01 Aug 2026 09:41:54 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Unauthorized, you cannot pay this invoice\",\n    \"error_details\": []\n}"
+                }
+              ]
+            },
+            {
+              "name": "financial-report",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true,
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_office_manager_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "case_id",
+                      "value": "{{case_id}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "total_amount",
+                      "value": "3000",
+                      "type": "text"
+                    },
+                    {
+                      "key": "due_date",
+                      "value": "2029-11-01",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][title]",
+                      "value": "أتعاب المحكمة التجارية",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][description]",
+                      "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][amount]",
+                      "value": "1500",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[1][title]",
+                      "value": "أتعاب المحكمة التجارية",
+                      "type": "text",
+                      "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                    },
+                    {
+                      "key": "items[1][description]",
+                      "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                      "type": "text",
+                      "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                    },
+                    {
+                      "key": "items[1][amount]",
+                      "value": "1500",
+                      "type": "text",
+                      "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                    },
+                    {
+                      "key": "documents[0]",
+                      "type": "file",
+                      "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                      "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                    },
+                    {
+                      "key": "documents[1]",
+                      "type": "file",
+                      "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                      "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/invoices/financial-report?from=2024-01-01&to=2024-12-31",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "invoices",
+                    "financial-report"
+                  ],
+                  "query": [
+                    {
+                      "key": "from",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "to",
+                      "value": "2024-12-31"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "financial-report",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "case_id",
+                          "value": "{{case_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "total_amount",
+                          "value": "3000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "due_date",
+                          "value": "2029-11-01",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][amount]",
+                          "value": "1500",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[1][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text",
+                          "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                        },
+                        {
+                          "key": "items[1][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text",
+                          "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                        },
+                        {
+                          "key": "items[1][amount]",
+                          "value": "1500",
+                          "type": "text",
+                          "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                        },
+                        {
+                          "key": "documents[0]",
+                          "type": "file",
+                          "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                          "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                        },
+                        {
+                          "key": "documents[1]",
+                          "type": "file",
+                          "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                          "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/invoices/financial-report?from=2024-01-01&to=2024-12-31",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "invoices",
+                        "financial-report"
+                      ],
+                      "query": [
+                        {
+                          "key": "from",
+                          "value": "2024-01-01"
+                        },
+                        {
+                          "key": "to",
+                          "value": "2024-12-31"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Mon, 03 Aug 2026 09:49:27 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"message\": \"Server Error\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "my-salary-slip",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true,
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_ali_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "case_id",
+                      "value": "{{case_id}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "total_amount",
+                      "value": "3000",
+                      "type": "text"
+                    },
+                    {
+                      "key": "due_date",
+                      "value": "2029-11-01",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][title]",
+                      "value": "أتعاب المحكمة التجارية",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][description]",
+                      "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[0][amount]",
+                      "value": "1500",
+                      "type": "text"
+                    },
+                    {
+                      "key": "items[1][title]",
+                      "value": "أتعاب المحكمة التجارية",
+                      "type": "text",
+                      "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                    },
+                    {
+                      "key": "items[1][description]",
+                      "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                      "type": "text",
+                      "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                    },
+                    {
+                      "key": "items[1][amount]",
+                      "value": "1500",
+                      "type": "text",
+                      "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                    },
+                    {
+                      "key": "documents[0]",
+                      "type": "file",
+                      "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                      "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                    },
+                    {
+                      "key": "documents[1]",
+                      "type": "file",
+                      "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                      "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/invoices/my-salary-slip/8/2024",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "invoices",
+                    "my-salary-slip",
+                    "8",
+                    "2024"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "my-salary-slip",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "case_id",
+                          "value": "{{case_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "total_amount",
+                          "value": "3000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "due_date",
+                          "value": "2029-11-01",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][amount]",
+                          "value": "1500",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[1][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text",
+                          "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                        },
+                        {
+                          "key": "items[1][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text",
+                          "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                        },
+                        {
+                          "key": "items[1][amount]",
+                          "value": "1500",
+                          "type": "text",
+                          "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                        },
+                        {
+                          "key": "documents[0]",
+                          "type": "file",
+                          "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                          "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                        },
+                        {
+                          "key": "documents[1]",
+                          "type": "file",
+                          "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                          "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/invoices/my-salary-slip/8/2024",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "invoices",
+                        "my-salary-slip",
+                        "8",
+                        "2024"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Mon, 03 Aug 2026 09:56:51 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Unauthorized: Only lawyers can view salary slips.\",\n    \"error_details\": []\n}"
                 }
               ]
             }
@@ -12823,13 +15093,13 @@
               "formdata": [
                 {
                   "key": "national_id",
-                  "value": "1111",
+                  "value": "3333",
                   "type": "text",
                   "uuid": "fae6f840-37b3-40ab-a33e-a086f1c9fad9"
                 },
                 {
                   "key": "full_name",
-                  "value": "أحمد",
+                  "value": "علي",
                   "type": "text",
                   "uuid": "8f8e1057-7b60-4a27-a0d1-1a6d0337d7ca"
                 },
@@ -12871,7 +15141,7 @@
                 },
                 {
                   "key": "syndicate_card_number",
-                  "value": "1111",
+                  "value": "3333",
                   "type": "text",
                   "uuid": "f774b787-3a66-4498-8675-0c8d21950925"
                 },
@@ -12883,7 +15153,7 @@
                 },
                 {
                   "key": "lawyer_state",
-                  "value": "trainee",
+                  "value": "licensed",
                   "description": " // licensed, trainee",
                   "type": "text",
                   "uuid": "25141a50-35c5-4e6b-a9a7-70b0e525a53b"
@@ -15157,6 +17427,36 @@
     },
     {
       "key": "signature_request_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "invoice_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "lawer_office_manager_token",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "lawer2_token",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "lawer_ali_token",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "expense_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "lawer_omar_token",
       "value": "",
       "type": "default"
     }
