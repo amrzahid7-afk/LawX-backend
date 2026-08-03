@@ -11,9 +11,11 @@ class OfficeInvitation extends Model
 {
     use HasFactory, HasUuids;
 
+    //  salary_expected
     protected $fillable = [
         'id',
         'office_id',
+        'salary_expected',
         'invited_lawyer_profile_id',
         'status',
     ];

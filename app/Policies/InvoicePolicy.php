@@ -24,8 +24,42 @@ class InvoicePolicy
         if ($isTrainee) return false;
         return $this->isCaseManager($user, $case);
     }
+    public function get_invoices_for_lawer(User $user): bool
+    {
+        return true;
+    }
     public function get_invoices_for_client(User $user)
     {
         return true;
+    }
+    public function pay_invoice(User $user, Invoice $invoice): bool
+    {
+        if ($invoice->type === 'For_case') {
+            return $user->id === $invoice->client_id;
+        }
+
+        if ($invoice->type === 'salary') {
+            // 1. التأكد أن المستخدم لديه بروفايل وأنه يملك مكتب (مدير مكتب)
+            $managerProfile = $user->lawyerProfile;
+            if (!$managerProfile || !$managerProfile->ownedOffice) {
+                return false;
+            }
+
+            // 2. جلب الموظف صاحب الراتب (الآن سيرجع User بشكل صحيح بعد تعديل موديل Salary)
+            $employee = $invoice->salary->lawyer;
+            if (!$employee) {
+                return false;
+            }
+
+            // 3. جلب بروفايل الموظف للتحقق من مكتبه
+            $employeeProfile = $employee->lawyerProfile;
+            if (!$employeeProfile) {
+                return false;
+            }
+
+            return $employeeProfile->employedOffice && $employeeProfile->employedOffice->id === $managerProfile->ownedOffice->id;
+        }
+
+        return false;
     }
 }

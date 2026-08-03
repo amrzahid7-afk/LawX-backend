@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\LegislationController;
 use App\Http\Controllers\Api\TemplateController;
 use App\Http\Controllers\CaseController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\FinancialController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LawyerProfileController;
 use App\Http\Controllers\LegalRequestController;
@@ -78,6 +79,9 @@ Route::prefix('tasks')->group(function () {
     Route::get('/get_tasks_for_case/{case_id}', [TaskController::class, 'get_tasks_for_case']);
     Route::post('/edit_task', [TaskController::class, 'edit_task']);
     Route::get('/delete_task/{task_id}', [TaskController::class, 'delete_task']);
+    Route::post('/add_Expense_for_task', [TaskController::class, 'add_Expense_for_task']); // employee can add expense for task 
+    Route::get('/aprove_expensive_for_task/{expense_id}', [TaskController::class, 'aprove_expensive_for_task']); // office manager can aprove expense for task
+    Route::get('/get_expenses_for_task/{task_id}', [TaskController::class, 'get_expenses_for_task']); // get all expenses for task
 });
 // sessions 
 Route::prefix('sessions')->group(function () {
@@ -88,7 +92,18 @@ Route::prefix('sessions')->group(function () {
     Route::delete('/delete_session/{session_id}', [SessionController::class, 'delete_session']);
 });
 // invoices 
-Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']);
+Route::prefix('invoices')->group(function () {
+    //  Api For lawer to create invoice for his client with specific case
+    Route::post('/create_invoice', [InvoiceController::class, 'create_invoice']);
+    // get all invoices for lawyer (Clients invoices & Employees Salaries invoices)
+    Route::get('/get_invoices_for_lawer', [InvoiceController::class, 'get_invoices_for_lawer']);
+    // pay salary for employee
+    Route::post('/pay_salary/{invoice_id}', [InvoiceController::class, 'initiate_payment']);
+    // finincial report for (office Manager & Lawyer) 
+    Route::get('/financial-report', [FinancialController::class, 'getFinancialReport']);
+    //  get the Salary for Un Employee Lawyer
+    Route::get('/my-salary-slip/{month}/{year}', [FinancialController::class, 'getMyMonthlySalary']);
+});
 
 // Market 
 Route::prefix('/Market_place')->group(function () {

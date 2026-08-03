@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddTaskRequest;
 use App\Http\Requests\EditTaskRequest;
 use App\Models\CaseModel;
+use App\Models\Expense;
 use App\Models\Task;
 use App\Models\User;
 use App\Services\TasksService;
@@ -157,6 +158,79 @@ class TaskController extends Controller
                 'error' => $e->getMessage(),
                 'Line' => $e->getLine()
             ], 500);
+        }
+    }
+    public function add_Expense_for_task(Request $request)
+    {
+        try {
+            // validate data 
+            $validated_data = $request->validate([
+                'task_id' => 'required|exists:tasks,id',
+                'amount' => 'required|numeric|min:0',
+                'description' => 'required|string|max:255',
+                // 'expense_date' => 'required|date',
+            ]);
+            // validate permissions
+            if (Gate::denies('add_Expense_for_task', Task::find($validated_data['task_id']))) {
+                return sendError('Un authorized , you dont have permission to add expense for this task ', [], 403);
+            }
+            $result = $this->tasks_service->add_Expense_for_task($validated_data);
+            return sendResponse($result['data'], $result['status'], $result['code']);
+        } catch (\Exception $e) {
+            return sendError($e->getMessage(), [], 500);
+        }
+    }
+    public function aprove_expensive_for_task($expense_id)
+    {
+        try {
+            // validate expense ID
+            $validator = validator()->make(['expense_id' => $expense_id], [
+                'expense_id' => 'required|exists:expenses,id'
+            ], [
+                'expense_id.required' => "Expense ID is required",
+                'expense_id.exists' => "Expense ID must exist in the expenses table"
+            ]);
+            if ($validator->fails()) {
+                return sendError($validator->errors(), [], 400);
+            }
+            // validate permissions
+            $expense = Expense::find($expense_id);
+            $task = $expense->task;
+            if (Gate::denies('aprove_expensive_for_task', $task)) {
+                return sendError('Un authorized , you dont have permission to approve this expense ', [], 403);
+            }
+            // Call Service function
+            $result = $this->tasks_service->aprove_expensive_for_task($expense_id);
+            // sending response
+            return sendResponse($result['data'], $result['status'], $result['code']);
+        } catch (\Exception $e) {
+            return sendError($e->getMessage(), [], 500);
+        }
+    }
+    public function get_expenses_for_task($task_id)
+    {
+        try {
+            // validate task ID
+            $validator = validator()->make(['task_id' => $task_id], [
+                'task_id' => 'required|exists:tasks,id'
+            ], [
+                'task_id.required' => "Task ID is required",
+                'task_id.exists' => "Task ID must exist in the tasks table"
+            ]);
+            if ($validator->fails()) {
+                return sendError($validator->errors(), [], 400);
+            }
+            // validate permissions
+            // $task = Task::find($task_id);
+            if (Gate::denies('get_expenses_for_task', Task::find($task_id))) {
+                return sendError('Un authorized , you dont have permission to view expenses for this task ', [], 403);
+            }
+            // Call Service function
+            $result = $this->tasks_service->get_expenses_for_task($task_id);
+            // sending response
+            return sendResponse($result['data'], $result['status'], $result['code']);
+        } catch (\Exception $e) {
+            return sendError($e->getMessage(), [], 500);
         }
     }
 }

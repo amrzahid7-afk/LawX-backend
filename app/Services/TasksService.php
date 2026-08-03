@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\CaseModel;
+use App\Models\Expense;
 use App\Models\Task;
 use App\Models\User;
 use App\Notifications\Add_Task_Notification;
@@ -63,11 +64,10 @@ class TasksService
             'code' => '200'
         ];
     }
-
     public function get_tasks_for_case($case_id)
     {
         $case = CaseModel::with(['leadLawyer', 'clients', 'team'])->find($case_id);
-        $tasks = Task::with(['assignedTo.role'])
+        $tasks = Task::with(['assignedTo.role', 'expenses'])
             ->where('case_id', $case_id)
             ->get();
         $formattedCase = [
@@ -91,6 +91,7 @@ class TasksService
                     'role_in_case' => $member->pivot->role_in_case // ميزة قادمة من جدول case_teams
                 ];
             }),
+
             // 'lawyr_name' => $case->lawer->full_name ?? null,
             // 'client_name' => $case->client->full_name ?? null,
             'status' => $case->status,
@@ -108,6 +109,16 @@ class TasksService
                 ],
                 'status' => $task->status,
                 'created_at' => $task->created_at->format('Y-m-d h'),
+                // expenses for this task
+                'expenses' => $task->expenses->map(function ($expense) {
+                    return [
+                        'expense_id' => $expense->id,
+                        'amount' => $expense->amount,
+                        'description' => $expense->description,
+                        'status' => $expense->status,
+                        'expense_date' => $expense->expense_date ? $expense->expense_date->format('Y-m-d') : null,
+                    ];
+                }),
             ];
         });
         return [
@@ -134,38 +145,12 @@ class TasksService
             'code' => '200'
         ];
     }
-    // public function get_my_tasks()
-    // {
-    //     $user = auth('sanctum')->user();
-    //     $tasks = $user->tasks()->with(['case'])->get();
-    //     $formattedTasks = $tasks->map(function ($task) {
-    //         return [
-    //             'task_id' => $task->id,
-    //             'task_title' => $task->title,
-    //             'task_description' => $task->description,
-    //             'task_due_date' => $task->due_date->format('Y-m-d'),
-    //             'task_status' => $task->status,
-    //             'case_number' => $task->case->case_number,
-    //             'case_title' => $task->case->title,
-    //             'case_category' => $task->case->case_category,
-    //             'case_description' => $task->case->description,
-    //         ];
-    //     });
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'Task Fetching successfully',
-    //             'tasks' => $formattedTasks
-    //         ],
-    //         'code' => '200'
-    //     ];
-    // }
     public function get_my_tasks($request)
     {
         $user = auth('sanctum')->user();
         $scope = $request->input('scope', 'all');
 
-        $tasksQuery = $user->tasks()->with(['case']);
+        $tasksQuery = $user->tasks()->with(['case', 'expenses']);
 
         if ($scope === 'office') {
             $tasksQuery->whereHas('case', function ($query) {
@@ -190,6 +175,15 @@ class TasksService
                 'case_title' => $task->case->title,
                 'case_category' => $task->case->case_category,
                 'is_personal_case' => is_null($task->case->office_id),
+                'expenses' => $task->expenses->map(function ($expense) {
+                    return [
+                        'expense_id' => $expense->id,
+                        'amount' => $expense->amount,
+                        'description' => $expense->description,
+                        'status' => $expense->status,
+                        'expense_date' => $expense->expense_date ? $expense->expense_date->format('Y-m-d') : null,
+                    ];
+                }),
             ];
         });
 
@@ -200,6 +194,78 @@ class TasksService
                 'tasks' => $formattedTasks
             ],
             'code' => '200'
+        ];
+    }
+    public function add_Expense_for_task(array $data)
+    {
+        $task = Task::find($data['task_id']);
+        $expense = $task->expenses()->create([
+            'amount' => $data['amount'],
+            'description' => $data['description'] ?? null,
+            'status' => 'pending',
+            // 'added_by' => auth('sanctum')->id(),
+            'expense_date' => now()->format('Y-m-d'),
+        ]);
+        /**
+         *  'task_id',
+        'amount',
+        'description',
+        'status',
+        'expense_date',
+         */
+
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'Expense added successfully',
+                'expense' => $expense
+            ],
+            'code' => 200
+        ];
+    }
+    public function aprove_expensive_for_task($expense_id)
+    {
+        $expense = Expense::find($expense_id);
+        if (!$expense) {
+            return [
+                'status' => 'error',
+                'data' => [
+                    'message' => 'Expense not found'
+                ],
+                'code' => 404
+            ];
+        }
+        $expense->update([
+            'status' => 'approved'
+        ]);
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'Expense approved successfully',
+                'expense' => $expense
+            ],
+            'code' => 200
+        ];
+    }
+    public function get_expenses_for_task($task_id)
+    {
+        $task = Task::with('expenses')->find($task_id);
+        $expenses = $task->expenses->map(function ($expense) {
+            return [
+                'expense_id' => $expense->id,
+                'amount' => $expense->amount,
+                'description' => $expense->description,
+                'status' => $expense->status,
+                'expense_date' => $expense->expense_date ? $expense->expense_date->format('Y-m-d') : null,
+            ];
+        });
+        return [
+            'status' => 'success',
+            'data' => [
+                'message' => 'Expenses fetched successfully',
+                'expenses' => $expenses
+            ],
+            'code' => 200
         ];
     }
 }

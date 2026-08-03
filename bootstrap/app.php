@@ -24,6 +24,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\EnsureUserHasRole::class,
             'platform' => \App\Http\Middleware\EnsurePlatformAccess::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            '/api/stripe/webhook',
+            '/api/docusign-webhook',
+        ]);
         // $middleware->statefulApi();
     })
     ->withExceptions(function (Exceptions $exceptions) {

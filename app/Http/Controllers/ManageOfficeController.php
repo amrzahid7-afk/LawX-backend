@@ -39,7 +39,10 @@ class ManageOfficeController extends Controller
 
     public function invite_lawer_to_office(Request $request)
     {
-        $request->validate(['invited_lawyer_profile_id' => 'required|uuid|exists:lawyer_profiles,id']);
+        $request->validate([
+            'invited_lawyer_profile_id' => 'required|uuid|exists:lawyer_profiles,id',
+            'salary_expected' => 'required|numeric|min:0'
+        ]);
         $invited_lawer_profile = LawerProfile::find($request->input('invited_lawyer_profile_id'));
         $profile = auth('sanctum')->user()->lawyerProfile;
         $my_office = Office::where('owner_lawyer_profile_id', $profile->id)->first();
@@ -72,7 +75,8 @@ class ManageOfficeController extends Controller
         $invitation = $my_office->invitations()->create([
             'invited_lawyer_profile_id' => $request->input('invited_lawyer_profile_id'),
             'status' => 'pending',
-            'invited_by' => $profile->id, // مهم جداً
+            'invited_by' => auth('sanctum')->user()->lawyerProfile->id,
+            'salary_expected' => $request->input('salary_expected'),
         ]);
 
         return sendResponse($invitation, 'Invitation sent successfully.', 200);
@@ -80,7 +84,7 @@ class ManageOfficeController extends Controller
 
     public function my_sended_invitations(Request $request)
     {
-        // لا نحتاج lawer_profile_id من الـ Request
+
         $profile = auth('sanctum')->user()->lawyerProfile;
         $office = Office::where('owner_lawyer_profile_id', $profile->id)->first();
         // validate that the user is the owner of the office
@@ -88,8 +92,6 @@ class ManageOfficeController extends Controller
             return sendError('You do not own an active office. Activate your office first.', [], 400);
         }
         // Gate::authorize('manage', $office);
-
-
         $invitations = $office->invitations()->with('invitedLawyer')->get();
 
         $response_data = $invitations->map(function ($invitation) {
@@ -98,24 +100,25 @@ class ManageOfficeController extends Controller
                 'Lawer_that_invited_name' => $invitation->invitedLawyer->full_name,
                 'status' => $invitation->status,
                 'responded_at' => $invitation->responded_at,
+                'salary_expected' => $invitation->salary_expected,
                 'created_at' => $invitation->created_at->format('Y-m-d'),
             ];
         });
 
         return sendResponse($response_data, 'Retrieved successfully.', 200);
     }
-
     public function my_received_invitations(Request $request)
     {
         $profile = auth('sanctum')->user()->lawyerProfile;
         $office = Office::where('owner_lawyer_profile_id', $profile->id)
             ->first() ?? null;
-        if (Gate::denies('my_received_invitations', Office::class)) {
+        if (Gate::denies('my_received_invitations', $office)) {
             return sendError('Un Authorized ,You can not recieve invitations', [], 400);
         }
         // get the invitations
         $invitations = OfficeInvitation::where('invited_lawyer_profile_id', $profile->id)
             ->with('office.owner')
+            ->where('status', 'pending')
             ->get();
 
         $response_data = $invitations->map(function ($invitation) {
@@ -124,10 +127,10 @@ class ManageOfficeController extends Controller
                 'office_name' => $invitation->office->name,
                 'owner_office_name' => $invitation->office->owner->full_name ?? null,
                 'status' => $invitation->status,
+                'salary_expected' => $invitation->salary_expected,
                 'created_at' => $invitation->created_at->format('Y-m-d'),
             ];
         });
-
         return sendResponse($response_data, 'Retrieved successfully.', 200);
     }
 
@@ -135,14 +138,19 @@ class ManageOfficeController extends Controller
     {
         $request->validate(['invitation_id' => 'required|uuid|exists:office_invitations,id']);
         $invitation = OfficeInvitation::find($request->input('invitation_id'));
-        if (! Gate::allows('accept_invitation', $invitation)) {
+        if (Gate::denies('accept_invitation', [Office::class, $invitation])) {
             return sendError('Unauthorized . the invitation is not for you or its status is not  pending', [], 403);
         }
-        $invitation->update(['status' => 'accepted', 'responded_at' => now()]);
+        $invitation->update([
+            'status' => 'accepted',
+            'responded_at' => now()->format('Y-m-d H:i:s')
+        ]);
 
         LawerProfile::where('id', $invitation->invited_lawyer_profile_id)
-            ->update(['employed_in_office_id' => $invitation->office_id]);
-
+            ->update([
+                'employed_in_office_id' => $invitation->office_id,
+                'base_salary' => $invitation->salary_expected
+            ]);
         return sendResponse($invitation, 'Accepted successfully.', 200);
     }
     public function reject_invitation(Request $request)

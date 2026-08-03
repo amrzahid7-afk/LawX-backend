@@ -20,13 +20,12 @@ Route::get('/providers', [UserManagmentController::class, 'get_offices_or_lawers
 Route::get('/providers/{lawyer_id}/portfolio', [UserManagmentController::class, 'get_protofolio_for_lawer_or_office']);
 
 Route::get('/sessions', [SessionController::class, 'get_sessions_for_client']);
+// invoices 
 Route::get('/invoices', [InvoiceController::class, 'get_invoices_for_client']);
+// pay invoice for my case 
+Route::post('/pay_invoice/{invoice_id}', [InvoiceController::class, 'initiate_payment']);
 
-// التوقيع الإلكتروني — طرف العميل فقط (طلب التوقيع نفسه يبدأه المحامي بـ lawyer.php)
-// Route::prefix('documents/{document_id}/signature')->group(function () {
-//     Route::post('/sign', [DocumentSignatureController::class, 'sign']);
-//     Route::get('/status', [DocumentSignatureController::class, 'status']);
-// });
+
 
 // signature
 Route::prefix('electonic_signature')->group(function () {

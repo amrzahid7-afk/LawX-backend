@@ -54,6 +54,9 @@ class OfficePolicy
     public function accept_invitation(User $user, OfficeInvitation $invitation): bool
     {
         return $invitation->invited_lawyer_profile_id === $user->lawyerProfile->id && $invitation->status === 'pending';
+        // dd($invitation->invited_lawyer_profile_id);
+        // return $invitation->invited_lawyer_profile_id === auth('sanctum')->user()->lawyerProfile->id && $invitation->status === 'pending';
+        // return true;
     }
     public function remove_invitation(User $user, OfficeInvitation $invitation): bool
     {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\RoleSlug;
 use App\Models\LawyerProfile;
+use App\Models\Salary;
 use App\Models\Task;
 use App\Traits\HasUuid;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -76,13 +77,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Legal_category::class, 'user_legal_categories', 'user_id', 'category_id');
     }
 
-    // علاقة 2: المستخدم (المحامي) يستقبل تقييمات من العملاء
     public function reviewsReceived(): HasMany
     {
         return $this->hasMany(Review::class, 'lawyer_id');
     }
 
-    // علاقة 3 (اختيارية): المستخدم (العميل) قام بكتابة تقييمات
     public function reviewsGiven(): HasMany
     {
         return $this->hasMany(Review::class, 'client_id');
@@ -109,5 +108,9 @@ class User extends Authenticatable
     public function isLawyer(): bool
     {
         return $this->role->name === 'lawer';
+    }
+    public function salaryRecords()
+    {
+        return $this->hasMany(Salary::class, 'lawyer_id');
     }
 }

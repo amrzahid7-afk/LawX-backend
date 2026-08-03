@@ -30,6 +30,7 @@ return new class extends Migration
             $table->uuid('office_id');
             $table->uuid('invited_lawyer_profile_id');
             $table->uuid('invited_by')->nullable();
+            $table->decimal('salary_expected', 10, 2)->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected', 'cancelled'])->default('pending');
             $table->timestamp('responded_at')->nullable();
             $table->timestamps();

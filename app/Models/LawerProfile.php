@@ -34,7 +34,8 @@ class LawerProfile extends Model
         'is_claimed',
         'claimed_at',
         'supervised_by_lawyer_id',
-        'employed_In_office_id',
+        'employed_in_office_id',
+        'base_salary',
         'created_by',
         'user_id',
     ];
@@ -48,7 +49,7 @@ class LawerProfile extends Model
     ];
     public function employedOffice(): BelongsTo
     {
-        return $this->belongsTo(Office::class, 'employed_In_office_id');
+        return $this->belongsTo(Office::class, 'employed_in_office_id');
     }
     public function ownedOffice(): HasOne
     {

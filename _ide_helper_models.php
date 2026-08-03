@@ -184,6 +184,7 @@ namespace App\Models{
 /**
  * @property string $id
  * @property string $file_path
+ * @property string|null $signed_file_path
  * @property string $type
  * @property int|null $file_size
  * @property string|null $case_id
@@ -226,6 +227,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereLegalRequestId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereParentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereProposalId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereSignedFilePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Document whereUploadedBy($value)
@@ -265,7 +267,6 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property-read \App\Models\SalaryStructure|null $salaryStructure
  * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Employee newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Employee newQuery()
@@ -285,9 +286,26 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property string $id
+ * @property string $task_id
+ * @property numeric $amount
+ * @property string $description
+ * @property string $status
+ * @property \Illuminate\Support\Carbon $expense_date
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Task $task
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense whereExpenseDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense whereTaskId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Expense whereUpdatedAt($value)
  */
 	class Expense extends \Eloquent {}
 }
@@ -347,7 +365,10 @@ namespace App\Models{
  * @property string $client_id
  * @property numeric $total_amount
  * @property string $status
- * @property string $due_date
+ * @property \Illuminate\Support\Carbon $due_date
+ * @property string $type
+ * @property string|null $stripe_checkout_session_id
+ * @property string $payment_gateway
  * @property string|null $items
  * @property string|null $pdf_url
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -357,6 +378,7 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
  * @property-read \App\Models\User $lawyer
+ * @property-read \App\Models\Payment|null $payment
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice query()
@@ -367,9 +389,12 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereItems($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereLawyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice wherePaymentGateway($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice wherePdfUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereStripeCheckoutSessionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereTotalAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice whereUpdatedAt($value)
  */
 	class Invoice extends \Eloquent {}
@@ -379,6 +404,7 @@ namespace App\Models{
 /**
  * @property string $id
  * @property string|null $user_id
+ * @property string|null $supervised_by_lawyer_id
  * @property string|null $employed_in_office_id
  * @property string $national_id
  * @property string|null $full_name
@@ -391,12 +417,12 @@ namespace App\Models{
  * @property string $syndicate_card_number
  * @property string $syndicate_branch
  * @property string $lawyer_state
- * @property string|null $supervised_by_lawyer_id
  * @property \Illuminate\Support\Carbon|null $trainee_approved_independent_at
  * @property bool $is_claimed
  * @property \Illuminate\Support\Carbon|null $claimed_at
  * @property bool $is_suspended
  * @property string|null $created_by
+ * @property numeric|null $base_salary
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Office|null $employedOffice
@@ -410,6 +436,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereBaseSalary($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereBirthDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereBirthPlace($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LawerProfile whereCivilRegistryNumber($value)
@@ -645,6 +672,7 @@ namespace App\Models{
  * @property string|null $responded_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property numeric|null $salary_expected
  * @property-read \App\Models\LawerProfile $invitedLawyer
  * @property-read \App\Models\Office $office
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation newModelQuery()
@@ -656,6 +684,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereInvitedLawyerProfileId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereOfficeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereRespondedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereSalaryExpected($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation whereUpdatedAt($value)
  */
@@ -720,6 +749,34 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PasswordResetToken whereType($value)
  */
 	class PasswordResetToken extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property string $id
+ * @property string $invoice_id
+ * @property string|null $transaction_id
+ * @property string $gateway
+ * @property numeric $amount_paid
+ * @property string $status
+ * @property array<array-key, mixed>|null $gateway_response
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Invoice $invoice
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereAmountPaid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereGateway($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereGatewayResponse($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereInvoiceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereTransactionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereUpdatedAt($value)
+ */
+	class Payment extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -883,12 +940,33 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property-read \App\Models\User|null $user
- * @method static \Illuminate\Database\Eloquent\Builder<static>|SalaryStructure newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|SalaryStructure newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|SalaryStructure query()
+ * @property string $id
+ * @property string $lawyer_id
+ * @property int $month
+ * @property int $year
+ * @property numeric $base_salary
+ * @property numeric $total_approved_expenses
+ * @property numeric $net_salary
+ * @property string $status
+ * @property string|null $invoice_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereBaseSalary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereInvoiceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereLawyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereMonth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereNetSalary($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereTotalApprovedExpenses($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary whereYear($value)
  */
-	class SalaryStructure extends \Eloquent {}
+	class Salary extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -921,22 +999,72 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property-read \App\Models\Document|null $document
- * @property-read \App\Models\User|null $lawyer
+ * @property string $id
+ * @property string $lawyer_id
+ * @property string $document_id
+ * @property string|null $envelope_id
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Document $document
+ * @property-read \App\Models\User $lawyer
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Signer> $signers
  * @property-read int|null $signers_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest whereDocumentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest whereEnvelopeId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest whereLawyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SignatureRequest whereUpdatedAt($value)
  */
 	class SignatureRequest extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
+ * @property string $id
+ * @property string $signature_request_id
+ * @property string $user_id
+ * @property string $role
+ * @property bool $is_seal
+ * @property int $x_position
+ * @property int $y_position
+ * @property int $width
+ * @property int $height
+ * @property string $sign_type
+ * @property string|null $anchor_text
+ * @property int $page_number
+ * @property string|null $docusign_recipient_id
+ * @property string $status
+ * @property \Illuminate\Support\Carbon|null $signed_at
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ * @property-read \App\Models\SignatureRequest $request
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereAnchorText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereDocusignRecipientId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereHeight($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereIsSeal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer wherePageNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereRole($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereSignType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereSignatureRequestId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereSignedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereWidth($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereXPosition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Signer whereYPosition($value)
  */
 	class Signer extends \Eloquent {}
 }
@@ -1034,6 +1162,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $assignedTo
  * @property-read \App\Models\CaseModel $case
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Expense> $expenses
+ * @property-read int|null $expenses_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Task query()
@@ -1095,6 +1225,8 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviewsReceived
  * @property-read int|null $reviews_received_count
  * @property-read \App\Models\Role $role
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Salary> $salaryRecords
+ * @property-read int|null $salary_records_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
  * @property-read int|null $tasks_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PersonalAccessToken> $tokens

@@ -29,6 +29,7 @@ class CreateInvoiceRequest extends FormRequest
             // 'client_id' => 'required|uuid|exists:users,id',
             'total_amount' => 'required|numeric|min:0',
             'due_date' => 'required|date|after_or_equal:today',
+            'type' => 'in:For_case,salary',
             'items' => 'required|array',
             'items.*.title' => 'required|string',
             'items.*.description' => 'required|string',

@@ -3,15 +3,16 @@
 use App\Enums\RoleSlug;
 use App\Http\Controllers\Api\LegislationController;
 use App\Http\Controllers\Api\TemplateController;
-use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Dashboard\alertsController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ManageOfficesController;
 use App\Http\Controllers\ManageSyndicateUsers;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProposalController;
+use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\UserManagmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -56,8 +57,21 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::get('/dashboard/alerts', [AlertsController::class, 'index']);
 });
 
-// Signature Apis 
+// External Apis 
+// Api To Recive Events From DocuSign platform
 Route::post('/docusign-webhook', [SignatureController::class, 'handleDocuSignWebhook']);
+
+
+
+
+
+
+// Api To Recive Events From Stripe platform 
+Route::post('/stripe/webhook', [InvoiceController::class, 'handleWebhook']);
+// Stripe apis
+// روابط العودة التي لن تحتاج لكود معقد، مجرد إعادة توجيه للـ Frontend
+Route::get('/payment/success/{invoice}', fn() => redirect('/payment/success'))->name('payment.success');
+Route::get('/payment/cancel/{invoice}', fn() => redirect('/payment/cancel'))->name('payment.cancel');
 // Route::get('/files', [SignatureController::class, 'getLawyerFiles']);
 // Route::get('/client/files', [SignatureController::class, 'getClientFiles']);
 // Route::get('/syndicate/files', [SignatureController::class, 'getSyndicateFiles']);

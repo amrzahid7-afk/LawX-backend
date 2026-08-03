@@ -45,4 +45,8 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
 }

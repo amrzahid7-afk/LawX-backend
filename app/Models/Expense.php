@@ -10,17 +10,23 @@ class Expense extends Model
 {
     use HasFactory, HasUuid;
 
+    protected $table = 'expenses';
     protected $keyType = 'string';
     public $incrementing = false;
 
     protected $fillable = [
         'id',
-        'case_id',
-        'employee_id',
-        'title',
+        'task_id',
         'amount',
-        'category',
+        'description',
         'status',
-        'date_incurred'
+        'expense_date',
     ];
+    protected $casts = [
+        'expense_date' => 'date',
+    ];
+    public function task()
+    {
+        return $this->belongsTo(Task::class, 'task_id');
+    }
 }
