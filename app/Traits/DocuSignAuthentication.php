@@ -6,6 +6,10 @@
 
 namespace App\Traits;
 
+use DocuSign\eSign\Model\EnvelopeEvent;
+use DocuSign\eSign\Model\RecipientEvent;
+use DocuSign\eSign\Model\ConnectEventData;
+
 use App\Models\SignatureRequest;
 use DocuSign\eSign\Api\EnvelopesApi;
 use DocuSign\eSign\Client\ApiClient;
@@ -20,6 +24,7 @@ use DocuSign\eSign\Model\Text;
 use DocuSign\eSign\Model\Tabs;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use DocuSign\eSign\Model\RecipientViewRequestOptions;
 
 trait DocuSignAuthentication
 {
@@ -182,13 +187,20 @@ trait DocuSignAuthentication
         }
 
         $eventNotification = new EventNotification([
-            'url' => env('DOCUSIGN_WEBHOOK_URL', 'https://your-domain.com/api/docusign-webhook'),
-            'logging_enabled' => 'true',
+            'url'                    => env('DOCUSIGN_WEBHOOK_URL'),
+            'logging_enabled'        => 'true',
+            'require_acknowledgment' => 'true',
             'envelope_events' => [
-                ['envelope_event_status_code' => 'signed'],
-                ['envelope_event_status_code' => 'completed']
+                new EnvelopeEvent(['envelope_event_status_code' => 'Completed']),
             ],
-            'require_acknowledgment' => 'true'
+            'recipient_events' => [
+                new RecipientEvent(['recipient_event_status_code' => 'Completed']),
+            ],
+            'event_data' => new ConnectEventData([
+                'version'      => 'restv2.1',
+                'format'       => 'json',
+                'include_data' => ['recipients'],
+            ]),
         ]);
 
         $envelopeDefinition = new EnvelopeDefinition([
@@ -196,7 +208,9 @@ trait DocuSignAuthentication
             'documents' => [$document],
             'recipients' => new Recipients(['signers' => $signersArray]),
             'status' => 'sent',
-            'event_notification' => $eventNotification
+            'event_notification' => $eventNotification,
+            'envelope_id_stamping' => 'false',
+            'use_disclosure' => 'false'
         ]);
 
         $envelopeApi = new EnvelopesApi($this->apiClient);
@@ -214,20 +228,34 @@ trait DocuSignAuthentication
             throw $e;
         }
     }
+    // new code 
 
+    // احذف هذا السطر نهائياً من أعلى الملف
     public function getRecipientViewUrl($envelopeId, $signer, $returnUrl)
     {
         $this->ensureAuthenticated();
 
-        $clientUserId = $signer->docusign_recipient_id ?? (string)$signer->user->id;
+        $clientUserId = $signer->docusign_recipient_id ?? (string) $signer->user->id;
+
+        // origin تبع صفحة الفرونت اند (origin فقط: بدون path وبدون / بالنهاية)
+        $appOrigin = rtrim(env('FRONTEND_ORIGIN', 'http://localhost:3000'), '/');
 
         $recipientViewRequest = new RecipientViewRequest([
             'authentication_method' => 'none',
-            'email' => $signer->user->email,
-            'user_name' => $signer->user->full_name,
-            'recipient_id' => $signer->docusign_recipient_id,
-            'return_url' => $returnUrl,
-            'client_user_id' => $clientUserId,
+            'email'                 => $signer->user->email,
+            'user_name'             => $signer->user->full_name,
+            'recipient_id'          => $signer->docusign_recipient_id,
+            'return_url'            => $returnUrl,
+            'client_user_id'        => $clientUserId,
+
+            // مفتاح الـ Focused View
+            'frame_ancestors' => [
+                $appOrigin,
+                'https://apps-d.docusign.com', // بالـ production: https://apps.docusign.com
+            ],
+            'message_origins' => [
+                'https://apps-d.docusign.com', // بالـ production: https://apps.docusign.com
+            ],
         ]);
 
         $envelopeApi = new EnvelopesApi($this->apiClient);
@@ -240,14 +268,88 @@ trait DocuSignAuthentication
 
         return $viewUrl->getUrl();
     }
-
     public function downloadSignedDocument($envelopeId, $localSavePath)
     {
         $this->ensureAuthenticated();
-        $envelopeApi = new EnvelopesApi($this->apiClient);
-        $documentBytes = $envelopeApi->getDocument($this->accountId, $envelopeId, '1');
-        Storage::put($localSavePath, $documentBytes);
+
+        $host = 'https://demo.docusign.net/restapi';
+        $url  = "{$host}/v2.1/accounts/{$this->accountId}/envelopes/{$envelopeId}/documents/combined";
+
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER     => [
+                'Authorization: Bearer ' . $this->accessToken,
+                'Accept: application/pdf',
+            ],
+        ]);
+        $body     = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode !== 200 || $body === false) {
+            throw new \Exception("Download failed [{$httpCode}]");
+        }
+        Storage::disk('public')->put($localSavePath, $body);
         return $localSavePath;
+    }
+    // public function downloadSignedDocument($envelopeId, $localSavePath)
+    // {
+    //     $this->ensureAuthenticated();
+    //     $envelopeApi = new EnvelopesApi($this->apiClient);
+
+    //     // Options: get the combined signed PDF WITHOUT the certificate of completion page
+    //     $options = new \DocuSign\eSign\Api\EnvelopesApi\GetDocumentOptions();
+    //     $options->setCertificate('false');
+    //     $options->setWatermark('false');
+
+    //     // "combined" = full signed document (all pages) as one PDF
+    //     $tempFile = $envelopeApi->getDocument(
+    //         $this->accountId,
+    //         $envelopeId,
+    //         'combined',
+    //         $options
+    //     );
+
+    //     // getDocument returns an SplFileObject (temp file), not raw bytes
+    //     $contents = file_get_contents($tempFile->getRealPath());
+    //     Storage::put($localSavePath, $contents);
+
+    //     return $localSavePath;
+    // }
+    // public function downloadSignedDocument($envelopeId, $localSavePath)
+    // {
+    //     $this->ensureAuthenticated();
+    //     $envelopeApi = new EnvelopesApi($this->apiClient);
+
+    //     // "combined" returns the full signed document (all pages) as one PDF
+    //     $documentBytes = $envelopeApi->getDocument($this->accountId, $envelopeId, 'combined');
+
+    //     Storage::put($localSavePath, $documentBytes);
+    //     return $localSavePath;
+    // }
+    // get wrong invelop ID 
+    // public function downloadSignedDocument($envelopeId, $localSavePath)
+    // {
+    //     $this->ensureAuthenticated();
+    //     $envelopeApi = new EnvelopesApi($this->apiClient);
+    //     $documentBytes = $envelopeApi->getDocument($this->accountId, $envelopeId, '1');
+    //     Storage::put($localSavePath, $documentBytes);
+    //     return $localSavePath;
+    // }
+    public function getEnvelopeRecipients($envelopeId)
+    {
+        $this->ensureAuthenticated();
+        $envelopeApi = new EnvelopesApi($this->apiClient);
+        $recipients  = $envelopeApi->listRecipients($this->accountId, $envelopeId);
+        return $recipients->getSigners() ?? [];
+    }
+
+    public function getEnvelopeStatus($envelopeId)
+    {
+        $this->ensureAuthenticated();
+        $envelopeApi = new EnvelopesApi($this->apiClient);
+        return $envelopeApi->getEnvelope($this->accountId, $envelopeId)->getStatus();
     }
 }
 // Old Code it is Work 

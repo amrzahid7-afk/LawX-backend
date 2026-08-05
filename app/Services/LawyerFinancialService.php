@@ -12,7 +12,7 @@ class LawyerFinancialService implements FinancialReportInterface
 {
     public function getFinancialReport(User $user, string $from, string $to): array
     {
-        dd("here");
+        // dd("here");
 
         // 1. الإيرادات (Inflow Part A): فواتير قضاياه الخاصة المدفوعة
         $inflowFromOwnCases = Invoice::where('lawyer_id', $user->id)
