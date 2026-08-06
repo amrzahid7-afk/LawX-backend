@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Interfaces\FinancialReportInterface;
+use App\Contracts\FinancialReportInterface;
 use App\Models\User;
 use App\Models\Invoice;
 use App\Models\Salary;

@@ -11,7 +11,7 @@ use App\Contracts\Services\Dashboard\NotificationsInterface;
 use App\Contracts\Services\Dashboard\TeamPerformanceInterface;
 use App\Contracts\Services\Dashboard\TodayScheduleInterface;
 use App\Contracts\Services\Timeline\TimelineEventProviderInterface;
-use App\Interfaces\FinancialReportInterface;
+use App\Contracts\FinancialReportInterface;
 use App\Models\PersonalAccessToken;
 use App\Models\Task;
 use App\Policies\TaskPolicy;

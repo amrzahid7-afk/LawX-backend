@@ -60,12 +60,6 @@ Route::middleware('auth:sanctum')->group(function () {
 // External Apis 
 // Api To Recive Events From DocuSign platform
 Route::post('/docusign-webhook', [SignatureController::class, 'handleDocuSignWebhook']);
-
-
-
-
-
-
 // Api To Recive Events From Stripe platform 
 Route::post('/stripe/webhook', [InvoiceController::class, 'handleWebhook']);
 // Stripe apis

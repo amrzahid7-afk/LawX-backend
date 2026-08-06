@@ -21,8 +21,8 @@ class Employee extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function salaryStructure()
-    {
-        return $this->belongsTo(SalaryStructure::class);
-    }
+    // public function salaryStructure()
+    // {
+    //     return $this->belongsTo(SalaryStructure::class);
+    // }
 }

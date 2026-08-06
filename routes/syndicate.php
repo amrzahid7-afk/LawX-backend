@@ -1,8 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\LegislationController;
 use App\Http\Controllers\Api\TemplateController;
-use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\ManageSyndicateUsers;
+use App\Http\Controllers\SignatureController;
 use Illuminate\Support\Facades\Route;
 
 // syndicate Apis
@@ -36,4 +37,12 @@ Route::prefix('electonic_signature')->group(function () {
     Route::get('/get_signing_url/{signature_request_id}', [SignatureController::class, 'getSigningUrl']);
     Route::get('/get_files_require_sign', [SignatureController::class, 'getSyndicateFiles']);
     Route::get('/review_file/{signature_request_id}', [SignatureController::class, 'reviewFile']);
+});
+
+// Manage Laws Apis 
+Route::prefix('legislation')->group(function () {
+    Route::post('/create_law', [LegislationController::class, 'create_law']);
+    Route::put('/update_law/{law_id}', [LegislationController::class, 'update_law']);
+    Route::delete('/delete_law/{law_id}', [LegislationController::class, 'delete_law']);
+    Route::get('/get_laws', [LegislationController::class, 'get_laws']);
 });

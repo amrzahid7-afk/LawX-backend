@@ -360,9 +360,9 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property string $id
- * @property string $case_id
+ * @property string|null $case_id
  * @property string $lawyer_id
- * @property string $client_id
+ * @property string|null $client_id
  * @property numeric $total_amount
  * @property string $status
  * @property \Illuminate\Support\Carbon $due_date
@@ -373,12 +373,13 @@ namespace App\Models{
  * @property string|null $pdf_url
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\CaseModel $case
- * @property-read \App\Models\User $client
+ * @property-read \App\Models\CaseModel|null $case
+ * @property-read \App\Models\User|null $client
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
  * @property-read int|null $documents_count
  * @property-read \App\Models\User $lawyer
  * @property-read \App\Models\Payment|null $payment
+ * @property-read \App\Models\Salary|null $salary
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invoice query()
@@ -951,6 +952,8 @@ namespace App\Models{
  * @property string|null $invoice_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Invoice|null $invoice
+ * @property-read \App\Models\User $lawyer
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Salary query()

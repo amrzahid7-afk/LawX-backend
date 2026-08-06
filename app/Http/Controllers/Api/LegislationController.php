@@ -122,6 +122,7 @@ class LegislationController extends Controller
             'data' => $result['data'],
         ]);
     }
+
     public function create_law(StoreLegislationRequest $request): JsonResponse
     {
         try {
@@ -172,7 +173,6 @@ class LegislationController extends Controller
                 ], 422);
             }
 
-            // 3. استدعاء الـ Service
             $response = $this->legislationService->delete_law($law_id);
 
             return response()->json([
