@@ -25,9 +25,9 @@ class LegislationService
             $q->where('country', $requestData['country']);
         });
 
-        $legislations = $query->latest()->paginate(1);
+        $legislations = $query->get(); //  $query->latest()->paginate(1);
 
-        $formattedLegislations = collect($legislations->items())->map(function ($legislation) {
+        $formattedLegislations = collect($legislations)->map(function ($legislation) {
             return [
                 'id' => $legislation->id,
                 'Book' => $legislation->book,
@@ -53,16 +53,16 @@ class LegislationService
             'message' => 'تم جلب التشريعات بنجاح',
             'data' => [
                 'legislations' => $formattedLegislations,
-                'pagination' => [
-                    'current_page' => $legislations->currentPage(),
-                    'total_pages' => $legislations->lastPage(),
-                    'total_items' => $legislations->total(),
-                    'per_page' => $legislations->perPage(),
-                    'first_page_url' => $legislations->url(1),
-                    'last_page_url' => $legislations->url($legislations->lastPage()),
-                    'next_page_url' => $legislations->nextPageUrl(),
-                    'prev_page_url' => $legislations->previousPageUrl(),
-                ],
+                // 'pagination' => [
+                //     'current_page' => $legislations->currentPage(),
+                //     'total_pages' => $legislations->lastPage(),
+                //     'total_items' => $legislations->total(),
+                //     'per_page' => $legislations->perPage(),
+                //     'first_page_url' => $legislations->url(1),
+                //     'last_page_url' => $legislations->url($legislations->lastPage()),
+                //     'next_page_url' => $legislations->nextPageUrl(),
+                //     'prev_page_url' => $legislations->previousPageUrl(),
+                // ],
             ],
         ];
     }

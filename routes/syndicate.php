@@ -42,7 +42,7 @@ Route::prefix('electonic_signature')->group(function () {
 // Manage Laws Apis 
 Route::prefix('legislation')->group(function () {
     Route::post('/create_law', [LegislationController::class, 'create_law']);
-    Route::put('/update_law/{law_id}', [LegislationController::class, 'update_law']);
+    Route::post('/update_law', [LegislationController::class, 'update_law']);
     Route::delete('/delete_law/{law_id}', [LegislationController::class, 'delete_law']);
-    Route::get('/get_laws', [LegislationController::class, 'get_laws']);
+    Route::get('/get_laws', [LegislationController::class, 'index']);
 });

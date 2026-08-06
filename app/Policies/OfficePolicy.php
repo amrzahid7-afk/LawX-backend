@@ -50,7 +50,6 @@ class OfficePolicy
         // dd(($office && $profile && $office->status != 'active') || $profile->lawyer_state === 'trainee');
         return ($office && $profile && $office->status != 'active') || $profile->lawyer_state === 'trainee';
     }
-
     public function accept_invitation(User $user, OfficeInvitation $invitation): bool
     {
         return $invitation->invited_lawyer_profile_id === $user->lawyerProfile->id && $invitation->status === 'pending';

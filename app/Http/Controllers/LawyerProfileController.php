@@ -27,7 +27,9 @@ class LawyerProfileController extends Controller
                     404
                 );
             }
-            $owned_office = !is_null($profile->ownedOffice);
+            if ($profile->lawyer_state != 'trainee') {
+                $owned_office = !is_null($profile->ownedOffice->status) && $profile->ownedOffice->status === 'active';
+            }
             $employed_in_office = !is_null($profile->employedOffice);
             $lawer_profile_data = [
                 'lawer_name'         => $user->full_name ?? null,
@@ -43,7 +45,7 @@ class LawyerProfileController extends Controller
             return sendResponse($lawer_profile_data, 'Lawyer Profile Data Fetched Successfully', 200);
         } catch (\Throwable $th) {
             // dd($th);
-            return sendError('Server Error', [
+            return sendError('Internal Server Error', [
                 'message' => $th->getMessage(),
                 'file'    => $th->getFile(),
                 'line'    => $th->getLine()

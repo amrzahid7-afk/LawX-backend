@@ -112,7 +112,7 @@ class ManageOfficeController extends Controller
         $profile = auth('sanctum')->user()->lawyerProfile;
         $office = Office::where('owner_lawyer_profile_id', $profile->id)
             ->first() ?? null;
-        if (Gate::denies('my_received_invitations', $office)) {
+        if (Gate::denies('my_received_invitations', Office::class)) {
             return sendError('Un Authorized ,You can not recieve invitations', [], 400);
         }
         // get the invitations
@@ -146,18 +146,23 @@ class ManageOfficeController extends Controller
             'responded_at' => now()->format('Y-m-d H:i:s')
         ]);
 
-        LawerProfile::where('id', $invitation->invited_lawyer_profile_id)
+        $lawer_profile = LawerProfile::where('id', $invitation->invited_lawyer_profile_id)
             ->update([
                 'employed_in_office_id' => $invitation->office_id,
-                'base_salary' => $invitation->salary_expected
+                'base_salary' => $invitation->salary_expected,
             ]);
+        // if ($lawer_profile->lawyer_state === 'trainee') {
+        //     $lawer_profile->update([
+        //         'supervised_by_lawyer_id' => $invitation->office->owner_lawyer_profile_id
+        //     ]);
+        // }
         return sendResponse($invitation, 'Accepted successfully.', 200);
     }
     public function reject_invitation(Request $request)
     {
         $request->validate(['invitation_id' => 'required|uuid|exists:office_invitations,id']);
         $invitation = OfficeInvitation::find($request->input('invitation_id'));
-        if (! Gate::allows('accept_invitation', $invitation)) {
+        if (! Gate::allows('accept_invitation', [Office::class, $invitation])) {
             return sendError('Unauthorized . the invitation is not for you or its status is not  pending', [], 403);
         }
         $invitation->update(['status' => 'rejected', 'responded_at' => now()]);
@@ -184,7 +189,7 @@ class ManageOfficeController extends Controller
         $office = auth('sanctum')->user()->lawyerProfile->ownedOffice;
         $employee_profile = LawerProfile::find($request->input('lawer_profile_id'));
         // check permission 
-        if (Gate::denies('remove_lawer_from_office', $employee_profile)) {
+        if (Gate::denies('remove_lawer_from_office', [Office::class, $employee_profile])) {
             return sendError('You can not remove lawyer from office.', [], 404);
         }
         // delete the record in invitation table between employee and Mnager Lawer

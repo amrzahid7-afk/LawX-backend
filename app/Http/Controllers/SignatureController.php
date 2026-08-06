@@ -149,7 +149,7 @@ class SignatureController extends Controller
         // validate permission 
         $this->authorize('reviewFile', [SignatureRequest::class, $signer]);
         // Get File 
-        $filePath = storage_path('app/' . $signer->request->document->file_path);
+        $filePath = storage_path('app/public/' . $signer->request->document->file_path);
         if (!file_exists($filePath)) {
             return sendError('File not found', [], 404);
         }

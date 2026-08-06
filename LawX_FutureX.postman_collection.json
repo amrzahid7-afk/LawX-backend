@@ -20,7 +20,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"omar@gmail.co\" ,\r\n    \"password\": \"password\"\r\n}",
+                  "raw": "{\r\n    \"email\": \"client@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -50,17 +50,17 @@
                   "formdata": [
                     {
                       "key": "national_id",
-                      "value": "3333",
+                      "value": "1212",
                       "type": "text"
                     },
                     {
                       "key": "full_name",
-                      "value": "علي",
+                      "value": "ادهم",
                       "type": "text"
                     },
                     {
                       "key": "father_name",
-                      "value": "ضاهر",
+                      "value": "العلي",
                       "type": "text"
                     },
                     {
@@ -90,7 +90,7 @@
                     },
                     {
                       "key": "syndicate_card_number",
-                      "value": "3333",
+                      "value": "1212",
                       "type": "text"
                     },
                     {
@@ -254,7 +254,7 @@
                     },
                     {
                       "key": "email",
-                      "value": "ali@gmail.co",
+                      "value": "Adham@gmail.co",
                       "type": "text",
                       "uuid": "8af9b086-5be6-4c25-8e34-b52a0f60cecf"
                     },
@@ -3328,7 +3328,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"5-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    \"team\": [\r\n        {\r\n        \"user_id\":\"{{lawer_id}}\",\r\n        \"role_in_case\": \"باحث قانوني\" \r\n        } \r\n            //   {\r\n            //  \"user_id\":\"{{lawer_id}}\",\r\n            //   \"role_in_case\": \"باحث قانوني\" \r\n            //   }\r\n    ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"6-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    \"team\": [\r\n        {\r\n        \"user_id\":\"{{lawer_id}}\",\r\n        \"role_in_case\": \"باحث قانوني\" \r\n        } \r\n            //   {\r\n            //  \"user_id\":\"{{lawer_id}}\",\r\n            //   \"role_in_case\": \"باحث قانوني\" \r\n            //   }\r\n    ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -3431,7 +3431,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -3451,7 +3451,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "// {\r\n//     \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n//     \"title\": \" private case\" ,\r\n//     \"description\": \"so hard case\"\r\n// }\r\n{\r\n    \"case_id\" : \"{{case_id}}\",\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    // \"case_number\": \"5-2222\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 500000.000,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n     \"status\": \"archived\" , // 'open', 'close', 'pending', 'archived' \r\n    // \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        {           \r\n              \"user_id\": \"{{client_id}}\", \"is_primary\": true \r\n             }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"email\": \"email@gmail.com\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    \"team\": [\r\n        {\r\n             \"user_id\":\"6cd08351-97ff-4213-a0ad-eca4c63eb806\",\r\n              \"role_in_case\": \"باحث قانوني\" \r\n              } ,\r\n              {\r\n             \"user_id\":\"cc25ab40-c99c-4c46-b2c9-ef00fb0b4376\",\r\n              \"role_in_case\": \"باحث قانوني\" \r\n                \r\n              }\r\n    ],\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                  "raw": "// {\r\n//     \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n//     \"title\": \" private case\" ,\r\n//     \"description\": \"so hard case\"\r\n// }\r\n{\r\n    \"case_id\" : \"{{case_id}}\",\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    // \"case_number\": \"5-2222\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 500000.000,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n     \"status\": \"archived\" , // 'open', 'close', 'pending', 'archived' \r\n    // \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        {           \r\n              \"user_id\": \"{{client_id}}\", \"is_primary\": true \r\n             }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"email\": \"email@gmail.com\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    \"team\": [\r\n        {\r\n             \"user_id\":\"{{lawer_id}}\",\r\n              \"role_in_case\": \"باحث قانوني\" \r\n              } \r\n            //   ,\r\n            //   {\r\n            //  \"user_id\":\"cc25ab40-c99c-4c46-b2c9-ef00fb0b4376\",\r\n            //   \"role_in_case\": \"باحث قانوني\" \r\n                \r\n            //   }\r\n    ],\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -3944,7 +3944,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{Adham_Licensed_lawer_token_not_activate_office}}",
                       "type": "string"
                     }
                   ]
@@ -4103,7 +4103,7 @@
                     },
                     {
                       "key": "salary_expected",
-                      "value": "30000",
+                      "value": "0",
                       "type": "text",
                       "uuid": "a850210b-8169-40d3-abbe-851e9aebd4ff"
                     }
@@ -4602,7 +4602,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_omar_token}}",
+                      "value": "{{Mosaab_trainee_lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -4733,7 +4733,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_omar_token}}",
+                      "value": "{{Mosaab_trainee_lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -4873,6 +4873,93 @@
                   ],
                   "cookie": [],
                   "body": "{\n    \"status\": \"success\",\n    \"message\": \"Invitation accepted successfully.\",\n    \"data\": {\n        \"invitation_id\": \"019f60de-fce0-70a8-b82f-3fa7829d8c9a\",\n        \"office_name\": \"ابراهيم حبشية's Office\",\n        \"owner_office_name\": \"ابراهيم حبشية\",\n        \"Lawer_that_invited_name\": \"أيمن عرابي\",\n        \"status\": \"accepted\",\n        \"responded_at\": null,\n        \"created_at\": \"2026-07-14T13:44:14.000000Z\",\n        \"updated_at\": \"2026-07-14T14:08:57.000000Z\"\n    }\n}"
+                },
+                {
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        },
+                        {
+                          "key": "office_id",
+                          "value": "{{office_id}}",
+                          "type": "text",
+                          "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/accept_invitation?invitation_id={{invitaion_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "accept_invitation"
+                      ],
+                      "query": [
+                        {
+                          "key": "invitation_id",
+                          "value": "{{invitaion_id}}"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 06 Aug 2026 15:57:05 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Unauthorized . the invitation is not for you or its status is not  pending\",\n    \"error_details\": []\n}"
                 }
               ]
             },
@@ -4889,7 +4976,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{Mosaab_trainee_lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -5201,7 +5288,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -5544,7 +5631,7 @@
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/lawyer/Manage_Offices/search_for_lawers?lawyer_state=licensed&search_fullname=عمر",
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/search_for_lawers?lawyer_state=trainee",
                   "host": [
                     "{{Domain}}"
                   ],
@@ -5556,7 +5643,7 @@
                   "query": [
                     {
                       "key": "lawyer_state",
-                      "value": "licensed"
+                      "value": "trainee"
                     },
                     {
                       "key": "is_suspended",
@@ -5566,7 +5653,8 @@
                     },
                     {
                       "key": "search_fullname",
-                      "value": "عمر"
+                      "value": "عمر",
+                      "disabled": true
                     },
                     {
                       "key": "search_syndicate_card_number",
@@ -5762,7 +5850,7 @@
                     {
                       "key": "file",
                       "type": "file",
-                      "src": "postman-cloud:///1f16c8d2-ed62-4250-b0c7-73dc72146144"
+                      "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be"
                     },
                     {
                       "key": "parent_id",
@@ -10164,7 +10252,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -12549,7 +12637,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -12571,6 +12659,12 @@
                   "mode": "formdata",
                   "formdata": [
                     {
+                      "key": "file",
+                      "type": "file",
+                      "uuid": "4f4eb0be-f22c-471f-b528-b1b6acbe7b52",
+                      "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                    },
+                    {
                       "key": "title",
                       "value": "عقد ايجار",
                       "type": "text",
@@ -12578,7 +12672,7 @@
                     },
                     {
                       "key": "signers[0][user_id]",
-                      "value": "272e0d19-9820-4812-84fa-e567042c2681",
+                      "value": "{{client_id}}",
                       "type": "text",
                       "uuid": "0ec32dc2-024b-4af3-9d4f-782e5e055afd"
                     },
@@ -12632,7 +12726,7 @@
                     },
                     {
                       "key": "signers[1][user_id]",
-                      "value": "5b6f5990-85e5-4eb2-aa7f-20e88e25aedc",
+                      "value": "{{syndicate_id}}",
                       "type": "text",
                       "uuid": "391e354a-1730-4e45-93f3-d3c76933e78e"
                     },
@@ -12687,7 +12781,7 @@
                     },
                     {
                       "key": "signers[2][user_id]",
-                      "value": "ba4c2a32-d5b1-4c9f-a766-ad96d9d105a6",
+                      "value": "{{lawer_id}}",
                       "type": "text",
                       "uuid": "391e354a-1730-4e45-93f3-d3c76933e78e"
                     },
@@ -12731,12 +12825,6 @@
                       "key": "signers[2][sign_type]",
                       "value": "signature",
                       "type": "text"
-                    },
-                    {
-                      "key": "file",
-                      "type": "file",
-                      "uuid": "4f4eb0be-f22c-471f-b528-b1b6acbe7b52",
-                      "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.pdf"
                     }
                   ]
                 },
@@ -13412,7 +13500,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -13588,7 +13676,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{lawer_office_manager_token}}",
                       "type": "string"
                     }
                   ]
@@ -13745,7 +13833,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{lawer_token}}",
+                  "value": "{{Adham_Licensed_lawer_token_not_activate_office}}",
                   "type": "string"
                 }
               ]
@@ -13978,6 +14066,275 @@
           "name": "Legislations_Module",
           "item": [
             {
+              "name": "create_law",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{syndicate_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "\r\n{\r\n    \"title\": \"قانون المعاملات الجنائية السوري\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"P-2026-009\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{Domain}}/syndicate/legislation/create_law",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "syndicate",
+                    "legislation",
+                    "create_law"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Un Authenticated",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "\r\n{\r\n    \"title\": \"قانون المعاملات المدنية السوري\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"L-2026-009\",\r\n    \"category_id\": \"1b78940b-59b3-4a7c-a2d0-115d0d216a3b\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/create_law",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "create_law"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 05 Aug 2026 17:54:58 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Un Authenticated User\",\n    \"error_details\": {\n        \"message\": \"Un Authenticate , please Login and try again\"\n    }\n}"
+                },
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "\r\n{\r\n    \"title\": \"قانون المعاملات المدنية السوري\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"L-2026-009\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/create_law",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "create_law"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 06 Aug 2026 09:49:12 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": true,\n    \"message\": \"تم إنشاء التشريع بنجاح\",\n    \"data\": {\n        \"title\": \"قانون المعاملات المدنية السوري\",\n        \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\n        \"law_number\": \"L-2026-009\",\n        \"category_id\": \"1f5b1c77-3329-4de9-b156-29496474ef18\",\n        \"effective_date\": \"2026-06-24T00:00:00.000000Z\",\n        \"country\": \"syria\",\n        \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\n        \"part\": \"الباب الأول: مصادر الالتزام\",\n        \"chapter\": \"الفصل الأول: العقد\",\n        \"related_legislation_ids\": [],\n        \"articles\": [\n            {\n                \"title\": \"المادة 1\",\n                \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\n            },\n            {\n                \"title\": \"المادة 2\",\n                \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\n            }\n        ],\n        \"source\": \"admin\",\n        \"status\": \"active\",\n        \"id\": \"019fd67a-11c3-7127-987d-daa2b43c6b64\",\n        \"updated_at\": \"2026-08-06T09:49:12.000000Z\",\n        \"created_at\": \"2026-08-06T09:49:12.000000Z\"\n    }\n}"
+                },
+                {
+                  "name": "Un Authorize",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "\r\n{\r\n    \"title\": \"قانون المعاملات المدنية السوري\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"L-2026-009\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/create_law",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "create_law"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 06 Aug 2026 10:05:19 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"message\": \"لا تملك صلاحية الوصول لهذا المورد.\"\n}"
+                }
+              ]
+            },
+            {
               "name": "update_law",
               "protocolProfileBehavior": {
                 "disabledSystemHeaders": {
@@ -13990,7 +14347,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{syndicate_token}}",
                       "type": "string"
                     }
                   ]
@@ -14001,11 +14358,16 @@
                     "key": "Accept",
                     "value": "application/json",
                     "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
                   }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "// {\r\n//     \"title\": \"الباب الأول: الأحكام العامة (محدث)\",\r\n//     \"law_id\": \"{{lawer_id}}\",\r\n//     \"content\": \"تسري أحكام هذا القانون على كافة المعاملات المدنية والتجارية... (محدث)\"\r\n// }\r\n{\r\n    \"law_id\": \"{{law_id}}\",\r\n    \"title\": \"قانون المعاملات المدنية السوري (نسخة محدثة)\",\r\n    \"content\": \"يهدف هذا النظام المعدل إلى تنظيم كافة المعاملات القانونية بين الأفراد...\",\r\n     //\"law_number\": \"L-2026-003\",\r\n    \"category_id\": \"212e117c-1e8d-4124-90b8-56c20a7c5e2c\",\r\n    \"status\": \"amended\",\r\n    \"effective_date\": \"2026-06-25\",\r\n    \"country\": \"syria\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد والمسؤولية التقصيرية\",\r\n    \"related_legislation_ids\": [\r\n        // \"019ef8c3-9e08-7028-a2f6-769e5826aaaa\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1 (معدلة)\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول وتوافقهما على وجه يثبت أثره في المعقود عليه.\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين وأهليتهما القانونية.\"\r\n        }\r\n    ]\r\n}",
+                  "raw": "// {\r\n//     \"title\": \"الباب الأول: الأحكام العامة (محدث)\",\r\n//     \"law_id\": \"{{lawer_id}}\",\r\n//     \"content\": \"تسري أحكام هذا القانون على كافة المعاملات المدنية والتجارية... (محدث)\"\r\n// }\r\n{\r\n    \"law_id\": \"{{law_id}}\"  ,\r\n    \"title\": \"قانون المعاملات المدنية السوري (نسخة محدثة)\",\r\n    \"content\": \"يهدف هذا النظام المعدل إلى تنظيم كافة المعاملات القانونية بين الأفراد...\",\r\n     //\"law_number\": \"L-2026-003\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"status\": \"amended\",\r\n    \"effective_date\": \"2026-06-25\",\r\n    \"country\": \"syria\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد والمسؤولية التقصيرية\",\r\n    \"related_legislation_ids\": [\r\n        // \"019ef8c3-9e08-7028-a2f6-769e5826aaaa\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1 (معدلة)\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول وتوافقهما على وجه يثبت أثره في المعقود عليه.\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين وأهليتهما القانونية.\"\r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -14013,17 +14375,165 @@
                   }
                 },
                 "url": {
-                  "raw": "{{Domain}}/legislation/update_law",
+                  "raw": "{{Domain}}/syndicate/legislation/update_law",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
+                    "syndicate",
                     "legislation",
                     "update_law"
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "// {\r\n//     \"title\": \"الباب الأول: الأحكام العامة (محدث)\",\r\n//     \"law_id\": \"{{lawer_id}}\",\r\n//     \"content\": \"تسري أحكام هذا القانون على كافة المعاملات المدنية والتجارية... (محدث)\"\r\n// }\r\n{\r\n    \"law_id\": \"{{law_id}}\",\r\n    \"title\": \"قانون المعاملات المدنية السوري (نسخة محدثة)\",\r\n    \"content\": \"يهدف هذا النظام المعدل إلى تنظيم كافة المعاملات القانونية بين الأفراد...\",\r\n     //\"law_number\": \"L-2026-003\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"status\": \"amended\",\r\n    \"effective_date\": \"2026-06-25\",\r\n    \"country\": \"syria\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد والمسؤولية التقصيرية\",\r\n    \"related_legislation_ids\": [\r\n        // \"019ef8c3-9e08-7028-a2f6-769e5826aaaa\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1 (معدلة)\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول وتوافقهما على وجه يثبت أثره في المعقود عليه.\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين وأهليتهما القانونية.\"\r\n        }\r\n    ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/update_law",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "update_law"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 06 Aug 2026 09:52:53 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": true,\n    \"message\": \"تم تحديث التشريع بنجاح\",\n    \"data\": {\n        \"id\": \"019fd67a-11c3-7127-987d-daa2b43c6b64\",\n        \"title\": \"قانون المعاملات المدنية السوري (نسخة محدثة)\",\n        \"law_number\": \"L-2026-009\",\n        \"status\": \"amended\",\n        \"country\": \"syria\",\n        \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\n        \"part\": \"الباب الأول: مصادر الالتزام\",\n        \"chapter\": \"الفصل الأول: العقد والمسؤولية التقصيرية\",\n        \"articles\": [\n            {\n                \"title\": \"المادة 1 (معدلة)\",\n                \"content\": \"العقد هو ارتباط الإيجاب بالقبول وتوافقهما على وجه يثبت أثره في المعقود عليه.\"\n            },\n            {\n                \"title\": \"المادة 2\",\n                \"content\": \"يشترط لصحة العقد رضا الطرفين وأهليتهما القانونية.\"\n            }\n        ]\n    }\n}"
+                },
+                {
+                  "name": "Validation failed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "// {\r\n//     \"title\": \"الباب الأول: الأحكام العامة (محدث)\",\r\n//     \"law_id\": \"{{lawer_id}}\",\r\n//     \"content\": \"تسري أحكام هذا القانون على كافة المعاملات المدنية والتجارية... (محدث)\"\r\n// }\r\n{\r\n    \"law_id\":  \"asasas\"  , //\"{{law_id}}\" \r\n    \"title\": \"قانون المعاملات المدنية السوري (نسخة محدثة)\",\r\n    \"content\": \"يهدف هذا النظام المعدل إلى تنظيم كافة المعاملات القانونية بين الأفراد...\",\r\n     //\"law_number\": \"L-2026-003\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"status\": \"amended\",\r\n    \"effective_date\": \"2026-06-25\",\r\n    \"country\": \"syria\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد والمسؤولية التقصيرية\",\r\n    \"related_legislation_ids\": [\r\n        // \"019ef8c3-9e08-7028-a2f6-769e5826aaaa\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1 (معدلة)\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول وتوافقهما على وجه يثبت أثره في المعقود عليه.\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين وأهليتهما القانونية.\"\r\n        }\r\n    ]\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/update_law",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "update_law"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Content",
+                  "code": 422,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 06 Aug 2026 10:20:00 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Validation failed\",\n    \"error_details\": {\n        \"law_id\": [\n            \"The law id field must be a valid UUID.\"\n        ]\n    }\n}"
+                }
+              ]
             },
             {
               "name": "delete_law",
@@ -14038,35 +14548,172 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{syndicate_token}}",
                       "type": "string"
                     }
                   ]
                 },
-                "method": "GET",
+                "method": "DELETE",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json",
                     "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
                   }
                 ],
                 "url": {
-                  "raw": "{{Domain}}/legislation/delete_law/{{law_id}}",
+                  "raw": "{{Domain}}/syndicate/legislation/delete_law/{{law_id}}",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
+                    "syndicate",
                     "legislation",
                     "delete_law",
                     "{{law_id}}"
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "un Authorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/delete_law/{{law_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "delete_law",
+                        "{{law_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 06 Aug 2026 10:21:49 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"message\": \"لا تملك صلاحية الوصول لهذا المورد.\"\n}"
+                },
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/delete_law/{{law_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "delete_law",
+                        "{{law_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 06 Aug 2026 10:22:26 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"success\": true,\n    \"message\": \"تم حذف التشريع بنجاح\",\n    \"data\": {\n        \"deleted_count\": 1\n    }\n}"
+                }
+              ]
             },
             {
-              "name": "create_law",
+              "name": "get_laws",
               "protocolProfileBehavior": {
                 "disabledSystemHeaders": {
                   "accept": true
@@ -14078,40 +14725,200 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{syndicate_token}}",
                       "type": "string"
                     }
                   ]
                 },
-                "method": "POST",
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
                     "value": "application/json",
                     "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "\r\n{\r\n    \"title\": \"قانون المعاملات المدنية السوري\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"L-2026-009\",\r\n    \"category_id\": \"1b78940b-59b3-4a7c-a2d0-115d0d216a3b\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
                 "url": {
-                  "raw": "{{Domain}}/legislation/create_law",
+                  "raw": "{{Domain}}/syndicate/legislation/get_laws?status=active&category_id={{law_category_id}}&country=syria",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
+                    "syndicate",
                     "legislation",
-                    "create_law"
+                    "get_laws"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "active",
+                      "description": " // amended,repealed,active"
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "{{law_category_id}}"
+                    },
+                    {
+                      "key": "country",
+                      "value": "syria"
+                    }
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "un Authorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/delete_law/{{law_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "delete_law",
+                        "{{law_id}}"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 06 Aug 2026 10:21:49 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"message\": \"لا تملك صلاحية الوصول لهذا المورد.\"\n}"
+                },
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/get_laws",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "get_laws"
+                      ],
+                      "query": [
+                        {
+                          "key": "status",
+                          "value": "active",
+                          "description": " // amended,repealed,active",
+                          "disabled": true
+                        },
+                        {
+                          "key": "category_id",
+                          "value": "{{law_category_id}}",
+                          "disabled": true
+                        },
+                        {
+                          "key": "country",
+                          "value": "syria",
+                          "disabled": true
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Thu, 06 Aug 2026 11:04:48 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"تم جلب التشريعات بنجاح\",\n    \"data\": {\n        \"legislations\": [\n            {\n                \"id\": \"019fd6b8-b89e-7037-8278-3cd26b402abf\",\n                \"Book\": \"الكتاب الأول: الالتزامات بوجه عام\",\n                \"part\": \"الباب الأول: مصادر الالتزام\",\n                \"chapter\": \"الفصل الأول: العقد\",\n                \"title\": \"قانون المعاملات المدنية السوري\",\n                \"description\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\n                \"law_number\": \"L-2026-009\",\n                \"status\": \"ساري المفعول\",\n                \"country\": \"سوريا\",\n                \"source_newspaper\": \"admin\",\n                \"publish_date\": \"2026-06-24\",\n                \"category\": {\n                    \"id\": \"1f5b1c77-3329-4de9-b156-29496474ef18\",\n                    \"name\": \"قضايا العقارات والأملاك\",\n                    \"icon\": \"🏠\"\n                }\n            },\n            {\n                \"id\": \"019fd6b9-8883-73d8-8715-284fc92b0a24\",\n                \"Book\": \"الكتاب الأول: الالتزامات بوجه عام\",\n                \"part\": \"الباب الأول: مصادر الالتزام\",\n                \"chapter\": \"الفصل الأول: العقد\",\n                \"title\": \"قانون المعاملات المدنية السوري\",\n                \"description\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\n                \"law_number\": \"F-2026-009\",\n                \"status\": \"ساري المفعول\",\n                \"country\": \"سوريا\",\n                \"source_newspaper\": \"admin\",\n                \"publish_date\": \"2026-06-24\",\n                \"category\": {\n                    \"id\": \"1f5b1c77-3329-4de9-b156-29496474ef18\",\n                    \"name\": \"قضايا العقارات والأملاك\",\n                    \"icon\": \"🏠\"\n                }\n            },\n            {\n                \"id\": \"019fd6ba-cbc1-72c5-b40c-6903a4203cd8\",\n                \"Book\": \"الكتاب الأول: الالتزامات بوجه عام\",\n                \"part\": \"الباب الأول: مصادر الالتزام\",\n                \"chapter\": \"الفصل الأول: العقد\",\n                \"title\": \"قانون المعاملات الجنائية السوري\",\n                \"description\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\n                \"law_number\": \"P-2026-009\",\n                \"status\": \"ساري المفعول\",\n                \"country\": \"سوريا\",\n                \"source_newspaper\": \"admin\",\n                \"publish_date\": \"2026-06-24\",\n                \"category\": {\n                    \"id\": \"1f5b1c77-3329-4de9-b156-29496474ef18\",\n                    \"name\": \"قضايا العقارات والأملاك\",\n                    \"icon\": \"🏠\"\n                }\n            }\n        ]\n    }\n}"
+                }
+              ]
             }
           ]
         },
@@ -15093,19 +15900,19 @@
               "formdata": [
                 {
                   "key": "national_id",
-                  "value": "3333",
+                  "value": "1212",
                   "type": "text",
                   "uuid": "fae6f840-37b3-40ab-a33e-a086f1c9fad9"
                 },
                 {
                   "key": "full_name",
-                  "value": "علي",
+                  "value": "ادهم",
                   "type": "text",
                   "uuid": "8f8e1057-7b60-4a27-a0d1-1a6d0337d7ca"
                 },
                 {
                   "key": "father_name",
-                  "value": "ضاهر",
+                  "value": "العلي",
                   "type": "text",
                   "uuid": "93028b0c-2849-466d-a9da-f8e65d83c17d"
                 },
@@ -15141,7 +15948,7 @@
                 },
                 {
                   "key": "syndicate_card_number",
-                  "value": "3333",
+                  "value": "1212",
                   "type": "text",
                   "uuid": "f774b787-3a66-4498-8675-0c8d21950925"
                 },
@@ -17457,6 +18264,26 @@
     },
     {
       "key": "lawer_omar_token",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "syndicate_id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "trainee_lawer_ahmad_token",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "Mosaab_trainee_lawer_token",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "Adham_Licensed_lawer_token_not_activate_office",
       "value": "",
       "type": "default"
     }

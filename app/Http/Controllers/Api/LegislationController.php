@@ -10,6 +10,7 @@ use App\Models\Legislation;
 use App\Services\LegislationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class LegislationController extends Controller
@@ -32,9 +33,62 @@ class LegislationController extends Controller
             ],
         ]);
     }
+    public function create_law(StoreLegislationRequest $request): JsonResponse
+    {
+        try {
+            // validate permission 
+            if (Gate::denies('create_law', Legislation::class)) {
+                return sendError("Unauthorized, You do not have permission to create laws", [], 403);
+            }
+            // call service
+            $response = $this->legislationService->create_law($request->validated());
+            // send response
+            return sendResponse($response['data'], $response['message'], 201);
+        } catch (\Exception $e) {
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
+        }
+    }
+    public function update_law(UpdateLegislationRequest $request): JsonResponse
+    {
+        try {
+            // validate permission
+            if (Gate::denies('update_law', Legislation::class)) {
+                return sendError("Unauthorized, You do not have permission to update laws", [], 403);
+            }
+            // call service to update law
+            $response = $this->legislationService->update_law($request->validated());
+            // send response
+            return sendResponse($response['data'], $response['message'], 200);
+        } catch (\Exception $e) {
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
+        }
+    }
+    public function delete_law(string $law_id): JsonResponse
+    {
+        try {
+            //  validate data 
+            $validator = Validator::make(['id' => $law_id], [
+                'id' => 'required|exists:legislations,id',
+            ]);
+            if ($validator->fails()) {
+                return sendError('Validation failed', $validator->errors()->toArray(), 422);
+            }
+            // validate permission
+            if (Gate::denies('delete_law', Legislation::class)) {
+                return sendError("Unauthorized, You do not have permission to delete laws", [], 403);
+            }
+            // call service to delete law
+            $response = $this->legislationService->delete_law($law_id);
+            // send response 
+            return sendResponse($response['data'], $response['message'], 200);
+        } catch (\Exception $e) {
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
+        }
+    }
     public function index(Request $request)
     {
         try {
+            // validate data Filters
             $validator = Validator::make($request->all(), [
                 'status' => 'nullable|in:active,amended,repealed',
                 'category_id' => 'nullable|string|exists:legal_categories,id',
@@ -45,25 +99,17 @@ class LegislationController extends Controller
                 'country.max' => 'اسم البلد يجب ان يكون اقل من 100 حرف',
             ]);
             if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'بيانات المدخلات غير صحيحة',
-                    'errors' => $validator->errors(),
-                ], 422);
+                return        sendError('Validation failed', $validator->errors()->toArray(), 422);
             }
-
+            // dd(Legislation::get());
+            // call service
             $reponse = $this->legislationService->getLegislations($request->all());
-            return response()->json([
-                'success' => true,
-                'message' => 'تم جلب التشريعات بنجاح',
-                'data' => $reponse['data'],
-            ]);
+            // send resposne
+            // dd($reponse);
+
+            return sendResponse($reponse['data'], $reponse['message'], 200);
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine(),
-                'Class' => $e->getFile()
-            ], 500);
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
         }
     }
     public function get_law_details($id)
@@ -121,71 +167,5 @@ class LegislationController extends Controller
             'success' => true,
             'data' => $result['data'],
         ]);
-    }
-
-    public function create_law(StoreLegislationRequest $request): JsonResponse
-    {
-        try {
-            $response = $this->legislationService->create_law($request->validated());
-
-            return response()->json([
-                'success' => true,
-                'message' => 'تم إنشاء التشريع بنجاح',
-                'data' => $response['data'],
-            ], 201);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'حدث خطأ في الخادم',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
-    public function update_law(UpdateLegislationRequest $request): JsonResponse
-    {
-        try {
-            $response = $this->legislationService->update_law($request->validated());
-
-            return response()->json([
-                'success' => $response['success'],
-                'message' => $response['message'],
-                'data'    => $response['data'],
-            ], $response['success'] ? 200 : 400);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'حدث خطأ في الخادم',
-                'error'   => $e->getMessage(),
-            ], 500);
-        }
-    }
-    public function delete_law(string $law_id): JsonResponse
-    {
-        try {
-            $validator = Validator::make(['id' => $law_id], [
-                'id' => 'required|exists:legislations,id',
-            ]);
-            if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'Errors' => $validator->errors(),
-                ], 422);
-            }
-
-            $response = $this->legislationService->delete_law($law_id);
-
-            return response()->json([
-                'success' => true,
-                'message' => 'تم حذف التشريع بنجاح',
-                'data' => $response['data'],
-            ], 200);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'حدث خطأ في الخادم',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
     }
 }
