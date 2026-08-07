@@ -45,4 +45,8 @@ Route::prefix('legislation')->group(function () {
     Route::post('/update_law', [LegislationController::class, 'update_law']);
     Route::delete('/delete_law/{law_id}', [LegislationController::class, 'delete_law']);
     Route::get('/get_laws', [LegislationController::class, 'index']);
+
+    Route::get('/Get_legal_categories', [LegislationController::class, 'Get_legal_categories']);
+    Route::get('/get_law_details/{law_id}', [LegislationController::class, 'get_law_details']);
+    Route::get('/semantic_search', [LegislationController::class, 'semantic_search']);
 });

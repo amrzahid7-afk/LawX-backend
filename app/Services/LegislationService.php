@@ -25,9 +25,16 @@ class LegislationService
             $q->where('country', $requestData['country']);
         });
 
-        $legislations = $query->get(); //  $query->latest()->paginate(1);
+        $legislations =   $query->latest()->paginate(1); //  $query->get(); //
+        $legislations->appends([
+            'status' => $requestData['status'] ?? null,
+            'category_id' => $requestData['category_id'] ?? null,
+            'country' => $requestData['country'] ?? null,
+        ]);
 
-        $formattedLegislations = collect($legislations)->map(function ($legislation) {
+        //  $formattedLegislations = collect($legislations)->map(function ($legislation) {
+        //  $formattedLegislations = $legislations->getCollection()->map(function ($legislation) {
+        $formattedLegislations = $legislations->getCollection()->map(function ($legislation) {
             return [
                 'id' => $legislation->id,
                 'Book' => $legislation->book,
@@ -36,10 +43,10 @@ class LegislationService
                 'title' => $legislation->title,
                 'description' => $legislation->content,
                 'law_number' => $legislation->law_number,
-                'status' => $legislation->status == 'active' ? 'ساري المفعول' : 'معدل',
-                'country' => $legislation->country == 'syria' ? 'سوريا' : ($legislation->country == 'saudi' ? 'المملكة العربية السعودية' : 'الإمارات العربية المتحدة'),
-                'source_newspaper' => $legislation->source ?? 'الجريدة الرسمية',
-                'publish_date' => $legislation->effective_date ? date('Y-m-d', strtotime($legislation->effective_date)) : null,
+                'status' => $legislation->status, // == 'active' ? 'ساري المفعول' : 'معدل',
+                'country' => $legislation->country, // == 'syria' ? 'سوريا' : ($legislation->country == 'saudi' ? 'المملكة العربية السعودية' : 'الإمارات العربية المتحدة'),
+                'source_newspaper' => $legislation->source, // ?? 'الجريدة الرسمية',
+                'publish_date' => $legislation->effective_date, //  ? date('Y-m-d', strtotime($legislation->effective_date)) : null,
                 'category' => $legislation->category ? [
                     'id' => $legislation->category->id,
                     'name' => $legislation->category->name,
@@ -53,16 +60,16 @@ class LegislationService
             'message' => 'تم جلب التشريعات بنجاح',
             'data' => [
                 'legislations' => $formattedLegislations,
-                // 'pagination' => [
-                //     'current_page' => $legislations->currentPage(),
-                //     'total_pages' => $legislations->lastPage(),
-                //     'total_items' => $legislations->total(),
-                //     'per_page' => $legislations->perPage(),
-                //     'first_page_url' => $legislations->url(1),
-                //     'last_page_url' => $legislations->url($legislations->lastPage()),
-                //     'next_page_url' => $legislations->nextPageUrl(),
-                //     'prev_page_url' => $legislations->previousPageUrl(),
-                // ],
+                'pagination' => [
+                    'current_page' => $legislations->currentPage(),
+                    'total_pages' => $legislations->lastPage(),
+                    'total_items' => $legislations->total(),
+                    'per_page' => $legislations->perPage(),
+                    'first_page_url' => $legislations->url(1),
+                    'last_page_url' => $legislations->url($legislations->lastPage()),
+                    'next_page_url' => $legislations->nextPageUrl(),
+                    'prev_page_url' => $legislations->previousPageUrl(),
+                ],
             ],
         ];
     }

@@ -21,4 +21,8 @@ class LegislationPolicy
     {
         return $user->hasRole(RoleSlug::Syndicate);
     }
+    public function view_law(User $user): bool
+    {
+        return $user->hasRole(RoleSlug::Syndicate) || $user->hasRole(RoleSlug::Lawyer);
+    }
 }

@@ -20,7 +20,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"client@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
+                  "raw": "{\r\n    \"email\": \"Morad@gmail.co\" ,\r\n    \"password\": \"password\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -50,12 +50,12 @@
                   "formdata": [
                     {
                       "key": "national_id",
-                      "value": "1212",
+                      "value": "1313",
                       "type": "text"
                     },
                     {
                       "key": "full_name",
-                      "value": "ادهم",
+                      "value": "معاذ",
                       "type": "text"
                     },
                     {
@@ -90,7 +90,7 @@
                     },
                     {
                       "key": "syndicate_card_number",
-                      "value": "1212",
+                      "value": "1313",
                       "type": "text"
                     },
                     {
@@ -254,7 +254,7 @@
                     },
                     {
                       "key": "email",
-                      "value": "Adham@gmail.co",
+                      "value": "moaz@gmail.co",
                       "type": "text",
                       "uuid": "8af9b086-5be6-4c25-8e34-b52a0f60cecf"
                     },
@@ -3944,7 +3944,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{Adham_Licensed_lawer_token_not_activate_office}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -4074,7 +4074,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -4444,7 +4444,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -4602,7 +4602,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{Mosaab_trainee_lawer_token}}",
+                      "value": "{{moradToken}}",
                       "type": "string"
                     }
                   ]
@@ -4976,7 +4976,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{Mosaab_trainee_lawer_token}}",
+                      "value": "{{moradToken}}",
                       "type": "string"
                     }
                   ]
@@ -14098,7 +14098,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "\r\n{\r\n    \"title\": \"قانون المعاملات الجنائية السوري\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"P-2026-009\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
+                  "raw": "\r\n{\r\n    \"title\": \"احكام المخالعة\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"S-2026-009\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"country\": \"ٍSyria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -14744,7 +14744,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{Domain}}/syndicate/legislation/get_laws?status=active&category_id={{law_category_id}}&country=syria",
+                  "raw": "{{Domain}}/syndicate/legislation/get_laws",
                   "host": [
                     "{{Domain}}"
                   ],
@@ -14757,15 +14757,18 @@
                     {
                       "key": "status",
                       "value": "active",
-                      "description": " // amended,repealed,active"
+                      "description": " // amended,repealed,active",
+                      "disabled": true
                     },
                     {
                       "key": "category_id",
-                      "value": "{{law_category_id}}"
+                      "value": "{{law_category_id}}",
+                      "disabled": true
                     },
                     {
                       "key": "country",
-                      "value": "syria"
+                      "value": "syria",
+                      "disabled": true
                     }
                   ]
                 }
@@ -14917,6 +14920,376 @@
                   ],
                   "cookie": [],
                   "body": "{\n    \"status\": \"success\",\n    \"message\": \"تم جلب التشريعات بنجاح\",\n    \"data\": {\n        \"legislations\": [\n            {\n                \"id\": \"019fd6b8-b89e-7037-8278-3cd26b402abf\",\n                \"Book\": \"الكتاب الأول: الالتزامات بوجه عام\",\n                \"part\": \"الباب الأول: مصادر الالتزام\",\n                \"chapter\": \"الفصل الأول: العقد\",\n                \"title\": \"قانون المعاملات المدنية السوري\",\n                \"description\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\n                \"law_number\": \"L-2026-009\",\n                \"status\": \"ساري المفعول\",\n                \"country\": \"سوريا\",\n                \"source_newspaper\": \"admin\",\n                \"publish_date\": \"2026-06-24\",\n                \"category\": {\n                    \"id\": \"1f5b1c77-3329-4de9-b156-29496474ef18\",\n                    \"name\": \"قضايا العقارات والأملاك\",\n                    \"icon\": \"🏠\"\n                }\n            },\n            {\n                \"id\": \"019fd6b9-8883-73d8-8715-284fc92b0a24\",\n                \"Book\": \"الكتاب الأول: الالتزامات بوجه عام\",\n                \"part\": \"الباب الأول: مصادر الالتزام\",\n                \"chapter\": \"الفصل الأول: العقد\",\n                \"title\": \"قانون المعاملات المدنية السوري\",\n                \"description\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\n                \"law_number\": \"F-2026-009\",\n                \"status\": \"ساري المفعول\",\n                \"country\": \"سوريا\",\n                \"source_newspaper\": \"admin\",\n                \"publish_date\": \"2026-06-24\",\n                \"category\": {\n                    \"id\": \"1f5b1c77-3329-4de9-b156-29496474ef18\",\n                    \"name\": \"قضايا العقارات والأملاك\",\n                    \"icon\": \"🏠\"\n                }\n            },\n            {\n                \"id\": \"019fd6ba-cbc1-72c5-b40c-6903a4203cd8\",\n                \"Book\": \"الكتاب الأول: الالتزامات بوجه عام\",\n                \"part\": \"الباب الأول: مصادر الالتزام\",\n                \"chapter\": \"الفصل الأول: العقد\",\n                \"title\": \"قانون المعاملات الجنائية السوري\",\n                \"description\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\n                \"law_number\": \"P-2026-009\",\n                \"status\": \"ساري المفعول\",\n                \"country\": \"سوريا\",\n                \"source_newspaper\": \"admin\",\n                \"publish_date\": \"2026-06-24\",\n                \"category\": {\n                    \"id\": \"1f5b1c77-3329-4de9-b156-29496474ef18\",\n                    \"name\": \"قضايا العقارات والأملاك\",\n                    \"icon\": \"🏠\"\n                }\n            }\n        ]\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "Get_legal_categories",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{syndicate_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/syndicate/legislation/Get_legal_categories",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "syndicate",
+                    "legislation",
+                    "Get_legal_categories"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/Get_legal_categories",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "Get_legal_categories"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "",
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 07 Aug 2026 12:28:37 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\n    \"success\": true,\n    \"message\": \"تم جلب التصنيفات  والبلدان بنجاح\",\n    \"data\": {\n        \"categories\": [\n            \"1f5b1c77-3329-4de9-b156-29496474ef18\"\n        ],\n        \"countries\": [\n            \"syria\"\n        ]\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "get_law_details",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{syndicate_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/syndicate/legislation/get_law_details/{{law_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "syndicate",
+                    "legislation",
+                    "get_law_details",
+                    "{{law_id}}"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/get_law_details/{{law_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "get_law_details",
+                        "{{law_id}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "",
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 07 Aug 2026 12:29:57 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\n    \"success\": true,\n    \"message\": \"تم جلب تفاصيل التشريع بنجاح\",\n    \"data\": {\n        \"id\": \"019fd6b8-b89e-7037-8278-3cd26b402abf\",\n        \"title\": \"قانون المعاملات المدنية السوري (نسخة محدثة)\",\n        \"content\": \"يهدف هذا النظام المعدل إلى تنظيم كافة المعاملات القانونية بين الأفراد...\",\n        \"law_number\": \"L-2026-009\",\n        \"status\": \"معدل\",\n        \"country\": \"سوريا\",\n        \"source_newspaper\": \"وزارة العدل\",\n        \"publish_date\": \"25/06/2026\",\n        \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\n        \"part\": \"الباب الأول: مصادر الالتزام\",\n        \"chapter\": \"الفصل الأول: العقد والمسؤولية التقصيرية\",\n        \"category\": {\n            \"id\": \"1f5b1c77-3329-4de9-b156-29496474ef18\",\n            \"name\": \"قضايا العقارات والأملاك\",\n            \"icon\": \"🏠\"\n        },\n        \"articles\": [\n            {\n                \"title\": \"المادة 1 (معدلة)\",\n                \"content\": \"العقد هو ارتباط الإيجاب بالقبول وتوافقهما على وجه يثبت أثره في المعقود عليه.\"\n            },\n            {\n                \"title\": \"المادة 2\",\n                \"content\": \"يشترط لصحة العقد رضا الطرفين وأهليتهما القانونية.\"\n            }\n        ],\n        \"related_legislations\": []\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "semantic_search",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{syndicate_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/syndicate/legislation/semantic_search?q=نسخة &limit=",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "syndicate",
+                    "legislation",
+                    "semantic_search"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "نسخة "
+                    },
+                    {
+                      "key": "limit",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/legislation/semantic_search?q=نسخة &limit=",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "legislation",
+                        "semantic_search"
+                      ],
+                      "query": [
+                        {
+                          "key": "q",
+                          "value": "نسخة "
+                        },
+                        {
+                          "key": "limit",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "",
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 07 Aug 2026 12:32:39 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\n    \"success\": true,\n    \"data\": [\n        {\n            \"id\": \"019fd6b8-b89e-7037-8278-3cd26b402abf\",\n            \"Book\": \"الكتاب الأول: الالتزامات بوجه عام\",\n            \"part\": \"الباب الأول: مصادر الالتزام\",\n            \"chapter\": \"الفصل الأول: العقد والمسؤولية التقصيرية\",\n            \"title\": \"قانون المعاملات المدنية السوري (نسخة محدثة)\",\n            \"description\": \"يهدف هذا النظام المعدل إلى تنظيم كافة المعاملات القانونية بين الأفراد...\",\n            \"law_number\": \"L-2026-009\",\n            \"status\": \"amended\",\n            \"country\": \"syria\",\n            \"source_newspaper\": \"admin\",\n            \"publish_date\": \"2026-06-25\",\n            \"category\": {\n                \"id\": \"1f5b1c77-3329-4de9-b156-29496474ef18\",\n                \"name\": \"قضايا العقارات والأملاك\",\n                \"icon\": \"🏠\"\n            }\n        }\n    ]\n}"
                 }
               ]
             }
@@ -15900,13 +16273,13 @@
               "formdata": [
                 {
                   "key": "national_id",
-                  "value": "1212",
+                  "value": "1313",
                   "type": "text",
                   "uuid": "fae6f840-37b3-40ab-a33e-a086f1c9fad9"
                 },
                 {
                   "key": "full_name",
-                  "value": "ادهم",
+                  "value": "معاذ",
                   "type": "text",
                   "uuid": "8f8e1057-7b60-4a27-a0d1-1a6d0337d7ca"
                 },
@@ -15948,7 +16321,7 @@
                 },
                 {
                   "key": "syndicate_card_number",
-                  "value": "1212",
+                  "value": "1313",
                   "type": "text",
                   "uuid": "f774b787-3a66-4498-8675-0c8d21950925"
                 },
@@ -18284,6 +18657,11 @@
     },
     {
       "key": "Adham_Licensed_lawer_token_not_activate_office",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "moradToken",
       "value": "",
       "type": "default"
     }

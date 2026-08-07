@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLegislationRequest;
 use App\Http\Requests\UpdateLegislationRequest;
+use App\Models\Legal_category;
 use App\Models\Legislation;
 use App\Services\LegislationService;
 use Illuminate\Http\JsonResponse;
@@ -19,19 +20,6 @@ class LegislationController extends Controller
     public function __construct(LegislationService $legislationService)
     {
         $this->legislationService = $legislationService;
-    }
-    public function Get_legal_categories()
-    {
-        $categories = Legislation::distinct()->pluck('category_id');
-        $countries = Legislation::distinct()->pluck('country');
-        return response()->json([
-            'success' => true,
-            'message' => 'تم جلب التصنيفات  والبلدان بنجاح',
-            'data' => [
-                'categories' => $categories,
-                'countries' => $countries
-            ],
-        ]);
     }
     public function create_law(StoreLegislationRequest $request): JsonResponse
     {
@@ -99,7 +87,11 @@ class LegislationController extends Controller
                 'country.max' => 'اسم البلد يجب ان يكون اقل من 100 حرف',
             ]);
             if ($validator->fails()) {
-                return        sendError('Validation failed', $validator->errors()->toArray(), 422);
+                return  sendError('Validation failed', $validator->errors()->toArray(), 422);
+            }
+            // validate permission
+            if (Gate::denies('view_law', Legislation::class)) {
+                return sendError("Unauthorized, You do not have permission to view laws", [], 403);
             }
             // dd(Legislation::get());
             // call service
@@ -109,38 +101,41 @@ class LegislationController extends Controller
 
             return sendResponse($reponse['data'], $reponse['message'], 200);
         } catch (\Exception $e) {
-            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
+            return sendError('Internal Server Error', ['error' => $e->getMessage() . "   "  . $e->getFile() . "   " . $e->getLine()], 500);
         }
     }
+    public function Get_legal_categories()
+    {
+        // $categories = Legislation::distinct()->pluck('category_id');
+        // $countries = Legislation::distinct()->pluck('country');
+        $categories = Legal_category::all('id', 'name');
+        return response()->json([
+            'success' => true,
+            'message' => 'تم جلب التصنيفات  والبلدان بنجاح',
+            'data' => [
+                'categories' => $categories,
+            ],
+        ]);
+    }
+
     public function get_law_details($id)
     {
         try {
+            //  validate data 
             $validator = Validator::make(['id' => $id], [
                 'id' => 'required|exists:legislations,id',
             ]);
-
             if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'بيانات المدخلات غير صحيحة',
-                    'errors' => $validator->errors(),
-                ], 422);
+                return sendError('Validation failed', $validator->errors()->toArray(), 422);
             }
-
+            // validate permissions 
+            if (Gate::denies('view_law', Legislation::class)) {
+                return sendError("Unauthorized, You do not have permission to view laws", [], 403);
+            }
             $response = $this->legislationService->get_law_details($id);
-
-            return response()->json([
-                'success' => true,
-                'message' => $response['message'],
-                'data' => $response['data'],
-            ]);
+            return sendResponse($response['data'], $response['message'], 200);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'حدث خطأ في الخادم',
-                'error' => $e->getMessage(),
-                'line' => $e->getLine()
-            ], 500);
+            return sendError('Internal Server Error', ['error' => $e->getMessage() . "   "  . $e->getFile() . "   " . $e->getLine()], 500);
         }
     }
     public function semantic_search(Request $request)
@@ -155,10 +150,7 @@ class LegislationController extends Controller
             'limit' => 'nullable|integer|min:1|max:50',
         ]);
         if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors(),
-            ], 422);
+            return  sendError('Validation failed', $validator->errors()->toArray(), 422);
         }
         // calling service
         $result = $this->legislationService->semantic_search($request->q, $request->limit ?? 10);
