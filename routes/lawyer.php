@@ -124,7 +124,7 @@ Route::prefix('legislation')->group(function () {
     Route::get('/Get_legal_categories', [LegislationController::class, 'Get_legal_categories']);
     Route::get('/Get_legislation_with_filter_options', [LegislationController::class, 'index']);
     Route::get('/get_law_details/{law_id}', [LegislationController::class, 'get_law_details']);
-    Route::post('/semantic_search', [LegislationController::class, 'semantic_search']);
+    Route::get('/semantic_search', [LegislationController::class, 'semantic_search']);
 });
 
 // templates Apis
@@ -137,4 +137,5 @@ Route::prefix('templates')->group(function () {
 // profile
 Route::prefix('profile')->group(function () {
     Route::get('get_lawyer_profile', [LawyerProfileController::class, 'getLawyerProfileData']);
+    Route::get('/my_reviews_stats', [LawyerProfileController::class, 'getMyReviewStats']);
 });

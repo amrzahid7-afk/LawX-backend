@@ -5,6 +5,9 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 class UpdateProposalRequest extends FormRequest
 {
     /**
@@ -50,5 +53,9 @@ class UpdateProposalRequest extends FormRequest
             'file.mimes' => 'File must be a pdf, doc, docx, jpg, jpeg, png',
             'file.file' => 'File must be a file',
         ];
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(sendError('Validation failed', $validator->errors()->toArray(), 422));
     }
 }

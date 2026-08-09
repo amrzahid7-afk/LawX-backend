@@ -105,10 +105,6 @@ class AddTaskRequest extends FormRequest
     }
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
-            'success' => false,
-            'message' => 'Validation failed',
-            'errors' => $validator->errors()
-        ], 422));
+        throw new HttpResponseException(sendError('Validation failed', $validator->errors()->toArray(), 422));
     }
 }

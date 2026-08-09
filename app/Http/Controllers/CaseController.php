@@ -21,33 +21,21 @@ class CaseController extends Controller
     }
     public function create(CaseCreationRequest $request)
     {
-        if (Gate::denies('create_case', CaseModel::class)) {
-            return sendError("you are trainee Lawyer Or your Account is suspened ", [], 403);
-        }
+
         try {
             // validated data
-            // dd("done");
             $validated_data = $request->validated();
-            // dd("done");
+            // validate permission
+            if (Gate::denies('create_case', CaseModel::class)) {
+                return sendError("you are trainee Lawyer Or your Account is suspened ", [], 403);
+            }
             // calling case service
             $case = $this->caseService->createCase($validated_data);
-            // dd("done");
             // return response
-            return response()->json([
-                'status' => $case['status'],
-                'data' => $case['data'],
-            ], $case['code']);
-            // dd("done");
-
+            return sendResponse($case['data'], $case['message'], $case['code']);
             // returun error response
         } catch (Exception $e) {
-            return response()->json([
-                'status'  => false,
-                'message' => 'something went wrong',
-                'error'   => $e->getMessage(),
-                'Line'   => $e->getLine(),
-                'Class'   => $e->getFile()
-            ], 500);
+            return sendError('Internal Server Error ', ['error' => $e->getMessage(), 'Line' => $e->getLine(), 'Class' => $e->getFile()], 500);
         }
     }
     public function get_case_details($case_id)
@@ -105,20 +93,12 @@ class CaseController extends Controller
             if (Gate::denies('update', CaseModel::find($request->input('case_id')))) {
                 return sendError('un Authorized , you  dont have permission to update this case ', [], 403);
             }
-
             // calling case service
             $case = $this->caseService->updateCase($validated_data);
             // return response
-            return response()->json([
-                'status' => $case['status'],
-                'data' => $case['data'],
-            ], $case['code']);
+            return sendResponse($case['data'], 'update Case suceess', $case['code']);
         } catch (Exception $e) {
-            return response()->json([
-                'status'  => false,
-                'message' => 'something went wrong',
-                'error'   => $e->getMessage()
-            ], 500);
+            return sendError('Internal Server Error ', ['error' => $e->getMessage(), 'Line' => $e->getLine(), 'Class' => $e->getFile()], 500);
         }
     }
     public function view_list(Request $request)

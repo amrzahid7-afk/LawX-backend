@@ -3,14 +3,16 @@
 namespace App\Services; // ضع النيم سبيس الخاص بك هنا
 
 use App\Models\Case_payment_milestone;
+use App\Models\Case_team;
 use App\Models\CaseModel;
 use App\Models\Office;
 use App\Models\Opponent;
 use App\Models\User;
-use App\Models\Case_team;
+use App\Notifications\CaseClosedNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
@@ -396,7 +398,11 @@ class CaseService // أو اسم الكلاس الخاص بك
             if ($isOfficeOwner && isset($data['lead_lawyer_id'])) {
                 $case->lead_lawyer_id = $data['lead_lawyer_id'];
             }
-
+            // if the case status is changed to 'closed', send notification to all clients
+            if (isset($data['status']) && $data['status'] === 'close') {
+                $clients = $case->clients;
+                Notification::send($clients, new CaseClosedNotification($case));
+            }
             $case->save();
 
             // 3. تحديث العملاء (فقط لصاحب القضية أو صاحب المكتب)

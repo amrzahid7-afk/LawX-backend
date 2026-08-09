@@ -87,4 +87,8 @@ class CaseModel extends Model
     {
         return $this->hasMany(Case_payment_milestone::class, 'case_id');
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'case_id');
+    }
 }

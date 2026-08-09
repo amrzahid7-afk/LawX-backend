@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class LawyerProfileController extends Controller
 {
@@ -52,6 +54,59 @@ class LawyerProfileController extends Controller
             ], 500);
         }
     }
+    public function getMyReviewStats()
+    {
+        try {
+            $lawyerId = auth('sanctum')->user()->id;
+
+            // ==========================================
+            // تنفيذ US-05: جلب الإحصائيات التفصيلية من الكاش
+            // ==========================================
+            $cachedStats = Cache::get("lawyer_ratings_stats_{$lawyerId}");
+
+            // إذا كان هناك تقييمات، نرجع البيانات من الكاش. وإذا لم يكن هناك أي تقييم بعد، نرجع أصفار
+            $ratingBreakdown = $cachedStats ? [
+                'overall'        => $cachedStats['overall'],
+                'professionalism' => $cachedStats['professionalism'],
+                'communication'  => $cachedStats['communication'],
+                'result'         => $cachedStats['result'],
+                'total_reviews'  => $cachedStats['total']
+            ] : [
+                'overall'        => 0.0,
+                'professionalism' => 0.0,
+                'communication'  => 0.0,
+                'result'         => 0.0,
+                'total_reviews'  => 0
+            ];
+
+            // ==========================================
+            // تنفيذ US-06: جلب التقييمات الفردية مع إخفاء هوية العميل
+            // ==========================================
+            $reviews = Review::where('lawyer_id', $lawyerId)
+                ->where('is_hidden', false) // لا نعرض التقييمات المحظورة من الادمن حتى للمحامي
+                ->latest() // الأحدث أولاً
+                ->paginate(15); // ترقيم الصفحات (Pagination) لأن المحامي قد يكون لديه مئات التقييمات
+
+            // تحويل البيانات لإخفاء اسم العميل (بدون استخدام map على الـ pagination نفسها للحفاظ على بيانات الـ meta)
+            $reviewsCollection = $reviews->getCollection()->map(function ($review) {
+                return [
+                    // تم تجاهل client_name تماماً (تطبيق US-06)
+                    'rating'    => $review->rating,
+                    'comment'   => $review->comment,
+                    // إضافة عنوان القضية بدلاً من اسم العميل كسياق للمحامي ليعرف عن أي قضية يتحدث التقييم
+                    'case_title' => $review->case ? $review->case->title : 'قضية محذوفة',
+                    'date'      => $review->created_at->diffForHumans(), // مثال: "منذ يومين"
+                ];
+            });
+
+            // إعادة تعيين الـ collection المعدل داخل الـ paginator
+            $reviews->setCollection($reviewsCollection);
+            return sendResponse(['states' => $ratingBreakdown, 'reviews' => $reviews], 'تم جلب إحصائيات التقييمات بنجاح', 200);
+        } catch (\Exception $e) {
+            return sendError('Internal Server Error',  ["Message" =>  $e->getMessage()], 500);
+        }
+    }
+
     // public function getLawyerProfileData()
     // {
     //     try {

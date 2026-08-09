@@ -42,10 +42,6 @@ class StoreTemplateRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(response()->json([
-            'success' => false,
-            'message' => 'بيانات المدخلات غير صحيحة',
-            'errors' => $validator->errors(),
-        ], 422));
+        throw new HttpResponseException(sendError('Validation failed', $validator->errors()->toArray(), 422));
     }
 }

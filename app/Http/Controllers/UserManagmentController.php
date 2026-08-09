@@ -25,29 +25,20 @@ class UserManagmentController extends Controller
         }
         $client_role_id = Role::where('slug', 'client')->first()->id;
         $clients  = User::whereRoleId($client_role_id)->get();
-        return response()->json([
-            'status' => "success",
-            'clients' => $clients
-        ], 200);
+        return sendResponse($clients, 'تم الحصول على البيانات', 200);
     }
     public function get_offices_or_lawers(Request $request)
     {
         try {
             $data = $this->userManagmentService->get_offices_or_lawers_available($request);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
+            return sendResponse($data, 'تم الحصول على البيانات', 200);
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine(),
-                'class' => $e->getFile()
-            ], 500);
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
         }
     }
     public function get_protofolio_for_lawer_or_office($lawer_id)
     {
+        //  validate  data 
         try {
             $validator = Validator::make(
                 ['lawer_id' => $lawer_id],
@@ -60,22 +51,14 @@ class UserManagmentController extends Controller
                 ]
             );
             if ($validator->fails()) {
-                return response()->json([
-                    'message' => 'Invalid Lawyer/Office ID',
-                    'error' => $validator->errors()->first()
-                ], 422);
+                return sendError('Validation failed', $validator->errors()->toArray(), 422);
             }
+            // call service
             $data = $this->userManagmentService->getProtofolioForLawerOrOffice($lawer_id);
-            return response()->json([
-                'status' => $data['status'],
-                'data' => $data['data']
-            ], $data['code']);
+            // send response
+            return sendResponse($data, 'تم الحصول على البيانات', 200);
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine(),
-                'class' => $e->getFile()
-            ], 500);
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
         }
     }
 }

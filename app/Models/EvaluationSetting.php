@@ -13,5 +13,11 @@ class EvaluationSetting extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-    protected $fillable = ['id', 'office_id', 'points_per_difficulty_star', 'points_per_client_star', 'threshold_5_stars'];
+    protected $fillable = [
+        'id',
+        'office_id',
+        'points_per_difficulty_star',
+        'points_per_client_star',
+        'threshold_5_stars'
+    ];
 }

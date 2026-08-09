@@ -6,6 +6,9 @@ use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 class UpdateLegalRequestRequest extends FormRequest
 {
     /**
@@ -56,5 +59,9 @@ class UpdateLegalRequestRequest extends FormRequest
             'assigned_lawyer_id.exists' => "assigned_lawyer_id not found",
             'file.mimes' => 'File must be a pdf, doc, docx, jpg, jpeg, png',
         ];
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(sendError('Validation failed', $validator->errors()->toArray(), 422));
     }
 }

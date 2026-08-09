@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -86,10 +87,11 @@ class UserManagmentService
             'code' => '200'
         ];
     }
-
+    // with get cached rating for lawer or office
     public function getProtofolioForLawerOrOffice($lawyerId)
     {
-        $lawyer = User::with(['legalCategories', 'cases', 'reviewsReceived.client', 'role'])
+        // 1. جلب بيانات المحامي (لا نحتاج لتحميل reviewsReceived بالكامل هنا لتخفيف الداتا)
+        $lawyer = User::with(['legalCategories', 'cases', 'role'])
             ->findOrFail($lawyerId);
 
         $experienceYears = Carbon::parse($lawyer->created_at)->diffInYears(Carbon::now());
@@ -98,34 +100,56 @@ class UserManagmentService
         $wonCases = $lawyer->cases->where('status', 'won')->count();
         $percentWon = $totalCases > 0 ? ($wonCases / $totalCases) * 100 : 0;
 
-        $legalCategories =  $lawyer->legalCategories->map(function ($cat) {
+        $legalCategories = $lawyer->legalCategories->map(function ($cat) {
             return [
                 'icon' => $cat->icon,
                 'name' => $cat->name
             ];
         })->toArray();
 
+        // ==========================================
+        // السحر هنا: استخدام الـ Cache بدل الاستعلامات الثقيلة
+        // ==========================================
+        $cachedRatings = Cache::get("lawyer_ratings_stats_{$lawyerId}");
 
-        $opinions = $lawyer->reviewsReceived->map(function ($review) {
-            return [
-                'client_name' => $review->client ? $review->client->full_name : 'Unknown',
-                'rate'        => $review->rating,
-                'comment'     => $review->comment,
-            ];
-        })->toArray();
+        // 2. جلب الآراء الفردية (التعليقات فقط، مع إخفاء اسم العميل للخصوصية US-06)
+        // نستخدم where('is_hidden', false) لتنفيذ US-07 (إخفاء التقييمات المسيئة)
+        $opinions = $lawyer->reviewsReceived()
+            ->where('is_hidden', false)
+            ->latest() // ترتيب من الأحدث للأقدم
+            ->take(10) // نرسل آخر 10 تعليقات فقط لتخفيف الـ Response (يمكنك إزالة take إذا أردت الكل)
+            ->get()
+            ->map(function ($review) {
+                return [
+                    // تم إزالة 'client_name' طبقاً لشرط الخصوصية في User Stories
+                    'rate'    => $review->rating,
+                    'comment' => $review->comment,
+                ];
+            })->toArray();
 
         $data = [
             'lawyer_name'           => $lawyer->full_name,
             'role'                  => $lawyer->role->name ?? 'User',
             'address'               => $lawyer->address,
             'phone_number'          => $lawyer->phone ?? '0968339198',
-            'rate'                  => $lawyer->reviewsReceived()->avg('rating') ?? 0,
+
+            // تم استبدال الـ avg() الثقيل بالقيمة المحفوظة في الكاش، مع قيمة افتراضية 0 إذا لم يكن هناك كاش بعد
+            'rate'                  => $cachedRatings['overall'] ?? 0,
+
+            // إضافة التقييمات التفصيلية (Multi-criteria) التي اتفقنا عليها في FR-12
+            'rating_breakdown'      => $cachedRatings ? [
+                'professionalism' => $cachedRatings['professionalism'],
+                'communication'   => $cachedRatings['communication'],
+                'result'          => $cachedRatings['result'],
+                'total_reviews'   => $cachedRatings['total']
+            ] : null,
+
             'experience_years_count' => $experienceYears,
             'number_of_cases'       => $totalCases,
             'percent_of_cases_won'  => number_format($percentWon, 2),
             'legal_categories'      => $legalCategories,
             'bio_for_lawyer'        => $lawyer->bio,
-            'opinion_of_clients'    => $opinions,
+            'opinion_of_clients'    => $opinions, // الآن تحتوي فقط على التعليقات والنجوم
         ];
 
         if ($lawyer->role_id == 1 || (isset($lawyer->role->name) && strtolower($lawyer->role->name) === 'admin')) {
@@ -145,4 +169,62 @@ class UserManagmentService
             'code' => '200'
         ];
     }
+    // public function getProtofolioForLawerOrOffice($lawyerId)
+    // {
+    //     $lawyer = User::with(['legalCategories', 'cases', 'reviewsReceived.client', 'role'])
+    //         ->findOrFail($lawyerId);
+
+    //     $experienceYears = Carbon::parse($lawyer->created_at)->diffInYears(Carbon::now());
+
+    //     $totalCases = $lawyer->cases->count();
+    //     $wonCases = $lawyer->cases->where('status', 'won')->count();
+    //     $percentWon = $totalCases > 0 ? ($wonCases / $totalCases) * 100 : 0;
+
+    //     $legalCategories =  $lawyer->legalCategories->map(function ($cat) {
+    //         return [
+    //             'icon' => $cat->icon,
+    //             'name' => $cat->name
+    //         ];
+    //     })->toArray();
+
+
+    //     $opinions = $lawyer->reviewsReceived->map(function ($review) {
+    //         return [
+    //             'client_name' => $review->client ? $review->client->full_name : 'Unknown',
+    //             'rate'        => $review->rating,
+    //             'comment'     => $review->comment,
+    //         ];
+    //     })->toArray();
+
+    //     $data = [
+    //         'lawyer_name'           => $lawyer->full_name,
+    //         'role'                  => $lawyer->role->name ?? 'User',
+    //         'address'               => $lawyer->address,
+    //         'phone_number'          => $lawyer->phone ?? '0968339198',
+    //         'rate'                  => $lawyer->reviewsReceived()->avg('rating') ?? 0,
+    //         'experience_years_count' => $experienceYears,
+    //         'number_of_cases'       => $totalCases,
+    //         'percent_of_cases_won'  => number_format($percentWon, 2),
+    //         'legal_categories'      => $legalCategories,
+    //         'bio_for_lawyer'        => $lawyer->bio,
+    //         'opinion_of_clients'    => $opinions,
+    //     ];
+
+    //     if ($lawyer->role_id == 1 || (isset($lawyer->role->name) && strtolower($lawyer->role->name) === 'admin')) {
+    //         $data['location_data'] = [
+    //             'latitude'  => $lawyer->latitude,
+    //             'longitude' => $lawyer->longitude,
+    //         ];
+    //     }
+
+    //     // sending response 
+    //     return [
+    //         'status' => 'success',
+    //         'data' => [
+    //             'message' => 'get protofolio for lawer or office successfully',
+    //             'data' => $data
+    //         ],
+    //         'code' => '200'
+    //     ];
+    // }
 }

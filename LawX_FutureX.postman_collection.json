@@ -20,7 +20,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"Morad@gmail.co\" ,\r\n    \"password\": \"password\"\r\n}",
+                  "raw": "{\r\n    \"email\": \"client@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2679,6 +2679,186 @@
           ]
         },
         {
+          "name": "review_lawer_for_case",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-App-Platform",
+                "value": "mobile",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "professionalism_rating",
+                  "value": "1",
+                  "type": "text",
+                  "uuid": "4f8a9787-22c4-45b2-9b61-512cb85c9f62"
+                },
+                {
+                  "key": "communication_rating",
+                  "value": "1",
+                  "type": "text",
+                  "uuid": "17ae391e-7919-4572-9dec-a2f9a5fd2eb2"
+                },
+                {
+                  "key": "result_rating",
+                  "value": "1",
+                  "type": "text",
+                  "uuid": "819f833d-17bb-46e3-b025-08462d1eacf6"
+                },
+                {
+                  "key": "comment",
+                  "value": "كس امو ",
+                  "type": "text",
+                  "uuid": "0576b398-054e-4f5f-b94a-4c1728d2b440"
+                },
+                {
+                  "key": "case_id",
+                  "value": "{{case_id}}",
+                  "type": "text",
+                  "uuid": "f54a85cb-7f0c-4a1b-bc00-7eb2ccae541a"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{Domain}}/client/cases/review",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "client",
+                "cases",
+                "review"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "professionalism_rating",
+                      "value": "1",
+                      "type": "text",
+                      "uuid": "4f8a9787-22c4-45b2-9b61-512cb85c9f62"
+                    },
+                    {
+                      "key": "communication_rating",
+                      "value": "1",
+                      "type": "text",
+                      "uuid": "17ae391e-7919-4572-9dec-a2f9a5fd2eb2"
+                    },
+                    {
+                      "key": "result_rating",
+                      "value": "1",
+                      "type": "text",
+                      "uuid": "819f833d-17bb-46e3-b025-08462d1eacf6"
+                    },
+                    {
+                      "key": "comment",
+                      "value": "good ",
+                      "type": "text",
+                      "uuid": "0576b398-054e-4f5f-b94a-4c1728d2b440"
+                    },
+                    {
+                      "key": "case_id",
+                      "value": "{{case_id}}",
+                      "type": "text",
+                      "uuid": "f54a85cb-7f0c-4a1b-bc00-7eb2ccae541a"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/client/cases/review",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "cases",
+                    "review"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 08 Aug 2026 22:19:27 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"message\": \"Success Add Review\",\n    \"data\": \"تم إضافة التقييم بنجاح، شكراً لمشاركتك رأيك.\"\n}"
+            }
+          ]
+        },
+        {
           "name": "get_invoices_for_client",
           "protocolProfileBehavior": {
             "disabledSystemHeaders": {
@@ -3308,7 +3488,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -3328,7 +3508,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"6-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    \"team\": [\r\n        {\r\n        \"user_id\":\"{{lawer_id}}\",\r\n        \"role_in_case\": \"باحث قانوني\" \r\n        } \r\n            //   {\r\n            //  \"user_id\":\"{{lawer_id}}\",\r\n            //   \"role_in_case\": \"باحث قانوني\" \r\n            //   }\r\n    ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"6-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    // \"team\": [\r\n    //     {\r\n    //     \"user_id\":\"{{lawer_id}}\",\r\n    //     \"role_in_case\": \"باحث قانوني\" \r\n    //     } \r\n    //         //   {\r\n    //         //  \"user_id\":\"{{lawer_id}}\",\r\n    //         //   \"role_in_case\": \"باحث قانوني\" \r\n    //         //   }\r\n    // ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -3431,7 +3611,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -3451,7 +3631,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "// {\r\n//     \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n//     \"title\": \" private case\" ,\r\n//     \"description\": \"so hard case\"\r\n// }\r\n{\r\n    \"case_id\" : \"{{case_id}}\",\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    // \"case_number\": \"5-2222\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 500000.000,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n     \"status\": \"archived\" , // 'open', 'close', 'pending', 'archived' \r\n    // \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    \"clients\": [\r\n        {           \r\n              \"user_id\": \"{{client_id}}\", \"is_primary\": true \r\n             }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"email\": \"email@gmail.com\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"1234567890\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ],\r\n    \"team\": [\r\n        {\r\n             \"user_id\":\"{{lawer_id}}\",\r\n              \"role_in_case\": \"باحث قانوني\" \r\n              } \r\n            //   ,\r\n            //   {\r\n            //  \"user_id\":\"cc25ab40-c99c-4c46-b2c9-ef00fb0b4376\",\r\n            //   \"role_in_case\": \"باحث قانوني\" \r\n                \r\n            //   }\r\n    ],\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                  "raw": "// {\r\n//     \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n//     \"title\": \" private case\" ,\r\n//     \"description\": \"so hard case\"\r\n// }\r\n{\r\n    \"case_id\" : \"{{case_id}}\",\r\n    // \"title\": \"قضية تحصيل ديون تجارية\",\r\n    // \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    // // \"case_number\": \"5-2222\" ,\r\n    // \"case_category\": \"جنائي\" ,\r\n    // \"court\": \"المحكمة التجارية بالرياض\",\r\n    // \"price\": 500000.000,\r\n    // \"importance_stars\": 4,\r\n    // \"billing_type\": \"installments\",\r\n     \"status\": \"close\" //  , // 'open', 'close', 'pending', 'archived' \r\n    // // \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    // \"clients\": [\r\n    //     {           \r\n    //           \"user_id\": \"{{client_id}}\", \"is_primary\": true \r\n    //          }   \r\n    // ],\r\n    // \"opponents\": [\r\n    //     {\r\n    //         \"name\": \"شركة الأمل للتجارة\",\r\n    //         \"email\": \"email@gmail.com\",\r\n    //         \"type\": \"company\",\r\n    //         \"national_id\": \"1234567890\",\r\n    //         \"phone\": \"0551234567\"\r\n    //     }\r\n    // ],\r\n    // \"team\": [\r\n    //     {\r\n    //          \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           } \r\n    //         //   ,\r\n    //         //   {\r\n    //         //  \"user_id\":\"cc25ab40-c99c-4c46-b2c9-ef00fb0b4376\",\r\n    //         //   \"role_in_case\": \"باحث قانوني\" \r\n                \r\n    //         //   }\r\n    // ],\r\n    // \"payment_milestones\": [\r\n    //     {\r\n    //         \"title\": \"دفعة بدء العمل\",\r\n    //         \"amount\": 5000.00,\r\n    //         \"due_date\": \"2029-11-01\" \r\n    //     }\r\n    // ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -11831,6 +12011,7 @@
             {
               "name": "semantic_search",
               "protocolProfileBehavior": {
+                "disableBodyPruning": true,
                 "disabledSystemHeaders": {
                   "accept": true
                 }
@@ -11846,7 +12027,7 @@
                     }
                   ]
                 },
-                "method": "POST",
+                "method": "GET",
                 "header": [
                   {
                     "key": "Accept",
@@ -14056,6 +14237,51 @@
               "body": "{\n    \"status\": \"success\",\n    \"message\": \"Lawyer Profile Data Fetched Successfully\",\n    \"data\": {\n        \"lawer_name\": \"علي\",\n        \"lawer_national_id\": \"9999\",\n        \"lawer_email\": \"ali@gmail.co\",\n        \"lawer_phone\": null,\n        \"lawer_address\": null,\n        \"lawer_state\": \"trainee\",\n        \"lawer_profile_id\": \"019f944c-ebca-7109-803f-bd4528ef0f16\",\n        \"Employed_In_Office\": false,\n        \"Has_Office\": false\n    }\n}"
             }
           ]
+        },
+        {
+          "name": "my_reviews_stats",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept-encoding": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{Adham_Licensed_lawer_token_not_activate_office}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-App-Platform",
+                "value": "web",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{Domain}}/lawyer/profile/my_reviews_stats",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "lawyer",
+                "profile",
+                "my_reviews_stats"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -14098,7 +14324,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "\r\n{\r\n    \"title\": \"احكام المخالعة\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"S-2026-009\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"country\": \"ٍSyria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
+                  "raw": "\r\n{\r\n    \"title\": \"احكام المخالعة\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"S-2026-009\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"

@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ProposalController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\UserManagmentController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,9 @@ Route::prefix('/legal-requests')->group(function () {
     Route::get('/get_my_requests', [LegalRequestController::class, 'get_my_requests']);
     Route::get('/get_proposals_for_my_requests/{request_id}', [ProposalController::class, 'get_proposals']);
 });
-
+// Give Rate For Lawer
+Route::post('/cases/review', [ReviewController::class, 'store']);
+// Surf Lawers
 Route::get('/providers', [UserManagmentController::class, 'get_offices_or_lawers']);
 Route::get('/providers/{lawyer_id}/portfolio', [UserManagmentController::class, 'get_protofolio_for_lawer_or_office']);
 

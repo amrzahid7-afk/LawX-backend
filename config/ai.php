@@ -12,13 +12,20 @@ return [
     | for the operation. This should be any provider defined below.
     |
     */
-    // gemini 
-    'default' => 'gemini',
-    'default_for_images' => 'gemini',
-    'default_for_audio' => 'gemini',
-    'default_for_transcription' => 'gemini',
-    'default_for_embeddings' => 'gemini',
-    'default_for_reranking' => 'gemini',
+    // قم بتغيير gemini إلى zai
+    'default' => 'zai',
+    'default_for_images' => 'zai',
+    'default_for_audio' => 'zai',
+    'default_for_transcription' => 'zai',
+    'default_for_embeddings' => 'zai',
+    'default_for_reranking' => 'zai',
+    // // gemini 
+    // 'default' => 'gemini',
+    // 'default_for_images' => 'gemini',
+    // 'default_for_audio' => 'gemini',
+    // 'default_for_transcription' => 'gemini',
+    // 'default_for_embeddings' => 'gemini',
+    // 'default_for_reranking' => 'gemini',
     // grok
 
     // 'default' => 'groq',

@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
 class CreateInvoiceRequest extends FormRequest
 {
     /**
@@ -105,5 +108,9 @@ class CreateInvoiceRequest extends FormRequest
                 }
             }
         ];
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(sendError('Validation failed', $validator->errors()->toArray(), 422));
     }
 }

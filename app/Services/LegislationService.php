@@ -25,7 +25,7 @@ class LegislationService
             $q->where('country', $requestData['country']);
         });
 
-        $legislations =   $query->latest()->paginate(1); //  $query->get(); //
+        $legislations =   $query->latest()->paginate(20); //  $query->get(); //
         $legislations->appends([
             'status' => $requestData['status'] ?? null,
             'category_id' => $requestData['category_id'] ?? null,
@@ -88,10 +88,10 @@ class LegislationService
             'title' => $legislation->title,
             'content' => $legislation->content,
             'law_number' => $legislation->law_number,
-            'status' => $legislation->status == 'active' ? 'ساري' : ($legislation->status == 'amended' ? 'معدل' : 'ملغى'),
-            'country' => $legislation->country == 'syria' ? 'سوريا' : ($legislation->country == 'saudi' ? 'المملكة العربية السعودية' : 'الإمارات العربية المتحدة'),
-            'source_newspaper' => $legislation->source == 'admin' ? 'وزارة العدل' : 'الجريدة الرسمية',
-            'publish_date' => $legislation->effective_date ? date('d/m/Y', strtotime($legislation->effective_date)) : null,
+            'status' => $legislation->status, // == 'active' ? 'ساري' : ($legislation->status == 'amended' ? 'معدل' : 'ملغى'),
+            'country' => $legislation->country, // == 'syria' ? 'سوريا' : ($legislation->country == 'saudi' ? 'المملكة العربية السعودية' : 'الإمارات العربية المتحدة'),
+            'source_newspaper' => $legislation->source, // == 'admin' ? 'وزارة العدل' : 'الجريدة الرسمية',
+            'publish_date' => $legislation->effective_date, //  ? date('d/m/Y', strtotime($legislation->effective_date)) : null,
             'book' => $legislation->book,
             'part' => $legislation->part,
             'chapter' => $legislation->chapter,

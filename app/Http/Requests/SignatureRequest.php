@@ -64,6 +64,6 @@ class SignatureRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(sendError('Validation failed', [$validator->errors()->toArray()], 422));
+        throw new HttpResponseException(sendError('Validation failed', $validator->errors()->toArray(), 422));
     }
 }
