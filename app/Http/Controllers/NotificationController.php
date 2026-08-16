@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,13 +10,13 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
+        $user = auth('sanctum')->user();
 
         $unreadNotifications = $user->unreadNotifications->map(function ($notification) {
             return [
                 'id' => $notification->id,
                 'type' => $notification->type,
-                'data' => $notification->data, // البيانات الاضافية (الرسالة، IDs)
+                'data' => $notification->data,
                 'created_at' => $notification->created_at->format('Y-m-d H:i:s'),
             ];
         });
@@ -40,8 +41,9 @@ class NotificationController extends Controller
 
     public function markAsRead($id)
     {
-        $notification = Auth::user()->notifications()->find($id);
+        $user =  auth('sanctum')->user();
 
+        $notification = Notification::where('notifiable_id', $user->id)->where('id', $id)->first();
         if ($notification) {
             $notification->markAsRead();
             return response()->json([

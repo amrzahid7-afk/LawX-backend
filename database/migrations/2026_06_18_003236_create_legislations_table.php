@@ -1,5 +1,4 @@
 <?php
-// database/migrations/xxxx_xx_xx_create_legislations_table.php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,14 +11,17 @@ return new class extends Migration
         Schema::create('legislations', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
-            $table->text('content');
-            $table->string('law_number')->unique();
+            $table->longText('content');
+            $table->string('law_number')->nullable()->index();
             $table->foreignUuid('category_id')->nullable()->constrained('legal_categories')->nullOnDelete();
             $table->enum('status', ['active', 'amended', 'repealed'])->default('active');
             $table->enum('source', ['admin', 'external_api'])->default('admin');
-            $table->string('country')->index();
+            $table->string('country')->default('Syria')->index();
             $table->date('effective_date')->nullable();
+
+            // Storing Vector Embeddings for MySQL Semantic Search
             $table->json('embedding')->nullable();
+
             $table->json('related_legislation_ids')->nullable();
             $table->json('articles')->nullable();
             $table->string('book')->nullable();
@@ -29,6 +31,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+
     public function down(): void
     {
         Schema::dropIfExists('legislations');

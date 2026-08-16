@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignUuid('case_id')->constrained('cases')->onDelete('cascade');
             $table->dateTime('date');
             $table->text('location');
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
             $table->text('nots');
             $table->string('result')->nullable();
             $table->enum('status', ['pending', 'completed', 'cancelled'])->default('pending');

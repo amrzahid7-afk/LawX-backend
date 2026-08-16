@@ -44,19 +44,46 @@ class ManageSyndicateUsersService
         DB::commit();
         return true;
     }
-    public function getLawyers($data)
+    public function getLawyers($data, $myOfficeId = null)
     {
         $lawyers = LawerProfile::query()
-            ->with('user', 'ownedOffice', 'employedOffices')
+            ->with('user', 'ownedOffice') // لا داعي لجلب employedOffices لأننا نستثنيهم
             ->when(isset($data['lawyer_state']), fn($query) => $query->where('lawyer_state', $data['lawyer_state']))
             ->when(isset($data['is_suspended']), fn($query) => $query->where('is_suspended', filter_var($data['is_suspended'], FILTER_VALIDATE_BOOLEAN)))
             ->when(isset($data['search_fullname']), fn($query) => $query->where('full_name', 'like', "%{$data['search_fullname']}%"))
             ->when(isset($data['search_syndicate_card_number']), fn($query) => $query->where('syndicate_card_number', 'like', "%{$data['search_syndicate_card_number']}%"))
             ->when(isset($data['search_national_id']), fn($query) => $query->where('national_id', 'like', "%{$data['search_national_id']}%"))
+            // 1. استثناء المحامين الذين يعملون بالفعل في أي مكتب (حتى لو ليس مكتبك)
+            ->whereNull('employed_in_office_id')
+            // 2. استثناء المحامين الذين يملكون مكتباً "نشطاً" (لا يمكنك توظيف صاحب مكتب آخر)
+            ->whereDoesntHave('ownedOffice', function ($query) {
+                $query->where('status', 'active');
+            })
+            // 3. استثناء المحامين الذين لديهم دعوة "معلقة" لمكتبي أنا تحديداً
+            ->when($myOfficeId, function ($query) use ($myOfficeId) {
+                $query->whereDoesntHave('officeInvitations', function ($q) use ($myOfficeId) {
+                    $q->where('office_id', $myOfficeId)
+                        ->where('status', 'pending');
+                });
+            })
             ->latest()
             ->paginate($data['per_page'] ?? 20);
+
         return $lawyers;
     }
+    // public function getLawyers($data)
+    // {
+    //     $lawyers = LawerProfile::query()
+    //         ->with('user', 'ownedOffice', 'employedOffices')
+    //         ->when(isset($data['lawyer_state']), fn($query) => $query->where('lawyer_state', $data['lawyer_state']))
+    //         ->when(isset($data['is_suspended']), fn($query) => $query->where('is_suspended', filter_var($data['is_suspended'], FILTER_VALIDATE_BOOLEAN)))
+    //         ->when(isset($data['search_fullname']), fn($query) => $query->where('full_name', 'like', "%{$data['search_fullname']}%"))
+    //         ->when(isset($data['search_syndicate_card_number']), fn($query) => $query->where('syndicate_card_number', 'like', "%{$data['search_syndicate_card_number']}%"))
+    //         ->when(isset($data['search_national_id']), fn($query) => $query->where('national_id', 'like', "%{$data['search_national_id']}%"))
+    //         ->latest()
+    //         ->paginate($data['per_page'] ?? 20);
+    //     return $lawyers;
+    // }
     public function toggleSuspension($lawyer_id): void
     {
         $lawyer = LawerProfile::findOrFail($lawyer_id);

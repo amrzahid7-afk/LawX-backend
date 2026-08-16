@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->string('phone')->nullable()->unique();
             $table->string('national_id')->nullable()->unique();
+            $table->text('avatar_path')->nullable();
             $table->timestamps();
             // $table->foreignId('city_id')->nullable()->constrained('cities');
             // $table->foreignUuid('office_id')->nullable()->constrained('offices')->onDelete('cascade');

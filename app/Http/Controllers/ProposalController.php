@@ -180,4 +180,33 @@ class ProposalController extends Controller
             ], 500);
         }
     }
+    public function response_proposal(Request $request)
+    {
+        try {
+            // validate data
+            $validate = Validator::make($request->all(), [
+                'proposal_id' => 'required|exists:proposals,id',
+                'status' => 'required|in:accepted,rejected',
+            ], [
+                'proposal_id.required' => 'Proposal ID is required',
+                'proposal_id.exists' => 'Proposal not found',
+                'status.required' => 'Status is required',
+                'status.in' => 'Status must be accepted or rejected',
+            ]);
+            if ($validate->fails()) {
+                return sendError('Validation failed', $validate->errors()->toArray(), 422);
+            }
+            $proposal = Proposal::find($request->proposal_id);
+            // validate permission
+            if (Gate::denies('respone_proposal', $proposal)) {
+                return sendError("Unauthorized , You do not have permission to respone this proposal ", [], 403);
+            }
+            // call service
+            $data = $this->propposal_service->response_proposal($request);
+            // send response
+            return sendResponse($data['data'], $data['status'], $data['code']);
+        } catch (\Exception $e) {
+            return sendError("Internal Server Error ", [$e->getMessage()], 500);
+        }
+    }
 }

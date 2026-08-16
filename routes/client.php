@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CaseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ProposalController;
@@ -15,7 +16,10 @@ Route::prefix('/legal-requests')->group(function () {
     Route::delete('/delete_request/{request_id}', [LegalRequestController::class, 'delete_request']);
     Route::get('/get_my_requests', [LegalRequestController::class, 'get_my_requests']);
     Route::get('/get_proposals_for_my_requests/{request_id}', [ProposalController::class, 'get_proposals']);
+    Route::post('/response_proposal', [ProposalController::class, 'response_proposal']);
 });
+// get cases for client
+Route::get('/cases', [CaseController::class, 'get_cases_for_client']);
 // Give Rate For Lawer
 Route::post('/cases/review', [ReviewController::class, 'store']);
 // Surf Lawers

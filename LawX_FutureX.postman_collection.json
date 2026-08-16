@@ -20,7 +20,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"client@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
+                  "raw": "{\r\n    \"email\": \"omar@gmail.com\" ,\r\n    \"password\": \"password\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -50,17 +50,17 @@
                   "formdata": [
                     {
                       "key": "national_id",
-                      "value": "1313",
+                      "value": "15511",
                       "type": "text"
                     },
                     {
                       "key": "full_name",
-                      "value": "معاذ",
+                      "value": "عمر ",
                       "type": "text"
                     },
                     {
                       "key": "father_name",
-                      "value": "العلي",
+                      "value": "التلي ",
                       "type": "text"
                     },
                     {
@@ -90,12 +90,12 @@
                     },
                     {
                       "key": "syndicate_card_number",
-                      "value": "1313",
+                      "value": "15511",
                       "type": "text"
                     },
                     {
                       "key": "syndicate_branch",
-                      "value": "دمشق",
+                      "value": "حلب",
                       "type": "text"
                     },
                     {
@@ -254,7 +254,7 @@
                     },
                     {
                       "key": "email",
-                      "value": "moaz@gmail.co",
+                      "value": "omaralhamad@gmail.co",
                       "type": "text",
                       "uuid": "8af9b086-5be6-4c25-8e34-b52a0f60cecf"
                     },
@@ -275,6 +275,54 @@
                       "value": "0968339198",
                       "type": "text",
                       "uuid": "527c229b-ddac-478d-899a-5f0453872b36"
+                    },
+                    {
+                      "key": "address",
+                      "value": "حلب , النشابية , ساحة سعد الله الجابري ",
+                      "type": "text",
+                      "uuid": "92c5c49d-3aa6-41c0-8e29-a4d01c63e8ec"
+                    },
+                    {
+                      "key": "city",
+                      "value": "حلب ",
+                      "type": "text",
+                      "uuid": "bd24b194-5998-4e85-a9f3-c369371ea6a9"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "12.32320",
+                      "type": "text",
+                      "uuid": "531c1e3a-e1d7-46ad-a2ea-feab2a34ff87"
+                    },
+                    {
+                      "key": "lng",
+                      "value": "12.656566",
+                      "type": "text",
+                      "uuid": "e62971d1-0976-453b-a24c-b8647b732096"
+                    },
+                    {
+                      "key": "experience_years",
+                      "value": "26",
+                      "type": "text",
+                      "uuid": "da11c09d-8590-4c95-a781-b0ac30024072"
+                    },
+                    {
+                      "key": "bio",
+                      "value": "خبير في دعاوى الأحوال الشخصية ",
+                      "type": "text",
+                      "uuid": "d47b9f9f-5f01-48f6-b5ba-228ff9f56ccc"
+                    },
+                    {
+                      "key": "national_id",
+                      "value": "11111111111122",
+                      "type": "text",
+                      "uuid": "d3575edf-12a0-4882-86a2-fbad70641444"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "uuid": "682e929c-0909-476a-b05b-04201a1657e3",
+                      "src": "/C:/Users/amrza/Downloads/Telegram Desktop/دعوة محامٍ - موبايل.png"
                     }
                   ]
                 },
@@ -391,12 +439,12 @@
                   "formdata": [
                     {
                       "key": "full_name",
-                      "value": "mohammad",
+                      "value": "عمر الزهراوي ",
                       "type": "text"
                     },
                     {
                       "key": "email",
-                      "value": "mohammad##@gmail.com",
+                      "value": "omar@gmail.com",
                       "type": "text"
                     },
                     {
@@ -411,8 +459,50 @@
                     },
                     {
                       "key": "phone_number",
-                      "value": "0968339198",
+                      "value": "096521438456",
                       "type": "text"
+                    },
+                    {
+                      "key": "address",
+                      "value": "دمشق , برزة , الشارع العام ",
+                      "type": "text",
+                      "uuid": "f33dd45e-8cb3-4940-b3e0-799b012e330b"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "12.32320",
+                      "type": "text",
+                      "uuid": "d6c3a63f-aadb-40a1-84e8-573811cc99ad"
+                    },
+                    {
+                      "key": "lng",
+                      "value": "15.0321",
+                      "type": "text",
+                      "uuid": "f882ce89-2ab3-43fc-b427-58970e9d1ecf"
+                    },
+                    {
+                      "key": "bio",
+                      "value": "موظف دولة ",
+                      "type": "text",
+                      "uuid": "b8525f06-35e0-48f7-afe3-7c5eb4201801"
+                    },
+                    {
+                      "key": "national_id",
+                      "value": "11111111111111",
+                      "type": "text",
+                      "uuid": "7c188e77-de64-4406-b842-1f44392f1330"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "uuid": "425214a3-336a-408c-a120-1e33031b3494",
+                      "src": "/C:/Users/amrza/Downloads/Telegram Desktop/دعوة محامٍ - موبايل.png"
+                    },
+                    {
+                      "key": "city",
+                      "value": "دمشق",
+                      "type": "text",
+                      "uuid": "9e6fa7ef-fc2e-4dcc-bded-9d8d9f5ff589"
                     }
                   ]
                 },
@@ -2059,6 +2149,230 @@
                   "body": "{\n    \"status\": \"error\",\n    \"message\": \"Validation failed\",\n    \"details\": {\n        \"request_id\": [\n            \"Request not found\"\n        ]\n    }\n}"
                 }
               ]
+            },
+            {
+              "name": "response_proposal",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{client_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "proposal_id",
+                      "value": "{{proposal_id}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "status",
+                      "value": "accepted",
+                      "type": "text",
+                      "description": "accepted, rejected"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/client/legal-requests/response_proposal",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "legal-requests",
+                    "response_proposal"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Validation",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "proposal_id",
+                          "value": "{{proposal_id}}",
+                          "type": "text",
+                          "disabled": true
+                        },
+                        {
+                          "key": "status",
+                          "value": "accepted",
+                          "type": "text",
+                          "description": "accepted, rejected",
+                          "disabled": true
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/response_proposal",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "response_proposal"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Content",
+                  "code": 422,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 15 Aug 2026 00:02:30 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Validation failed\",\n    \"error_details\": {\n        \"proposal_id\": [\n            \"Proposal ID is required\"\n        ],\n        \"status\": [\n            \"Status is required\"\n        ]\n    }\n}"
+                },
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "proposal_id",
+                          "value": "{{proposal_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "status",
+                          "value": "accepted",
+                          "type": "text",
+                          "description": "accepted, rejected"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/legal-requests/response_proposal",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "legal-requests",
+                        "response_proposal"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 15 Aug 2026 00:03:00 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"success\",\n    \"data\": {\n        \"message\": \"response proposal successfully\"\n    }\n}"
+                }
+              ]
             }
           ]
         },
@@ -3356,6 +3670,150 @@
           ]
         },
         {
+          "name": "cases",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-App-Platform",
+                "value": "mobile",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{Domain}}/client/cases",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "client",
+                "cases"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": null,
+                  "disabled": true
+                },
+                {
+                  "key": "category_id",
+                  "value": "",
+                  "description": "// need lawer in specific Category ",
+                  "disabled": true
+                },
+                {
+                  "key": "min_rate",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "providers",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/providers",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "providers"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": null,
+                      "disabled": true
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "",
+                      "description": "// need lawer in specific Category ",
+                      "disabled": true
+                    },
+                    {
+                      "key": "min_rate",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sat, 18 Jul 2026 13:10:18 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get lawers , offices successfully\",\n        \"data\": [\n            {\n                \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                \"full_name\": \"عمر الزهراوي\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"5dcf5c56-0c99-455c-b4d1-38f574397472\",\n                \"full_name\": \"علي عسلية\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"e09ba432-2968-4821-9b0b-6fdaa84d6660\",\n                \"full_name\": \"محمد الباشا\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            }\n        ]\n    }\n}"
+            }
+          ]
+        },
+        {
           "name": "get_protofolio_for_lawer",
           "protocolProfileBehavior": {
             "disabledSystemHeaders": {
@@ -3508,7 +3966,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"6-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    // \"team\": [\r\n    //     {\r\n    //     \"user_id\":\"{{lawer_id}}\",\r\n    //     \"role_in_case\": \"باحث قانوني\" \r\n    //     } \r\n    //         //   {\r\n    //         //  \"user_id\":\"{{lawer_id}}\",\r\n    //         //   \"role_in_case\": \"باحث قانوني\" \r\n    //         //   }\r\n    // ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"9-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    // \"team\": [\r\n    //     {\r\n    //     \"user_id\":\"{{lawer_id}}\",\r\n    //     \"role_in_case\": \"باحث قانوني\" \r\n    //     } \r\n    //         //   {\r\n    //         //  \"user_id\":\"{{lawer_id}}\",\r\n    //         //   \"role_in_case\": \"باحث قانوني\" \r\n    //         //   }\r\n    // ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -5799,7 +6257,8 @@
                       "key": "invited_lawyer_profile_id",
                       "value": "{{lawer_profile_id}}",
                       "type": "text",
-                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2",
+                      "disabled": true
                     },
                     {
                       "key": "office_id",
@@ -8119,7 +8578,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n        \"case_id\": \"{{case_id}}\",\r\n        \"date\":\"2026-10-25 14:30\",\r\n        \"location\":\"mazzeh\",\r\n        \"nots\": \"no thing\" \r\n}",
+                  "raw": "{\r\n        \"case_id\": \"{{case_id}}\",\r\n        \"date\":\"2026-08-15 20:00\",\r\n        \"location\":\"المزة\",\r\n          \"latitude\": 24.7135517,\r\n    \"longitude\": 46.6752957,\r\n        \"nots\": \"هي الجلسة المفروض تحدد نوع الجرم وتحول الدعوى للمحكمة المتوافقة مع تشخيص الجناية\" \r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -8211,6 +8670,79 @@
                   ],
                   "cookie": [],
                   "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"create session successfully\",\n        \"data\": {\n            \"case_id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n            \"date\": \"2026-10-25T14:30:00.000000Z\",\n            \"location\": \"mazzeh\",\n            \"nots\": \"no thing\",\n            \"result\": \"null\",\n            \"id\": \"02ff1a46-facf-4928-9a3e-bb96684a6e2f\",\n            \"updated_at\": \"2026-07-17T17:57:23.000000Z\",\n            \"created_at\": \"2026-07-17T17:57:23.000000Z\",\n            \"case\": {\n                \"id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n                \"case_number\": \"5-8888\",\n                \"title\": \"قضية تحصيل ديون تجارية\",\n                \"price\": 50,\n                \"case_category\": \"جنائي\",\n                \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\n                \"result\": \"pending\",\n                \"importance_stars\": 4,\n                \"billing_type\": \"installments\",\n                \"collection_percentage\": null,\n                \"status\": \"open\",\n                \"financial_status\": \"unpaid\",\n                \"progress_percentage\": 0,\n                \"court\": \"المحكمة التجارية بالرياض\",\n                \"lead_lawyer_id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                \"office_id\": \"019f66b1-6904-717c-a619-1d6190d86561\",\n                \"created_at\": \"2026-07-17T16:40:57.000000Z\",\n                \"updated_at\": \"2026-07-17T16:40:57.000000Z\",\n                \"clients\": [\n                    {\n                        \"id\": \"31920fa3-08ea-4644-94cc-c8f753725bfe\",\n                        \"full_name\": \"Client User\",\n                        \"email\": \"client@example.com\",\n                        \"role_id\": 3,\n                        \"is_active\": true,\n                        \"address\": \"الرياض، حي الملز\",\n                        \"city\": \"Riyadh\",\n                        \"lat\": \"24.7136\",\n                        \"lng\": \"46.6753\",\n                        \"experience_years\": null,\n                        \"bio\": null,\n                        \"phone\": null,\n                        \"national_id\": null,\n                        \"created_at\": \"2026-07-15T16:51:10.000000Z\",\n                        \"updated_at\": \"2026-07-15T16:51:10.000000Z\",\n                        \"pivot\": {\n                            \"case_id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n                            \"user_id\": \"31920fa3-08ea-4644-94cc-c8f753725bfe\",\n                            \"is_primary\": 1\n                        }\n                    }\n                ]\n            }\n        }\n    }\n}"
+                },
+                {
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n        \"case_id\": \"{{case_id}}\",\r\n        \"date\":\"2026-10-25 14:30\",\r\n        \"location\":\"المزة\",\r\n        \"nots\": \"هي الجلسة المفروض تحدد نوع الجرم وتحول الدعوى للمحكمة المتوافقة مع تشخيص الجناية\" \r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/sessions/add_new_session",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "sessions",
+                        "add_new_session"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 09 Aug 2026 10:41:30 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Unauthorized , You do not have permission to add a session for this case.\",\n    \"error_details\": []\n}"
                 }
               ]
             },
@@ -8274,23 +8806,32 @@
                       "type": "text"
                     },
                     {
-                      "key": "file",
-                      "type": "file",
-                      "uuid": "94fc43e4-7c33-4082-b0a6-49a285121be6",
-                      "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be",
-                      "disabled": true
-                    },
-                    {
                       "key": "result",
-                      "value": "الحكم لصالح الموكل",
+                      "value": "فرز الدعوى لمحكمة الجنايات الرابعة",
                       "type": "text",
                       "uuid": "a31811fb-364c-4b1b-a232-9a15b9b921c3"
                     },
                     {
                       "key": "status",
-                      "value": "cancelled",
+                      "value": "completed",
                       "type": "text",
                       "uuid": "649e342d-b3f0-4747-9bb1-f478ef2acf27"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": " 24.7135517",
+                      "type": "text"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": " 46.6752957",
+                      "type": "text"
+                    },
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "uuid": "94fc43e4-7c33-4082-b0a6-49a285121be6",
+                      "src": "postman-cloud:///1f16c8d2-ed62-4250-b0c7-73dc72146144"
                     }
                   ]
                 },
@@ -8308,7 +8849,7 @@
               },
               "response": [
                 {
-                  "name": "update_session",
+                  "name": "success",
                   "originalRequest": {
                     "method": "POST",
                     "header": [
@@ -8344,29 +8885,30 @@
                         {
                           "key": "location",
                           "value": "barzeh",
-                          "type": "text"
+                          "type": "text",
+                          "disabled": true
                         },
                         {
                           "key": "nots",
                           "value": "updated",
-                          "type": "text"
+                          "type": "text",
+                          "disabled": true
                         },
                         {
                           "key": "file",
                           "type": "file",
                           "uuid": "94fc43e4-7c33-4082-b0a6-49a285121be6",
-                          "src": "postman-cloud:///1f023191-1512-4310-a1b4-a426b48b21be",
-                          "disabled": true
+                          "src": "postman-cloud:///1f16c8d2-ed62-4250-b0c7-73dc72146144"
                         },
                         {
                           "key": "result",
-                          "value": "الحكم لصالح الموكل",
+                          "value": "فرز الدعوى لمحكمة الجنايات الرابعة",
                           "type": "text",
                           "uuid": "a31811fb-364c-4b1b-a232-9a15b9b921c3"
                         },
                         {
                           "key": "status",
-                          "value": "cancelled",
+                          "value": "completed",
                           "type": "text",
                           "uuid": "649e342d-b3f0-4747-9bb1-f478ef2acf27"
                         }
@@ -8406,7 +8948,7 @@
                     },
                     {
                       "key": "Date",
-                      "value": "Fri, 17 Jul 2026 18:12:40 GMT"
+                      "value": "Sun, 09 Aug 2026 10:48:18 GMT"
                     },
                     {
                       "key": "Content-Type",
@@ -8418,7 +8960,7 @@
                     }
                   ],
                   "cookie": [],
-                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Update session successfully\",\n        \"data\": {\n            \"id\": \"02ff1a46-facf-4928-9a3e-bb96684a6e2f\",\n            \"case_id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n            \"date\": \"2028-10-25T14:30:00.000000Z\",\n            \"location\": \"barzeh\",\n            \"nots\": \"updated\",\n            \"result\": \"الحكم لصالح الموكل\",\n            \"status\": \"cancelled\",\n            \"created_at\": \"2026-07-17T17:57:23.000000Z\",\n            \"updated_at\": \"2026-07-17T18:12:37.000000Z\"\n        }\n    }\n}"
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Update session successfully\",\n        \"session_id\": \"1851e58d-28ef-4dba-9e3f-ae519534ed38\"\n    }\n}"
                 }
               ]
             },
@@ -8590,7 +9132,7 @@
               },
               "response": [
                 {
-                  "name": "Get_All_Session_For_Case",
+                  "name": "success",
                   "originalRequest": {
                     "method": "GET",
                     "header": [
@@ -8649,7 +9191,7 @@
                     },
                     {
                       "key": "Date",
-                      "value": "Fri, 17 Jul 2026 18:02:18 GMT"
+                      "value": "Sat, 15 Aug 2026 12:54:01 GMT"
                     },
                     {
                       "key": "Content-Type",
@@ -8661,7 +9203,7 @@
                     }
                   ],
                   "cookie": [],
-                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Fetch session successfully\",\n        \"sessions\": [\n            {\n                \"session_id\": \"02ff1a46-facf-4928-9a3e-bb96684a6e2f\",\n                \"case_number\": \"5-8888\",\n                \"date\": \"2026-10-25 14:30\",\n                \"location\": \"mazzeh\",\n                \"nots\": \"no thing\",\n                \"status\": \"pending\",\n                \"result\": \"null\",\n                \"created_at\": \"2026-07-17 17:57\"\n            }\n        ],\n        \"session_files\": []\n    }\n}"
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Fetch session successfully\",\n        \"sessions\": [\n            {\n                \"session_id\": \"5bdafd49-6f81-44c1-bdf9-d6c3d1b078ce\",\n                \"case_number\": \"9-8888\",\n                \"date\": \"2028-10-25 14:30\",\n                \"location\": \"barzeh\",\n                \"latitude\": \"24.71355170\",\n                \"longitude\": \"46.67529570\",\n                \"nots\": \"updated\",\n                \"status\": \"completed\",\n                \"result\": \"فرز الدعوى لمحكمة الجنايات الرابعة\",\n                \"created_at\": \"2026-08-15 12:42\"\n            }\n        ],\n        \"session_files\": [\n            {\n                \"file_name\": \"session_document\",\n                \"file_url\": \"http://127.0.0.1:8000/storage/Documents/Case_files/43a444ce-3e92-451f-874a-6789161eabf6/wB5kHTEC70Rmen6joNPIIERrf0EsuwU8Wo1PVv43.docx\",\n                \"file_size\": 14303\n            }\n        ]\n    }\n}"
                 }
               ]
             },
@@ -8710,7 +9252,7 @@
               },
               "response": [
                 {
-                  "name": "Get_All_Session_For_lawer",
+                  "name": "success",
                   "originalRequest": {
                     "method": "GET",
                     "header": [
@@ -8759,7 +9301,7 @@
                     },
                     {
                       "key": "Date",
-                      "value": "Fri, 17 Jul 2026 18:11:38 GMT"
+                      "value": "Sat, 15 Aug 2026 12:54:49 GMT"
                     },
                     {
                       "key": "Content-Type",
@@ -8771,7 +9313,7 @@
                     }
                   ],
                   "cookie": [],
-                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Fetch sessions For lawer successfully\",\n        \"data\": [\n            {\n                \"id\": \"02ff1a46-facf-4928-9a3e-bb96684a6e2f\",\n                \"case_id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n                \"date\": \"2026-10-25T14:30:00.000000Z\",\n                \"location\": \"mazzeh\",\n                \"nots\": \"no thing\",\n                \"result\": \"null\",\n                \"status\": \"pending\",\n                \"created_at\": \"2026-07-17T17:57:23.000000Z\",\n                \"updated_at\": \"2026-07-17T17:57:23.000000Z\",\n                \"case\": {\n                    \"id\": \"1897280a-65b3-4eca-8b24-ddbfae2b29e3\",\n                    \"case_number\": \"5-8888\",\n                    \"title\": \"قضية تحصيل ديون تجارية\",\n                    \"price\": 50,\n                    \"case_category\": \"جنائي\",\n                    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\n                    \"result\": \"pending\",\n                    \"importance_stars\": 4,\n                    \"billing_type\": \"installments\",\n                    \"collection_percentage\": null,\n                    \"status\": \"open\",\n                    \"financial_status\": \"unpaid\",\n                    \"progress_percentage\": 0,\n                    \"court\": \"المحكمة التجارية بالرياض\",\n                    \"lead_lawyer_id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                    \"office_id\": \"019f66b1-6904-717c-a619-1d6190d86561\",\n                    \"created_at\": \"2026-07-17T16:40:57.000000Z\",\n                    \"updated_at\": \"2026-07-17T16:40:57.000000Z\",\n                    \"lead_lawyer\": {\n                        \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                        \"full_name\": \"عمر الزهراوي\",\n                        \"email\": \"omar@gmail.com\",\n                        \"role_id\": 2,\n                        \"is_active\": true,\n                        \"address\": null,\n                        \"city\": null,\n                        \"lat\": null,\n                        \"lng\": null,\n                        \"experience_years\": 0,\n                        \"bio\": null,\n                        \"phone\": null,\n                        \"national_id\": null,\n                        \"created_at\": \"2026-07-15T16:56:32.000000Z\",\n                        \"updated_at\": \"2026-07-15T16:56:32.000000Z\"\n                    }\n                }\n            }\n        ]\n    }\n}"
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Fetch sessions For lawyer successfully\",\n        \"data\": [\n            {\n                \"id\": \"5bdafd49-6f81-44c1-bdf9-d6c3d1b078ce\",\n                \"case_id\": \"43a444ce-3e92-451f-874a-6789161eabf6\",\n                \"date\": \"2028-10-25T14:30:00.000000Z\",\n                \"location\": \"barzeh\",\n                \"latitude\": \"24.71355170\",\n                \"longitude\": \"46.67529570\",\n                \"nots\": \"updated\",\n                \"result\": \"فرز الدعوى لمحكمة الجنايات الرابعة\",\n                \"status\": \"completed\",\n                \"created_at\": \"2026-08-15T12:42:50.000000Z\",\n                \"updated_at\": \"2026-08-15T12:43:50.000000Z\",\n                \"case\": {\n                    \"id\": \"43a444ce-3e92-451f-874a-6789161eabf6\",\n                    \"case_number\": \"9-8888\",\n                    \"title\": \"قضية تحصيل ديون تجارية\",\n                    \"price\": 50,\n                    \"case_category\": \"جنائي\",\n                    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\n                    \"result\": \"pending\",\n                    \"importance_stars\": 4,\n                    \"billing_type\": \"installments\",\n                    \"collection_percentage\": null,\n                    \"status\": \"open\",\n                    \"financial_status\": \"unpaid\",\n                    \"progress_percentage\": 0,\n                    \"court\": \"المحكمة التجارية بالرياض\",\n                    \"lead_lawyer_id\": \"fdb1ce6e-06ee-448b-b12b-5b1c2e9614be\",\n                    \"office_id\": \"01a00291-4a7b-733e-a540-d728663a053f\",\n                    \"created_at\": \"2026-08-15T12:42:01.000000Z\",\n                    \"updated_at\": \"2026-08-15T12:42:01.000000Z\"\n                }\n            }\n        ]\n    }\n}"
                 }
               ]
             }
@@ -10432,7 +10974,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -12705,7 +13247,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n   // \"case_id\":\"{{case_id}}\" ,\r\n\"template_id\" : \"{{Template_ID}}\" ,\r\n     \"custom_values\": {\r\n       \"اسم البائع\": \"عمر الزهراوي\",\r\n       \"اسم الشاري\": \"عمر الزهلراوي\",\r\n       \"تاريخ البيع\": \"15-12-2000\",\r\n       \"رقم العقار\": \"516\",\r\n       \"وصف العقار \": \"أرض زراعية\",\r\n       \"توقيع الطرف الاول\": \"شسشسش\"\r\n    }  \r\n}",
+                  "raw": "{\r\n   // \"case_id\":\"{{case_id}}\" ,\r\n\"template_id\" : \"{{Template_ID}}\" ,\r\n     \"custom_values\": {\r\n       \"day\" :\"asasas\",\r\n                \"name1\": \"asasa\" ,\r\n                \"name2\": \"asasa\",\r\n                \"phone_number\": \"asasa\",\r\n                \"signature_tow \" : \"asasa\"\r\n    }  \r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -13896,6 +14438,7 @@
         {
           "name": "get_clients",
           "protocolProfileBehavior": {
+            "disableBodyPruning": true,
             "disabledSystemHeaders": {
               "accept-encoding": true
             }
@@ -13924,14 +14467,29 @@
                 "type": "text"
               }
             ],
+            "body": {
+              "mode": "formdata",
+              "formdata": []
+            },
             "url": {
-              "raw": "{{Domain}}/lawyer/get_clients",
+              "raw": "{{Domain}}/lawyer/get_clients?name=عمر",
               "host": [
                 "{{Domain}}"
               ],
               "path": [
                 "lawyer",
                 "get_clients"
+              ],
+              "query": [
+                {
+                  "key": "national_id",
+                  "value": "123456",
+                  "disabled": true
+                },
+                {
+                  "key": "name",
+                  "value": "عمر"
+                }
               ]
             }
           },
@@ -14324,7 +14882,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "\r\n{\r\n    \"title\": \"احكام المخالعة\",\r\n    \"content\": \"يهدف هذا النظام إلى تنظيم كافة المعاملات المالية والمدنية...\",\r\n    \"law_number\": \"S-2026-009\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
+                  "raw": "\r\n{\r\n    \"title\": \"احكام الاعدام\",\r\n    \"content\": \"ترتيب الاحكام الترتبة عى جناية السرقة\",\r\n    \"law_number\": \"L-2026-000\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    // \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -14593,7 +15151,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "// {\r\n//     \"title\": \"الباب الأول: الأحكام العامة (محدث)\",\r\n//     \"law_id\": \"{{lawer_id}}\",\r\n//     \"content\": \"تسري أحكام هذا القانون على كافة المعاملات المدنية والتجارية... (محدث)\"\r\n// }\r\n{\r\n    \"law_id\": \"{{law_id}}\"  ,\r\n    \"title\": \"قانون المعاملات المدنية السوري (نسخة محدثة)\",\r\n    \"content\": \"يهدف هذا النظام المعدل إلى تنظيم كافة المعاملات القانونية بين الأفراد...\",\r\n     //\"law_number\": \"L-2026-003\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"status\": \"amended\",\r\n    \"effective_date\": \"2026-06-25\",\r\n    \"country\": \"syria\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد والمسؤولية التقصيرية\",\r\n    \"related_legislation_ids\": [\r\n        // \"019ef8c3-9e08-7028-a2f6-769e5826aaaa\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1 (معدلة)\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول وتوافقهما على وجه يثبت أثره في المعقود عليه.\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين وأهليتهما القانونية.\"\r\n        }\r\n    ]\r\n}",
+                  "raw": "{\r\n    \"law_id\": \"{{law_id}}\"  ,\r\n    \"title\": \"قانون المعاملات المدنية السوري (نسخة محدثة)\",\r\n    \"content\": \"يهدف هذا النظام المعدل إلى تنظيم كافة المعاملات القانونية بين الأفراد...\",\r\n     //\"law_number\": \"L-2026-003\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    \"status\": \"amended\",\r\n    \"effective_date\": \"2026-06-25\",\r\n    // \"country\": \"syria\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد والمسؤولية التقصيرية\",\r\n    \"related_legislation_ids\": [\r\n        // \"019ef8c3-9e08-7028-a2f6-769e5826aaaa\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1 (معدلة)\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول وتوافقهما على وجه يثبت أثره في المعقود عليه.\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين وأهليتهما القانونية.\"\r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -15415,7 +15973,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{Domain}}/syndicate/legislation/semantic_search?q=نسخة &limit=",
+                  "raw": "{{Domain}}/syndicate/legislation/semantic_search?q=الزواج&limit=",
                   "host": [
                     "{{Domain}}"
                   ],
@@ -15427,7 +15985,7 @@
                   "query": [
                     {
                       "key": "q",
-                      "value": "نسخة "
+                      "value": "الزواج"
                     },
                     {
                       "key": "limit",
@@ -15594,7 +16152,99 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "title",
+                          "value": "عقد إيجار موحد",
+                          "type": "text"
+                        },
+                        {
+                          "key": "category",
+                          "value": "أحكام",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
+                          "src": "postman-cloud:///1f16c8d2-ed62-4250-b0c7-73dc72146144"
+                        },
+                        {
+                          "key": "template_desc",
+                          "value": "عقد إيجار موحد",
+                          "type": "text",
+                          "uuid": "a20636e8-4374-42fa-a371-57b48106a9fd"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/templates/upload",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "templates",
+                        "upload"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 14 Aug 2026 13:01:35 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": true,\n    \"message\": \" تم رفع القالب\",\n    \"data\": {\n        \"success\": true,\n        \"message\": \"تم رفع القالب بنجاح\",\n        \"data\": [\n            {\n                \"Template ID\": \"01a0005d-1401-712f-878d-83a5fe5c7c5f\",\n                \"variables Detected in Template\": [],\n                \"Template Title\": \"عقد إيجار موحد\",\n                \"Template Description\": \"عقد إيجار موحد\",\n                \"Template Category\": \"أحكام\"\n            }\n        ]\n    }\n}"
+                }
+              ]
             },
             {
               "name": "update_template",
@@ -15655,7 +16305,7 @@
                       "key": "file",
                       "type": "file",
                       "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
-                      "src": "postman-cloud:///1f16c8d2-ed62-4250-b0c7-73dc72146144"
+                      "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.pdf"
                     }
                   ]
                 },
@@ -15671,7 +16321,104 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "template_id",
+                          "value": "{{Template_ID}}",
+                          "type": "text",
+                          "uuid": "4d0c1077-5efb-4b53-9ee2-2b6938bd64c7"
+                        },
+                        {
+                          "key": "title",
+                          "value": "عقد بيع موحد",
+                          "type": "text"
+                        },
+                        {
+                          "key": "template_description",
+                          "value": "عقد بيع موحد",
+                          "type": "text"
+                        },
+                        {
+                          "key": "category",
+                          "value": "سندات",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
+                          "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.pdf"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/templates/update_template",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "templates",
+                        "update_template"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 14 Aug 2026 13:35:26 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"تم تحديث القالب بنجاح\",\n    \"data\": {\n        \"success\": true,\n        \"message\": \"تم تحديث القالب بنجاح\",\n        \"data\": [\n            {\n                \"Template ID\": \"01a0007b-c6ce-70ad-bdc1-a13f6f492c19\",\n                \"variables Detected in Template\": [\n                    \"day\",\n                    \"name1\",\n                    \"name2\",\n                    \"phone_number\",\n                    \"signature_tow\"\n                ],\n                \"Template Title\": \"عقد بيع موحد\",\n                \"Template Description\": \"عقد بيع موحد\",\n                \"Template Category\": \"سندات\"\n            }\n        ]\n    }\n}"
+                }
+              ]
             },
             {
               "name": "delete_template",
@@ -15726,7 +16473,82 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/templates/delete_template?template_id={{Template_ID}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "templates",
+                        "delete_template"
+                      ],
+                      "query": [
+                        {
+                          "key": "template_id",
+                          "value": "{{Template_ID}}"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 14 Aug 2026 13:36:49 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"تم حذف القالب بنجاح\",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"تم حذف القالب بنجاح\",\n        \"data\": []\n    }\n}"
+                }
+              ]
             },
             {
               "name": "get_templates_categories",
@@ -15742,7 +16564,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{syndicate_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -15804,7 +16626,104 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "template_id",
+                          "value": "{{Template_ID}}",
+                          "type": "text",
+                          "uuid": "4d0c1077-5efb-4b53-9ee2-2b6938bd64c7"
+                        },
+                        {
+                          "key": "title",
+                          "value": "عقد بيع موحد",
+                          "type": "text"
+                        },
+                        {
+                          "key": "template_description",
+                          "value": "عقد بيع موحد",
+                          "type": "text"
+                        },
+                        {
+                          "key": "category",
+                          "value": "سندات",
+                          "type": "text"
+                        },
+                        {
+                          "key": "file",
+                          "type": "file",
+                          "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
+                          "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.docx"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/templates/get_templates_categories",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "templates",
+                        "get_templates_categories"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 14 Aug 2026 13:37:11 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"تم جلب التصنيفات\",\n    \"data\": [\n        \"أحكام\"\n    ]\n}"
+                }
+              ]
             },
             {
               "name": "getTemplates",
@@ -15868,13 +16787,18 @@
               },
               "response": [
                 {
-                  "name": "getTemplates",
+                  "name": "success",
                   "originalRequest": {
                     "method": "GET",
                     "header": [
                       {
                         "key": "Accept",
                         "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
                         "type": "text"
                       }
                     ],
@@ -15883,36 +16807,64 @@
                       "formdata": []
                     },
                     "url": {
-                      "raw": "{{Domain}}/templates/getTemplates?category=عقود&title=براءة ",
+                      "raw": "{{Domain}}/syndicate/templates/getTemplates",
                       "host": [
                         "{{Domain}}"
                       ],
                       "path": [
+                        "syndicate",
                         "templates",
                         "getTemplates"
                       ],
                       "query": [
                         {
                           "key": "category",
-                          "value": "عقود"
+                          "value": "براءة",
+                          "disabled": true
                         },
                         {
                           "key": "title",
-                          "value": "براءة "
+                          "value": "براءة ",
+                          "disabled": true
                         }
                       ]
                     }
                   },
-                  "_postman_previewlanguage": "",
-                  "header": [],
-                  "cookie": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
                     {
-                      "expires": "Invalid Date",
-                      "domain": "",
-                      "path": ""
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 14 Aug 2026 13:37:39 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
                     }
                   ],
-                  "body": ""
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"تم جلب القالب بنجاح\",\n    \"data\": {\n        \"success\": true,\n        \"message\": \"تم جلب القوالب بنجاح\",\n        \"data\": [\n            {\n                \"Template_id\": \"01a0007b-3a3f-70dc-aa53-51c82d453035\",\n                \"title\": \"عقد إيجار موحد\",\n                \"category\": \"أحكام\",\n                \"Created_At_Date\": \"2026-08-14\"\n            }\n        ],\n        \"pagination\": {\n            \"current_page\": 1,\n            \"total_pages\": 1,\n            \"total_items\": 1,\n            \"per_page\": 20,\n            \"next_page_url\": null,\n            \"prev_page_url\": null,\n            \"last_page_url\": \"http://127.0.0.1:8000/api/syndicate/templates/getTemplates?page=1\"\n        }\n    }\n}"
                 }
               ]
             },
@@ -15970,7 +16922,82 @@
                   ]
                 }
               },
-              "response": []
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": []
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/templates/show_template_details?template_id={{template_id}}",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "templates",
+                        "show_template_details"
+                      ],
+                      "query": [
+                        {
+                          "key": "template_id",
+                          "value": "{{template_id}}"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 14 Aug 2026 13:38:24 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"تم جلب القالب بنجاح\",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"تم جلب تفاصيل القالب بنجاح\",\n        \"data\": {\n            \"Template_ID\": \"01a0007b-3a3f-70dc-aa53-51c82d453035\",\n            \"Template_name\": \"عقد إيجار موحد\",\n            \"file_type\": \"template\",\n            \"Template_description\": \"عقد إيجار موحد\",\n            \"Template_category\": \"أحكام\",\n            \"Template_created_at\": \"2026-08-14\",\n            \"Template_updated_at\": \"2026-08-14\",\n            \"Template_variables\": [\n                \"day\",\n                \"name1\",\n                \"name2\",\n                \"phone_number\",\n                \"signature_tow\"\n            ],\n            \"Template_file\": null,\n            \"template_file_size\": \"0 MB\",\n            \"Generated_Files\": []\n        }\n    }\n}"
+                }
+              ]
             }
           ]
         },
@@ -16499,19 +17526,19 @@
               "formdata": [
                 {
                   "key": "national_id",
-                  "value": "1313",
+                  "value": "15511",
                   "type": "text",
                   "uuid": "fae6f840-37b3-40ab-a33e-a086f1c9fad9"
                 },
                 {
                   "key": "full_name",
-                  "value": "معاذ",
+                  "value": "عمر ",
                   "type": "text",
                   "uuid": "8f8e1057-7b60-4a27-a0d1-1a6d0337d7ca"
                 },
                 {
                   "key": "father_name",
-                  "value": "العلي",
+                  "value": "التلي ",
                   "type": "text",
                   "uuid": "93028b0c-2849-466d-a9da-f8e65d83c17d"
                 },
@@ -16547,13 +17574,13 @@
                 },
                 {
                   "key": "syndicate_card_number",
-                  "value": "1313",
+                  "value": "15511",
                   "type": "text",
                   "uuid": "f774b787-3a66-4498-8675-0c8d21950925"
                 },
                 {
                   "key": "syndicate_branch",
-                  "value": "دمشق",
+                  "value": "حلب",
                   "type": "text",
                   "uuid": "35029b3d-1b26-4ab4-a51e-88345c6fd0de"
                 },

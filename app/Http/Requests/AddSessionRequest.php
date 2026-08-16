@@ -27,7 +27,9 @@ class AddSessionRequest extends FormRequest
         return [
             'case_id' => 'required|exists:cases,id',
             'date' => 'required|date_format:Y-m-d H:i|after_or_equal:today',
-            'location' => 'required',
+            'location' => 'required|string',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'nots' => 'required',
         ];
     }

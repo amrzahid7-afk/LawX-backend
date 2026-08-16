@@ -207,6 +207,7 @@ class PropposalService
     {
         $proposals = Proposal::where('request_id', $request_id)
             ->with(['lawyer', 'documents', 'request'])
+            ->where('status', 'pending')
             ->get();
 
         $result = [];
@@ -259,5 +260,22 @@ class PropposalService
             ],
             'code' => '200'
         ];
+    }
+    public function response_proposal($request)
+    {
+        try {
+            $proposal = Proposal::find($request->proposal_id);
+            $proposal->status = $request->status;
+            $proposal->save();
+            return [
+                'status' => 'success',
+                'data' => [
+                    'message' => 'response proposal successfully',
+                ],
+                'code' => 200
+            ];
+        } catch (\Exception $e) {
+            return sendError("Internal Server Error ", [$e->getMessage()], 500);
+        }
     }
 }

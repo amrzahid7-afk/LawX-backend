@@ -27,7 +27,6 @@ class Legal_request extends Model
         'created_at',
         'client_id',
         'assigned_lawyer_id',
-
     ];
     // Define Factory Method 
     protected static function newFactory()

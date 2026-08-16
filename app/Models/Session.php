@@ -15,6 +15,8 @@ class Session extends Model
         'case_id',
         'date',
         'location',
+        'latitude',
+        'longitude',
         'nots',
         'result',
         'status'

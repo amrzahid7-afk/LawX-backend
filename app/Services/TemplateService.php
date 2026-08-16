@@ -79,7 +79,7 @@ class TemplateService
         // 3. تحديث البيانات الأساسية
         $template->update([
             'title'    => $validatedData['title'] ?? $template->title,
-            'template_desc'    => $validatedData['template_desc'] ?? $template->template_desc,
+            'template_desc'    => $validatedData['template_description'] ?? $template->template_description,
             // 'scope'    => $validatedData['scope'] ?? $template->scope,
             'category' => $validatedData['category'] ?? $template->category,
         ]);

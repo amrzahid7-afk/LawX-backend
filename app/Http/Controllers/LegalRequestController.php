@@ -86,10 +86,7 @@ class LegalRequestController extends Controller
             // send response 
             return sendResponse($data['data'], $data['status'], $data['code']);
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine()
-            ], 500);
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
         }
     }
     public function update_request(UpdateLegalRequestRequest $request)

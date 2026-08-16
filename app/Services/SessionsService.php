@@ -16,8 +16,10 @@ class SessionsService
             'case_id' => $data['case_id'],
             'date' => $data['date'],
             'location' => $data['location'],
+            'latitude' => $data['latitude'] ?? null,
+            'longitude' => $data['longitude'] ?? null,
             'nots' => $data['nots'],
-            'result' => "null",
+            'result' => null,
         ]);
         // send notification
         $clients = $session->case->clients;
@@ -28,35 +30,11 @@ class SessionsService
             'status' => 'success',
             'data' => [
                 'message' => 'create session successfully',
-                'data' => $session
+                'session_id' => $session->id
             ],
             'code' => '200'
         ];
     }
-    // public function getSessions($case_id)
-    // {
-    //     $sessions = Session::where('case_id', $case_id)->with(['case', 'case.documents'])->get();
-    //     $formattedSessions = $sessions->map(function ($session) {
-    //         return [
-    //             'session_id' => $session->id,
-    //             'case_number' => $session->case->case_number,
-    //             'date' => $session->date->format('Y-m-d H:i'),
-    //             'location' => $session->location,
-    //             'nots' => $session->nots,
-    //             'status' => $session->status,
-    //             'result' => $session->result,
-    //             'created_at' => $session->created_at->format('Y-m-d H:i'),
-    //         ];
-    //     });
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'Fetch session successfully',
-    //             'data' => $formattedSessions
-    //         ],
-    //         'code' => '200'
-    //     ];
-    // }
     public function getSessions($case_id)
     {
         $sessions = Session::where('case_id', $case_id)->with(['case', 'case.documents'])->get();
@@ -77,6 +55,8 @@ class SessionsService
                 'case_number' => $session->case->case_number,
                 'date' => $session->date->format('Y-m-d H:i'),
                 'location' => $session->location,
+                'latitude' => $session->latitude,
+                'longitude' => $session->longitude,
                 'nots' => $session->nots,
                 'status' => $session->status,
                 'result' => $session->result,
@@ -120,29 +100,12 @@ class SessionsService
             'code' => '200'
         ];
     }
-    // public function get_sessions_for_lawer()
-    // {
-    //     // get lawer object
-    //     $lawer = auth('sanctum')->user();
-    //     // get sessions just for this lawer (Authenticated)
-    //     $sessions = Session::with('case.leadLawyer')->whereHas('case', function ($query) use ($lawer) {
-    //         $query->where('lead_lawyer_id', $lawer->id);
-    //     })->get();
-    //     // returning resposne data
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'Fetch sessions For lawer successfully',
-    //             'data' => $sessions
-    //         ],
-    //         'code' => '200'
-    //     ];
-    // }
+
     public function get_sessions_for_client()
     {
         $client = auth('sanctum')->user();
 
-        $sessions = Session::with('case.clients') // تم التعديل هنا: case.clients بدلاً من case.client
+        $sessions = Session::with('case.clients')
             ->whereHas('case', function ($query) use ($client) {
                 $query->whereHas('clients', function ($q) use ($client) {
                     $q->where('users.id', $client->id);
@@ -175,6 +138,8 @@ class SessionsService
         $session->update([
             'date' => $data['date'] ?? $session->date,
             'location' => $data['location'] ?? $session->location,
+            'latitude' => $data['latitude'] ?? $session?->latitude,
+            'longitude' => $data['longitude'] ?? $session?->longitude,
             'nots'  => $data['nots'] ?? $session->nots,
             'result'  => $data['result'] ?? $session->result,
             'status'  => $data['status'] ?? $session->status,
@@ -193,7 +158,7 @@ class SessionsService
             'status' => 'success',
             'data' => [
                 'message' => 'Update session successfully',
-                'data' => $session
+                'session_id' => $session->id
             ],
             'code' => '200'
         ];

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AuthService
@@ -65,18 +66,33 @@ class AuthService
             'message' => 'تم التحقق من بيانات النقابة بنجاح، يمكنك إكمال عملية التسجيل.'
         ], 'Verification successful.');
     }
-    public function register(array $data)
+    public function register(Request $request)
     {
         DB::beginTransaction();
-        $profile = LawerProfile::findOrFail($data['lawyer_profile_id']);
+        $profile = LawerProfile::findOrFail($request['lawyer_profile_id']);
         if ($profile->is_claimed) {
             return sendError('هذا الحساب تم تفعيله مسبقاً.', [], 400);
         }
+        // store avatar
+        $avatarPath = null;
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $avatarPath = Storage::disk('public')->url($path);
+        }
         $user = User::create([
-            'full_name' => $profile->full_name, // نأخذ الاسم من ملف النقابة مباشرة لضمان الدقة
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role_id' => Role::where('slug', RoleSlug::Lawyer->value)->firstOrFail()->id
+            'full_name'       => $profile->full_name,
+            'email'           => $request['email'],
+            'password'        => Hash::make($request['password']),
+            'role_id'         => Role::where('slug', RoleSlug::Lawyer->value)->firstOrFail()->id,
+            'phone_number'    => $request['phone_number'],
+            'address'         => $request['address'] ?? null,
+            'lat'             => $request['lat'] ?? null,
+            'lng'             => $request['lng'] ?? null,
+            'bio'             => $request['bio'] ?? null,
+            'national_id'     => $request['national_id'],
+            'avatar'          => $avatarPath,
+            'city'            => $request['city'],
+            'experience_years' => $request['experience_years'] ?? 0,
         ]);
         $profile->update([
             'user_id' => $user->id,
@@ -88,13 +104,27 @@ class AuthService
         DB::commit();
         return sendResponse(['token' => $token,], 'Registration successful.', 201);
     }
-    public function registerClient($data)
+    public function registerClient(Request $request)
     {
+        $avatarPath = null;
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $avatarPath = Storage::disk('public')->url($path);
+        }
         $user = User::create([
-            'full_name' => $data['full_name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role_id' => Role::where('slug', RoleSlug::Client->value)->firstOrFail()->id
+            'full_name' => $request->input('full_name'),
+            'email'     => $request->input('email'),
+            'password'  => Hash::make($request->input('password')),
+            'role_id'   => Role::where('slug', RoleSlug::Client->value)->firstOrFail()->id,
+            'address'   => $request->input('address'),
+            'lat'       => $request->input('lat'),
+            'lng'       => $request->input('lng'),
+            'bio'       => $request->input('bio'),
+            'avatar_path'    => $avatarPath,
+            'phone'     => $request->input('phone_number'),
+            'city'      => $request->input('city'),
+            'national_id' => $request->input('national_id')
+
         ]);
         $token = $user->createToken('ClientToken')->plainTextToken;
         return $token;

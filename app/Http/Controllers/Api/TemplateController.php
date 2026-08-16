@@ -10,6 +10,7 @@ use App\Models\SmartTemplate;
 use App\Services\TemplateService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class TemplateController extends Controller
@@ -21,50 +22,51 @@ class TemplateController extends Controller
         $this->templateService = $templateService;
     }
 
-    /**
-     * API 1: رفع قالب جديد
-     */
-
     public function upload(StoreTemplateRequest $request): JsonResponse
     {
         try {
+            // call servcie
             $response = $this->templateService->uploadTemplate(
                 $request->validated(),
                 $request->file('file')
             );
-
-            return response()->json([
-                'status' => true,
-                'message' => ' تم رفع القالب',
-                'data' => $response,
-            ], 200);
+            // validate permission 
+            if (Gate::denies('create_template', SmartTemplate::class)) {
+                return sendError("Unauthorized, You do not have permission to create templates", [], 403);
+            }
+            //send response
+            return sendResponse($response, 'تم رفع القالب بنجاح', 200);
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'فشل في رفع القالب',
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine(),
-                'Class' => $e->getFile(),
-            ], 500);
+            return sendError('Internal Server Error', ['error' => $e->getMessage() . "   "  . $e->getFile() . "   " . $e->getLine()], 500);
         }
     }
 
-    public function get_templates_categories()
+    public function update_template(UpdateTemplateRequest $request)
     {
-        $categories = SmartTemplate::distinct()->pluck('category');
-        return response()->json([
-            'status' => true,
-            'message' => ' تم جلب التصنيفات ',
-            'data' => $categories,
-        ], 200);
+        try {
+
+            // validate data
+            $data = $request->validated();
+            if ($request->hasFile('file')) {
+                $data['file'] = $request->file('file');
+            }
+            // validate permission 
+            if (Gate::denies('update_template', SmartTemplate::class)) {
+                return sendError("Unauthorized, You do not have permission to create templates", [], 403);
+            }
+            // call service
+            $response = $this->templateService->updateTemplate($data);
+            // send response 
+            return sendResponse($response, 'تم تحديث القالب بنجاح', 200);
+        } catch (\Exception $e) {
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
+        }
     }
-    /**
-     * API 2: جلب القوالب المتاحة
-     */
+
     public function getTemplates(Request $request): JsonResponse
     {
         try {
-            // Valdiate the value of Category 
+            // Valdiate data 
             $validaor = Validator::make([
                 'category' => request()->category,
                 'title' => request()->title
@@ -73,104 +75,47 @@ class TemplateController extends Controller
                 'title' => 'nullable|string',
             ]);
             if ($validaor->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'بيانات المدخلات غير صحيحة',
-                    'errors' => $validaor->errors(),
-                ], 422);
+                return sendError('بيانات المدخلات غير صحيحة', $validaor->errors()->toArray(), 422);
             }
+            // validate permission 
+            if (Gate::denies('get_templates', SmartTemplate::class)) {
+                return sendError("Unauthorized, You do not have permission to create templates", [], 403);
+            }
+            // call service
             $response = $this->templateService->getTemplates($request->all());
-            return response()->json([
-                'status' => true,
-                'message' => ' تم جلب القالب',
-                'data' => $response,
-            ], 200);
+            //send response
+            return sendResponse($response, 'تم جلب القالب بنجاح', 200);
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'فشل في رفع القالب',
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine(),
-                'Class' => $e->getFile(),
-            ], 500);
+            return sendError("Internal Server Error", ['error' => $e->getMessage()], 500);
         }
     }
 
-    /**
-     * API 3: جلب تفاصيل قالب
-     */
     public function show_template_details(): JsonResponse
     {
         try {
+            //  validate data 
             $validaor = Validator::make(['id' => request()->template_id], [
                 'id' => 'required|exists:smart_templates,id',
             ]);
             if ($validaor->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'بيانات المدخلات غير صحيحة',
-                    'errors' => $validaor->errors(),
-                ], 422);
+                return sendError('بيانات المدخلات غير صحيحة', $validaor->errors()->toArray(), 422);
             }
+            // validate permission 
+            if (Gate::denies('show_template_details', SmartTemplate::class)) {
+                return sendError("Unauthorized, You do not have permission to create templates", [], 403);
+            }
+            // call service
             $response = $this->templateService->getTemplateById(request()->template_id);
-            // if ($response['status'] == "Fail") {
-            //     return response()->json([
-            //         'status' => false,
-            //         'message' => $response['message'],
-            //         'Error_data' => $response['Error_data']
-            //     ]);
-            // }
-            return response()->json([
-                'status' => true,
-                'message' => ' تم جلب القالب',
-                'data' => $response,
-            ], 200);
+            return sendResponse($response, 'تم جلب القالب بنجاح', 200);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'حدث خطأ',
-                'error' => $e->getMessage(),
-            ], 500);
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
         }
     }
 
-    /**
-     * API 4: تحديث قالب
-     */
-    public function update_template(UpdateTemplateRequest $request)
-    {
-        try {
-
-
-            $data = $request->validated();
-
-            // إذا تم رفع ملف جديد، أضفه للبيانات
-            if ($request->hasFile('file')) {
-                $data['file'] = $request->file('file');
-            }
-
-            $response = $this->templateService->updateTemplate($data);
-            return response()->json([
-                'success' => true,
-                'message' => 'تم تحديث القالب بنجاح',
-                'data' => $response,
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'فشل في تحديث القالب',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
-
-    /**
-     * API 5: حذف قالب
-     */
     public function delete_template()
     {
         try {
+            // validate permission 
             $validator = Validator::make(['template_id'  =>  request()->template_id], [
                 'template_id' => 'required|exists:smart_templates,id',
             ], [
@@ -178,41 +123,42 @@ class TemplateController extends Controller
                 'id.exists' => 'Template ID does not exist',
             ]);
             if ($validator->fails()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'بيانات المدخلات غير صحيحة',
-                    'errors' => $validator->errors(),
-                ], 422);
+                return sendResponse("Validation Error", 'بيانات المدخلات غير صحيحة', 422);
             }
+            // validate permission 
+            if (Gate::denies('delete_template', SmartTemplate::class)) {
+                return sendError("Unauthorized, You do not have permission to create templates", [], 403);
+            }
+            // call service
             $response = $this->templateService->deleteTemplate();
-            return response()->json($response);
+            // send response 
+            return sendResponse($response, 'تم حذف القالب بنجاح', 200);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'فشل في حذف القالب',
-                'error' => $e->getMessage(),
-            ], 500);
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
         }
     }
 
-    /**
-     * API 6: توليد ملف من قالب (FR-LB-02)
-     */
+
     public function generate_template(GenerateTemplateRequest $request)
     {
         try {
+            // validate data 
             $data = $request->validated();
+            // validate permission 
+            if (Gate::denies('generate_template', SmartTemplate::class)) {
+                return sendError("Unauthorized, You do not have permission to create templates", [], 403);
+            }
+            // call service
             $response = $this->templateService->generateFromTemplate($data);
-
-            return response()->json($response);
+            // send resposne 
+            return sendResponse($response, 'تم توليد الملف بنجاح', 200);
         } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'فشل في توليد الملف',
-                'error' => $e->getMessage(),
-                'Line' => $e->getLine(),
-                'File' => $e->getFile(),
-            ], 500);
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
         }
+    }
+    public function get_templates_categories()
+    {
+        $categories = SmartTemplate::distinct()->pluck('category');
+        return sendResponse($categories, 'تم جلب التصنيفات', 200);
     }
 }

@@ -28,6 +28,8 @@ class UpdateSessionRequest extends FormRequest
             'case_id' => 'required|exists:cases,id',
             'date' => 'nullable|date_format:Y-m-d H:i|after_or_equal:today',
             'location' => 'nullable|string|max:255',
+            'latitude' => 'nullable|numeric|between:-90,90',
+            'longitude' => 'nullable|numeric|between:-180,180',
             'result' => 'nullable|string|max:255',
             'file' => 'nullable|file',
             'status' => 'nullable|in:pending,completed,cancelled',
@@ -49,6 +51,10 @@ class UpdateSessionRequest extends FormRequest
             'result.max' => "result must not exceed 255 characters",
             'file.file' => "file must be a valid file",
             'status.in' => "status must be one of pending, completed, cancelled",
+            'latitude.numeric' => "latitude must be a number",
+            'longitude.numeric' => "longitude must be a number",
+            'latitude.between' => "latitude must be between -90 and 90",
+            'longitude.between' => "longitude must be between -180 and 180",
         ];
     }
     protected function failedValidation(Validator $validator)

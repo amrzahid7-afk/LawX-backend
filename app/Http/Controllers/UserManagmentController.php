@@ -17,16 +17,44 @@ class UserManagmentController extends Controller
     {
         $this->userManagmentService = $userManagmentService;
     }
-    public function get_clients()
+
+
+
+    public function get_clients(Request $request)
     {
         // validate permission
-        if (Gate::denies('get_clients', User::class)) {
-            return sendError("Unauthorized , You do not have permission to view clients ", [], 403);
+        // if (Gate::denies('get_clients', User::class)) {
+        //     return sendError("Unauthorized , You do not have permission to view clients ", [], 403);
+        // }
+        try {
+            $client_role_id = Role::where('slug', 'client')->first()->id;
+            $clients  = User::whereRoleId($client_role_id)
+                ->where('national_id', $request->input('national_id'))
+                ->orWhere('full_name', $request->input('name'))
+                ->get();
+            $clients = $clients->map(function ($client) {
+                return [
+                    'id' => $client->id,
+                    'full_name' => $client->full_name,
+                    'national_id' => $client->national_id,
+                    'is_active' => $client->is_active,
+                    'address' => $client->address,
+                    'city' => $client->city,
+                    'phone' => $client->phone,
+                    'email' => $client->email,
+                    'bio' => $client->bio,
+                    'lat' => $client->lat,
+                    'lng' => $client->lng,
+                    'avatar_path' => $client->avatar_path,
+                    //// 
+                ];
+            });
+            return sendResponse($clients, 'تم الحصول على البيانات', 200);
+        } catch (\Exception $e) {
+            return sendError('Internal Server Error', ['error' => $e->getMessage()], 500);
         }
-        $client_role_id = Role::where('slug', 'client')->first()->id;
-        $clients  = User::whereRoleId($client_role_id)->get();
-        return sendResponse($clients, 'تم الحصول على البيانات', 200);
     }
+
     public function get_offices_or_lawers(Request $request)
     {
         try {

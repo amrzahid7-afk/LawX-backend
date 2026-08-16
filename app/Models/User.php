@@ -6,7 +6,9 @@ use App\Enums\RoleSlug;
 use App\Models\LawyerProfile;
 use App\Models\Salary;
 use App\Models\Task;
+use App\Models\CaseModel;
 use App\Traits\HasUuid;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,7 +33,7 @@ class User extends Authenticatable
         'address',
         'password',
         'full_name',
-        'avatar',
+        'avatar_path',
         'is_active',
         'activation_2FA',
         'city',
@@ -39,6 +41,8 @@ class User extends Authenticatable
         'lng',
         'experience_years',
         'bio',
+        'national_id',
+        'phone'
     ];
     protected $hidden = [
         'password',
@@ -112,5 +116,10 @@ class User extends Authenticatable
     public function salaryRecords()
     {
         return $this->hasMany(Salary::class, 'lawyer_id');
+    }
+    public function clientCases()
+    {
+        return $this->belongsToMany(CaseModel::class, 'case_clients', 'user_id', 'case_id')
+            ->withPivot('is_primary');
     }
 }

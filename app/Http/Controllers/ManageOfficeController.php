@@ -227,8 +227,13 @@ class ManageOfficeController extends Controller
     public function search_for_lawers(ListLawyersRequest $request)
     {
         try {
+            // validate data
             $vaidated_data = $request->validated();
-            $lawyers = $this->manageSyndicateUsersService->getLawyers($vaidated_data);
+            // get office Manager ID 
+            $myOfficeId = Office::where('owner_lawyer_profile_id', auth('sanctum')->user()->lawyerProfile->id)->value('id');
+            // call service
+            $lawyers = $this->manageSyndicateUsersService->getLawyers($vaidated_data, $myOfficeId);
+            // send response
             return sendResponse($lawyers, 'Lawyers retrieved successfully.', 200);
         } catch (\Throwable $th) {
             return sendError('Failed to retrieve lawyers.', [
@@ -238,6 +243,20 @@ class ManageOfficeController extends Controller
             ], 500);
         }
     }
+    // public function search_for_lawers(ListLawyersRequest $request)
+    // {
+    //     try {
+    //         $vaidated_data = $request->validated();
+    //         $lawyers = $this->manageSyndicateUsersService->getLawyers($vaidated_data);
+    //         return sendResponse($lawyers, 'Lawyers retrieved successfully.', 200);
+    //     } catch (\Throwable $th) {
+    //         return sendError('Failed to retrieve lawyers.', [
+    //             'message' => $th->getMessage(),
+    //             'file'    => $th->getFile(),
+    //             'line'    => $th->getLine()
+    //         ], 500);
+    //     }
+    // }
 }
 // old code to be deleted
 // namespace App\Http\Controllers;

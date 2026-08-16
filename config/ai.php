@@ -17,31 +17,9 @@ return [
     'default_for_images' => 'zai',
     'default_for_audio' => 'zai',
     'default_for_transcription' => 'zai',
-    'default_for_embeddings' => 'zai',
+    'default_for_embeddings' => 'gemini',
+
     'default_for_reranking' => 'zai',
-    // // gemini 
-    // 'default' => 'gemini',
-    // 'default_for_images' => 'gemini',
-    // 'default_for_audio' => 'gemini',
-    // 'default_for_transcription' => 'gemini',
-    // 'default_for_embeddings' => 'gemini',
-    // 'default_for_reranking' => 'gemini',
-    // grok
-
-    // 'default' => 'groq',
-    // 'default_for_images' => 'groq',
-    // 'default_for_audio' => 'groq',
-    // 'default_for_transcription' => 'groq',
-    // 'default_for_embeddings' => 'groq',
-    // 'default_for_reranking' => 'groq',
-
-    // open ai 
-    // 'default' => 'openai',
-    // 'default_for_images' => 'openai',
-    // 'default_for_audio' => 'openai',
-    // 'default_for_transcription' => 'openai',
-    // 'default_for_embeddings' => 'openai',
-    // 'default_for_reranking' => 'openai',
 
     /*
     |--------------------------------------------------------------------------
@@ -79,16 +57,18 @@ return [
             'url' => env('GEMINI_URL', 'https://generativelanguage.googleapis.com/v1beta/'),
             'models' => [
                 'text' => [
-                    'default' => 'gemini-3.1-flash-lite',
-                    'cheapest' => 'gemini-3.1-flash-lite',
-                    'smartest' => 'gemini-3.5-flash',
+                    'default' => 'gemini-1.5-flash',
+                ],
+                // إضافة موديل الـ Embedding لـ Gemini
+                'embedding' => [
+                    'default' => 'gemini-embedding-001',
                 ],
             ]
         ],
         'openai' => [
             'driver' => 'openai',
-            'key' => env('OPENAI_API_KEY'),
-            'url' => env('OPENAI_URL', 'https://api.openai.com/v1'),
+            'key'    => env('OPENAI_API_KEY'),
+            'url'    => env('OPENAI_URL', 'https://api.openai.com/v1'),
         ],
         'zai' => [
             'driver' => 'openai',

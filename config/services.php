@@ -13,6 +13,11 @@ return [
     | a conventional file to locate the various service credentials.
     |
     */
+    'syria_law' => [
+        'base_url' => env('SYRIA_LAW_BASE_URL', 'https://syria-law.com/wp-json/wp/v2'),
+        'per_page' => 1,
+        'timeout'  => 30,
+    ],
     'stripe' => [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
@@ -20,7 +25,6 @@ return [
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
-
     'ses' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),

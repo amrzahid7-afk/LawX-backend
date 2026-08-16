@@ -28,19 +28,12 @@ class SessionController extends Controller
             if (Gate::denies('addSession', [Session::class, $case])) {
                 return  sendError("Unauthorized , You do not have permission to add a session for this case.", [], 403);
             }
-            // logic in service class
+            // call service
             $session = $this->session_service->add_new_session($data);
-
-            return response()->json([
-                'status' => $session['status'],
-                'data' => $session['data'],
-            ], $session['code']);
+            // return response 
+            return sendResponse($session['data'], $session['status'], $session['code']);
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => "Error",
-                'message' => $e->getMessage(),
-                'line' => $e->getLine(),
-            ], 500);
+            return sendError('Internal server Error ', [$e->getMessage()], 500);
         }
     }
     public function get_sessions_for_case($case_id)

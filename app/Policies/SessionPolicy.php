@@ -30,7 +30,7 @@ class SessionPolicy
     {
         // can create session if the user is a licensed lawyer and he is the office manager of the case or he is a member of the case team
         return
-            $this->isLisencedLawer($user) &&
+            $this->isLisencedLawer($user) ||
             ($this->isofficeManager($user, $case) ||
                 $this->isCaseTeamMember($user, $case)
             );

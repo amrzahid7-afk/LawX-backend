@@ -47,4 +47,10 @@ class ProposalPolicy
         // $is_for_me = ;
         return  $request->client_id == $user->id;
     }
+    public function respone_proposal(User $user, Proposal $proposal)
+    {
+        // Proposal Is For this client
+        $is_for_me = $user->id === $proposal->request->client_id;
+        return  $is_for_me;
+    }
 }

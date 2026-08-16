@@ -23,6 +23,7 @@ class CaseController extends Controller
     {
 
         try {
+
             // validated data
             $validated_data = $request->validated();
             // validate permission
@@ -32,7 +33,7 @@ class CaseController extends Controller
             // calling case service
             $case = $this->caseService->createCase($validated_data);
             // return response
-            return sendResponse($case['data'], $case['message'], $case['code']);
+            return sendResponse($case['data'], $case['status'], $case['code']);
             // returun error response
         } catch (Exception $e) {
             return sendError('Internal Server Error ', ['error' => $e->getMessage(), 'Line' => $e->getLine(), 'Class' => $e->getFile()], 500);
@@ -160,6 +161,72 @@ class CaseController extends Controller
                 'error'   => $e->getMessage(),
                 'Line'   => $e->getLine()
             ], 500);
+        }
+    }
+    public function get_cases_for_client()
+    {
+        try {
+            $client = auth('sanctum')->user();
+            $cases = $client->clientCases()
+                ->with([
+                    'leadLawyer:id,full_name,email',
+                    'office:id,name',
+                    'opponents',
+                    'paymentMilestones'
+                ])
+                ->latest()
+                ->get();
+            $formattedCases = $cases->map(function ($case) {
+                return [
+                    'case_id' => $case->id,
+                    'case_number' => $case->case_number,
+                    'title' => $case->title,
+                    'description' => $case->description,
+                    'case_category' => $case->case_category,
+                    'status' => $case->status,
+                    'court' => $case->court,
+                    'created_at' => $case->created_at->format('Y-m-d'),
+                    'is_primary_client' => $case->pivot->is_primary,
+                    'lawyer' => [
+                        'id' => $case->leadLawyer->id ?? null,
+                        'name' => $case->leadLawyer->full_name ?? 'لم يحدد بعد',
+                        'email' => $case->leadLawyer->email ?? null,
+                    ],
+                    'office' => $case->office ? [
+                        'id' => $case->office->id,
+                        'name' => $case->office->name
+                    ] : null,
+                    //// 
+                    'result' => $case->result ?? null,
+                    'price' => $case->price ?? null,
+                    'importance_stars' => $case->importance_stars ?? null,
+                    'billing_type' => $case->billing_type ?? null,
+                    'collection_percentage' => $case->collection_percentage ?? null,
+                    'financial_status' => $case->financial_status ?? null,
+                    'progress_percentage' => $case->progress_percentage ?? null,
+                    'payment_milestones' => $case->paymentMilestones->map(function ($payment) {
+                        return [
+                            'id' => $payment->id,
+                            'amount' => $payment->amount,
+                            'status' => $payment->status,
+                            'title' => $payment->title,
+                            'due_date' => $payment->payment_date,
+                        ];
+                    }) ?? null,
+                    'opponents' => $case->opponents->map(function ($opponent) {
+                        return [
+                            'name' => $opponent->name ?? null,
+                            'type' => $opponent->type ?? null,
+                            'national_id' => $opponent->national_id ?? null,
+                            'phone' => $opponent->phone ?? null,
+                            'email' => $opponent->email ?? null,
+                        ];
+                    })
+                ];
+            });
+            return sendResponse($formattedCases, 'تم جلب قضايا العميل بنجاح', 200);
+        } catch (\Exception $e) {
+            return sendError('Internal Server Error ', ['error' => $e->getMessage(), 'Line' => $e->getLine(), 'Class' => $e->getFile()], 500);
         }
     }
 }

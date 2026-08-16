@@ -101,6 +101,7 @@ class InvoiceService
         // 1. جلب الفواتير مع تحميل العلاقات مسبقاً (Eager Loading)
         $invoices = Invoice::with(['documents', 'case', 'client', 'salary'])
             ->where('lawyer_id', $lawyer->id)
+            // ->where('type', 'For_case')
             ->get();
 
         // 2. دالة مساعدة لتنسيق الملفات (لتجنب تكرار الكود)

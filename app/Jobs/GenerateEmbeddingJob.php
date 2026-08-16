@@ -1,34 +1,47 @@
 <?php
-// app/Jobs/GenerateEmbeddingJob.php
 
 namespace App\Jobs;
 
+use App\Models\Legislation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Legislation;
-use App\Services\EmbeddingService;
+use Illuminate\Support\Facades\Log;
+use Laravel\Ai\Embeddings;
 
 class GenerateEmbeddingJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $tries = 3; // عدد المحاولات في حالة الفشل
-    public $timeout = 120; // المهلة بالثواني
+    public function __construct(public Legislation $legislation) {}
 
-    public function __construct(
-        public Legislation $legislation
-    ) {}
 
-    public function handle(EmbeddingService $embeddingService): void
+    public function handle(): void
     {
-        $text = $this->legislation->title . ' ' . $this->legislation->content;
-        $embedding = $embeddingService->generateEmbedding($text);
+        try {
+            // $text = trim($this->legislation->title . "\n" . $this->legislation->content);
+            $text = trim($this->legislation->title);
 
-        if ($embedding) {
-            $this->legislation->update(['embedding' => $embedding]);
+            if ($text === '') {
+                return;
+            }
+            $response = Embeddings::for([$text])
+                ->generate('gemini', 'gemini-embedding-001');
+
+            $vector = $response->embeddings[0] ?? null;
+
+            if ($vector) {
+                $this->legislation->update(['embedding' => $vector]);
+            }
+        } catch (\Throwable $e) {
+            Log::error("Failed to generate embedding for Legislation ID: {$this->legislation->id}", [
+                'error' => $e->getMessage(),
+                'file'  => $e->getFile(),
+                'line'  => $e->getLine(),
+            ]);
+            throw $e;
         }
     }
 }
