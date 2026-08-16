@@ -50,12 +50,12 @@
                   "formdata": [
                     {
                       "key": "national_id",
-                      "value": "15511",
+                      "value": "6666",
                       "type": "text"
                     },
                     {
                       "key": "full_name",
-                      "value": "عمر ",
+                      "value": "كريم",
                       "type": "text"
                     },
                     {
@@ -90,7 +90,7 @@
                     },
                     {
                       "key": "syndicate_card_number",
-                      "value": "15511",
+                      "value": "6666",
                       "type": "text"
                     },
                     {
@@ -254,7 +254,7 @@
                     },
                     {
                       "key": "email",
-                      "value": "omaralhamad@gmail.co",
+                      "value": "kareem@gmail.co",
                       "type": "text",
                       "uuid": "8af9b086-5be6-4c25-8e34-b52a0f60cecf"
                     },
@@ -314,7 +314,7 @@
                     },
                     {
                       "key": "national_id",
-                      "value": "11111111111122",
+                      "value": "88888888888888",
                       "type": "text",
                       "uuid": "d3575edf-12a0-4882-86a2-fbad70641444"
                     },
@@ -3966,7 +3966,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"9-8888\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    // \"team\": [\r\n    //     {\r\n    //     \"user_id\":\"{{lawer_id}}\",\r\n    //     \"role_in_case\": \"باحث قانوني\" \r\n    //     } \r\n    //         //   {\r\n    //         //  \"user_id\":\"{{lawer_id}}\",\r\n    //         //   \"role_in_case\": \"باحث قانوني\" \r\n    //         //   }\r\n    // ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"9-7777\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    \"team\": [\r\n        {\r\n        \"user_id\":\"{{lawer_id}}\",\r\n        \"role_in_case\": \"باحث قانوني\" \r\n        } \r\n            //   {\r\n            //  \"user_id\":\"{{lawer_id}}\",\r\n            //   \"role_in_case\": \"باحث قانوني\" \r\n            //   }\r\n    ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -4741,7 +4741,7 @@
                     },
                     {
                       "key": "salary_expected",
-                      "value": "0",
+                      "value": "6000",
                       "type": "text",
                       "uuid": "a850210b-8169-40d3-abbe-851e9aebd4ff"
                     }
@@ -5240,7 +5240,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{moradToken}}",
+                      "value": "{{Kareem_Licensed_lawer_token_not_activate_office}}",
                       "type": "string"
                     }
                   ]
@@ -5371,7 +5371,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{Mosaab_trainee_lawer_token}}",
+                      "value": "{{Kareem_Licensed_lawer_token_not_activate_office}}",
                       "type": "string"
                     }
                   ]
@@ -6085,7 +6085,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -17526,13 +17526,13 @@
               "formdata": [
                 {
                   "key": "national_id",
-                  "value": "15511",
+                  "value": "6666",
                   "type": "text",
                   "uuid": "fae6f840-37b3-40ab-a33e-a086f1c9fad9"
                 },
                 {
                   "key": "full_name",
-                  "value": "عمر ",
+                  "value": "كريم",
                   "type": "text",
                   "uuid": "8f8e1057-7b60-4a27-a0d1-1a6d0337d7ca"
                 },
@@ -17574,7 +17574,7 @@
                 },
                 {
                   "key": "syndicate_card_number",
-                  "value": "15511",
+                  "value": "6666",
                   "type": "text",
                   "uuid": "f774b787-3a66-4498-8675-0c8d21950925"
                 },
@@ -17587,8 +17587,8 @@
                 {
                   "key": "lawyer_state",
                   "value": "licensed",
-                  "description": " // licensed, trainee",
                   "type": "text",
+                  "description": " // licensed, trainee",
                   "uuid": "25141a50-35c5-4e6b-a9a7-70b0e525a53b"
                 }
               ]
@@ -19915,6 +19915,11 @@
     },
     {
       "key": "moradToken",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "Kareem_Licensed_lawer_token_not_activate_office",
       "value": "",
       "type": "default"
     }

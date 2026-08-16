@@ -19,6 +19,7 @@ class LawerProfile extends Model
     protected $table = 'lawyer_profiles'; /// lawyer_profiles
     public $incrementing = false;
     protected $fillable = [
+        'id',
         'full_name',
         'national_id',
         'birth_date',

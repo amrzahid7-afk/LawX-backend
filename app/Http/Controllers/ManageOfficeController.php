@@ -215,7 +215,8 @@ class ManageOfficeController extends Controller
         }
         $lawyers = $office->employees()->get()->map(function ($lawyer) {
             return [
-                'id' => $lawyer->id,
+                'user_id' => $lawyer->user_id, //  where return Lawer_Profile ID 
+                'lawer_profile_id' => $lawyer->id,
                 'full_name' => $lawyer->full_name,
                 'national_id' => $lawyer->national_id,
                 'syndicate_card_number' => $lawyer->syndicate_card_number,
