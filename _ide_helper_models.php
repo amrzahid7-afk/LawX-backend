@@ -43,6 +43,8 @@ namespace App\Models{
  * @property-read int|null $opponents_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Case_payment_milestone> $paymentMilestones
  * @property-read int|null $payment_milestones_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
+ * @property-read int|null $reviews_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Session> $sessions
  * @property-read int|null $sessions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Task> $tasks
@@ -548,7 +550,7 @@ namespace App\Models{
  * @property string $id
  * @property string $title
  * @property string $content
- * @property string $law_number
+ * @property string|null $law_number
  * @property string|null $category_id
  * @property string $status
  * @property string $source
@@ -564,8 +566,9 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Legal_category|null $category
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Legislation> $relatedLegislations
- * @property-read int|null $related_legislations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Legislation> $children
+ * @property-read int|null $children_count
+ * @property-read Legislation|null $parent
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Legislation query()
@@ -669,11 +672,11 @@ namespace App\Models{
  * @property string $office_id
  * @property string $invited_lawyer_profile_id
  * @property string|null $invited_by
+ * @property numeric|null $salary_expected
  * @property string $status
  * @property string|null $responded_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property numeric|null $salary_expected
  * @property-read \App\Models\LawerProfile $invitedLawyer
  * @property-read \App\Models\Office $office
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OfficeInvitation newModelQuery()
@@ -895,8 +898,12 @@ namespace App\Models{
  * @property string $lawyer_id
  * @property string $client_id
  * @property string $case_id
- * @property int $rating
+ * @property int $professionalism_rating
+ * @property int $communication_rating
+ * @property int $result_rating
+ * @property float $rating
  * @property string|null $comment
+ * @property int $is_hidden
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\CaseModel $case
@@ -906,13 +913,18 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review visible()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereCaseId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereClientId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereCommunicationRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereIsHidden($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereLawyerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereProfessionalismRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereResultRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Review whereUpdatedAt($value)
  */
 	class Review extends \Eloquent {}
@@ -978,6 +990,8 @@ namespace App\Models{
  * @property string $case_id
  * @property \Illuminate\Support\Carbon $date
  * @property string $location
+ * @property numeric|null $latitude
+ * @property numeric|null $longitude
  * @property string $nots
  * @property string|null $result
  * @property string $status
@@ -991,7 +1005,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereLatitude($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereLocation($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereLongitude($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereNots($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereResult($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Session whereStatus($value)
@@ -1210,8 +1226,11 @@ namespace App\Models{
  * @property string|null $national_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $avatar_path
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $cases
  * @property-read int|null $cases_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $clientCases
+ * @property-read int|null $client_cases_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invoice> $client_invoices
  * @property-read int|null $client_invoices_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Document> $documents
@@ -1239,6 +1258,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAvatarPath($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereBio($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)

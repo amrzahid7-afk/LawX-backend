@@ -20,7 +20,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"omar@gmail.com\" ,\r\n    \"password\": \"password\"\r\n}",
+                  "raw": "{\r\n    \"email\": \"syndicate@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -50,12 +50,12 @@
                   "formdata": [
                     {
                       "key": "national_id",
-                      "value": "6666",
+                      "value": "8484",
                       "type": "text"
                     },
                     {
                       "key": "full_name",
-                      "value": "كريم",
+                      "value": "عيسى",
                       "type": "text"
                     },
                     {
@@ -90,7 +90,7 @@
                     },
                     {
                       "key": "syndicate_card_number",
-                      "value": "6666",
+                      "value": "8484",
                       "type": "text"
                     },
                     {
@@ -100,7 +100,7 @@
                     },
                     {
                       "key": "lawyer_state",
-                      "value": "licensed",
+                      "value": "trainee",
                       "type": "text"
                     }
                   ]
@@ -254,7 +254,7 @@
                     },
                     {
                       "key": "email",
-                      "value": "kareem@gmail.co",
+                      "value": "issa@gmail.co",
                       "type": "text",
                       "uuid": "8af9b086-5be6-4c25-8e34-b52a0f60cecf"
                     },
@@ -314,7 +314,7 @@
                     },
                     {
                       "key": "national_id",
-                      "value": "88888888888888",
+                      "value": "88888888888887",
                       "type": "text",
                       "uuid": "d3575edf-12a0-4882-86a2-fbad70641444"
                     },
@@ -2866,6 +2866,580 @@
           ]
         },
         {
+          "name": "ProfileModule",
+          "item": [
+            {
+              "name": "get_my_profile",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{client_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/profile/get_my_profile",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "profile",
+                    "get_my_profile"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "get_my_profile",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/client/profile/get_my_profile",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "profile",
+                        "get_my_profile"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 16 Aug 2026 22:43:18 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Profile Data Fetched Successfully\",\n    \"data\": {\n        \"full_name\": \"عمر الزهراوي\",\n        \"email\": \"omar@gmail.com\",\n        \"phone\": \"096521438456\",\n        \"avatar\": \"http://127.0.0.1:8000/storage/avatars/NeRU2f8Q6X3eC0Ni3GgkfrHE6kgKacb6Qg0MC8l3.png\",\n        \"address\": \"دمشق , برزة , الشارع العام\",\n        \"city\": \"دمشق\",\n        \"location\": {\n            \"lat\": \"12.32320\",\n            \"lng\": \"15.0321\"\n        }\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "update_my_profile",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{client_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "email",
+                      "value": "oo@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "015151562",
+                      "type": "text"
+                    },
+                    {
+                      "key": "address",
+                      "value": "الشاغور",
+                      "type": "text"
+                    },
+                    {
+                      "key": "city",
+                      "value": "دمشق",
+                      "type": "text"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "2.0303",
+                      "type": "text"
+                    },
+                    {
+                      "key": "lng",
+                      "value": "6.5151",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "1515151511",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "uuid": "102c7828-2151-48be-9801-8b3c84abf85d",
+                      "src": "/C:/Users/amrza/OneDrive/سطح المكتب/cvs/صورة هوية.jpg"
+                    },
+                    {
+                      "key": "password_confirmation",
+                      "value": "1515151511",
+                      "type": "text",
+                      "uuid": "a12bdd53-fa44-482c-a557-329460deef70"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/client/profile/update_my_profile",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "profile",
+                    "update_my_profile"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "update_my_profile",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "email",
+                          "value": "oo@gmail.com",
+                          "type": "text"
+                        },
+                        {
+                          "key": "phone",
+                          "value": "015151562",
+                          "type": "text"
+                        },
+                        {
+                          "key": "address",
+                          "value": "الشاغور",
+                          "type": "text"
+                        },
+                        {
+                          "key": "city",
+                          "value": "دمشق",
+                          "type": "text"
+                        },
+                        {
+                          "key": "lat",
+                          "value": "2.0303",
+                          "type": "text"
+                        },
+                        {
+                          "key": "lng",
+                          "value": "6.5151",
+                          "type": "text"
+                        },
+                        {
+                          "key": "avatar",
+                          "type": "file",
+                          "uuid": "102c7828-2151-48be-9801-8b3c84abf85d",
+                          "src": "/C:/Users/amrza/OneDrive/سطح المكتب/cvs/صورة هوية.jpg"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/profile/update_my_profile",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "profile",
+                        "update_my_profile"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Mon, 17 Aug 2026 12:07:54 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Profile Data Updated Successfully\",\n    \"data\": null\n}"
+                }
+              ]
+            },
+            {
+              "name": "providers",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{client_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/providers",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "providers"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": null,
+                      "disabled": true
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "",
+                      "description": "// need lawer in specific Category ",
+                      "disabled": true
+                    },
+                    {
+                      "key": "min_rate",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "providers",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/client/providers",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "providers"
+                      ],
+                      "query": [
+                        {
+                          "key": "city",
+                          "value": null,
+                          "disabled": true
+                        },
+                        {
+                          "key": "category_id",
+                          "value": "",
+                          "description": "// need lawer in specific Category ",
+                          "disabled": true
+                        },
+                        {
+                          "key": "min_rate",
+                          "value": null,
+                          "disabled": true
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 13:10:18 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get lawers , offices successfully\",\n        \"data\": [\n            {\n                \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                \"full_name\": \"عمر الزهراوي\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"5dcf5c56-0c99-455c-b4d1-38f574397472\",\n                \"full_name\": \"علي عسلية\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"e09ba432-2968-4821-9b0b-6fdaa84d6660\",\n                \"full_name\": \"محمد الباشا\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            }\n        ]\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "get_protofolio_for_lawer",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{client_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/providers/{{lawer_id}}/portfolio",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "providers",
+                    "{{lawer_id}}",
+                    "portfolio"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "get_protofolio_for_lawer",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/client/providers/{{lawer_id}}/portfolio",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "providers",
+                        "{{lawer_id}}",
+                        "portfolio"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 13:11:04 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get protofolio for lawer or office successfully\",\n        \"data\": {\n            \"lawyer_name\": \"عمر الزهراوي\",\n            \"role\": \"User\",\n            \"address\": null,\n            \"phone_number\": \"0968339198\",\n            \"rate\": 0,\n            \"experience_years_count\": 0.007790229199518011,\n            \"number_of_cases\": 1,\n            \"percent_of_cases_won\": \"0.00\",\n            \"legal_categories\": [],\n            \"bio_for_lawyer\": null,\n            \"opinion_of_clients\": []\n        }\n    }\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "name": "Get_All_Session_For_Client",
           "protocolProfileBehavior": {
             "disableBodyPruning": true,
@@ -3526,150 +4100,6 @@
           ]
         },
         {
-          "name": "providers",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "X-App-Platform",
-                "value": "mobile",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{Domain}}/client/providers",
-              "host": [
-                "{{Domain}}"
-              ],
-              "path": [
-                "client",
-                "providers"
-              ],
-              "query": [
-                {
-                  "key": "city",
-                  "value": null,
-                  "disabled": true
-                },
-                {
-                  "key": "category_id",
-                  "value": "",
-                  "description": "// need lawer in specific Category ",
-                  "disabled": true
-                },
-                {
-                  "key": "min_rate",
-                  "value": null,
-                  "disabled": true
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "providers",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  },
-                  {
-                    "key": "X-App-Platform",
-                    "value": "mobile",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{Domain}}/client/providers",
-                  "host": [
-                    "{{Domain}}"
-                  ],
-                  "path": [
-                    "client",
-                    "providers"
-                  ],
-                  "query": [
-                    {
-                      "key": "city",
-                      "value": null,
-                      "disabled": true
-                    },
-                    {
-                      "key": "category_id",
-                      "value": "",
-                      "description": "// need lawer in specific Category ",
-                      "disabled": true
-                    },
-                    {
-                      "key": "min_rate",
-                      "value": null,
-                      "disabled": true
-                    }
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "Host",
-                  "value": "127.0.0.1:8000"
-                },
-                {
-                  "key": "Connection",
-                  "value": "close"
-                },
-                {
-                  "key": "X-Powered-By",
-                  "value": "PHP/8.3.26"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, private"
-                },
-                {
-                  "key": "Date",
-                  "value": "Sat, 18 Jul 2026 13:10:18 GMT"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get lawers , offices successfully\",\n        \"data\": [\n            {\n                \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                \"full_name\": \"عمر الزهراوي\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"5dcf5c56-0c99-455c-b4d1-38f574397472\",\n                \"full_name\": \"علي عسلية\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"e09ba432-2968-4821-9b0b-6fdaa84d6660\",\n                \"full_name\": \"محمد الباشا\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            }\n        ]\n    }\n}"
-            }
-          ]
-        },
-        {
           "name": "cases",
           "protocolProfileBehavior": {
             "disabledSystemHeaders": {
@@ -3810,118 +4240,6 @@
               ],
               "cookie": [],
               "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get lawers , offices successfully\",\n        \"data\": [\n            {\n                \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                \"full_name\": \"عمر الزهراوي\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"5dcf5c56-0c99-455c-b4d1-38f574397472\",\n                \"full_name\": \"علي عسلية\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"e09ba432-2968-4821-9b0b-6fdaa84d6660\",\n                \"full_name\": \"محمد الباشا\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            }\n        ]\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "get_protofolio_for_lawer",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{client_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "X-App-Platform",
-                "value": "mobile",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{Domain}}/client/providers/{{lawer_id}}/portfolio",
-              "host": [
-                "{{Domain}}"
-              ],
-              "path": [
-                "client",
-                "providers",
-                "{{lawer_id}}",
-                "portfolio"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "get_protofolio_for_lawer",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  },
-                  {
-                    "key": "X-App-Platform",
-                    "value": "mobile",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{Domain}}/client/providers/{{lawer_id}}/portfolio",
-                  "host": [
-                    "{{Domain}}"
-                  ],
-                  "path": [
-                    "client",
-                    "providers",
-                    "{{lawer_id}}",
-                    "portfolio"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "Host",
-                  "value": "127.0.0.1:8000"
-                },
-                {
-                  "key": "Connection",
-                  "value": "close"
-                },
-                {
-                  "key": "X-Powered-By",
-                  "value": "PHP/8.3.26"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, private"
-                },
-                {
-                  "key": "Date",
-                  "value": "Sat, 18 Jul 2026 13:11:04 GMT"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get protofolio for lawer or office successfully\",\n        \"data\": {\n            \"lawyer_name\": \"عمر الزهراوي\",\n            \"role\": \"User\",\n            \"address\": null,\n            \"phone_number\": \"0968339198\",\n            \"rate\": 0,\n            \"experience_years_count\": 0.007790229199518011,\n            \"number_of_cases\": 1,\n            \"percent_of_cases_won\": \"0.00\",\n            \"legal_categories\": [],\n            \"bio_for_lawyer\": null,\n            \"opinion_of_clients\": []\n        }\n    }\n}"
             }
           ]
         }
@@ -6270,7 +6588,7 @@
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/lawyer/Manage_Offices/search_for_lawers?lawyer_state=trainee",
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/search_for_lawers",
                   "host": [
                     "{{Domain}}"
                   ],
@@ -6282,7 +6600,8 @@
                   "query": [
                     {
                       "key": "lawyer_state",
-                      "value": "trainee"
+                      "value": "trainee",
+                      "disabled": true
                     },
                     {
                       "key": "is_suspended",
@@ -6495,8 +6814,7 @@
                       "key": "parent_id",
                       "value": "{{parent_file_id}}",
                       "type": "text",
-                      "uuid": "aa12b2a0-a381-494e-8c34-3340e5f6d1b0",
-                      "disabled": true
+                      "uuid": "aa12b2a0-a381-494e-8c34-3340e5f6d1b0"
                     }
                   ]
                 },
@@ -8578,7 +8896,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n        \"case_id\": \"{{case_id}}\",\r\n        \"date\":\"2026-08-15 20:00\",\r\n        \"location\":\"المزة\",\r\n          \"latitude\": 24.7135517,\r\n    \"longitude\": 46.6752957,\r\n        \"nots\": \"هي الجلسة المفروض تحدد نوع الجرم وتحول الدعوى للمحكمة المتوافقة مع تشخيص الجناية\" \r\n}",
+                  "raw": "{\r\n        \"case_id\": \"{{case_id}}\",\r\n        \"date\":\"2026-08-16 20:00\",\r\n        \"location\":\"المزة\",\r\n          \"latitude\": 24.7135517,\r\n    \"longitude\": 46.6752957,\r\n        \"nots\": \"هي الجلسة المفروض تحدد نوع الجرم وتحول الدعوى للمحكمة المتوافقة مع تشخيص الجناية\" \r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -9582,7 +9900,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -9964,7 +10282,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -10464,7 +10782,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -10571,7 +10889,7 @@
               },
               "response": [
                 {
-                  "name": "financial-report",
+                  "name": "success",
                   "originalRequest": {
                     "method": "GET",
                     "header": [
@@ -10673,8 +10991,8 @@
                       ]
                     }
                   },
-                  "status": "Internal Server Error",
-                  "code": 500,
+                  "status": "OK",
+                  "code": 200,
                   "_postman_previewlanguage": null,
                   "header": [
                     {
@@ -10695,7 +11013,7 @@
                     },
                     {
                       "key": "Date",
-                      "value": "Mon, 03 Aug 2026 09:49:27 GMT"
+                      "value": "Sun, 16 Aug 2026 11:32:22 GMT"
                     },
                     {
                       "key": "Content-Type",
@@ -10707,12 +11025,12 @@
                     }
                   ],
                   "cookie": [],
-                  "body": "{\n    \"message\": \"Server Error\"\n}"
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Financial report retrieved successfully\",\n    \"data\": {\n        \"period\": {\n            \"from\": \"2024-01-01\",\n            \"to\": \"2024-12-31\"\n        },\n        \"inflow\": {\n            \"total_client_payments\": 0\n        },\n        \"outflow\": {\n            \"total_base_salaries_paid\": 0,\n            \"total_office_case_expenses\": 0,\n            \"total_outflow\": 0\n        },\n        \"net_profit\": 0\n    }\n}"
                 }
               ]
             },
             {
-              "name": "my-salary-slip",
+              "name": "surf_my_salary",
               "protocolProfileBehavior": {
                 "disableBodyPruning": true,
                 "disabledSystemHeaders": {
@@ -10725,7 +11043,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_ali_token}}",
+                      "value": "{{Kareem_Licensed_lawer_token_not_activate_office}}",
                       "type": "string"
                     }
                   ]
@@ -10809,22 +11127,22 @@
                   ]
                 },
                 "url": {
-                  "raw": "{{Domain}}/lawyer/invoices/my-salary-slip/8/2024",
+                  "raw": "{{Domain}}/lawyer/invoices/surf_my_salary/9/2026",
                   "host": [
                     "{{Domain}}"
                   ],
                   "path": [
                     "lawyer",
                     "invoices",
-                    "my-salary-slip",
-                    "8",
-                    "2024"
+                    "surf_my_salary",
+                    "9",
+                    "2026"
                   ]
                 }
               },
               "response": [
                 {
-                  "name": "my-salary-slip",
+                  "name": "success",
                   "originalRequest": {
                     "method": "GET",
                     "header": [
@@ -10905,21 +11223,21 @@
                       ]
                     },
                     "url": {
-                      "raw": "{{Domain}}/lawyer/invoices/my-salary-slip/8/2024",
+                      "raw": "{{Domain}}/lawyer/invoices/surf_my_salary/8/2026",
                       "host": [
                         "{{Domain}}"
                       ],
                       "path": [
                         "lawyer",
                         "invoices",
-                        "my-salary-slip",
+                        "surf_my_salary",
                         "8",
-                        "2024"
+                        "2026"
                       ]
                     }
                   },
-                  "status": "Forbidden",
-                  "code": 403,
+                  "status": "OK",
+                  "code": 200,
                   "_postman_previewlanguage": null,
                   "header": [
                     {
@@ -10940,7 +11258,7 @@
                     },
                     {
                       "key": "Date",
-                      "value": "Mon, 03 Aug 2026 09:56:51 GMT"
+                      "value": "Sun, 16 Aug 2026 11:41:57 GMT"
                     },
                     {
                       "key": "Content-Type",
@@ -10952,7 +11270,138 @@
                     }
                   ],
                   "cookie": [],
-                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Unauthorized: Only lawyers can view salary slips.\",\n    \"error_details\": []\n}"
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Salary slip retrieved successfully\",\n    \"data\": {\n        \"month\": 8,\n        \"year\": 2026,\n        \"base_salary\": \"6000.00\",\n        \"total_approved_expenses\": \"0.00\",\n        \"net_salary\": \"6000.00\",\n        \"status\": \"generated\"\n    }\n}"
+                },
+                {
+                  "name": "error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "case_id",
+                          "value": "{{case_id}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "total_amount",
+                          "value": "3000",
+                          "type": "text"
+                        },
+                        {
+                          "key": "due_date",
+                          "value": "2029-11-01",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[0][amount]",
+                          "value": "1500",
+                          "type": "text"
+                        },
+                        {
+                          "key": "items[1][title]",
+                          "value": "أتعاب المحكمة التجارية",
+                          "type": "text",
+                          "uuid": "56da7784-ab47-4c38-b579-1bc954046cef"
+                        },
+                        {
+                          "key": "items[1][description]",
+                          "value": "إيداع صحيفة الدعوى ومرفقاتها",
+                          "type": "text",
+                          "uuid": "8b3d888a-3a3f-4faa-8529-86acd89a2db8"
+                        },
+                        {
+                          "key": "items[1][amount]",
+                          "value": "1500",
+                          "type": "text",
+                          "uuid": "4c53d6d5-c787-4f48-95c7-16f456bdf3d5"
+                        },
+                        {
+                          "key": "documents[0]",
+                          "type": "file",
+                          "uuid": "59f7f94b-e77d-456f-a3c2-9a1ef1083c80",
+                          "src": "postman-cloud:///1f023191-5d01-4b80-bfa0-683cd2d514b3"
+                        },
+                        {
+                          "key": "documents[1]",
+                          "type": "file",
+                          "uuid": "8ceef025-e312-426c-ac8f-5994a74d9c04",
+                          "src": "postman-cloud:///1f02318f-7d8c-4050-acbf-9a9e1454840e"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/invoices/surf_my_salary/9/2026",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "invoices",
+                        "surf_my_salary",
+                        "9",
+                        "2026"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 16 Aug 2026 11:43:18 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"No salary record found for this period\",\n    \"error_details\": []\n}"
                 }
               ]
             }
@@ -14436,6 +14885,551 @@
           ]
         },
         {
+          "name": "ProfileModule",
+          "item": [
+            {
+              "name": "get_my_profile",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{trainee_lawer_ahmad_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/lawyer/profile/get_my_profile",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "profile",
+                    "get_my_profile"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "success office admin",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/profile/get_my_profile",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "profile",
+                        "get_my_profile"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 16 Aug 2026 22:48:37 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Profile Data Fetched Successfully\",\n    \"data\": {\n        \"full_name\": \"معاذ\",\n        \"email\": \"moaz@gmail.co\",\n        \"phone\": null,\n        \"avatar\": null,\n        \"bio\": null,\n        \"experience_years\": 0,\n        \"national_id\": \"1313\",\n        \"syndicate_card_number\": \"1313\",\n        \"syndicate_branch\": \"دمشق\",\n        \"lawyer_state\": \"licensed\",\n        \"legal_categories\": [],\n        \"review_stats\": {\n            \"overall\": 0,\n            \"professionalism\": 0,\n            \"communication\": 0,\n            \"result\": 0,\n            \"total_reviews\": 0\n        },\n        \"is_office_owner\": true,\n        \"office_details\": {\n            \"name\": \"معاذ's Office\",\n            \"status\": \"active\",\n            \"employees_count\": 1\n        }\n    }\n}"
+                },
+                {
+                  "name": "success Licensed Lawer",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/profile/get_my_profile",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "profile",
+                        "get_my_profile"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 16 Aug 2026 22:52:50 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Profile Data Fetched Successfully\",\n    \"data\": {\n        \"full_name\": \"عمر\",\n        \"email\": \"omaralhamad@gmail.co\",\n        \"phone\": null,\n        \"avatar\": null,\n        \"bio\": \"خبير في دعاوى الأحوال الشخصية\",\n        \"experience_years\": 26,\n        \"national_id\": \"15511\",\n        \"syndicate_card_number\": \"15511\",\n        \"syndicate_branch\": \"حلب\",\n        \"lawyer_state\": \"licensed\",\n        \"legal_categories\": [],\n        \"review_stats\": {\n            \"overall\": 0,\n            \"professionalism\": 0,\n            \"communication\": 0,\n            \"result\": 0,\n            \"total_reviews\": 0\n        },\n        \"is_employed\": true,\n        \"office_name\": null,\n        \"base_salary\": null\n    }\n}"
+                },
+                {
+                  "name": "success Trainee Lawer",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/profile/get_my_profile",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "profile",
+                        "get_my_profile"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 16 Aug 2026 23:00:29 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Profile Data Fetched Successfully\",\n    \"data\": {\n        \"full_name\": \"عيسى\",\n        \"email\": \"issa@gmail.co\",\n        \"phone\": null,\n        \"avatar\": null,\n        \"bio\": \"خبير في دعاوى الأحوال الشخصية\",\n        \"experience_years\": 26,\n        \"national_id\": \"8484\",\n        \"syndicate_card_number\": \"8484\",\n        \"syndicate_branch\": \"حلب\",\n        \"lawyer_state\": \"trainee\",\n        \"legal_categories\": [],\n        \"review_stats\": {\n            \"overall\": 0,\n            \"professionalism\": 0,\n            \"communication\": 0,\n            \"result\": 0,\n            \"total_reviews\": 0\n        },\n        \"is_trainee\": true,\n        \"supervisor_name\": null,\n        \"approved_independent_at\": null\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "update_my_profile",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "email",
+                      "value": "jj@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "0151777777",
+                      "type": "text"
+                    },
+                    {
+                      "key": "address",
+                      "value": "الشاغور",
+                      "type": "text"
+                    },
+                    {
+                      "key": "city",
+                      "value": "دمشق",
+                      "type": "text"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "2.0303",
+                      "type": "text"
+                    },
+                    {
+                      "key": "lng",
+                      "value": "6.5151",
+                      "type": "text"
+                    },
+                    {
+                      "key": "password",
+                      "value": "999999999",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "uuid": "5064cdbc-cfe3-48b4-9074-4e1831931da8",
+                      "src": "/C:/Users/amrza/OneDrive/سطح المكتب/cvs/صورة هوية.jpg"
+                    },
+                    {
+                      "key": "password_confirmation",
+                      "value": "999999999",
+                      "type": "text",
+                      "uuid": "3dcd3f55-423e-4625-a8f5-98af42570f03"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/profile/update_my_profile",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "profile",
+                    "update_my_profile"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "update_my_profile",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "email",
+                          "value": "oo@gmail.com",
+                          "type": "text"
+                        },
+                        {
+                          "key": "phone",
+                          "value": "015151562",
+                          "type": "text"
+                        },
+                        {
+                          "key": "address",
+                          "value": "الشاغور",
+                          "type": "text"
+                        },
+                        {
+                          "key": "city",
+                          "value": "دمشق",
+                          "type": "text"
+                        },
+                        {
+                          "key": "lat",
+                          "value": "2.0303",
+                          "type": "text"
+                        },
+                        {
+                          "key": "lng",
+                          "value": "6.5151",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/client/profile/update_my_profile",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "profile",
+                        "update_my_profile"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Mon, 17 Aug 2026 12:13:46 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Profile Data Updated Successfully\",\n    \"data\": null\n}"
+                },
+                {
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "email",
+                          "value": "oo@gmail.com",
+                          "type": "text"
+                        },
+                        {
+                          "key": "phone",
+                          "value": "015151562",
+                          "type": "text"
+                        },
+                        {
+                          "key": "address",
+                          "value": "الشاغور",
+                          "type": "text"
+                        },
+                        {
+                          "key": "city",
+                          "value": "دمشق",
+                          "type": "text"
+                        },
+                        {
+                          "key": "lat",
+                          "value": "2.0303",
+                          "type": "text"
+                        },
+                        {
+                          "key": "lng",
+                          "value": "6.5151",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/profile/update_my_profile",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "profile",
+                        "update_my_profile"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Content",
+                  "code": 422,
+                  "_postman_previewlanguage": "",
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Mon, 17 Aug 2026 12:17:07 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Validation Error\",\n    \"error_details\": {\n        \"email\": [\n            \"The email has already been taken.\"\n        ],\n        \"phone\": [\n            \"The phone has already been taken.\"\n        ]\n    },\n    \"details\": {\n        \"email\": [\n            \"The email has already been taken.\"\n        ],\n        \"phone\": [\n            \"The phone has already been taken.\"\n        ]\n    }\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "name": "get_clients",
           "protocolProfileBehavior": {
             "disableBodyPruning": true,
@@ -14809,7 +15803,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{Adham_Licensed_lawer_token_not_activate_office}}",
+                  "value": "{{lawer_token}}",
                   "type": "string"
                 }
               ]
@@ -14839,7 +15833,72 @@
               ]
             }
           },
-          "response": []
+          "response": [
+            {
+              "name": "my_reviews_stats",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/lawyer/profile/my_reviews_stats",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "profile",
+                    "my_reviews_stats"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Sun, 16 Aug 2026 12:29:46 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"message\": \"تم جلب إحصائيات التقييمات بنجاح\",\n    \"data\": {\n        \"states\": {\n            \"overall\": 0,\n            \"professionalism\": 0,\n            \"communication\": 0,\n            \"result\": 0,\n            \"total_reviews\": 0\n        },\n        \"reviews\": {\n            \"current_page\": 1,\n            \"data\": [],\n            \"first_page_url\": \"http://127.0.0.1:8000/api/lawyer/profile/my_reviews_stats?page=1\",\n            \"from\": null,\n            \"last_page\": 1,\n            \"last_page_url\": \"http://127.0.0.1:8000/api/lawyer/profile/my_reviews_stats?page=1\",\n            \"links\": [\n                {\n                    \"url\": null,\n                    \"label\": \"&laquo; Previous\",\n                    \"page\": null,\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8000/api/lawyer/profile/my_reviews_stats?page=1\",\n                    \"label\": \"1\",\n                    \"page\": 1,\n                    \"active\": true\n                },\n                {\n                    \"url\": null,\n                    \"label\": \"Next &raquo;\",\n                    \"page\": null,\n                    \"active\": false\n                }\n            ],\n            \"next_page_url\": null,\n            \"path\": \"http://127.0.0.1:8000/api/lawyer/profile/my_reviews_stats\",\n            \"per_page\": 15,\n            \"prev_page_url\": null,\n            \"to\": null,\n            \"total\": 0\n        }\n    }\n}"
+            }
+          ]
         }
       ]
     },
@@ -14882,7 +15941,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "\r\n{\r\n    \"title\": \"احكام الاعدام\",\r\n    \"content\": \"ترتيب الاحكام الترتبة عى جناية السرقة\",\r\n    \"law_number\": \"L-2026-000\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    // \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
+                  "raw": "\r\n{\r\n    \"title\": \"احكام الاعدام\",\r\n    \"content\": \"ترتيب الاحكام الترتبة عى جناية السرقة\",\r\n    \"law_number\": \"L-2026-999\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    // \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -17491,6 +18550,219 @@
           ]
         },
         {
+          "name": "ProfileModule",
+          "item": [
+            {
+              "name": "get_my_profile",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{syndicate_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/syndicate/profile/get_my_profile",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "syndicate",
+                    "profile",
+                    "get_my_profile"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/syndicate/profile/get_my_profile",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "syndicate",
+                        "profile",
+                        "get_my_profile"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 16 Aug 2026 23:04:39 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Profile Data Fetched Successfully\",\n    \"data\": {\n        \"full_name\": \"Syndicate Admin\",\n        \"email\": \"syndicate@example.com\",\n        \"phone\": null,\n        \"avatar\": null,\n        \"address\": null,\n        \"city\": null,\n        \"location\": {\n            \"lat\": null,\n            \"lng\": null\n        }\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "update_my_profile",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{syndicate_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "email",
+                      "value": "okk@gmail.com",
+                      "type": "text"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "015151989898",
+                      "type": "text"
+                    },
+                    {
+                      "key": "address",
+                      "value": "الشاغور",
+                      "type": "text"
+                    },
+                    {
+                      "key": "city",
+                      "value": "دمشق",
+                      "type": "text"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "2.0303",
+                      "type": "text"
+                    },
+                    {
+                      "key": "lng",
+                      "value": "6.5151",
+                      "type": "text"
+                    },
+                    {
+                      "key": "avatar",
+                      "type": "file",
+                      "uuid": "15cb8fd5-5fde-4e18-91de-88b56dc17a80",
+                      "src": "/C:/Users/amrza/OneDrive/سطح المكتب/cvs/صورة هوية.jpg"
+                    },
+                    {
+                      "key": "password",
+                      "value": "1515151511",
+                      "type": "text",
+                      "uuid": "461f9bc5-ebe0-40dc-b6fe-e6f67fa5f081"
+                    },
+                    {
+                      "key": "password_confirmation",
+                      "value": "1515151511",
+                      "type": "text",
+                      "uuid": "59f1b596-239e-41c6-a7d4-3a36cacba0b8"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/syndicate/profile/update_my_profile",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "syndicate",
+                    "profile",
+                    "update_my_profile"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
           "name": "createLawyer",
           "protocolProfileBehavior": {
             "disabledSystemHeaders": {
@@ -17526,13 +18798,13 @@
               "formdata": [
                 {
                   "key": "national_id",
-                  "value": "6666",
+                  "value": "8484",
                   "type": "text",
                   "uuid": "fae6f840-37b3-40ab-a33e-a086f1c9fad9"
                 },
                 {
                   "key": "full_name",
-                  "value": "كريم",
+                  "value": "عيسى",
                   "type": "text",
                   "uuid": "8f8e1057-7b60-4a27-a0d1-1a6d0337d7ca"
                 },
@@ -17574,7 +18846,7 @@
                 },
                 {
                   "key": "syndicate_card_number",
-                  "value": "6666",
+                  "value": "8484",
                   "type": "text",
                   "uuid": "f774b787-3a66-4498-8675-0c8d21950925"
                 },
@@ -17586,7 +18858,7 @@
                 },
                 {
                   "key": "lawyer_state",
-                  "value": "licensed",
+                  "value": "trainee",
                   "type": "text",
                   "description": " // licensed, trainee",
                   "uuid": "25141a50-35c5-4e6b-a9a7-70b0e525a53b"

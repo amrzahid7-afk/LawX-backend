@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\LegislationController;
 use App\Http\Controllers\Api\TemplateController;
 use App\Http\Controllers\ManageSyndicateUsers;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SignatureController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,4 +50,8 @@ Route::prefix('legislation')->group(function () {
     Route::get('/Get_legal_categories', [LegislationController::class, 'Get_legal_categories']);
     Route::get('/get_law_details/{law_id}', [LegislationController::class, 'get_law_details']);
     Route::get('/semantic_search', [LegislationController::class, 'semantic_search']);
+});
+Route::prefix('/profile')->group(function () {
+    Route::get('get_my_profile', [ProfileController::class, 'getMyProfile']);
+    Route::post('update_my_profile', [ProfileController::class, 'update_my_profile']);
 });

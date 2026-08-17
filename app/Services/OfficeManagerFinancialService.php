@@ -12,14 +12,14 @@ class OfficeManagerFinancialService implements FinancialReportInterface
 {
     public function getFinancialReport(User $user, string $from, string $to): array
     {
-        dd("here");
+        // dd("here");
 
         // جلب المكتب الذي يملكه هذا المستخدم
         $office = $user->lawyerProfile?->ownedOffice;
         if (!$office) {
             return ['error' => 'User does not own an office'];
         }
-        dd("here");
+        // dd("here");
         // 1. الإيرادات (Inflow): فواتير الخدمات المدفوعة الخاصة بقضايا هذا المكتب
         $inflowFromClients = Invoice::where('type', 'For_case')
             ->where('status', 'paid')

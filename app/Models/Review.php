@@ -23,7 +23,7 @@ class Review extends Model
         'professionalism_rating',
         'communication_rating',
         'result_rating',
-        'rating', // المتوسط
+        'rating',
         'comment',
         'is_hidden',
     ];

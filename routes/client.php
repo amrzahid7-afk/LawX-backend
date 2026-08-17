@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CaseController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\LawyerProfileController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\ReviewController;
@@ -39,4 +41,8 @@ Route::prefix('electonic_signature')->group(function () {
     Route::get('/get_signing_url/{signature_request_id}', [SignatureController::class, 'getSigningUrl']);
     Route::get('/get_files_require_sign', [SignatureController::class, 'getClientFiles']);
     Route::get('/review_file/{signature_request_id}', [SignatureController::class, 'reviewFile']);
+});
+Route::prefix('/profile')->group(function () {
+    Route::get('get_my_profile', [ProfileController::class, 'getMyProfile']);
+    Route::post('update_my_profile', [ProfileController::class, 'update_my_profile']);
 });

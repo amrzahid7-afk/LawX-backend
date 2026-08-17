@@ -10,6 +10,7 @@ use App\Http\Controllers\LawyerProfileController;
 use App\Http\Controllers\LegalRequestController;
 use App\Http\Controllers\ManageOfficeController;
 use App\Http\Controllers\ManageSyndicateUsers;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SignatureController;
@@ -102,7 +103,7 @@ Route::prefix('invoices')->group(function () {
     // finincial report for (office Manager & Lawyer) 
     Route::get('/financial-report', [FinancialController::class, 'getFinancialReport']);
     //  get the Salary for Un Employee Lawyer
-    Route::get('/my-salary-slip/{month}/{year}', [FinancialController::class, 'getMyMonthlySalary']);
+    Route::get('/surf_my_salary/{month}/{year}', [FinancialController::class, 'getMyMonthlySalary']);
 });
 
 // Market 
@@ -135,7 +136,11 @@ Route::prefix('templates')->group(function () {
     Route::post('/generate_template', [TemplateController::class, 'generate_template']);
 });
 // profile
-Route::prefix('profile')->group(function () {
-    Route::get('get_lawyer_profile', [LawyerProfileController::class, 'getLawyerProfileData']);
-    Route::get('/my_reviews_stats', [LawyerProfileController::class, 'getMyReviewStats']);
+// Route::prefix('profile')->group(function () {
+//     Route::get('get_lawyer_profile', [LawyerProfileController::class, 'getLawyerProfileData']);
+//     Route::get('/my_reviews_stats', [LawyerProfileController::class, 'getMyReviewStats']);
+// });
+Route::prefix('/profile')->group(function () {
+    Route::get('get_my_profile', [ProfileController::class, 'getMyProfile']);
+    Route::post('update_my_profile', [ProfileController::class, 'update_my_profile']);
 });

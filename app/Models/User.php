@@ -111,7 +111,7 @@ class User extends Authenticatable
 
     public function isLawyer(): bool
     {
-        return $this->role->name === 'lawer';
+        return $this->role->slug === 'lawyer';
     }
     public function salaryRecords()
     {
