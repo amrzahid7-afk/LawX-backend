@@ -107,9 +107,6 @@ class UserManagmentService
             ];
         })->toArray();
 
-        // ==========================================
-        // السحر هنا: استخدام الـ Cache بدل الاستعلامات الثقيلة
-        // ==========================================
         $cachedRatings = Cache::get("lawyer_ratings_stats_{$lawyerId}");
 
         // 2. جلب الآراء الفردية (التعليقات فقط، مع إخفاء اسم العميل للخصوصية US-06)
@@ -121,7 +118,7 @@ class UserManagmentService
             ->get()
             ->map(function ($review) {
                 return [
-                    // تم إزالة 'client_name' طبقاً لشرط الخصوصية في User Stories
+                    'client_name' => $review->client->full_name,
                     'rate'    => $review->rating,
                     'comment' => $review->comment,
                 ];
@@ -131,12 +128,10 @@ class UserManagmentService
             'lawyer_name'           => $lawyer->full_name,
             'role'                  => $lawyer->role->name ?? 'User',
             'address'               => $lawyer->address,
+            'map_lat' => $lawyer->lat,
+            'map_lang' => $lawyer->lng,
             'phone_number'          => $lawyer->phone ?? '0968339198',
-
-            // تم استبدال الـ avg() الثقيل بالقيمة المحفوظة في الكاش، مع قيمة افتراضية 0 إذا لم يكن هناك كاش بعد
             'rate'                  => $cachedRatings['overall'] ?? 0,
-
-            // إضافة التقييمات التفصيلية (Multi-criteria) التي اتفقنا عليها في FR-12
             'rating_breakdown'      => $cachedRatings ? [
                 'professionalism' => $cachedRatings['professionalism'],
                 'communication'   => $cachedRatings['communication'],
@@ -149,9 +144,8 @@ class UserManagmentService
             'percent_of_cases_won'  => number_format($percentWon, 2),
             'legal_categories'      => $legalCategories,
             'bio_for_lawyer'        => $lawyer->bio,
-            'opinion_of_clients'    => $opinions, // الآن تحتوي فقط على التعليقات والنجوم
+            'opinion_of_clients'    => $opinions,
         ];
-
         if ($lawyer->role_id == 1 || (isset($lawyer->role->name) && strtolower($lawyer->role->name) === 'admin')) {
             $data['location_data'] = [
                 'latitude'  => $lawyer->latitude,

@@ -24,9 +24,6 @@ Route::prefix('/legal-requests')->group(function () {
 Route::get('/cases', [CaseController::class, 'get_cases_for_client']);
 // Give Rate For Lawer
 Route::post('/cases/review', [ReviewController::class, 'store']);
-// Surf Lawers
-Route::get('/providers', [UserManagmentController::class, 'get_offices_or_lawers']);
-Route::get('/providers/{lawyer_id}/portfolio', [UserManagmentController::class, 'get_protofolio_for_lawer_or_office']);
 
 Route::get('/sessions', [SessionController::class, 'get_sessions_for_client']);
 // invoices 
@@ -42,7 +39,11 @@ Route::prefix('electonic_signature')->group(function () {
     Route::get('/get_files_require_sign', [SignatureController::class, 'getClientFiles']);
     Route::get('/review_file/{signature_request_id}', [SignatureController::class, 'reviewFile']);
 });
+// Profiles Apis 
 Route::prefix('/profile')->group(function () {
     Route::get('get_my_profile', [ProfileController::class, 'getMyProfile']);
     Route::post('update_my_profile', [ProfileController::class, 'update_my_profile']);
 });
+// Surf Lawers
+Route::get('/providers', [UserManagmentController::class, 'get_offices_or_lawers']);
+Route::get('/providers/{lawyer_id}/portfolio', [UserManagmentController::class, 'get_protofolio_for_lawer_or_office']);
