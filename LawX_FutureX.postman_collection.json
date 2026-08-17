@@ -4242,6 +4242,150 @@
               "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get lawers , offices successfully\",\n        \"data\": [\n            {\n                \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                \"full_name\": \"عمر الزهراوي\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"5dcf5c56-0c99-455c-b4d1-38f574397472\",\n                \"full_name\": \"علي عسلية\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"e09ba432-2968-4821-9b0b-6fdaa84d6660\",\n                \"full_name\": \"محمد الباشا\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            }\n        ]\n    }\n}"
             }
           ]
+        },
+        {
+          "name": "dashboard",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-App-Platform",
+                "value": "mobile",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{Domain}}/client/dashboard",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "client",
+                "dashboard"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": null,
+                  "disabled": true
+                },
+                {
+                  "key": "category_id",
+                  "value": "",
+                  "description": "// need lawer in specific Category ",
+                  "disabled": true
+                },
+                {
+                  "key": "min_rate",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success_dashboard",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/client/dashboard",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "dashboard"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": null,
+                      "disabled": true
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "",
+                      "description": "// need lawer in specific Category ",
+                      "disabled": true
+                    },
+                    {
+                      "key": "min_rate",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 17 Aug 2026 15:15:02 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"statistics\": {\n            \"total_cases\": 3,\n            \"active_cases\": 3,\n            \"completed_cases\": 0,\n            \"pending_cases\": 0,\n            \"total_requests\": 0,\n            \"pending_requests\": 0,\n            \"total_invoices\": 0,\n            \"paid_invoices\": 0,\n            \"unpaid_invoices\": 0,\n            \"overdue_invoices\": 0,\n            \"total_paid_amount\": 0,\n            \"total_unpaid_amount\": 0,\n            \"upcoming_sessions\": 0,\n            \"completed_sessions\": 1,\n            \"pending_signatures\": 0\n        },\n        \"recent_cases\": [\n            {\n                \"id\": \"a00c9c19-615c-4b48-a325-5e79865007fa\",\n                \"case_number\": \"9-7777\",\n                \"title\": \"قضية تحصيل ديون تجارية\",\n                \"status\": \"open\",\n                \"progress_percentage\": 0,\n                \"importance_stars\": 4,\n                \"created_at\": \"2026-08-16T10:03:00.000000Z\",\n                \"lead_lawyer\": null\n            },\n            {\n                \"id\": \"43a444ce-3e92-451f-874a-6789161eabf6\",\n                \"case_number\": \"9-8888\",\n                \"title\": \"قضية تحصيل ديون تجارية\",\n                \"status\": \"open\",\n                \"progress_percentage\": 0,\n                \"importance_stars\": 4,\n                \"created_at\": \"2026-08-15T12:42:01.000000Z\",\n                \"lead_lawyer\": null\n            },\n            {\n                \"id\": \"425de7b3-6b3d-4b77-bc20-2077ffe63f9d\",\n                \"case_number\": \"6-8888\",\n                \"title\": \"قضية تحصيل ديون تجارية\",\n                \"status\": \"open\",\n                \"progress_percentage\": 0,\n                \"importance_stars\": 4,\n                \"created_at\": \"2026-08-15T12:39:55.000000Z\",\n                \"lead_lawyer\": null\n            }\n        ],\n        \"recent_invoices\": [],\n        \"upcoming_sessions\": [],\n        \"pending_signatures\": [],\n        \"alerts\": []\n    }\n}"
+            }
+          ]
         }
       ]
     },
@@ -15899,6 +16043,195 @@
               "body": "{\n    \"status\": \"success\",\n    \"message\": \"تم جلب إحصائيات التقييمات بنجاح\",\n    \"data\": {\n        \"states\": {\n            \"overall\": 0,\n            \"professionalism\": 0,\n            \"communication\": 0,\n            \"result\": 0,\n            \"total_reviews\": 0\n        },\n        \"reviews\": {\n            \"current_page\": 1,\n            \"data\": [],\n            \"first_page_url\": \"http://127.0.0.1:8000/api/lawyer/profile/my_reviews_stats?page=1\",\n            \"from\": null,\n            \"last_page\": 1,\n            \"last_page_url\": \"http://127.0.0.1:8000/api/lawyer/profile/my_reviews_stats?page=1\",\n            \"links\": [\n                {\n                    \"url\": null,\n                    \"label\": \"&laquo; Previous\",\n                    \"page\": null,\n                    \"active\": false\n                },\n                {\n                    \"url\": \"http://127.0.0.1:8000/api/lawyer/profile/my_reviews_stats?page=1\",\n                    \"label\": \"1\",\n                    \"page\": 1,\n                    \"active\": true\n                },\n                {\n                    \"url\": null,\n                    \"label\": \"Next &raquo;\",\n                    \"page\": null,\n                    \"active\": false\n                }\n            ],\n            \"next_page_url\": null,\n            \"path\": \"http://127.0.0.1:8000/api/lawyer/profile/my_reviews_stats\",\n            \"per_page\": 15,\n            \"prev_page_url\": null,\n            \"to\": null,\n            \"total\": 0\n        }\n    }\n}"
             }
           ]
+        },
+        {
+          "name": "dashboard",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{Kareem_Licensed_lawer_token_not_activate_office}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-App-Platform",
+                "value": "mobile",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{Domain}}/lawyer/dashboard?months=6",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "lawyer",
+                "dashboard"
+              ],
+              "query": [
+                {
+                  "key": "months",
+                  "value": "6"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "dashboard_office_manager",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/lawyer/dashboard?months=6",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "dashboard"
+                  ],
+                  "query": [
+                    {
+                      "key": "months",
+                      "value": "6"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 17 Aug 2026 15:11:59 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"lawyer_type\": \"office_manager\",\n    \"office\": {\n        \"id\": \"01a00291-4a7b-733e-a540-d728663a053f\",\n        \"name\": \"معاذ's Office\"\n    },\n    \"data\": {\n        \"statistics\": {\n            \"total_office_cases\": 3,\n            \"active_cases\": 3,\n            \"completed_cases\": 0,\n            \"pending_cases\": 0,\n            \"team_members\": 1,\n            \"total_tasks\": 0,\n            \"pending_tasks\": 0,\n            \"in_progress_tasks\": 0,\n            \"completed_tasks\": 0,\n            \"overdue_tasks\": 0,\n            \"upcoming_sessions\": 0,\n            \"completed_sessions\": 1,\n            \"total_invoices\": 0,\n            \"paid_invoices\": 0,\n            \"total_revenue\": 0,\n            \"pending_salary_payments\": 1,\n            \"pending_expense_approvals\": 0\n        },\n        \"financial_chart\": {\n            \"labels\": [\n                \"Mar 2026\",\n                \"Apr 2026\",\n                \"May 2026\",\n                \"Jun 2026\",\n                \"Jul 2026\",\n                \"Aug 2026\"\n            ],\n            \"input_money\": [\n                0,\n                0,\n                0,\n                0,\n                0,\n                0\n            ],\n            \"output_money\": [\n                0,\n                0,\n                0,\n                0,\n                0,\n                0\n            ],\n            \"salary_expenses\": [\n                0,\n                0,\n                0,\n                0,\n                0,\n                0\n            ],\n            \"case_expenses\": [\n                0,\n                0,\n                0,\n                0,\n                0,\n                0\n            ],\n            \"profit\": [\n                0,\n                0,\n                0,\n                0,\n                0,\n                0\n            ]\n        },\n        \"task_distribution\": [],\n        \"pending_tasks\": [],\n        \"alerts\": [\n            {\n                \"type\": \"warning\",\n                \"message\": \"لديك 1 راتب معلّق\",\n                \"key\": \"pending_salaries\",\n                \"count\": 1\n            }\n        ]\n    }\n}"
+            },
+            {
+              "name": "dashboard_licensed",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/lawyer/dashboard?months=6",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "dashboard"
+                  ],
+                  "query": [
+                    {
+                      "key": "months",
+                      "value": "6"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 17 Aug 2026 15:13:47 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"lawyer_type\": \"licensed\",\n    \"data\": {\n        \"statistics\": {\n            \"total_cases\": 0,\n            \"active_cases\": 0,\n            \"completed_cases\": 0,\n            \"pending_cases\": 0,\n            \"total_tasks\": 0,\n            \"pending_tasks\": 0,\n            \"in_progress_tasks\": 0,\n            \"completed_tasks\": 0,\n            \"overdue_tasks\": 0,\n            \"upcoming_sessions\": 0,\n            \"completed_sessions\": 0,\n            \"unpaid_invoices\": 0,\n            \"paid_invoices\": 0,\n            \"total_earned\": 0\n        },\n        \"financial_chart\": {\n            \"labels\": [\n                \"Mar 2026\",\n                \"Apr 2026\",\n                \"May 2026\",\n                \"Jun 2026\",\n                \"Jul 2026\",\n                \"Aug 2026\"\n            ],\n            \"input_money\": [\n                0,\n                0,\n                0,\n                0,\n                0,\n                0\n            ],\n            \"output_money\": [\n                0,\n                0,\n                0,\n                0,\n                0,\n                0\n            ],\n            \"profit\": [\n                0,\n                0,\n                0,\n                0,\n                0,\n                0\n            ]\n        },\n        \"recent_cases\": [],\n        \"pending_tasks\": [],\n        \"upcoming_sessions\": [],\n        \"alerts\": []\n    }\n}"
+            }
+          ]
         }
       ]
     },
@@ -20890,6 +21223,114 @@
               ],
               "cookie": [],
               "body": "{\n    \"status\": \"error\",\n    \"message\": \"لا يمكن ترقية هذا المحامي لأنه ليس في مرحلة التدريب حالياً (مستقل بالفعل).\",\n    \"error_details\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "dashboard",
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{syndicate_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-App-Platform",
+                "value": "web",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{Domain}}/syndicate/dashboard",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "syndicate",
+                "dashboard"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/syndicate/dashboard",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "syndicate",
+                    "dashboard"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 17 Aug 2026 15:11:11 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"statistics\": {\n            \"pending_requests\": 1,\n            \"urgent_requests\": 0,\n            \"total_tasks\": 1,\n            \"pending_lawyer_registrations\": 0,\n            \"pending_office_activations\": 1,\n            \"urgent_lawyer_registrations\": 0,\n            \"urgent_office_activations\": 0,\n            \"total_lawyers\": 4,\n            \"licensed_lawyers\": 3,\n            \"trainee_lawyers\": 1,\n            \"suspended_lawyers\": 0,\n            \"total_laws\": 11,\n            \"total_templates\": 1\n        },\n        \"recent_requests\": [\n            {\n                \"id\": \"01a00679-de9e-72ab-98a2-d48d45202c00\",\n                \"office_name\": \"عمر's Office\",\n                \"owner_name\": \"عمر\",\n                \"owner_email\": \"omaralhamad@gmail.co\",\n                \"request_type\": \"office_activation\",\n                \"created_at\": \"2026-08-15\",\n                \"is_urgent\": false\n            }\n        ],\n        \"recent_lawyer_registrations\": [],\n        \"recent_office_requests\": [\n            {\n                \"id\": \"01a00679-de9e-72ab-98a2-d48d45202c00\",\n                \"office_name\": \"عمر's Office\",\n                \"owner_name\": \"عمر\",\n                \"owner_email\": \"omaralhamad@gmail.co\",\n                \"request_type\": \"office_activation\",\n                \"created_at\": \"2026-08-15\",\n                \"is_urgent\": false\n            }\n        ],\n        \"alerts\": [\n            {\n                \"type\": \"warning\",\n                \"message\": \"يوجد 1 طلب معلّق يحتاج مراجعة\",\n                \"key\": \"pending_requests\",\n                \"count\": 1\n            }\n        ]\n    }\n}"
             }
           ]
         }

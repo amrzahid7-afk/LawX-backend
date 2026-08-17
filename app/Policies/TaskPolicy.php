@@ -97,15 +97,15 @@ class TaskPolicy
         $isOfficeManager = $user->lawyerProfile && $user->lawyerProfile->ownedOffice && $user->lawyerProfile->ownedOffice->id == $task->case->office_id;
         $isAssignedLawyer = $user->id === $task->assigned_to;
 
-        if (($isLeadLawyer || $isOfficeManager) && $isLicensedLawyer) {
-            return true;
-        }
+        // if (($isLeadLawyer || $isOfficeManager) && $isLicensedLawyer) {
+        //     return true;
+        // }
 
-        if ($isLicensedLawyer && $isAssignedLawyer) {
-            return true;
-        }
+        // if ($isLicensedLawyer && $isAssignedLawyer) {
+        //     return true;
+        // }
 
-        if (!$isLicensedLawyer && $isAssignedLawyer) {
+        if ($isAssignedLawyer) {
             return true;
         }
 

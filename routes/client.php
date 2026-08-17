@@ -11,6 +11,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\UserManagmentController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\ClientDashboardController;
 
 Route::prefix('/legal-requests')->group(function () {
     Route::post('/create_request', [LegalRequestController::class, 'create']);
@@ -47,3 +48,6 @@ Route::prefix('/profile')->group(function () {
 // Surf Lawers
 Route::get('/providers', [UserManagmentController::class, 'get_offices_or_lawers']);
 Route::get('/providers/{lawyer_id}/portfolio', [UserManagmentController::class, 'get_protofolio_for_lawer_or_office']);
+
+
+Route::get('/dashboard', [ClientDashboardController::class, 'index']);

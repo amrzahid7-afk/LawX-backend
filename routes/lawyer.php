@@ -18,6 +18,8 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserManagmentController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Dashboard\LawyerDashboardController;
+
 
 // Manage Offices
 Route::prefix('/Manage_Offices')->group(function () {
@@ -144,3 +146,5 @@ Route::prefix('/profile')->group(function () {
     Route::get('get_my_profile', [ProfileController::class, 'getMyProfile']);
     Route::post('update_my_profile', [ProfileController::class, 'update_my_profile']);
 });
+
+Route::get('/dashboard', [LawyerDashboardController::class, 'index']);

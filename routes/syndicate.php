@@ -6,6 +6,7 @@ use App\Http\Controllers\ManageSyndicateUsers;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SignatureController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\SyndicateDashboardController;
 
 // syndicate Apis
 // --------------------------------------------------------------------------
@@ -55,3 +56,6 @@ Route::prefix('/profile')->group(function () {
     Route::get('get_my_profile', [ProfileController::class, 'getMyProfile']);
     Route::post('update_my_profile', [ProfileController::class, 'update_my_profile']);
 });
+
+
+Route::get('/dashboard', [SyndicateDashboardController::class, 'index']);
