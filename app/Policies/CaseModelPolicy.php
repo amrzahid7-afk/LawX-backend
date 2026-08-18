@@ -16,12 +16,14 @@ class CaseModelPolicy
     // check if the lawer in team for this case or is leader for this case 
     public function get_case_details(User $user, CaseModel $case)
     {
-        return $user->id === $case->lead_lawyer_id || $case->team->contains('id', $user->id);
+        return $user->id === $case->lead_lawyer_id || $case->team->contains('id', $user->id) || $user->id === $case->office->owner->user_id;
     }
     // only leader can update the case
     public function update(User $user, CaseModel $case)
     {
-        return $user->id === $case->lead_lawyer_id;
+        return
+            $user->id === $case->lead_lawyer_id ||
+            $user->id === $case->office->owner->user_id;
     }
     // All true
     public function view_list(User $user)

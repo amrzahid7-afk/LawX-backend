@@ -21,8 +21,8 @@ class GenerateEmbeddingJob implements ShouldQueue
     public function handle(): void
     {
         try {
-            // $text = trim($this->legislation->title . "\n" . $this->legislation->content);
-            $text = trim($this->legislation->title);
+            $text = trim($this->legislation->title . "\n" . $this->legislation->content);
+            // $text = trim($this->legislation->title);
 
             if ($text === '') {
                 return;

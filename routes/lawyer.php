@@ -43,6 +43,8 @@ Route::prefix('/Manage_Offices')->group(function () {
     Route::get('/get_all_lawers_in_my_office', [ManageOfficeController::class, 'get_all_lawers_in_my_office']);
     // search for lawer 
     Route::get('/search_for_lawers', [ManageOfficeController::class, 'search_for_lawers']);
+    // Edit salary For Employee 
+    Route::post('/edit_salary_for_lawer', [ManageOfficeController::class, 'edit_salary_for_lawer']);
 });
 
 // cases
@@ -145,6 +147,9 @@ Route::prefix('templates')->group(function () {
 Route::prefix('/profile')->group(function () {
     Route::get('get_my_profile', [ProfileController::class, 'getMyProfile']);
     Route::post('update_my_profile', [ProfileController::class, 'update_my_profile']);
+
+    Route::get('get_lawyers', [UserManagmentController::class, 'get_offices_or_lawers']);
+    Route::get('{lawer_id}/get_lawyer_profile', [UserManagmentController::class, 'get_protofolio_for_lawer_or_office']);
 });
 
 Route::get('/dashboard', [LawyerDashboardController::class, 'index']);

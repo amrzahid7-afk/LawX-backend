@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CaseController;
+use App\Http\Controllers\Dashboard\ClientDashboardController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LawyerProfileController;
 use App\Http\Controllers\LegalRequestController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\SignatureController;
 use App\Http\Controllers\UserManagmentController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\ClientDashboardController;
 
 Route::prefix('/legal-requests')->group(function () {
     Route::post('/create_request', [LegalRequestController::class, 'create']);
@@ -23,6 +24,9 @@ Route::prefix('/legal-requests')->group(function () {
 });
 // get cases for client
 Route::get('/cases', [CaseController::class, 'get_cases_for_client']);
+Route::get('/get_documents_for_cases', [CaseController::class, 'get_documents_for_cases']);
+Route::get('/documents/get_documents_for_case/{case_id}', [DocumentController::class, 'get_documents_for_case']);
+
 // Give Rate For Lawer
 Route::post('/cases/review', [ReviewController::class, 'store']);
 

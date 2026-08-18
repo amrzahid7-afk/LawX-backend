@@ -9,6 +9,7 @@ use App\Models\OfficeInvitation;
 use App\Services\ManageSyndicateUsersService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Validator;
 
 class ManageOfficeController extends Controller
 {
@@ -183,28 +184,73 @@ class ManageOfficeController extends Controller
 
     public function remove_lawer_from_office(Request $request)
     {
-        // validate data 
-        $request->validate(['lawer_profile_id' => 'required|uuid|exists:lawyer_profiles,id']);
-        // get data 
-        $office = auth('sanctum')->user()->lawyerProfile->ownedOffice;
-        $employee_profile = LawerProfile::find($request->input('lawer_profile_id'));
-        // check permission 
-        if (Gate::denies('remove_lawer_from_office', [Office::class, $employee_profile])) {
-            return sendError('You can not remove lawyer from office.', [], 404);
-        }
-        // delete the record in invitation table between employee and Mnager Lawer
-        $invitation = OfficeInvitation::where('office_id', $office->id)
-            ->where('invited_lawyer_profile_id', $request->input('lawer_profile_id'))
-            ->where('status', 'accepted')
-            ->first();
-        $invitation->delete();
-        // update lawyer profile to be not employeed
-        LawerProfile::find($request->input('lawer_profile_id'))->update(['employed_in_office_id' => null]);
+        try {
+            // validate data 
+            $request->validate(['lawer_profile_id' => 'required|uuid|exists:lawyer_profiles,id']);
+            // get data 
+            // $office = auth('sanctum')->user()->lawyerProfile->ownedOffice;
+            $office = auth('sanctum')->user()->lawyerProfile->ownedOffice;
+            $employee_profile = LawerProfile::find($request->input('lawer_profile_id'));
+            // check permission 
+            if (Gate::denies('remove_lawer_from_office', [Office::class, $employee_profile])) {
+                return sendError('You can not remove lawyer from office.', [], 404);
+            }
+            // delete the record in invitation table between employee and Mnager Lawer
+            $invitation = OfficeInvitation::where('office_id', $office->id)
+                ->where('invited_lawyer_profile_id', $request->input('lawer_profile_id'))
+                ->where('status', 'accepted')
+                ->first();
+            $invitation->delete();
+            // update lawyer profile to be not employeed
+            LawerProfile::find($request->input('lawer_profile_id'))->update(['employed_in_office_id' => null]);
 
-        return sendResponse(null, 'Lawyer removed successfully.', 200);
+            return sendResponse(null, 'Lawyer removed successfully.', 200);
+        } catch (\Exception $e) {
+            return sendError($e->getMessage() . $e->getFile() . $e->getLine(), [], 400);
+        }
     }
 
+    // public function remove_lawer_from_office(Request $request)
+    // {
+    //     try {
+    //         $request->validate(['lawer_profile_id' => 'required|uuid|exists:lawyer_profiles,id']);
 
+    //         $managerProfile = auth('sanctum')->user()->lawyerProfile;
+
+    //         if (!$managerProfile) {
+    //             return sendError('Your account has no lawyer profile.', [], 403);
+    //         }
+
+    //         $office = $managerProfile->ownedOffice;
+
+    //         if (!$office) {
+    //             return sendError('You do not own an office.', [], 403);
+    //         }
+
+    //         $employee_profile = LawerProfile::find($request->input('lawer_profile_id'));
+
+    //         if (Gate::denies('remove_lawer_from_office', [Office::class, $employee_profile])) {
+    //             return sendError('You can not remove lawyer from office.', [], 403);
+    //         }
+
+    //         $invitation = OfficeInvitation::where('office_id', $office->id)
+    //             ->where('invited_lawyer_profile_id', $request->input('lawer_profile_id'))
+    //             ->where('status', 'accepted')
+    //             ->first();
+
+    //         if (!$invitation) {
+    //             return sendError('No active membership found for this lawyer in your office.', [], 404);
+    //         }
+
+    //         $invitation->delete();
+
+    //         $employee_profile->update(['employed_in_office_id' => null]);
+
+    //         return sendResponse(null, 'Lawyer removed successfully.', 200);
+    //     } catch (\Exception $e) {
+    //         return sendError($e->getMessage() . $e->getFile() . $e->getLine(), [], 400);
+    //     }
+    // }
 
     public function get_all_lawers_in_my_office(Request $request)
     {
@@ -236,6 +282,34 @@ class ManageOfficeController extends Controller
             $lawyers = $this->manageSyndicateUsersService->getLawyers($vaidated_data, $myOfficeId);
             // send response
             return sendResponse($lawyers, 'Lawyers retrieved successfully.', 200);
+        } catch (\Throwable $th) {
+            return sendError('Failed to retrieve lawyers.', [
+                'message' => $th->getMessage(),
+                'file'    => $th->getFile(),
+                'line'    => $th->getLine()
+            ], 500);
+        }
+    }
+    public function edit_salary_for_lawer(Request $request)
+    {
+        try {
+            // validate data
+            $vaidated_data = Validator::make($request->all(), [
+                'salary' => 'required|numeric',
+                'lawer_profile_id' => 'required|uuid|exists:lawyer_profiles,id',
+            ], [
+                'salary.required' => 'Salary is required.',
+                'salary.numeric' => 'Salary must be a number.',
+                'lawer_profile_id.required' => 'Lawer profile ID is required.',
+                'lawer_profile_id.exists' => 'Lawer profile does not exist.',
+            ]);
+            // get office Manager ID 
+            $lawerProfile = LawerProfile::find($request->input('lawer_profile_id'));
+            $lawerProfile->update([
+                'base_salary' => $request->input('salary')
+            ]);
+            // send response
+            return sendResponse("Done", 'Update Salary For Lawer ' . $lawerProfile->full_name . ' successfully.', 200);
         } catch (\Throwable $th) {
             return sendError('Failed to retrieve lawyers.', [
                 'message' => $th->getMessage(),

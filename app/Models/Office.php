@@ -30,6 +30,7 @@ class Office extends Model
     {
         return $this->hasMany(CaseModel::class, 'office_id');
     }
+
     public function owner(): BelongsTo
     {
         return $this->belongsTo(LawerProfile::class, 'owner_lawyer_profile_id');

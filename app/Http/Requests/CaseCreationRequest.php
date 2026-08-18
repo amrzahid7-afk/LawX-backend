@@ -47,7 +47,7 @@ class CaseCreationRequest extends FormRequest
             'case_category'     => ['required', 'string', 'min:4'],
             'importance_stars'  => ['required', 'integer', 'min:1', 'max:5'],
             'billing_type'      => ['required', 'in:fixed_proposal,percentage_collection,installments,pay_as_you_go'],
-            // 'lead_lawyer_id'    => ['required', 'uuid', 'exists:users,id'],
+            'lead_lawyer_id'    => ['required', 'uuid', 'exists:users,id'],
 
             'case_number' => [
                 'required',

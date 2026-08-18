@@ -64,7 +64,8 @@ class OfficePolicy
     }
     public function remove_lawer_from_office(User $user, LawerProfile $lawer): bool
     {
-        return $user->lawyerProfile()->ownedOffice()->id === $lawer->employed_In_office_id;
+        // dd(" Office Manager ID :    "  .$user->lawyerProfile->ownedOffice->id . " ")
+        return $user->lawyerProfile->ownedOffice->id === $lawer->employed_in_office_id;
     }
     public function get_all_lawers_in_my_office(User $user, Office $office)
     {

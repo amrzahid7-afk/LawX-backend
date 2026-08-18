@@ -138,6 +138,7 @@ class LegislationController extends Controller
             return sendError('Internal Server Error', ['error' => $e->getMessage() . "   "  . $e->getFile() . "   " . $e->getLine()], 500);
         }
     }
+
     public function semantic_search(Request $request)
     {
         // validate request

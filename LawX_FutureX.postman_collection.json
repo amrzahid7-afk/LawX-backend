@@ -20,7 +20,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"email\": \"syndicate@example.com\" ,\r\n    \"password\": \"password\"\r\n}",
+                  "raw": "{\r\n    \"email\": \"issa@gmail.co\" ,\r\n    \"password\": \"password\"\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -439,12 +439,12 @@
                   "formdata": [
                     {
                       "key": "full_name",
-                      "value": "عمر الزهراوي ",
+                      "value": "بسام ",
                       "type": "text"
                     },
                     {
                       "key": "email",
-                      "value": "omar@gmail.com",
+                      "value": "bb@gmail.com",
                       "type": "text"
                     },
                     {
@@ -488,7 +488,7 @@
                     },
                     {
                       "key": "national_id",
-                      "value": "11111111111111",
+                      "value": "94851236478956",
                       "type": "text",
                       "uuid": "7c188e77-de64-4406-b842-1f44392f1330"
                     },
@@ -3213,7 +3213,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{Domain}}/client/providers",
+                  "raw": "{{Domain}}/client/providers?city=&category_id=&min_rate=",
                   "host": [
                     "{{Domain}}"
                   ],
@@ -3224,19 +3224,16 @@
                   "query": [
                     {
                       "key": "city",
-                      "value": null,
-                      "disabled": true
+                      "value": ""
                     },
                     {
                       "key": "category_id",
                       "value": "",
-                      "description": "// need lawer in specific Category ",
-                      "disabled": true
+                      "description": "// need lawer in specific Category "
                     },
                     {
                       "key": "min_rate",
-                      "value": null,
-                      "disabled": true
+                      "value": ""
                     }
                   ]
                 }
@@ -4386,6 +4383,165 @@
               "body": "{\n    \"success\": true,\n    \"data\": {\n        \"statistics\": {\n            \"total_cases\": 3,\n            \"active_cases\": 3,\n            \"completed_cases\": 0,\n            \"pending_cases\": 0,\n            \"total_requests\": 0,\n            \"pending_requests\": 0,\n            \"total_invoices\": 0,\n            \"paid_invoices\": 0,\n            \"unpaid_invoices\": 0,\n            \"overdue_invoices\": 0,\n            \"total_paid_amount\": 0,\n            \"total_unpaid_amount\": 0,\n            \"upcoming_sessions\": 0,\n            \"completed_sessions\": 1,\n            \"pending_signatures\": 0\n        },\n        \"recent_cases\": [\n            {\n                \"id\": \"a00c9c19-615c-4b48-a325-5e79865007fa\",\n                \"case_number\": \"9-7777\",\n                \"title\": \"قضية تحصيل ديون تجارية\",\n                \"status\": \"open\",\n                \"progress_percentage\": 0,\n                \"importance_stars\": 4,\n                \"created_at\": \"2026-08-16T10:03:00.000000Z\",\n                \"lead_lawyer\": null\n            },\n            {\n                \"id\": \"43a444ce-3e92-451f-874a-6789161eabf6\",\n                \"case_number\": \"9-8888\",\n                \"title\": \"قضية تحصيل ديون تجارية\",\n                \"status\": \"open\",\n                \"progress_percentage\": 0,\n                \"importance_stars\": 4,\n                \"created_at\": \"2026-08-15T12:42:01.000000Z\",\n                \"lead_lawyer\": null\n            },\n            {\n                \"id\": \"425de7b3-6b3d-4b77-bc20-2077ffe63f9d\",\n                \"case_number\": \"6-8888\",\n                \"title\": \"قضية تحصيل ديون تجارية\",\n                \"status\": \"open\",\n                \"progress_percentage\": 0,\n                \"importance_stars\": 4,\n                \"created_at\": \"2026-08-15T12:39:55.000000Z\",\n                \"lead_lawyer\": null\n            }\n        ],\n        \"recent_invoices\": [],\n        \"upcoming_sessions\": [],\n        \"pending_signatures\": [],\n        \"alerts\": []\n    }\n}"
             }
           ]
+        },
+        {
+          "name": "get_documents_for_case",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true,
+            "disabledSystemHeaders": {
+              "accept": true
+            }
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{client_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-App-Platform",
+                "value": "mobile",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{Domain}}/client/documents/get_documents_for_case/{{case_id}}",
+              "host": [
+                "{{Domain}}"
+              ],
+              "path": [
+                "client",
+                "documents",
+                "get_documents_for_case",
+                "{{case_id}}"
+              ],
+              "query": [
+                {
+                  "key": "tags[]",
+                  "value": "عقد",
+                  "description": "optional ",
+                  "disabled": true
+                },
+                {
+                  "key": "tags[]",
+                  "value": "اتفاقية",
+                  "description": "optional ",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "get_documents_for_case",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{Domain}}/client/documents/get_documents_for_case/{{case_id}}",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "client",
+                    "documents",
+                    "get_documents_for_case",
+                    "{{case_id}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tags[]",
+                      "value": "عقد",
+                      "description": "optional ",
+                      "disabled": true
+                    },
+                    {
+                      "key": "tags[]",
+                      "value": "اتفاقية",
+                      "description": "optional ",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Host",
+                  "value": "127.0.0.1:8000"
+                },
+                {
+                  "key": "Connection",
+                  "value": "close"
+                },
+                {
+                  "key": "X-Powered-By",
+                  "value": "PHP/8.3.26"
+                },
+                {
+                  "key": "Cache-Control",
+                  "value": "no-cache, private"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 18 Aug 2026 17:53:59 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"Fetch documents successfully\",\n        \"data\": [\n            {\n                \"id\": \"8c97fdc8-4fd3-4c27-b01c-8cadeb558705\",\n                \"file_url\": \"http://127.0.0.1:8000/storage/Documents/Case_files/38bf9989-1c17-49f3-a6fb-9dfe6d83f9e5/11dWUbAXQwr9gm971pAv8ugmHOtd6w8HEzlkWep9.pdf\",\n                \"file_size\": \"1.41 MB\",\n                \"case\": {\n                    \"id\": \"38bf9989-1c17-49f3-a6fb-9dfe6d83f9e5\",\n                    \"title\": \"قضية تحصيل ديون تجارية\"\n                },\n                \"uploaded_by\": {\n                    \"id\": \"fdb1ce6e-06ee-448b-b12b-5b1c2e9614be\",\n                    \"name\": \"معاذ\",\n                    \"role\": null\n                },\n                \"File_name\": \"عقد بيع\",\n                \"uploaded_AT\": \"2026-08-18 04:47 PM\",\n                \"ai_summary\": null,\n                \"ai_tags\": null,\n                \"versions_files\": []\n            },\n            {\n                \"id\": \"bae59936-b745-4741-91fc-e45e83b626ab\",\n                \"file_url\": \"http://127.0.0.1:8000/storage/Documents/Case_files/38bf9989-1c17-49f3-a6fb-9dfe6d83f9e5/GpM2JuMTAdNwZLsMEj890XH6BvjqikzpRKnKuAQP.pdf\",\n                \"file_size\": \"1.41 MB\",\n                \"case\": {\n                    \"id\": \"38bf9989-1c17-49f3-a6fb-9dfe6d83f9e5\",\n                    \"title\": \"قضية تحصيل ديون تجارية\"\n                },\n                \"uploaded_by\": {\n                    \"id\": \"fdb1ce6e-06ee-448b-b12b-5b1c2e9614be\",\n                    \"name\": \"معاذ\",\n                    \"role\": null\n                },\n                \"File_name\": \"عقد بيع\",\n                \"uploaded_AT\": \"2026-08-18 04:49 PM\",\n                \"ai_summary\": null,\n                \"ai_tags\": null,\n                \"versions_files\": []\n            },\n            {\n                \"id\": \"e183dfb3-be88-4b1a-805a-50a0b7d078d8\",\n                \"file_url\": \"http://127.0.0.1:8000/storage/Documents/Case_files/38bf9989-1c17-49f3-a6fb-9dfe6d83f9e5/SzfR6g2OIbnA2baQYrkY5FpBnV45BI3ulMxkTSI0.pdf\",\n                \"file_size\": \"1.41 MB\",\n                \"case\": {\n                    \"id\": \"38bf9989-1c17-49f3-a6fb-9dfe6d83f9e5\",\n                    \"title\": \"قضية تحصيل ديون تجارية\"\n                },\n                \"uploaded_by\": {\n                    \"id\": \"d416b0b3-0af9-4167-87da-d5d28d5b2ca8\",\n                    \"name\": \"كريم\",\n                    \"role\": null\n                },\n                \"File_name\": \"عقد بيع\",\n                \"uploaded_AT\": \"2026-08-18 04:54 PM\",\n                \"ai_summary\": null,\n                \"ai_tags\": null,\n                \"versions_files\": []\n            }\n        ]\n    }\n}"
+            }
+          ]
         }
       ]
     },
@@ -4428,7 +4584,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"9-7777\" ,\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n    //   محذوف يسند تلقائيا من المحامي  منشأ القضية \r\n\r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    \"team\": [\r\n        {\r\n        \"user_id\":\"{{lawer_id}}\",\r\n        \"role_in_case\": \"باحث قانوني\" \r\n        } \r\n            //   {\r\n            //  \"user_id\":\"{{lawer_id}}\",\r\n            //   \"role_in_case\": \"باحث قانوني\" \r\n            //   }\r\n    ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
+                  "raw": "{\r\n    \"title\": \"قضية تحصيل ديون تجارية\",\r\n    \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    \"case_number\": \"9-99 \",\r\n    \"case_category\": \"جنائي\" ,\r\n    \"court\": \"المحكمة التجارية بالرياض\",\r\n    \"price\": 50.0,\r\n    \"importance_stars\": 4,\r\n    \"billing_type\": \"installments\",\r\n    //  \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\":\"{{lawer_id}}\" ,\r\n  \r\n    \"clients\": [\r\n        { \r\n            \"user_id\": \"{{client_id}}\", \"is_primary\": true }   \r\n    ],\r\n    \"opponents\": [\r\n        {\r\n            \"name\": \" الأمل للتجارة\",\r\n            \"type\": \"government_entity\", // 'individual', 'company', 'government_entity'\r\n            \"national_id\": \"55\",\r\n            \"phone\": \"055123456756\"\r\n        }\r\n         ,\r\n          {\r\n            \"name\": \"شركة الأمل للتجارة\",\r\n            \"type\": \"company\",\r\n            \"national_id\": \"66\",\r\n            \"phone\": \"0551234567\"\r\n        }\r\n    ] ,\r\n     \r\n    \"team\": [\r\n        {\r\n        \"user_id\":\"{{lawer_id}}\",\r\n        \"role_in_case\": \"باحث قانوني\" \r\n        } \r\n            //   {\r\n            //  \"user_id\":\"{{lawer_id}}\",\r\n            //   \"role_in_case\": \"باحث قانوني\" \r\n            //   }\r\n    ] ,\r\n    \"payment_milestones\": [\r\n        {\r\n            \"title\": \"دفعة بدء العمل\",\r\n            \"amount\": 5000.00,\r\n            \"due_date\": \"2029-11-01\" \r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -4551,7 +4707,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "// {\r\n//     \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n//     \"title\": \" private case\" ,\r\n//     \"description\": \"so hard case\"\r\n// }\r\n{\r\n    \"case_id\" : \"{{case_id}}\",\r\n    // \"title\": \"قضية تحصيل ديون تجارية\",\r\n    // \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    // // \"case_number\": \"5-2222\" ,\r\n    // \"case_category\": \"جنائي\" ,\r\n    // \"court\": \"المحكمة التجارية بالرياض\",\r\n    // \"price\": 500000.000,\r\n    // \"importance_stars\": 4,\r\n    // \"billing_type\": \"installments\",\r\n     \"status\": \"close\" //  , // 'open', 'close', 'pending', 'archived' \r\n    // // \"collection_percentage\": 0.15,\r\n    // \"lead_lawyer_id\": \"{{lawer_id}}\",\r\n\r\n    // \"clients\": [\r\n    //     {           \r\n    //           \"user_id\": \"{{client_id}}\", \"is_primary\": true \r\n    //          }   \r\n    // ],\r\n    // \"opponents\": [\r\n    //     {\r\n    //         \"name\": \"شركة الأمل للتجارة\",\r\n    //         \"email\": \"email@gmail.com\",\r\n    //         \"type\": \"company\",\r\n    //         \"national_id\": \"1234567890\",\r\n    //         \"phone\": \"0551234567\"\r\n    //     }\r\n    // ],\r\n    // \"team\": [\r\n    //     {\r\n    //          \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           } \r\n    //         //   ,\r\n    //         //   {\r\n    //         //  \"user_id\":\"cc25ab40-c99c-4c46-b2c9-ef00fb0b4376\",\r\n    //         //   \"role_in_case\": \"باحث قانوني\" \r\n                \r\n    //         //   }\r\n    // ],\r\n    // \"payment_milestones\": [\r\n    //     {\r\n    //         \"title\": \"دفعة بدء العمل\",\r\n    //         \"amount\": 5000.00,\r\n    //         \"due_date\": \"2029-11-01\" \r\n    //     }\r\n    // ]\r\n}",
+                  "raw": "// {\r\n//     \"case_id\" : \"760ff4cb-8a16-48fd-83ce-0793cdc766c9\",\r\n//     \"title\": \" private case\" ,\r\n//     \"description\": \"so hard case\"\r\n// }\r\n{\r\n    \"case_id\" : \"{{case_id}}\",\r\n    // \"title\": \"قضية تحصيل ديون تجارية\",\r\n    // \"description\": \"مطلوب مقاضاة شركة الأمل لعدم سداد ديون مستحقة\",\r\n    // // \"case_number\": \"5-2222\" ,\r\n    // \"case_category\": \"جنائي\" ,\r\n    // \"court\": \"المحكمة التجارية بالرياض\",\r\n    // \"price\": 500000.000,\r\n    // \"importance_stars\": 4,\r\n    // \"billing_type\": \"installments\",\r\n     \"status\": \"close\"  ,//  , // 'open', 'close', 'pending', 'archived' \r\n    // // \"collection_percentage\": 0.15,\r\n    \"lead_lawyer_id\": \"{{lawer_id}}\"\r\n\r\n    // \"clients\": [\r\n    //     {           \r\n    //           \"user_id\": \"{{client_id}}\", \"is_primary\": true \r\n    //          }   \r\n    // ],\r\n    // \"opponents\": [\r\n    //     {\r\n    //         \"name\": \"شركة الأمل للتجارة\",\r\n    //         \"email\": \"email@gmail.com\",\r\n    //         \"type\": \"company\",\r\n    //         \"national_id\": \"1234567890\",\r\n    //         \"phone\": \"0551234567\"\r\n    //     }\r\n    // ],\r\n    // \"team\": [\r\n    //     {\r\n    //          \"user_id\":\"{{lawer_id}}\",\r\n    //           \"role_in_case\": \"باحث قانوني\" \r\n    //           } \r\n    //         //   ,\r\n    //         //   {\r\n    //         //  \"user_id\":\"cc25ab40-c99c-4c46-b2c9-ef00fb0b4376\",\r\n    //         //   \"role_in_case\": \"باحث قانوني\" \r\n                \r\n    //         //   }\r\n    // ],\r\n    // \"payment_milestones\": [\r\n    //     {\r\n    //         \"title\": \"دفعة بدء العمل\",\r\n    //         \"amount\": 5000.00,\r\n    //         \"due_date\": \"2029-11-01\" \r\n    //     }\r\n    // ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -5218,6 +5374,375 @@
                     "lawyer",
                     "Manage_Offices",
                     "invite_lawer_to_office"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        },
+                        {
+                          "key": "office_id",
+                          "value": "{{office_id}}",
+                          "type": "text",
+                          "uuid": "b9a7e0aa-b2a3-4f8c-90fa-8a69ea83141a"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/invite_lawer_to_office",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "invite_lawer_to_office"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 14 Jul 2026 13:44:14 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Invitation sent successfully.\",\n    \"data\": {\n        \"invited_lawyer_profile_id\": \"019f60db-0ac4-7046-ad86-7ca21dc63fed\",\n        \"status\": \"pending\",\n        \"office_id\": \"019f60db-54c4-73ba-92e1-880fd0764047\",\n        \"id\": \"019f60de-fce0-70a8-b82f-3fa7829d8c9a\",\n        \"updated_at\": \"2026-07-14T13:44:14.000000Z\",\n        \"created_at\": \"2026-07-14T13:44:14.000000Z\"\n    }\n}"
+                },
+                {
+                  "name": "Already invited (pending)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/invite_lawer_to_office",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "invite_lawer_to_office"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 24 Jul 2026 14:35:33 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Already invited (pending).\",\n    \"error_details\": []\n}"
+                },
+                {
+                  "name": "Un Authorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/invite_lawer_to_office",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "invite_lawer_to_office"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 24 Jul 2026 14:36:47 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \" Un Authorized,You can not invite lawyer to office.\",\n    \"error_details\": []\n}"
+                },
+                {
+                  "name": "Cannot invite yourself",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "web",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "invited_lawyer_profile_id",
+                          "value": "{{lawer_profile_id}}",
+                          "type": "text",
+                          "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{Domain}}/lawyer/Manage_Offices/invite_lawer_to_office",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "lawyer",
+                        "Manage_Offices",
+                        "invite_lawer_to_office"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Fri, 24 Jul 2026 15:05:37 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"error\",\n    \"message\": \"Cannot invite yourself.\",\n    \"error_details\": []\n}"
+                }
+              ]
+            },
+            {
+              "name": "edit_salary_for_lawer",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "web",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "lawer_profile_id",
+                      "value": "{{lawer_profile_id}}",
+                      "type": "text",
+                      "uuid": "c6e129d2-e8bb-4cea-81e3-4f86538bebf2"
+                    },
+                    {
+                      "key": "salary",
+                      "value": "80000000",
+                      "type": "text",
+                      "uuid": "a850210b-8169-40d3-abbe-851e9aebd4ff"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{Domain}}/lawyer/Manage_Offices/edit_salary_for_lawer",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "Manage_Offices",
+                    "edit_salary_for_lawer"
                   ]
                 }
               },
@@ -6388,7 +6913,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_office_manager_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -6918,7 +7443,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{Kareem_Licensed_lawer_token_not_activate_office}}",
                       "type": "string"
                     }
                   ]
@@ -6958,7 +7483,8 @@
                       "key": "parent_id",
                       "value": "{{parent_file_id}}",
                       "type": "text",
-                      "uuid": "aa12b2a0-a381-494e-8c34-3340e5f6d1b0"
+                      "uuid": "aa12b2a0-a381-494e-8c34-3340e5f6d1b0",
+                      "disabled": true
                     }
                   ]
                 },
@@ -7203,7 +7729,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{lawer_token}}",
+                      "value": "{{Kareem_Licensed_lawer_token_not_activate_office}}",
                       "type": "string"
                     }
                   ]
@@ -13840,7 +14366,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n   // \"case_id\":\"{{case_id}}\" ,\r\n\"template_id\" : \"{{Template_ID}}\" ,\r\n     \"custom_values\": {\r\n       \"day\" :\"asasas\",\r\n                \"name1\": \"asasa\" ,\r\n                \"name2\": \"asasa\",\r\n                \"phone_number\": \"asasa\",\r\n                \"signature_tow \" : \"asasa\"\r\n    }  \r\n}",
+                  "raw": "{\r\n   // \"case_id\":\"{{case_id}}\" ,\r\n\"template_id\" : \"{{Template_ID}}\" ,\r\n     \"custom_values\": {\r\n       \"اليوم\": \"01\",\r\n                \"الشهر\": \"02\",\r\n                \"السنة\" : \"2026\",\r\n                \"اسم_المؤجر\": \"خالد\",\r\n                \"عنوان_المؤجر\": \"خالد\",\r\n                \"رقم_بطاقة_المؤجر\": \"خالد\",\r\n                \"اسم_المستأجر\": \"خالد\",\r\n                \"عنوان_المستأجر\": \"خالد\",\r\n                \"رقم_بطاقة_المستأجر\": \"خالد\",\r\n                \"رقم_الهاتف\": \"خالد\",\r\n                \"وصف_العقار\": \"خالد\",\r\n                \"موقع_العقار\": \"خالد\",\r\n                \"مكونات_العقار\": \"خالد\",\r\n                \"مدة_الإيجار\": \"خالد\",\r\n                \"تاريخ_البداية\": \"خالد\",\r\n                \"تاريخ_النهاية\": \"خالد\",\r\n                \"الأجرة_الشهرية\": \"خالد\",\r\n                \"الأجرة_كتابة\": \"خالد\",\r\n                \"موعد_السداد\": \"خالد\",\r\n                \"مبلغ_التأمين\": \"خالد\",\r\n                \"الغرض_من_الإيجار\": \"خالد\",\r\n                \"النفقات_على_المستأجر\": \"خالد\",\r\n                \"النفقات_على_المؤجر\": \"خالد\",\r\n                \"توقيع_المؤجر\": \"خالد\",\r\n                \"توقيع_المستأجر\": \"خالد\"\r\n    }  \r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -15044,7 +15570,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{trainee_lawer_ahmad_token}}",
+                      "value": "{{lawer_token}}",
                       "type": "string"
                     }
                   ]
@@ -15570,6 +16096,263 @@
                   "body": "{\n    \"status\": \"error\",\n    \"message\": \"Validation Error\",\n    \"error_details\": {\n        \"email\": [\n            \"The email has already been taken.\"\n        ],\n        \"phone\": [\n            \"The phone has already been taken.\"\n        ]\n    },\n    \"details\": {\n        \"email\": [\n            \"The email has already been taken.\"\n        ],\n        \"phone\": [\n            \"The phone has already been taken.\"\n        ]\n    }\n}"
                 }
               ]
+            },
+            {
+              "name": "get_lawyers",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/lawyer/profile/get_lawyers",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "profile",
+                    "get_lawyers"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": null,
+                      "disabled": true
+                    },
+                    {
+                      "key": "category_id",
+                      "value": "",
+                      "description": "// need lawer in specific Category ",
+                      "disabled": true
+                    },
+                    {
+                      "key": "min_rate",
+                      "value": null,
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "providers",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/client/providers",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "providers"
+                      ],
+                      "query": [
+                        {
+                          "key": "city",
+                          "value": null,
+                          "disabled": true
+                        },
+                        {
+                          "key": "category_id",
+                          "value": "",
+                          "description": "// need lawer in specific Category ",
+                          "disabled": true
+                        },
+                        {
+                          "key": "min_rate",
+                          "value": null,
+                          "disabled": true
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 13:10:18 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get lawers , offices successfully\",\n        \"data\": [\n            {\n                \"id\": \"92289d06-3d20-4768-a0e0-bb705a97910a\",\n                \"full_name\": \"عمر الزهراوي\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"5dcf5c56-0c99-455c-b4d1-38f574397472\",\n                \"full_name\": \"علي عسلية\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            },\n            {\n                \"id\": \"e09ba432-2968-4821-9b0b-6fdaa84d6660\",\n                \"full_name\": \"محمد الباشا\",\n                \"avatar\": null,\n                \"rate\": 0,\n                \"status\": \"active\",\n                \"address\": null,\n                \"specialists\": [],\n                \"role\": \"lawyer\"\n            }\n        ]\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "get_lawyer_profile",
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{lawer_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-App-Platform",
+                    "value": "mobile",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{Domain}}/lawyer/profile/{{lawer_id}}/get_lawyer_profile",
+                  "host": [
+                    "{{Domain}}"
+                  ],
+                  "path": [
+                    "lawyer",
+                    "profile",
+                    "{{lawer_id}}",
+                    "get_lawyer_profile"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "get_protofolio_for_lawer",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-App-Platform",
+                        "value": "mobile",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{Domain}}/client/providers/{{lawer_id}}/portfolio",
+                      "host": [
+                        "{{Domain}}"
+                      ],
+                      "path": [
+                        "client",
+                        "providers",
+                        "{{lawer_id}}",
+                        "portfolio"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "Host",
+                      "value": "127.0.0.1:8000"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    },
+                    {
+                      "key": "X-Powered-By",
+                      "value": "PHP/8.3.26"
+                    },
+                    {
+                      "key": "Cache-Control",
+                      "value": "no-cache, private"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 18 Jul 2026 13:11:04 GMT"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Access-Control-Allow-Origin",
+                      "value": "*"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"message\": \"get protofolio for lawer or office successfully\",\n        \"data\": {\n            \"lawyer_name\": \"عمر الزهراوي\",\n            \"role\": \"User\",\n            \"address\": null,\n            \"phone_number\": \"0968339198\",\n            \"rate\": 0,\n            \"experience_years_count\": 0.007790229199518011,\n            \"number_of_cases\": 1,\n            \"percent_of_cases_won\": \"0.00\",\n            \"legal_categories\": [],\n            \"bio_for_lawyer\": null,\n            \"opinion_of_clients\": []\n        }\n    }\n}"
+                }
+              ]
             }
           ]
         },
@@ -15610,7 +16393,7 @@
               "formdata": []
             },
             "url": {
-              "raw": "{{Domain}}/lawyer/get_clients?name=عمر",
+              "raw": "{{Domain}}/lawyer/get_clients",
               "host": [
                 "{{Domain}}"
               ],
@@ -15626,7 +16409,8 @@
                 },
                 {
                   "key": "name",
-                  "value": "عمر"
+                  "value": "عمر",
+                  "disabled": true
                 }
               ]
             }
@@ -15694,243 +16478,6 @@
               ],
               "cookie": [],
               "body": "{\n    \"status\": \"success\",\n    \"clients\": [\n        {\n            \"id\": \"1e0d8f3c-4bbb-4b73-ae2e-9740c3f727ce\",\n            \"full_name\": \"hatem\",\n            \"email\": \"hatem@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:10:04.000000Z\",\n            \"updated_at\": \"2026-07-15T17:10:04.000000Z\"\n        },\n        {\n            \"id\": \"1ee7512f-4d53-4c72-b609-280a6fffe8c5\",\n            \"full_name\": \"sara\",\n            \"email\": \"sara@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:09:34.000000Z\",\n            \"updated_at\": \"2026-07-15T17:09:34.000000Z\"\n        },\n        {\n            \"id\": \"31920fa3-08ea-4644-94cc-c8f753725bfe\",\n            \"full_name\": \"Client User\",\n            \"email\": \"client@example.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": \"الرياض، حي الملز\",\n            \"city\": \"Riyadh\",\n            \"lat\": \"24.7136\",\n            \"lng\": \"46.6753\",\n            \"experience_years\": null,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T16:51:10.000000Z\",\n            \"updated_at\": \"2026-07-15T16:51:10.000000Z\"\n        },\n        {\n            \"id\": \"4622d294-c587-4b41-a491-6882b4874208\",\n            \"full_name\": \"mohammad\",\n            \"email\": \"mohammad##@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-18T10:52:41.000000Z\",\n            \"updated_at\": \"2026-07-18T10:52:41.000000Z\"\n        },\n        {\n            \"id\": \"61e04230-dec4-4dd5-8734-666482b7cccb\",\n            \"full_name\": \"amar\",\n            \"email\": \"amar@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:09:45.000000Z\",\n            \"updated_at\": \"2026-07-15T17:09:45.000000Z\"\n        },\n        {\n            \"id\": \"d49a3792-ebbb-42ed-8ac5-957c05fe909f\",\n            \"full_name\": \"ali\",\n            \"email\": \"ali@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:10:14.000000Z\",\n            \"updated_at\": \"2026-07-15T17:10:14.000000Z\"\n        },\n        {\n            \"id\": \"de24055a-947d-47c9-84a6-83123e00b252\",\n            \"full_name\": \"emad\",\n            \"email\": \"emad@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:09:56.000000Z\",\n            \"updated_at\": \"2026-07-15T17:09:56.000000Z\"\n        }\n    ]\n}"
-            }
-          ]
-        },
-        {
-          "name": "get_lawyer_profile",
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {
-              "accept-encoding": true
-            }
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{Adham_Licensed_lawer_token_not_activate_office}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              },
-              {
-                "key": "X-App-Platform",
-                "value": "web",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "{{Domain}}/lawyer/profile/get_lawyer_profile",
-              "host": [
-                "{{Domain}}"
-              ],
-              "path": [
-                "lawyer",
-                "profile",
-                "get_lawyer_profile"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "get_clients",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  },
-                  {
-                    "key": "X-App-Platform",
-                    "value": "web",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{Domain}}/lawyer/get_clients",
-                  "host": [
-                    "{{Domain}}"
-                  ],
-                  "path": [
-                    "lawyer",
-                    "get_clients"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "Host",
-                  "value": "127.0.0.1:8000"
-                },
-                {
-                  "key": "Connection",
-                  "value": "close"
-                },
-                {
-                  "key": "X-Powered-By",
-                  "value": "PHP/8.3.26"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, private"
-                },
-                {
-                  "key": "Date",
-                  "value": "Sat, 18 Jul 2026 11:05:25 GMT"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"status\": \"success\",\n    \"clients\": [\n        {\n            \"id\": \"1e0d8f3c-4bbb-4b73-ae2e-9740c3f727ce\",\n            \"full_name\": \"hatem\",\n            \"email\": \"hatem@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:10:04.000000Z\",\n            \"updated_at\": \"2026-07-15T17:10:04.000000Z\"\n        },\n        {\n            \"id\": \"1ee7512f-4d53-4c72-b609-280a6fffe8c5\",\n            \"full_name\": \"sara\",\n            \"email\": \"sara@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:09:34.000000Z\",\n            \"updated_at\": \"2026-07-15T17:09:34.000000Z\"\n        },\n        {\n            \"id\": \"31920fa3-08ea-4644-94cc-c8f753725bfe\",\n            \"full_name\": \"Client User\",\n            \"email\": \"client@example.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": \"الرياض، حي الملز\",\n            \"city\": \"Riyadh\",\n            \"lat\": \"24.7136\",\n            \"lng\": \"46.6753\",\n            \"experience_years\": null,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T16:51:10.000000Z\",\n            \"updated_at\": \"2026-07-15T16:51:10.000000Z\"\n        },\n        {\n            \"id\": \"4622d294-c587-4b41-a491-6882b4874208\",\n            \"full_name\": \"mohammad\",\n            \"email\": \"mohammad##@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-18T10:52:41.000000Z\",\n            \"updated_at\": \"2026-07-18T10:52:41.000000Z\"\n        },\n        {\n            \"id\": \"61e04230-dec4-4dd5-8734-666482b7cccb\",\n            \"full_name\": \"amar\",\n            \"email\": \"amar@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:09:45.000000Z\",\n            \"updated_at\": \"2026-07-15T17:09:45.000000Z\"\n        },\n        {\n            \"id\": \"d49a3792-ebbb-42ed-8ac5-957c05fe909f\",\n            \"full_name\": \"ali\",\n            \"email\": \"ali@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:10:14.000000Z\",\n            \"updated_at\": \"2026-07-15T17:10:14.000000Z\"\n        },\n        {\n            \"id\": \"de24055a-947d-47c9-84a6-83123e00b252\",\n            \"full_name\": \"emad\",\n            \"email\": \"emad@gmail.com\",\n            \"role_id\": 3,\n            \"is_active\": true,\n            \"address\": null,\n            \"city\": null,\n            \"lat\": null,\n            \"lng\": null,\n            \"experience_years\": 0,\n            \"bio\": null,\n            \"phone\": null,\n            \"national_id\": null,\n            \"created_at\": \"2026-07-15T17:09:56.000000Z\",\n            \"updated_at\": \"2026-07-15T17:09:56.000000Z\"\n        }\n    ]\n}"
-            },
-            {
-              "name": "Validation Error",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  },
-                  {
-                    "key": "X-App-Platform",
-                    "value": "web",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{Domain}}/lawyer/profile/get_lawyer_profile",
-                  "host": [
-                    "{{Domain}}"
-                  ],
-                  "path": [
-                    "lawyer",
-                    "profile",
-                    "get_lawyer_profile"
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "Host",
-                  "value": "127.0.0.1:8000"
-                },
-                {
-                  "key": "Connection",
-                  "value": "close"
-                },
-                {
-                  "key": "X-Powered-By",
-                  "value": "PHP/8.3.26"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, private"
-                },
-                {
-                  "key": "Date",
-                  "value": "Fri, 24 Jul 2026 13:04:29 GMT"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"status\": \"error\",\n    \"message\": \"Validation Error\",\n    \"error_details\": {\n        \"message\": \"This user does not have a lawyer profile.\"\n    }\n}"
-            },
-            {
-              "name": "get_lawyer_profile",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  },
-                  {
-                    "key": "X-App-Platform",
-                    "value": "web",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{Domain}}/lawyer/profile/get_lawyer_profile",
-                  "host": [
-                    "{{Domain}}"
-                  ],
-                  "path": [
-                    "lawyer",
-                    "profile",
-                    "get_lawyer_profile"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": [
-                {
-                  "key": "Host",
-                  "value": "127.0.0.1:8000"
-                },
-                {
-                  "key": "Connection",
-                  "value": "close"
-                },
-                {
-                  "key": "X-Powered-By",
-                  "value": "PHP/8.3.26"
-                },
-                {
-                  "key": "Cache-Control",
-                  "value": "no-cache, private"
-                },
-                {
-                  "key": "Date",
-                  "value": "Fri, 24 Jul 2026 13:27:18 GMT"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"status\": \"success\",\n    \"message\": \"Lawyer Profile Data Fetched Successfully\",\n    \"data\": {\n        \"lawer_name\": \"علي\",\n        \"lawer_national_id\": \"9999\",\n        \"lawer_email\": \"ali@gmail.co\",\n        \"lawer_phone\": null,\n        \"lawer_address\": null,\n        \"lawer_state\": \"trainee\",\n        \"lawer_profile_id\": \"019f944c-ebca-7109-803f-bd4528ef0f16\",\n        \"Employed_In_Office\": false,\n        \"Has_Office\": false\n    }\n}"
             }
           ]
         },
@@ -16057,7 +16604,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{Kareem_Licensed_lawer_token_not_activate_office}}",
+                  "value": "{{lawer_token}}",
                   "type": "string"
                 }
               ]
@@ -16274,7 +16821,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "\r\n{\r\n    \"title\": \"احكام الاعدام\",\r\n    \"content\": \"ترتيب الاحكام الترتبة عى جناية السرقة\",\r\n    \"law_number\": \"L-2026-999\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    // \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
+                  "raw": "\r\n{\r\n    \"title\": \"احكام الاعدام\",\r\n    \"content\": \"ترتيب الاحكام الترتبة عى جناية السرقة\",\r\n    \"law_number\": \"L-2026-8888\",\r\n    \"category_id\": \"{{law_category_id}}\",\r\n    // \"country\": \"syria\",\r\n    \"status\": \"active\",\r\n    \"effective_date\": \"2026-06-24\",\r\n    \"book\": \"الكتاب الأول: الالتزامات بوجه عام\",\r\n    \"part\": \"الباب الأول: مصادر الالتزام\",\r\n    \"chapter\": \"الفصل الأول: العقد\",\r\n    \"related_legislation_ids\": [\r\n        //  \"019ef8d6-2881-71dc-8447-e195c1fd4d02\"\r\n        // \"uuid-of-second-related-law\"\r\n    ],\r\n    \"articles\": [\r\n        {\r\n            \"title\": \"المادة 1\",\r\n            \"content\": \"العقد هو ارتباط الإيجاب بالقبول...\"\r\n        },\r\n        {\r\n            \"title\": \"المادة 2\",\r\n            \"content\": \"يشترط لصحة العقد رضا الطرفين...\"\r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -17522,7 +18069,7 @@
                       "key": "file",
                       "type": "file",
                       "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
-                      "src": "postman-cloud:///1f16c8d2-ed62-4250-b0c7-73dc72146144"
+                      "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد ايجار منقولات وعقار اساسي .docx"
                     },
                     {
                       "key": "template_desc",
@@ -17680,24 +18227,24 @@
                     },
                     {
                       "key": "title",
-                      "value": "عقد بيع موحد",
+                      "value": "عقد بيع ",
                       "type": "text"
                     },
                     {
                       "key": "template_description",
-                      "value": "عقد بيع موحد",
+                      "value": "شسشسشسشس",
                       "type": "text"
                     },
                     {
                       "key": "category",
-                      "value": "سندات",
+                      "value": "شسشسشس",
                       "type": "text"
                     },
                     {
                       "key": "file",
                       "type": "file",
                       "uuid": "52fbc9ce-9b6b-4008-826c-05f9d87d9f05",
-                      "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد بيع.pdf"
+                      "src": "/C:/Users/amrza/OneDrive/سطح المكتب/عقد ايجار منقولات وعقار اساسي .docx"
                     }
                   ]
                 },

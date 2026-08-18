@@ -14,5 +14,11 @@ class Notification extends Model
     public $incrementing = false;
     public $timestamps = false; // فقط created_at موجود
 
-    protected $fillable = ['id', 'user_id', 'title', 'message', 'type', 'is_read', 'created_at', 'related_entity_id'];
+    protected $fillable = ['id', 'user_id', 'title', 'message', 'type', 'read_at', 'created_at', 'related_entity_id'];
+    public function markAsRead()
+    {
+        return $this->update([
+            'read_at' => now()->format('Y-m-d H:i:s')
+        ]);
+    }
 }

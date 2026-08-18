@@ -11,12 +11,23 @@ class DocumentPolicy
 {
     public function upload_Document(User $user, CaseModel $case)
     {
-        return $user->id === $case->lead_lawyer_id || $case->team->contains('id', $user->id);
+        // dd($user->id . "     " . $case->lead_lawyer_id);
+        return ($user->id === $case->lead_lawyer_id) || ($case->team->contains('id', $user->id)) || ($user->id === $case->office->owner->user_id);
     }
+
     public function get_documents_for_case(User $user, CaseModel $case)
     {
-        return $user->id === $case->lead_lawyer_id || $case->team->contains('id', $user->id);
+        // dd($user->id . "\n     " . $case->clients->map(function ($client) {
+        //     return $client->id;
+        // }));
+
+        return
+            $user->id === $case->lead_lawyer_id ||
+            $case->team->contains('id', $user->id) ||
+            $user->id === $case->office->owner->user_id ||
+            $case->clients->contains('id', $user->id);
     }
+
     public function delete_document(User $user, Document $document)
     {
         // state that the user can delete the document if he is the lead lawyer of the case
@@ -24,6 +35,6 @@ class DocumentPolicy
         // state that the user can delete the document if he is the uploader of the document
         $isUploader = $user->id === $document->uploaded_by;
 
-        return $isLeadLawyer || $isUploader;
+        return $isLeadLawyer || $isUploader  || $user->id === $document->case->office->owner->user_id;
     }
 }

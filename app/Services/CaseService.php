@@ -30,12 +30,12 @@ class CaseService // أو اسم الكلاس الخاص بك
         // تحديد حالة المحامي (ABAC): هل هو صاحب مكتب أم مستقل؟
         $myOffice = Office::where('owner_lawyer_profile_id', $profile->id)->where('status', 'active')->first();
         $isOwner = !is_null($myOffice);
-
+        $leader_lawer_id = $data['lead_lawyer_id'] ?? $user->id;
         DB::beginTransaction();
         try {
             $caseData = [
                 'client_id' => $data['clients'][0]['user_id'],
-                'lead_lawyer_id' => $user->id,
+                'lead_lawyer_id' => $leader_lawer_id,
                 'title' => $data['title'],
                 'case_category' => $data['case_category'],
                 'description' => $data['description'],
@@ -387,7 +387,7 @@ class CaseService // أو اسم الكلاس الخاص بك
             $case->price = isset($data['price']) ? (float) $data['price'] : $case->price;
             $case->importance_stars = $data['importance_stars'] ?? $case->importance_stars;
             $case->billing_type = $data['billing_type'] ?? $case->billing_type;
-
+            
             if (isset($data['billing_type']) && $data['billing_type'] !== 'percentage_collection') {
                 $case->collection_percentage = null;
             } else {

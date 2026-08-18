@@ -94,17 +94,88 @@ class InvoiceService
             'code' => '200'
         ];
     }
+    // public function get_invoices_for_lawer($request)
+    // {
+    //     $lawyer = auth('sanctum')->user();
+
+    //     // 1. جلب الفواتير مع تحميل العلاقات مسبقاً (Eager Loading)
+    //     $invoices = Invoice::with(['documents', 'case', 'client', 'salary'])
+    //         ->where('lawyer_id', $lawyer->id)
+    //         // ->where('type', 'For_case')
+    //         ->get();
+
+    //     // 2. دالة مساعدة لتنسيق الملفات (لتجنب تكرار الكود)
+    //     $formatFiles = function ($documents) {
+    //         return $documents->map(function ($doc) {
+    //             return [
+    //                 'file_url' => Storage::url($doc->file_path),
+    //                 'file_name' => $doc->type,
+    //                 'file_size' => Storage::size($doc->file_path)
+    //             ];
+    //         });
+    //     };
+
+    //     // 3. التجميع الاحترافي باستخدام Collections
+    //     $groupedInvoices = $invoices->groupBy('type')->map(function ($typeInvoices, $type) use ($formatFiles) {
+
+    //         // التجميع الثاني بحسب الحالة (paid, unpaid)
+    //         return $typeInvoices->groupBy('status')->map(function ($statusInvoices) use ($type, $formatFiles) {
+
+    //             return $statusInvoices->map(function ($invoice) use ($type, $formatFiles) {
+    //                 $files = $formatFiles($invoice->documents);
+
+    //                 // بيانات أساسية مشتركة بين كل أنواع الفواتير
+    //                 $baseData = [
+    //                     'id' => $invoice->id,
+    //                     'total_amount' => $invoice->total_amount,
+    //                     'due_date' => $invoice->due_date,
+    //                     'status' => $invoice->status,
+    //                     'created_at' => $invoice->created_at->format('Y-m-d H'),
+    //                     'files' => $files,
+    //                 ];
+
+    //                 // بيانات خاصة بفاتورة القضايا (For_case)
+    //                 if ($type === 'For_case') {
+    //                     $baseData['case_title'] = $invoice->case->title ?? null;
+    //                     $baseData['client_name'] = $invoice->client->full_name ?? null;
+    //                     $baseData['items'] = json_decode($invoice->items, true);
+    //                 }
+
+    //                 // بيانات خاصة بفاتورة الرواتب (salary)
+    //                 if ($type === 'salary' && $invoice->salary) {
+    //                     $baseData['salary_details'] = [
+    //                         "lawyer_name" => $invoice->lawyer->full_name,
+    //                         'month' => $invoice->salary->month,
+    //                         'year' => $invoice->salary->year,
+    //                         'base_salary' => $invoice->salary->base_salary,
+    //                         'total_approved_expenses' => $invoice->salary->total_approved_expenses,
+    //                         'net_salary' => $invoice->salary->net_salary,
+
+    //                     ];
+    //                 }
+
+    //                 return $baseData;
+    //             });
+    //         });
+    //     })->toArray(); // تحويل الكولكشن لمصفوفة عادية لإرسالها كـ JSON
+
+    //     return [
+    //         'status' => 'success',
+    //         'data' => [
+    //             'message' => 'Invoices retrieved successfully',
+    //             'invoices' => $groupedInvoices
+    //         ],
+    //         'code' => '200'
+    //     ];
+    // }
     public function get_invoices_for_lawer($request)
     {
         $lawyer = auth('sanctum')->user();
 
-        // 1. جلب الفواتير مع تحميل العلاقات مسبقاً (Eager Loading)
         $invoices = Invoice::with(['documents', 'case', 'client', 'salary'])
             ->where('lawyer_id', $lawyer->id)
-            // ->where('type', 'For_case')
             ->get();
 
-        // 2. دالة مساعدة لتنسيق الملفات (لتجنب تكرار الكود)
         $formatFiles = function ($documents) {
             return $documents->map(function ($doc) {
                 return [
@@ -115,16 +186,22 @@ class InvoiceService
             });
         };
 
-        // 3. التجميع الاحترافي باستخدام Collections
+        // حساب مجاميع غير المدفوع قبل التجميع
+        $unpaidInvoices = $invoices->where('status', '!=', 'paid');
+
+        $totalUnpaidInput  = (float) $unpaidInvoices
+            ->where('type', 'For_case')
+            ->sum('total_amount');
+
+        $totalUnpaidOutput = (float) $unpaidInvoices
+            ->where('type', 'salary')
+            ->sum('total_amount');
+
         $groupedInvoices = $invoices->groupBy('type')->map(function ($typeInvoices, $type) use ($formatFiles) {
-
-            // التجميع الثاني بحسب الحالة (paid, unpaid)
             return $typeInvoices->groupBy('status')->map(function ($statusInvoices) use ($type, $formatFiles) {
-
                 return $statusInvoices->map(function ($invoice) use ($type, $formatFiles) {
                     $files = $formatFiles($invoice->documents);
 
-                    // بيانات أساسية مشتركة بين كل أنواع الفواتير
                     $baseData = [
                         'id' => $invoice->id,
                         'total_amount' => $invoice->total_amount,
@@ -134,16 +211,15 @@ class InvoiceService
                         'files' => $files,
                     ];
 
-                    // بيانات خاصة بفاتورة القضايا (For_case)
                     if ($type === 'For_case') {
                         $baseData['case_title'] = $invoice->case->title ?? null;
                         $baseData['client_name'] = $invoice->client->full_name ?? null;
                         $baseData['items'] = json_decode($invoice->items, true);
                     }
 
-                    // بيانات خاصة بفاتورة الرواتب (salary)
                     if ($type === 'salary' && $invoice->salary) {
                         $baseData['salary_details'] = [
+                            "lawyer_name" => $invoice->lawyer->full_name,
                             'month' => $invoice->salary->month,
                             'year' => $invoice->salary->year,
                             'base_salary' => $invoice->salary->base_salary,
@@ -155,12 +231,16 @@ class InvoiceService
                     return $baseData;
                 });
             });
-        })->toArray(); // تحويل الكولكشن لمصفوفة عادية لإرسالها كـ JSON
+        })->toArray();
 
         return [
             'status' => 'success',
             'data' => [
                 'message' => 'Invoices retrieved successfully',
+                'summary' => [
+                    'total_unpaid_input'  => $totalUnpaidInput,
+                    'total_unpaid_output' => $totalUnpaidOutput,
+                ],
                 'invoices' => $groupedInvoices
             ],
             'code' => '200'

@@ -43,6 +43,7 @@ class CaseModel extends Model
     {
         return $this->belongsTo(Office::class, 'office_id');
     }
+
     public function invoices()
     {
         return $this->hasMany(Invoice::class, 'case_id');
