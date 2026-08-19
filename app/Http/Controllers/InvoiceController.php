@@ -86,11 +86,22 @@ class InvoiceController extends Controller
     public function initiate_payment(Request $request, $invoice_id)
     {
         try {
+            // 1. اقرأ روابط الرجوع من الفرونت مع تحقّق أساسي
+            $validated = $request->validate([
+                'success_url' => ['required', 'string'],
+                'cancel_url'  => ['required', 'string'],
+            ]);
+
+            // // 2. فحص whitelist لمنع Open Redirect
+            // if (
+            //     !$this->isAllowedReturnUrl($validated['success_url']) ||
+            //     !$this->isAllowedReturnUrl($validated['cancel_url'])
+            // ) {
+            //     return sendError('Invalid return URL', [], 422);
+            // }
+
             $invoice = Invoice::with(['case', 'lawyer', 'client'])->findOrFail($invoice_id);
 
-            // التحقق من الصلاحيات بناءً على نوع الفاتورة
-            // إذا كانت فاتورة خدمة: يجب أن يكون العميل هو من يطلب الدفع
-            // إذا كانت فاتورة راتب: يجب أن يكون مدير المكتب هو من يطلب الصرف
             if (Gate::denies('pay_invoice', $invoice)) {
                 return sendError('Unauthorized, you cannot pay this invoice', [], 403);
             }
@@ -98,12 +109,12 @@ class InvoiceController extends Controller
                 return sendError('This invoice is already paid', [], 400);
             }
 
-            // روابط وهمية只是为了满足 Stripe 的要求
-            $successUrl = URL::route('payment.success', ['invoice' => $invoice->id]);
-            $cancelUrl = URL::route('payment.cancel', ['invoice' => $invoice->id]);
-
-            // استدعاء خدمة الدفع لإنشاء رابط سترايب
-            $checkoutUrl = $this->paymentGateway->createCheckoutSession($invoice, $successUrl, $cancelUrl);
+            // 3. مرّر روابط الفرونت مباشرة لـ Stripe
+            $checkoutUrl = $this->paymentGateway->createCheckoutSession(
+                $invoice,
+                $validated['success_url'],
+                $validated['cancel_url']
+            );
 
             return sendResponse([
                 'message' => 'Checkout session created successfully',
@@ -117,6 +128,42 @@ class InvoiceController extends Controller
                 'Line' => $e->getLine(),
             ], 500);
         }
+    }
+
+    private function isAllowedReturnUrl(string $url): bool
+    {
+        $allowedWebHosts = [
+            'app.lawx.com',
+            'localhost',
+            '127.0.0.1',
+        ];
+
+        $allowedMobileSchemes = [
+            'lawx',   // Deep Link تطبيق الموبايل: lawx://payment/success
+        ];
+
+        $parts = parse_url($url);
+
+        if (!$parts || !isset($parts['scheme'])) {
+            return false;
+        }
+
+        if (in_array($parts['scheme'], $allowedMobileSchemes, true)) {
+            return true;
+        }
+
+        if ($parts['scheme'] === 'https' && isset($parts['host'])) {
+            return in_array($parts['host'], $allowedWebHosts, true);
+        }
+
+        if (
+            $parts['scheme'] === 'http' && isset($parts['host'])
+            && in_array($parts['host'], ['localhost', '127.0.0.1'], true)
+        ) {
+            return true;
+        }
+
+        return false;
     }
     public function handleWebhook(Request $request)
     {

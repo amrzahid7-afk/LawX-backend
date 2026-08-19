@@ -62,10 +62,6 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/docusign-webhook', [SignatureController::class, 'handleDocuSignWebhook']);
 // Api To Recive Events From Stripe platform 
 Route::post('/stripe/webhook', [InvoiceController::class, 'handleWebhook']);
-// Stripe apis
-// روابط العودة التي لن تحتاج لكود معقد، مجرد إعادة توجيه للـ Frontend
-Route::get('/payment/success/{invoice}', fn() => redirect('/payment/success'))->name('payment.success');
-Route::get('/payment/cancel/{invoice}', fn() => redirect('/payment/cancel'))->name('payment.cancel');
 // Route::get('/files', [SignatureController::class, 'getLawyerFiles']);
 // Route::get('/client/files', [SignatureController::class, 'getClientFiles']);
 // Route::get('/syndicate/files', [SignatureController::class, 'getSyndicateFiles']);
