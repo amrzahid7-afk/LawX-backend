@@ -39,7 +39,17 @@ class DocuSignService
     {
         return DB::transaction(function () use ($request) {
             // save Document
-            $filePath = $request['file']->store('documents');
+            // ===== OLD =====
+            // $filePath = $request['file']->store('documents');
+
+            // ===== NEW (Cloudinary) =====
+            $upload = app(\Cloudinary\Cloudinary::class)
+                ->uploadApi()
+                ->upload($request['file']->getRealPath(), [
+                    'folder' => 'lawx/documents/signatures',
+                    'resource_type' => 'auto',
+                ]);
+            $filePath = $upload['secure_url'];
             // create document record 
             $document = Document::create([
                 'file_path' => $filePath,
@@ -169,26 +179,33 @@ class DocuSignService
 
             // (b) Download the signed file and store it as a NEW document (version) linked to the original
             try {
-                $document  = $signatureRequest->document; // الملف الأصلي (بدون توقيع)
-                $directory = 'signed_documents';
-                if (!Storage::exists($directory)) {
-                    Storage::makeDirectory($directory);
-                }
+                $document = $signatureRequest->document; // الملف الأصلي (بدون توقيع)
 
-                // "combined" returns the full signed PDF (all pages)
-                $signedPath = $directory . '/' . pathinfo($document->file_path, PATHINFO_FILENAME) . '_signed.pdf';
-                $this->downloadSignedDocument($envelopeId, $signedPath);
+                // ===== OLD (Local storage) — علّق ده =====
+                // $directory = 'signed_documents';
+                // if (!Storage::exists($directory)) {
+                //     Storage::makeDirectory($directory);
+                // }
+                // $signedPath = $directory . '/' . pathinfo($document->file_path, PATHINFO_FILENAME) . '_signed.pdf';
+                // $this->downloadSignedDocument($envelopeId, $signedPath);
+
+                // ===== NEW (Cloudinary) =====
+                // بترجّع URL كامل من Cloudinary مباشرة
+                $signedPath = $this->downloadSignedDocument($envelopeId);
 
                 // Create the signed file as a new child document (a version of the base one)
                 $signedDocument = Document::create([
                     'file_path'      => $signedPath,
                     'type'           => 'signed_document',
-                    'parent_id'      => $document->id,                 // ← الربط بالملف الأصلي
+                    'parent_id'      => $document->id,
                     'version_number' => (int) ($document->version_number ?? 1) + 1,
                     'has_versions'   => false,
                     'uploaded_by'    => $document->uploaded_by,
                     'case_id'        => $document->case_id,
-                    'file_size'      => Storage::size($signedPath),
+                    // ===== OLD =====
+                    // 'file_size'      => Storage::size($signedPath),
+                    // ===== NEW =====
+                    'file_size'      => null, // الحجم مش متاح من URL
                 ]);
 
                 // Flag the base document as having versions + point to the signed copy

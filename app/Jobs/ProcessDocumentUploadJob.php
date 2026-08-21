@@ -41,52 +41,118 @@ class ProcessDocumentUploadJob implements ShouldQueue
         $user = User::find($document->uploaded_by);
         $agent = DocumentAnalyzerAgent::make($user);
 
-        foreach ($providers as $provider) {
-            try {
-                Log::info("Trying Analysis the file with AI Provider  : " . $provider);
-                $response =   DocumentAnalyzerAgent::make($user) //Ai::textProviderFor($agent, $provider)
-                    ->prompt(
-                        'Read the document...',
-                        attachments: [
-                            AiDocument::fromPath(
-                                Storage::disk('public')->path($document->file_path)
-                            ),
-                        ],
-                        provider: $provider
-                    );
-                $document->update([
-                    'ai_tags' => $response['keywords'] ?? null,
-                    'ai_summary' => $response['summary'] ?? null,
-                    'extracted_text' => $response['full_text'] ?? null,
-                ]);
-                Log::info("Success using  AI Provider : " . $provider);
-                return;
-            } catch (RateLimitedException $e) {
+        // ===== NEW (Cloudinary) =====
+        // نزّل الملف من Cloudinary لملف مؤقت مرة واحدة قبل الـ loop
+        $ext = pathinfo(parse_url($document->file_path, PHP_URL_PATH), PATHINFO_EXTENSION);
+        $tempPath = tempnam(sys_get_temp_dir(), 'lawx_doc_') . '.' . $ext;
+        file_put_contents($tempPath, file_get_contents($document->file_path));
 
-                Log::warning("$provider rate limited");
-
-                continue;
-            } catch (ProviderOverloadedException $e) {
-
-                Log::warning("$provider overloaded");
-
-                continue;
-            } catch (Throwable $e) {
-
-                if ($this->isPermanentFailure($e)) {
-
-                    $this->fail($e);
-
+        try {
+            foreach ($providers as $provider) {
+                try {
+                    Log::info("Trying Analysis the file with AI Provider  : " . $provider);
+                    $response =   DocumentAnalyzerAgent::make($user) //Ai::textProviderFor($agent, $provider)
+                        ->prompt(
+                            'Read the document...',
+                            attachments: [
+                                // ===== OLD (Local storage) — علّق ده =====
+                                // AiDocument::fromPath(
+                                //     Storage::disk('public')->path($document->file_path)
+                                // ),
+                                // ===== NEW (Cloudinary) =====
+                                AiDocument::fromPath($tempPath),
+                            ],
+                            provider: $provider
+                        );
+                    $document->update([
+                        'ai_tags' => $response['keywords'] ?? null,
+                        'ai_summary' => $response['summary'] ?? null,
+                        'extracted_text' => $response['full_text'] ?? null,
+                    ]);
+                    Log::info("Success using  AI Provider : " . $provider);
                     return;
+                } catch (RateLimitedException $e) {
+                    Log::warning("$provider rate limited");
+                    continue;
+                } catch (ProviderOverloadedException $e) {
+                    Log::warning("$provider overloaded");
+                    continue;
+                } catch (Throwable $e) {
+                    if ($this->isPermanentFailure($e)) {
+                        $this->fail($e);
+                        return;
+                    }
+                    Log::warning("$provider failed : " . $e->getMessage());
+                    continue;
                 }
-
-                Log::warning("$provider failed : " . $e->getMessage());
-
-                continue;
             }
+        } finally {
+            // امسح الملف المؤقت مهما حصل (نجاح، فشل، أو exception)
+            @unlink($tempPath);
         }
+
         throw new \Exception("All AI providers failed.");
     }
+    // public function handle()
+    // {
+    //     $providers = [
+    //         'zai',
+    //         'openai',
+    //         'gemini',
+    //         'groq',
+    //         // 'anthropic',
+    //         // 'openrouter',
+    //     ];
+    //     $document = Document::findOrFail($this->documentId);
+    //     $user = User::find($document->uploaded_by);
+    //     $agent = DocumentAnalyzerAgent::make($user);
+
+    //     foreach ($providers as $provider) {
+    //         try {
+    //             Log::info("Trying Analysis the file with AI Provider  : " . $provider);
+    //             $response =   DocumentAnalyzerAgent::make($user) //Ai::textProviderFor($agent, $provider)
+    //                 ->prompt(
+    //                     'Read the document...',
+    //                     attachments: [
+    //                         AiDocument::fromPath(
+    //                             Storage::disk('public')->path($document->file_path)
+    //                         ),
+    //                     ],
+    //                     provider: $provider
+    //                 );
+    //             $document->update([
+    //                 'ai_tags' => $response['keywords'] ?? null,
+    //                 'ai_summary' => $response['summary'] ?? null,
+    //                 'extracted_text' => $response['full_text'] ?? null,
+    //             ]);
+    //             Log::info("Success using  AI Provider : " . $provider);
+    //             return;
+    //         } catch (RateLimitedException $e) {
+
+    //             Log::warning("$provider rate limited");
+
+    //             continue;
+    //         } catch (ProviderOverloadedException $e) {
+
+    //             Log::warning("$provider overloaded");
+
+    //             continue;
+    //         } catch (Throwable $e) {
+
+    //             if ($this->isPermanentFailure($e)) {
+
+    //                 $this->fail($e);
+
+    //                 return;
+    //             }
+
+    //             Log::warning("$provider failed : " . $e->getMessage());
+
+    //             continue;
+    //         }
+    //     }
+    //     throw new \Exception("All AI providers failed.");
+    // }
     // try {
 
     //     $response = DocumentAnalyzerAgent::make($user)

@@ -27,7 +27,14 @@ class PropposalService
             'lawer_id' => auth('sanctum')->user()->id,
         ]);
         if ($file) {
-            $path = $file->store('documents/proposals', 'public');
+            // $path = $file->store('documents/proposals', 'public');
+            // ===== NEW (Cloudinary) =====
+            $path = app(\Cloudinary\Cloudinary::class)
+                ->uploadApi()
+                ->upload($file->getRealPath(), [
+                    'folder' => 'lawx/documents/proposals',
+                    'resource_type' => 'auto',
+                ])['secure_url'];
             Document::create([
                 'id' => Str::uuid(),
                 'file_path' => $path,
@@ -81,37 +88,7 @@ class PropposalService
             'code' => '200'
         ];
     }
-    // public function get_proposal_details($proposal_id)
-    // {
-    //     $proposal = Proposal::with(['request', 'documents', 'lawyer'])->find($proposal_id);
-    //     $formattedProposal = [
-    //         'lawyer_name' => $proposal->lawyer->full_name ?? null,
-    //         'lawyer_address' => $proposal->lawyer->address ?? null,
-    //         'lawyer_legalCategories' => $proposal->lawyer->legalCategories ?? null,
-    //         'lawyer_review' => $proposal->lawyer->reviewsReceived ?? null,
-    //         'title_request' => $proposal->request->title_request ?? null,
-    //         'title_description' => $proposal->request->description_request ?? null,
-    //         'price' => $proposal->price,
-    //         'estimated_days' => $proposal->estimated_days,
-    //         'message_for_client' => $proposal->message_for_client,
-    //         'status' => $proposal->status,
-    //         'created_at' => $proposal->created_at->format('Y-m-d h'),
-    //         'valid_until' => $proposal->valid_until->format('Y-m-d'),
-    //         'payment_terms' => $proposal->payment_terms,
-    //         'price_currency' => $proposal->price_currency,
-    //         'documents' => $proposal->documents->map(function ($doc) {
-    //             return asset('storage/' . $doc->file_path);
-    //         })->toArray(),
-    //     ];
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'get proposal details successfully',
-    //             'data' => $formattedProposal
-    //         ],
-    //         'code' => 200
-    //     ];
-    // }
+
 
     public function get_proposal_details($proposal_id)
     {
@@ -145,9 +122,9 @@ class PropposalService
             'price_currency' => strtoupper($proposal->price_currency),
             'documents' => $proposal->documents->map(function ($doc) {
                 return [
-                    "url" => Storage::url($doc->file_path),
+                    "url" => $doc->file_path,
                     "type" => $doc->type,
-                    "size" => floor(Storage::size($doc->file_path) / 1024) . "  MB"
+                    "size" => "3 Mb",
                 ];
             })->toArray(),
         ];
@@ -172,8 +149,15 @@ class PropposalService
 
         if ($file) {
             $proposal->documents()->delete();
-            $folderName = 'Proposal_files_' . $proposal->id;
-            $path = $file->store('Documents/Proposal_files/' . $folderName, 'public');
+            // $folderName = 'Proposal_files_' . $proposal->id;
+            // $path = $file->store('Documents/Proposal_files/' . $folderName, 'public');
+            // ===== NEW (Cloudinary) =====
+            $path = app(\Cloudinary\Cloudinary::class)
+                ->uploadApi()
+                ->upload($file->getRealPath(), [
+                    'folder' => 'lawx/documents/proposals/proposal_' . $proposal->id,
+                    'resource_type' => 'auto',
+                ])['secure_url'];
             \App\Models\Document::create([
                 'file_path'        => $path,
                 'type'             => $file->getClientOriginalExtension(),

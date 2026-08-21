@@ -21,19 +21,32 @@ trait HasTemplateVariables
     public function extractVariablesFromFile(string $filePath, string $fileType): array
     {
         try {
-            $fullPath = Storage::disk('public')->path($filePath);
-            // check if the file exists
-            if (!file_exists($fullPath)) {
+            // ===== OLD (Local storage) — علّق ده =====
+            // $fullPath = Storage::disk('public')->path($filePath);
+            // if (!file_exists($fullPath)) {
+            //     Log::error("File not found: {$filePath}");
+            //     return [];
+            // }
+
+            // ===== NEW (Cloudinary) =====
+            // نزّل القالب من Cloudinary لملف مؤقت للمعالجة المحلية
+            $ext = pathinfo(parse_url($filePath, PHP_URL_PATH), PATHINFO_EXTENSION) ?: $fileType;
+            $fullPath = tempnam(sys_get_temp_dir(), 'lawx_tpl_') . '.' . $ext;
+            $content = @file_get_contents($filePath);
+            if ($content === false) {
                 Log::error("File not found: {$filePath}");
                 return [];
             }
+            file_put_contents($fullPath, $content);
 
-            // توجيه الاستخراج حسب نوع الملف
-            return match (strtolower($fileType)) {
+            // استخراج المتغيرات
+            $result = match (strtolower($fileType)) {
                 'docx', 'doc' => $this->extractFromWord($fullPath),
                 'pdf'         => $this->extractFromPdf($fullPath),
                 default       => [],
             };
+            @unlink($fullPath);
+            return $result;
         } catch (\Exception $e) {
             Log::error('Variable extraction failed: ' . $e->getMessage());
             return [];
@@ -96,35 +109,45 @@ trait HasTemplateVariables
     /**
      * توليد ملف جديد من قالب (Word فقط - لأن PDF لا يدعم التعديل بسهولة)
      */
-    public function generateFromWordTemplate(string $templateFilePath, array $variables, array $values, string $outputPath): bool
+    public function generateFromWordTemplate(string $localTemplatePath, array $variables, array $values, string $localOutputPath): bool
     {
         try {
-            $fullTemplatePath = Storage::disk('public')->path($templateFilePath);
-            $fullOutputPath = Storage::disk('public')->path($outputPath);
+            // ===== OLD (Local storage) — علّق ده =====
+            // $fullTemplatePath = Storage::disk('public')->path($templateFilePath);
+            // $fullOutputPath = Storage::disk('public')->path($outputPath);
+            // if (!file_exists($fullTemplatePath)) {
+            //     Log::error("Template file not found: {$fullTemplatePath}");
+            //     return false;
+            // }
+            // $outputDir = dirname($fullOutputPath);
+            // if (!is_dir($outputDir)) {
+            //     mkdir($outputDir, 0755, true);
+            // }
+            // if (!copy($fullTemplatePath, $fullOutputPath)) {
+            //     Log::error("Failed to copy template file");
+            //     return false;
+            // }
 
-            // ✅ التحقق من وجود الملف
+            // ===== NEW (Cloudinary) =====
+            // المسارات بقت محلية مؤقتة (جاية جاهزة من generateFromTemplate)
+            $fullTemplatePath = $localTemplatePath;
+            $fullOutputPath   = $localOutputPath;
+
             if (!file_exists($fullTemplatePath)) {
                 Log::error("Template file not found: {$fullTemplatePath}");
                 return false;
             }
 
-            // ✅ إنشاء مجلد الإخراج إذا لم يكن موجوداً
-            $outputDir = dirname($fullOutputPath);
-            if (!is_dir($outputDir)) {
-                mkdir($outputDir, 0755, true);
-            }
-
-            // ✅ نسخ الملف الأصلي أولاً
+            // ننسخ القالب المصدر للناتج عشان نعدّل على النسخة
             if (!copy($fullTemplatePath, $fullOutputPath)) {
                 Log::error("Failed to copy template file");
                 return false;
             }
 
-            // ✅ محاولة استخدام PhpWord
+            // محاولة استخدام PhpWord
             try {
                 $templateProcessor = new TemplateProcessor($fullOutputPath);
 
-                // استبدال كل متغير بقيمته
                 foreach ($variables as $variable) {
                     $value = $values[$variable] ?? '';
                     try {
@@ -134,7 +157,6 @@ trait HasTemplateVariables
                     }
                 }
 
-                // حفظ الملف
                 $templateProcessor->saveAs($fullOutputPath);
 
                 Log::info("Document generated successfully with PhpWord", [
@@ -145,8 +167,7 @@ trait HasTemplateVariables
                 return true;
             } catch (\Exception $e) {
                 Log::error("PhpWord generation failed: " . $e->getMessage());
-
-                // ✅ Fallback: استخدام Regex مباشرة على XML
+                // Fallback: Regex على XML
                 return $this->replaceVariablesInDocx($fullOutputPath, $values);
             }
         } catch (\Exception $e) {
@@ -221,77 +242,51 @@ trait HasTemplateVariables
             Log::error('Mustache replacement error: ' . $e->getMessage());
         }
     }
-    private function convertToPdf(string $docxRelativePath): ?string
+    private function convertToPdf(string $localDocxPath): ?string
     {
         try {
-            $fullDocxPath = Storage::disk('public')->path($docxRelativePath);
+            // ===== NEW (LibreOffice headless) =====
+            // 1. مجلد الإخراج المؤقت للـ PDF
+            $outputDir = sys_get_temp_dir();
 
-            // بناء المسار النهائي لملف الـ PDF
-            $pdfRelativePath = preg_replace('/\.docx$/i', '.pdf', $docxRelativePath);
-            $fullPdfPath = Storage::disk('public')->path($pdfRelativePath);
+            // 2. مسار الـ LibreOffice (يختلف بين ويندوز المحلي و Railway/Linux)
+            $sofficeBinary = env('SOFFICE_BINARY', 'libreoffice');
 
-            // 1. قراءة ملف الـ Word وتحويله إلى كود HTML
-            $phpWord = IOFactory::load($fullDocxPath);
-            $htmlWriter = IOFactory::createWriter($phpWord, 'HTML');
+            // 3. أمر التحويل: docx → pdf
+            $command = sprintf(
+                '%s --headless --convert-to pdf --outdir %s %s 2>&1',
+                escapeshellarg($sofficeBinary),
+                escapeshellarg($outputDir),
+                escapeshellarg($localDocxPath)
+            );
 
-            ob_start();
-            $htmlWriter->save('php://output');
-            $htmlContent = ob_get_clean();
+            exec($command, $cmdOutput, $returnCode);
+            Log::info('LibreOffice conversion output', ['output' => $cmdOutput, 'code' => $returnCode]);
 
-            // 2. إضافة تنسيق الـ HTML
-            $wrappedHtml = '
-        <html dir="rtl" lang="ar">
-        <head>
-            <meta charset="utf-8">
-            <style>
-                body { font-family: "Arial", sans-serif; line-height: 1.6; }
-            </style>
-        </head>
-        <body>' . $htmlContent . '</body>
-        </html>';
+            // 4. اسم الـ PDF الناتج: نفس اسم الـ docx بامتداد pdf
+            $pdfFileName = pathinfo($localDocxPath, PATHINFO_FILENAME) . '.pdf';
+            $fullPdfPath = $outputDir . DIRECTORY_SEPARATOR . $pdfFileName;
 
-            // 3. استخدام حزمة Spatie والتوليد المباشر
-            \Spatie\LaravelPdf\Facades\Pdf::html($wrappedHtml)
-                ->withBrowsershot(function ($browsershot) {
-                    // إعدادات التوافق الأساسية للسيرفرات والأجهزة المحلية
-                    $browsershot->noSandbox()
-                        ->addChromiumArguments([
-                            '--disable-setuid-sandbox',
-                            '--disable-extensions',
-                            '--disable-dev-shm-usage'
-                        ]);
-
-                    if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-                        // تحديد مسارات Node الافتراضية
-                        $browsershot->setNodeBinary(env('NODE_BINARY', 'node'));
-                        $browsershot->setNpmBinary(env('NPM_BINARY', 'npm'));
-
-                        // ✅ مسارات متصفح Chrome الافتراضية الشائعة على أي جهاز ويندوز
-                        $possibleChromePaths = [
-                            'C:\Program Files\Google\Chrome\Application\chrome.exe',
-                            'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
-                        ];
-
-                        foreach ($possibleChromePaths as $path) {
-                            if (file_exists($path)) {
-                                $browsershot->setChromePath($path);
-                                break;
-                            }
-                        }
-                    }
-                    // 💡 على سيرفر Linux (Production) لاحقاً، الحزمة ستلتقط الـ Chromium المثبت على السيرفر تلقائياً بدون تدخل!
-                })
-                ->save($fullPdfPath);
-
-            if (file_exists($fullPdfPath)) {
-                Log::info("تم تحويل الملف إلى PDF بنجاح باستخدام Spatie PDF");
-                return $pdfRelativePath;
+            if (!file_exists($fullPdfPath)) {
+                Log::error('LibreOffice did not produce a PDF', ['expected' => $fullPdfPath]);
+                return null;
             }
 
-            return null;
+            // 5. رفع الـ PDF الناتج لـ Cloudinary
+            $upload = app(\Cloudinary\Cloudinary::class)
+                ->uploadApi()
+                ->upload($fullPdfPath, [
+                    'folder' => 'lawx/templates/generated',
+                    'resource_type' => 'auto',
+                ]);
+
+            @unlink($fullPdfPath); // امسح الـ PDF المؤقت
+
+            Log::info('تم تحويل الملف إلى PDF بـ LibreOffice ورفعه لـ Cloudinary');
+            return $upload['secure_url'];
         } catch (\Exception $e) {
-            Log::error("خطأ أثناء التحويل باستخدام Spatie: " . $e->getMessage());
-            throw new \Exception("فشل تحويل Spatie بسبب: " . $e->getMessage());
+            Log::error("LibreOffice conversion failed: " . $e->getMessage());
+            throw new \Exception("فشل تحويل الملف إلى PDF: " . $e->getMessage());
         }
     }
 }

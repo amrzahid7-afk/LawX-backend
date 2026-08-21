@@ -149,10 +149,17 @@ class SignatureController extends Controller
         // validate permission 
         $this->authorize('reviewFile', [SignatureRequest::class, $signer]);
         // Get File 
-        $filePath = storage_path('app/public/' . $signer->request->document->file_path);
-        if (!file_exists($filePath)) {
+        // $filePath = storage_path('app/public/' . $signer->request->document->file_path);
+        // if (!file_exists($filePath)) {
+        //     return sendError('File not found', [], 404);
+        // }
+        // ===== NEW (Cloudinary) =====
+        $fileUrl = $signer->request->document->file_path;
+        // تحقق إن الملف موجود فعلاً على Cloudinary
+        $content = @file_get_contents($fileUrl);
+        if ($content === false) {
             return sendError('File not found', [], 404);
         }
-        return response()->file($filePath);
+        return response($content, 200)->header('Content-Type', 'application/pdf');
     }
 }

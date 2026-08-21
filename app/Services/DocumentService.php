@@ -61,11 +61,22 @@ class DocumentService
         try {
             DB::beginTransaction();
             $case = CaseModel::find($data['case_id']);
-            $path = $data['file']->store('Documents/Case_files/' . $case->id, 'public');
+            // ===== OLD =====
+            // $path = $data['file']->store('Documents/Case_files/' . $case->id, 'public');
+
+            // ===== NEW (Cloudinary) =====
+            $upload = app(\Cloudinary\Cloudinary::class)
+                ->uploadApi()
+                ->upload($data['file']->getRealPath(), [
+                    'folder' => 'lawx/documents/case_files/' . $case->id,
+                    'resource_type' => 'auto',
+                ]);
+            $path = $upload['secure_url'];
+
             $parentID = $data['parent_id'] ?? null;
             $documentData = [
                 'case_id' => $data['case_id'],
-                'file_size' =>  Storage::disk('public')->size($path), //  Number::fileSize(Storage::disk('public')->size($path), 2),
+                'file_size' => $upload['bytes'], //  Number::fileSize(Storage::disk('public')->size($path), 2),
                 'file_path' => $path,
                 'type' => $data['type'],
                 'has_versions' => $parentID ? true : false,
@@ -140,8 +151,10 @@ class DocumentService
         $formattedData = $documents->map(function ($document) {
             return [
                 'id' => $document->id,
-                'file_url' => Storage::disk('public')->url($document->file_path),
-                'file_size' =>  Number::fileSize($document->file_size, 2),  // Storage::size($document->file_path),
+                // 'file_url' => Storage::disk('public')->url($document->file_path),
+                // 'file_size' =>  Number::fileSize($document->file_size, 2),  // Storage::size($document->file_path),
+                'file_url' => $document->file_path,
+                'file_size' => "1 MB",
                 'case' => [
                     'id' => $document->case->id,
                     'title' => $document->case->title,
@@ -162,8 +175,10 @@ class DocumentService
                         'id'             => $version->id,
                         'version_title'  => $version->version_number == 1 ? 'المسودة الأولية' : "الإصدار {$version->version_number}.0",
                         'version_number' => $version->version_number,
-                        'file_url'       => Storage::disk('public')->url($version->file_path),
-                        'file_size'      => Number::fileSize($version->file_size, 2),
+                        // 'file_url'       => Storage::disk('public')->url($version->file_path),
+                        // 'file_size'      => Number::fileSize($version->file_size, 2),
+                        'file_url' => $version->file_path,
+                        'file_size' => "1 MB",
                         'uploaded_by'    => [
                             'id'   => $version->uploadedBy ? $version->uploadedBy->id : null,
                             'name' => $version->uploadedBy ? $version->uploadedBy->full_name : 'غير معروف',
@@ -186,7 +201,7 @@ class DocumentService
     {
 
         $document = Document::where('id', $document_id)->first();
-        Storage::delete($document->file_path);
+        // Storage::delete($document->file_path);
         $document->delete();
         return [
             'status' => 'success',

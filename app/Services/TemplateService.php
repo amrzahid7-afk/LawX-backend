@@ -24,15 +24,33 @@ class TemplateService
             // storing the file 
             $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $extension = $file->getClientOriginalExtension();
-            $storedPath = $file->store('templates/originals', 'public');
-            // add document record in db 
+
+            // ===== OLD (Local storage) — علّق ده =====
+            // $storedPath = $file->store('templates/originals', 'public');
+
+            // ===== NEW (Cloudinary) =====
+            $tempUpload = tempnam(sys_get_temp_dir(), 'lawx_up_') . '.' . $extension;
+            copy($file->getRealPath(), $tempUpload);
+
+            $storedPath = app(\Cloudinary\Cloudinary::class)
+                ->uploadApi()
+                ->upload($tempUpload, [
+                    'folder' => 'lawx/templates/originals',
+                    'resource_type' => 'raw',
+                    'public_id' => \Illuminate\Support\Str::uuid(), // بدون امتداد
+                    'use_filename' => false,
+                    'unique_filename' => false,
+                ])['secure_url'];
+
+            @unlink($tempUpload);
+
             $fileRecord = Document::create([
                 'file_path' => $storedPath,
                 'type' => 'template',
                 'file_size' => $file->getSize(),
                 'uploaded_by' => request()->user()->id,
             ]);
-            // Extract variables From File with package PhpWord
+            // extractVariablesFromFile هتتعدّل عشان تتعامل مع URL (النقطة 3)
             $variables = $this->extractVariablesFromFile($storedPath, $extension);
             // add Template record in db 
             $template = SmartTemplate::create([
@@ -89,11 +107,29 @@ class TemplateService
             $file = $validatedData['file'];
             $extension = $file->getClientOriginalExtension();
 
-            $storedPath = $file->store('templates/originals', 'public');
+            // ===== OLD =====
+            // $storedPath = $file->store('templates/originals', 'public');
+            // ===== NEW (Cloudinary) =====
+            // انسخ الملف لمسار مؤقت بامتداد .docx صريح
+            $tempUpload = tempnam(sys_get_temp_dir(), 'lawx_up_') . '.' . $extension;
+            copy($file->getRealPath(), $tempUpload);
 
-            if ($template->file && $template->file->file_path) {
-                \Storage::disk('public')->delete($template->file->file_path);
-            }
+            $storedPath = app(\Cloudinary\Cloudinary::class)
+                ->uploadApi()
+                ->upload($tempUpload, [
+                    'folder' => 'lawx/templates/originals',
+                    'resource_type' => 'raw',
+                    'public_id' => \Illuminate\Support\Str::uuid(), // بدون امتداد
+                    'use_filename' => false,
+                    'unique_filename' => false,
+                ])['secure_url'];
+
+            @unlink($tempUpload);
+            // ===== OLD (حذف الملف القديم محلياً) — علّق ده =====
+            // if ($template->file && $template->file->file_path) {
+            //     \Storage::disk('public')->delete($template->file->file_path);
+            // }
+            // (الحذف من Cloudinary يحتاج public_id — مؤجّل، سيبه)
 
             $template->file->update([
                 'file_path' => $storedPath,
@@ -290,22 +326,18 @@ class TemplateService
                 "Template_updated_at"  => $template->updated_at->format('Y-m-d'),
                 "Template_variables"   => $template->variables_json,
 
-                "Template_file"        => $template->file && Storage::disk('public')->exists($template->file->file_path)
-                    ? Storage::disk('public')->url($template->file->file_path)
-                    : null,
+                "Template_file"        => $template->file ? $template->file->file_path : null,
 
-                "template_file_size"   => $template->file && Storage::disk('public')->exists($template->file->file_path)
-                    ? round(Storage::disk('public')->size($template->file->file_path) / (1024 * 1024), 2) . ' MB'
-                    : '0 MB',
+                "template_file_size"   =>  '2 MB',
 
                 "Generated_Files"      => $template->generatedFiles->map(function ($gFile) {
                     $filePath = $gFile->file ? $gFile->file->file_path : null;
-                    $exists = $filePath ? Storage::disk('public')->exists($filePath) : false;
+                    $exists = $filePath ? $filePath : false;
 
                     return [
-                        'file_url'        => $exists ? Storage::disk('public')->url($filePath) : null,
+                        'file_url'        => $exists ? $filePath : null,
                         'file_size'       => $exists
-                            ? round(Storage::disk('public')->size($filePath) / (1024 * 1024), 2) . ' MB'
+                            ? "2 MB"
                             : '0 MB',
                         // استدعاء الاسم باستخدام العلاقة الجديدة بحرف صغير g
                         'User_Who_create' => $gFile->generatedBy ? $gFile->generatedBy->full_name : 'غير معروف'
@@ -354,52 +386,144 @@ class TemplateService
         ];
     }
 
+    // public function generateFromTemplate($data)
+    // {
+    //     $template = SmartTemplate::with('file')->find($data['template_id']);
+    //     $customValues = $data['custom_values'] ?? [];
+
+    //     return DB::transaction(function () use ($template, $customValues) {
+    //         $templateFilePath = $template->file->file_path; // URL من Cloudinary
+
+    //         // ===== OLD — علّق ده =====
+    //         // if (!Storage::disk('public')->exists($templateFilePath)) {
+    //         //     throw new \Exception("ملف القالب غير موجود: " . $templateFilePath);
+    //         // }
+
+    //         // ===== NEW (Cloudinary) =====
+    //         // نزّل القالب المصدر لملف docx مؤقت
+    //         $localTemplatePath = tempnam(sys_get_temp_dir(), 'lawx_tpl_src_') . '.docx';
+    //         $tplContent = @file_get_contents($templateFilePath);
+    //         if ($tplContent === false) {
+    //             throw new \Exception("ملف القالب غير موجود: " . $templateFilePath);
+    //         }
+    //         file_put_contents($localTemplatePath, $tplContent);
+
+    //         // مسار الـ Word المولّد المؤقت
+    //         $localOutputDocx = tempnam(sys_get_temp_dir(), 'lawx_tpl_out_') . '.docx';
+
+    //         $variables = is_array($template->variables_json) ? $template->variables_json : [];
+
+    //         $success = $this->generateFromWordTemplate(
+    //             $localTemplatePath,
+    //             $variables,
+    //             $customValues,
+    //             $localOutputDocx
+    //         );
+
+    //         @unlink($localTemplatePath);
+
+    //         if (!$success) {
+    //             @unlink($localOutputDocx);
+    //             throw new \Exception("فشل في معالجة القالب وتوليد Word");
+    //         }
+
+    //         // تحويل لـ PDF ورفع لـ Cloudinary (بترجّع URL)
+    //         $pdfUrl = $this->convertToPdf($localOutputDocx);
+
+    //         @unlink($localOutputDocx);
+
+    //         if (!$pdfUrl) {
+    //             throw new \Exception("فشل في تحويل الملف إلى PDF");
+    //         }
+
+    //         // ===== OLD =====
+    //         // Storage::disk('public')->delete($docxPath); // اتشال (بقى temp ومتمسوح)
+
+    //         $generatedFile = Document::create([
+    //             'file_path'   => $pdfUrl,
+    //             'type'        => 'pdf',
+    //             'uploaded_by' => request()->user()->id,
+    //         ]);
+
+    //         GeneratedTemplate::create([
+    //             'template_id'  => $template->id,
+    //             'file_id'      => $generatedFile->id,
+    //             'generated_by' => request()->user()->id,
+    //             'used_values'  => $customValues,
+    //         ]);
+
+    //         // ===== OLD =====
+    //         // $downloadUrl = Storage::disk('public')->url($pdfPath);
+    //         // ===== NEW =====
+    //         $downloadUrl = $pdfUrl;
+
+    //         return [
+    //             'success'      => true,
+    //             'message'      => 'تم توليد الملف بنجاح',
+    //             'download_url' => $downloadUrl,
+    //         ];
+    //     });
+    // }
     public function generateFromTemplate($data)
     {
         $template = SmartTemplate::with('file')->find($data['template_id']);
         $customValues = $data['custom_values'] ?? [];
 
-        return DB::transaction(function () use ($template, $customValues) {
-            $templateFilePath = $template->file->file_path;
+        return DB::transaction(function () use ($template, $customValues, $data) {
+            $templateFilePath = $template->file->file_path; // URL من Cloudinary
 
-            if (!Storage::disk('public')->exists($templateFilePath)) {
-                throw new \Exception("ملف القالب غير موجود في التخزين: " . $templateFilePath);
+            // ===== OLD — علّق ده =====
+            // if (!Storage::disk('public')->exists($templateFilePath)) {
+            //     throw new \Exception("ملف القالب غير موجود: " . $templateFilePath);
+            // }
+
+            // ===== NEW (Cloudinary) =====
+            // نزّل القالب المصدر لملف docx مؤقت
+            // $localTemplatePath = tempnam(sys_get_temp_dir(), 'lawx_tpl_src_') . '.docx';
+            $ext = pathinfo(parse_url($templateFilePath, PHP_URL_PATH), PATHINFO_EXTENSION) ?: 'docx';
+            $localTemplatePath = tempnam(sys_get_temp_dir(), 'lawx_tpl_src_') . '.' . $ext;
+            $tplContent = @file_get_contents($templateFilePath);
+            if ($tplContent === false) {
+                throw new \Exception("ملف القالب غير موجود: " . $templateFilePath);
             }
+            file_put_contents($localTemplatePath, $tplContent);
 
-            // مسار ملف الـ Word المؤقت
-            $timestamp = time();
-            $docxFileName = Str::slug($template->title) . '_' . $timestamp . '.docx';
-            $docxPath = 'templates/generated/' . $docxFileName;
+            // مسار الـ Word المولّد المؤقت
+            $localOutputDocx = tempnam(sys_get_temp_dir(), 'lawx_tpl_out_') . '.docx';
 
             $variables = is_array($template->variables_json) ? $template->variables_json : [];
 
-            // call function to generate Word file 
             $success = $this->generateFromWordTemplate(
-                $templateFilePath,
+                $localTemplatePath,
                 $variables,
                 $customValues,
-                $docxPath
+                $localOutputDocx
             );
 
+            @unlink($localTemplatePath);
+
             if (!$success) {
-                throw new \Exception("فشل في معالجة ملف القالب وتوليد صيغة Word");
+                @unlink($localOutputDocx);
+                throw new \Exception("فشل في معالجة القالب وتوليد Word");
             }
 
-            // 2. استدعاء دالة التحويل إلى PDF المعتمدة على Spatie
-            $pdfPath = $this->convertToPdf($docxPath);
+            // تحويل لـ PDF ورفع لـ Cloudinary (بترجّع URL)
+            $pdfUrl = $this->convertToPdf($localOutputDocx);
 
-            if (!$pdfPath) {
-                throw new \Exception("فشل في تحويل الملف إلى PDF عبر حزمة Spatie");
+            @unlink($localOutputDocx);
+
+            if (!$pdfUrl) {
+                throw new \Exception("فشل في تحويل الملف إلى PDF");
             }
 
-            // 3. تنظيف التخزين وحذف ملف الـ Word المؤقت فوراً
-            Storage::disk('public')->delete($docxPath);
+            // ===== OLD =====
+            // Storage::disk('public')->delete($docxPath); // اتشال (بقى temp ومتمسوح)
 
-            // 4. تسجيل الملف الـ PDF في قاعدة البيانات
             $generatedFile = Document::create([
-                'file_path'   => $pdfPath,
+                'file_path'   => $pdfUrl,
                 'type'        => 'pdf',
-                'uploaded_by' =>  request()->user()->id,
+                'uploaded_by' => request()->user()->id,
+                'case_id'     => $data['case_id'] ? $data['case_id'] : null,
             ]);
 
             GeneratedTemplate::create([
@@ -409,10 +533,11 @@ class TemplateService
                 'used_values'  => $customValues,
             ]);
 
-            // رابط التحميل النهائي للملف الـ PDF
-            $downloadUrl = Storage::disk('public')->url($pdfPath);
+            // ===== OLD =====
+            // $downloadUrl = Storage::disk('public')->url($pdfPath);
+            // ===== NEW =====
+            $downloadUrl = $pdfUrl;
 
-            // 5. الرد المطلوب تماماً (Success Message + Download URL)
             return [
                 'success'      => true,
                 'message'      => 'تم توليد الملف بنجاح',

@@ -11,9 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->text('avatar_path')->nullable();
-        });
+        Schema::table('users', function (Blueprint $table) {});
     }
 
     /**

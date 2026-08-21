@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+// use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Cloudinary\Cloudinary;
 
 class AuthService
 {
@@ -73,12 +75,22 @@ class AuthService
         if ($profile->is_claimed) {
             return sendError('هذا الحساب تم تفعيله مسبقاً.', [], 400);
         }
-        // store avatar
+        // ===== OLD (comment this) =====
+        // $avatarPath = null;
+        // if ($request->hasFile('avatar')) {
+        //     $path = $request->file('avatar')->store('avatars', 'public');
+        //     $avatarPath = Storage::disk('public')->url($path);
+        // }
         $avatarPath = null;
         if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('avatars', 'public');
-            $avatarPath = Storage::disk('public')->url($path);
+            $result = app(Cloudinary::class)
+                ->uploadApi()
+                ->upload($request->file('avatar')->getRealPath(), [
+                    'folder' => 'lawx/avatars',
+                ]);
+            $avatarPath = $result['secure_url'];
         }
+        // dd($avatarPath);
         $user = User::create([
             'full_name'       => $profile->full_name,
             'email'           => $request['email'],
@@ -90,7 +102,7 @@ class AuthService
             'lng'             => $request['lng'] ?? null,
             'bio'             => $request['bio'] ?? null,
             'national_id'     => $request['national_id'],
-            'avatar'          => $avatarPath,
+            'avatar_path'          => $avatarPath,
             'city'            => $request['city'],
             'experience_years' => $request['experience_years'] ?? 0,
         ]);
@@ -106,11 +118,31 @@ class AuthService
     }
     public function registerClient(Request $request)
     {
+        // ===== OLD (comment this) =====
+        // $avatarPath = null;
+        // if ($request->hasFile('avatar')) {
+        //     $path = $request->file('avatar')->store('avatars', 'public');
+        //     $avatarPath = Storage::disk('public')->url($path);
+        // }
+        // dd($avatarPath);
+        // $avatarPath = null;
+        // if ($request->hasFile('avatar')) {
+        //     $avatarPath = Cloudinary::upload(
+        //         $request->file('avatar')->getRealPath(),
+        //         ['folder' => 'lawx/avatars']
+        //     )->getSecurePath();
+        // }
+        // dd($avatarPath);
         $avatarPath = null;
         if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('avatars', 'public');
-            $avatarPath = Storage::disk('public')->url($path);
+            $result = app(Cloudinary::class)
+                ->uploadApi()
+                ->upload($request->file('avatar')->getRealPath(), [
+                    'folder' => 'lawx/avatars',
+                ]);
+            $avatarPath = $result['secure_url'];
         }
+        // dd($avatarPath);
         $user = User::create([
             'full_name' => $request->input('full_name'),
             'email'     => $request->input('email'),
@@ -282,368 +314,4 @@ class AuthService
             'code' => 200
         ];
     }
-    // public function changePassword($array)
-    // {
-    //     $user = auth('sanctum')->user();
-
-    //     $user->update([
-    //         'password' => Hash::make($array['new_password'])
-    //     ]);
-
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'change password successfully',
-    //         ],
-    //         'code' => 200
-    //     ];
-    // }
-    // public function verify2FA($data)
-    // {
-    //     // get user , code , token 
-    //     $user = User::where('id', $data['user_id'])->first();
-    //     $code = VerificationCode::where('user_id', $data['user_id'])->where('type', 'login_2FA')->first();
-    //     $temporary_token = PasswordResetToken::where('email', $user->email)->where('type', 'login_2FA')->first();
-    //     // check temporary token
-    //     if (! Hash::check($data['temporary_token'], $temporary_token->token)) {
-    //         return [
-    //             'status' => 'failed',
-    //             'data' => [
-    //                 'message' => 'invalid temporary token'
-    //             ],
-    //             'code' => '400'
-    //         ];
-    //     }
-    //     /// check verfication code 
-    //     else if (! Hash::check($data['code'], $code->code)) {
-    //         return [
-    //             'status' => 'failed',
-    //             'data' => [
-    //                 'message' => 'invalid code'
-    //             ],
-    //             'code' => '400'
-    //         ];
-    //     } else {
-    //         // generate login_token 
-    //         $token = $user->createToken('api-token')->plainTextToken;
-    //         // delete temporary token and verfication code 
-    //         $code->delete();
-    //         $temporary_token->delete();
-    //         // send response    
-    //         return [
-    //             'status' => 'success',
-    //             'data' => [
-    //                 'token' => $token,
-    //                 'message' => 'login successfully'
-    //             ],
-    //             'code' => '200'
-    //         ];
-    //     }
-    // }
-    // public function switch_2FA()
-    // {
-    //     $user = auth()->user();
-
-    //     $user->update([
-    //         'activation_2FA' => !$user->activation_2FA
-    //     ]);
-
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'switch 2FA successfully',
-    //             'activation_2FA' => $user->activation_2FA,
-    //         ],
-    //         'code' => 200
-    //     ];
-    // }
-    // public function login($credentials)
-    // {
-    //     if (!Auth::attempt($credentials)) {
-    //         return response()->json([
-    //             'message' => 'Invalid credentials'
-    //         ], 401);
-    //     }
-
-    //     $user = auth('api')->user();
-
-    //     // حذف أي tokens قديمة (اختياري)
-    //     $user->tokens()->delete();
-
-    //     $token = $user->createToken('api-token')->plainTextToken;
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'token' => $token,
-    //             'user' => auth('sanctum')->user()
-    //         ],
-    //         'code' => 200
-    //     ];
-    // }
-    // login jwt 
-    // public function login(array $credetials)
-    // {
-    //     // if (!$token = auth('api')->attempt($credetials)) {
-    //     //     return [
-    //     //         'status' => 'error',
-    //     //         'data' => [
-    //     //             'message' => 'invalid credentials'
-    //     //         ],
-    //     //         'code' => 401
-    //     //     ];
-    //     // }
-
-    //     // return [
-    //     //     'status' => 'success',
-    //     //     'data' => [
-    //     //         'token' => $token,
-    //     //         'user' => auth('api')->user()
-    //     //     ],
-    //     //     'code' => 200
-    //     // ];
-    //     // // // validate role 
-    //     // // if ($user->role->name != 'productowner') {
-    //     // //     return [
-    //     // //         'status' => 'error',
-    //     // //         'data' => [
-    //     // //             'message' => 'Unauthorized'
-    //     // //         ],
-    //     // //         'code' => 401
-    //     // //     ];
-    //     // // }
-    //     // // // 2FA senario 
-    //     // // if ($user->activation_2FA == true) {
-    //     // //     // generate token and code  
-    //     // //     $token = Str::random(64);
-    //     // //     $code = rand(1000000, 9999999);
-    //     // //     // store and token 
-    //     // //     PasswordResetToken::updateOrCreate(
-    //     // //         [
-    //     // //             'email' => $credetials['email'],
-    //     // //             'type' => 'login_2FA'
-    //     // //         ],
-    //     // //         [
-    //     // //             'token' => Hash::make($token),
-    //     // //             'expired_at' => now()->addMinutes(60),
-    //     // //             'created_at' => now(),
-    //     // //         ]
-    //     // //     );
-    //     // //     VerificationCode::updateOrCreate(
-    //     // //         [
-    //     // //             'user_id' => $user->id,
-    //     // //             'type' => 'login_2FA',
-    //     // //             'is_used' => false
-    //     // //         ],
-    //     // //         [
-    //     // //             'code' => Hash::make($code),
-    //     // //             'expires_at' => Carbon::now()->addMinutes(60),
-    //     // //             'is_used' => false
-    //     // //         ]
-    //     // //     );
-    //     // //     // sending otp code via email
-    //     // //     Mail::to($user->email)->send(new Send2FaMail($code));
-    //     // // // return success response
-    //     // // return [
-    //     // //     'status' => 'true',
-    //     // //     'data' => [
-    //     // //         'message' => 'please Enter verfication otp code that we send to your email ',
-    //     // //         'temporary_token' => $token,
-    //     // //         'user_id' => $user->id
-    //     // //     ],
-    //     // //     'code' => '200'
-    //     // // ];
-    //     // // } else {
-    //     // // login user
-    //     // $token = JWTAuth::attempt($credetials);
-    //     // return [
-    //     //     'status' => 'success',
-    //     //     'data' => [
-    //     //         'token' => $token,
-    //     //         'user' => [
-    //     //             "id" =>  $user["id"],
-    //     //             "name" =>   $user["full_name"],
-    //     //             "email" =>  $user["email"],
-    //     //             "role" =>  $user->role->name
-    //     //         ],
-    //     //         'message' => 'login successfully'
-    //     //     ],
-    //     //     'code' => '200'
-    //     // ];
-    //     // // }
-    // }
-    // public function logout(Request $request)
-    // {
-    //     $request->user()->currentAccessToken()->delete();
-
-    //     return response()->json([
-    //         'message' => 'Logged out successfully'
-    //     ]);
-    // }
-    // jwt logout 
-    // public function logout()
-    // {
-    //     // JWTAuth::invalidate(JWTAuth::getToken());
-    // }
-
-
-    // Manage profile 
-    // public function getSuperAdminProfile()
-    // {
-    //     // $user = User::select('full_name', 'email', 'is_active', 'activation_2FA')
-    //     //     ->where('id', auth('api')->user()->id)
-    //     //     ->first();
-    //     // return [
-    //     //     'status' => 'success',
-    //     //     'data' => [
-    //     //         'message' => 'get profile successfully',
-    //     //         'user' => $user
-    //     //     ],
-    //     //     'code' => 200
-    //     // ];
-    // }
-    // public function updateSuperAdminProfile($validated_data)
-    // {
-    //     // $user = User::select('id', 'full_name', 'email', 'is_active', 'activation_2FA')
-    //     //     ->where('id', auth('api')->user()->id)->first();
-    //     // $user->update($validated_data);
-    //     // return [
-    //     //     'status' => 'success',
-    //     //     'data' => [
-    //     //         'message' => 'update profile successfully',
-    //     //         'user' => $user
-    //     //     ],
-    //     //     'code' => 201
-    //     // ];
-    // }
-    // public function updateSuperAdminProfile($validated_data)
-    // {
-    //     $user = auth()->user();
-
-    //     $user->update($validated_data);
-
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'update profile successfully',
-    //             'user' => $user
-    //         ],
-    //         'code' => 200
-    //     ];
-    // }
-    // public function getSuperAdminProfile()
-    // {
-    //     $user = auth()->user();
-
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'get profile successfully',
-    //             'user' => $user
-    //         ],
-    //         'code' => 200
-    //     ];
-    // }
-    // public function upload_avatar($request)
-    // {
-    //     // // $user = User::where('id', auth('api')->user()->id)->first();
-    //     // // if ($request->hasFile('avatar')) {
-    //     // //     // get avatar
-    //     // //     $file = $request->file('avatar');
-    //     // //     // store avatar and get path
-    //     // //     $path = $file->store('public/avatars');
-    //     // //     // delete last avatar
-    //     // //     if ($user->avatar && Storage::exists($user->avatar)) {
-    //     // //         Storage::disk('public')->delete($user->avatar);
-    //     // //     }
-    //     // //     $user->update([
-    //     // //         'avatar' => $path
-    //     // //     ]);
-    //     // }
-    //     // // return response
-    //     // return [
-    //     //     'status' => 'success',
-    //     //     'data' => [
-    //     //         'message' => 'upload avatar successfully',
-    //     //     ],
-    //     //     'code' => 201
-    //     // ];
-    // }
-    // use Illuminate\Support\Facades\Storage;
-
-    // public function upload_avatar($request)
-    // {
-    //     $user = auth()->user();
-
-    //     if ($request->hasFile('avatar')) {
-
-    //         $file = $request->file('avatar');
-
-    //         $path = $file->store('avatars', 'public');
-
-    //         if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
-    //             Storage::disk('public')->delete($user->avatar);
-    //         }
-
-    //         $user->update([
-    //             'avatar' => $path
-    //         ]);
-    //     }
-
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'upload avatar successfully',
-    //         ],
-    //         'code' => 200
-    //     ];
-    // }
-    // public function deleteImage()
-    // {
-    //     // $user = User::where('id', auth('api')->user()->id)->first();
-    //     // if ($user->avatar && Storage::exists($user->avatar)) {
-    //     //     Storage::disk('public')->delete($user->avatar);
-    //     // }
-    //     // $user->update([
-    //     //     'avatar' => null
-    //     // ]);
-    //     // return [
-    //     //     'status' => 'success',
-    //     //     'data' => [
-    //     //         'message' => 'delete avatar successfully',
-    //     //     ],
-    //     //     'code' => 201
-    //     // ];
-    // }
-    // Manage Security Settings 
-    // public function changePassword($array)
-    // {
-    //     // $user = User::where('id', auth('api')->user()->id)->first();
-    //     // $user->update([
-    //     //     'password' => Hash::make($array['new_password'])
-    //     // ]);
-    //     // return [
-    //     //     'status' => 'success',
-    //     //     'data' => [
-    //     //         'message' => 'change password successfully',
-    //     //     ],
-    //     //     'code' => 201
-    //     // ];
-    // }
-
-    // public function switch_2FA()
-    // {
-    //     // $user = User::where('id', auth('api')->user()->id)->first();
-    //     // $user->update([
-    //     //     'activation_2FA' => !$user->activation_2FA
-    //     // ]);
-    //     // return [
-    //     //     'status' => 'success',
-    //     //     'data' => [
-    //     //         'message' => 'switch 2FA successfully',
-    //     //         'activation_2FA' => $user->activation_2FA,
-    //     //     ],
-    //     //     'code' => 201
-    //     // ];
-    // }
-
 }

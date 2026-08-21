@@ -96,7 +96,16 @@ class LegalRequestService
             $lawyer->notify(new Send_Request_Notification($legal_request->toArray()));
         }
         if ($file) {
-            $path = $file->store('documents', 'public');
+            // storage 
+            // $path = $file->store('documents', 'public');
+            // cloudinary 
+            $path = app(\Cloudinary\Cloudinary::class)
+                ->uploadApi()
+                ->upload($file->getRealPath(), [
+                    'folder' => 'lawx/documents',
+                    'resource_type' => 'auto',
+                ])['secure_url'];
+
             Document::create([
                 'id' => Str::uuid(),
                 'file_path' => $path,
@@ -108,8 +117,8 @@ class LegalRequestService
             ]);
         }
         $Respose_data = $legal_request->toArray();
-        $Respose_data['file_url'] = Storage::disk('public')->url($path);;
-
+        // $Respose_data['file_url'] = Storage::disk('public')->url($path);;
+        $Respose_data['file_url'] = $file ? $path : null;
         return [
             'status' => 'success',
             'data' => [
@@ -127,7 +136,15 @@ class LegalRequestService
         $legal_request->update($data);
         if ($file) {
             $legal_request->documents()->delete();
-            $path = $file->store('documents', 'public');
+
+            // $path = $file->store('documents', 'public');
+            $path = app(\Cloudinary\Cloudinary::class)
+                ->uploadApi()
+                ->upload($file->getRealPath(), [
+                    'folder' => 'lawx/documents',
+                    'resource_type' => 'auto',
+                ])['secure_url'];
+
             Document::create([
                 'id' => Str::uuid(),
                 'file_path' => $path,
@@ -169,8 +186,8 @@ class LegalRequestService
             $formattedDocs = $request->documents->map(function ($doc) {
                 return [
                     'id' => $doc->id,
-                    'file_url' => Storage::url($doc->file_path),
-                    'file_size' => Storage::size($doc->file_path),
+                    'file_url' => $doc->file_path,
+                    'file_size' => "2 MB",
                     'name' => $doc->type,
                     'nots' => $doc->nots
                 ];
@@ -203,98 +220,6 @@ class LegalRequestService
         ];
     }
 
-    // public function getOfficesOrLawers()
-    // {
-    //     $role_id = Role::where('name', 'lawer')->first()->id;
-    //     $lawers = User::with('legalCategories')->where([
-    //         'role_id' => $role_id,
-    //         'is_active' => true
-    //     ])->select(
-    //         'full_name',
-    //         'is_active',
-    //         'city',
-    //         'address',
-    //         'lat',
-    //         'lng',
-    //         'experience_years',
-    //         'bio',
-    //     )->get();
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'get offices or lawers successfully',
-    //             'data' => $lawers
-    //         ],
-    //         'code' => '200'
-    //     ];
-    // }
-    // public function getProposals($request_id)
-    // {
-    //     $proposals = Proposal::where('request_id', $request_id)
-    //         ->with(['documents', 'lawyer', 'request'])
-    //         ->get();
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'get proposals successfully',
-    //             'data' => $proposals
-    //         ],
-    //         'code' => '200'
-    //     ];
-    // }
-
-    // public function getProposals($request_id)
-    // {
-    //     $requests = Proposal::where('request_id', $request_id)
-    //         ->with(['lawyer', 'documents', 'request'])
-    //         ->get();
-    //     $result = [];
-    //     foreach ($requests as $request) {
-    //         if ($request->proposals->count() > 0) {
-    //             $proposalsData = $request->proposals->map(function ($proposal) {
-    //                 $documentsData = $proposal->documents->map(function ($doc) {
-    //                     return [
-    //                         'id' => $doc->id,
-    //                         'file_url' => Storage::url($doc->file_path),
-    //                         'type' => $doc->type
-    //                     ];
-    //                 });
-    //                 $lawyerInfo = null;
-    //                 if ($proposal->lawyer) {
-    //                     $lawyerInfo = [
-    //                         'id' => $proposal->lawyer->id,
-    //                         'name' => $proposal->lawyer->full_name,
-    //                         'avatar' => $proposal->lawyer->avatar ?? null
-    //                     ];
-    //                 }
-    //                 return [
-    //                     'id' => trim($proposal->id),
-    //                     'price' => $proposal->price,
-    //                     'currency' => $proposal->price_currency,
-    //                     'estimated_days' => $proposal->estimated_days,
-    //                     'message' => $proposal->message_for_client,
-    //                     'valid_until' => $proposal->valid_until->format('Y-m-d'),
-    //                     'payment_terms' => $proposal->payment_terms,
-    //                     'status' => $proposal->status,
-    //                     'created_at' => $proposal->created_at->format('Y-m-d h:i A'),
-    //                     'lawyer' => $lawyerInfo,
-    //                     'documents' => $documentsData
-    //                 ];
-    //             });
-
-    //             $result[$request->title_request] = $proposalsData;
-    //         }
-    //     }
-    //     return [
-    //         'status' => 'success',
-    //         'data' => [
-    //             'message' => 'get my proposals successfully',
-    //             'data' => $result
-    //         ],
-    //         'code' => '200'
-    //     ];
-    // }
-
 
     public function getLegalRequestDetails($request_id)
     {
@@ -314,8 +239,8 @@ class LegalRequestService
             'documents' => $legal_request->documents->map(function ($doc) {
                 return [
                     'id' => $doc->id,
-                    'file_url' => Storage::url($doc->file_path),
-                    'file_size' => Storage::size($doc->file_path),
+                    'file_url' => $doc->file_path,
+                    'file_size' => "2 MB",
                     'name' => $doc->type
                 ];
             })->toArray(),

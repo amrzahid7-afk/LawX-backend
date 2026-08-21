@@ -98,17 +98,31 @@ trait DocuSignAuthentication
     {
         $this->ensureAuthenticated();
 
-        $filePath = $signatureRequest->document->file_path;
+        // ===== OLD =====
+        // $filePath = $signatureRequest->document->file_path;
+        // if (!Storage::exists($filePath)) {
+        //     throw new \Exception("File Not Found: {$filePath}");
+        // }
+        // $document = new DocusignDocument([
+        //     'document_id' => '1',
+        //     'document_base64' => base64_encode(Storage::get($filePath)),
+        //     'name' => $signatureRequest->document->type ?? 'Document',
+        //     'file_extension' => pathinfo($filePath, PATHINFO_EXTENSION)
+        // ]);
 
-        if (!Storage::exists($filePath)) {
+        // ===== NEW (Cloudinary) =====
+        $filePath = $signatureRequest->document->file_path; // URL كامل
+
+        $fileContent = @file_get_contents($filePath);
+        if ($fileContent === false) {
             throw new \Exception("File Not Found: {$filePath}");
         }
 
         $document = new DocusignDocument([
             'document_id' => '1',
-            'document_base64' => base64_encode(Storage::get($filePath)),
+            'document_base64' => base64_encode($fileContent),
             'name' => $signatureRequest->document->type ?? 'Document',
-            'file_extension' => pathinfo($filePath, PATHINFO_EXTENSION)
+            'file_extension' => pathinfo(parse_url($filePath, PHP_URL_PATH), PATHINFO_EXTENSION),
         ]);
 
         $signersArray = [];
@@ -268,7 +282,7 @@ trait DocuSignAuthentication
 
         return $viewUrl->getUrl();
     }
-    public function downloadSignedDocument($envelopeId, $localSavePath)
+    public function downloadSignedDocument($envelopeId, $localSavePath = null)
     {
         $this->ensureAuthenticated();
 
@@ -290,8 +304,22 @@ trait DocuSignAuthentication
         if ($httpCode !== 200 || $body === false) {
             throw new \Exception("Download failed [{$httpCode}]");
         }
-        Storage::disk('public')->put($localSavePath, $body);
-        return $localSavePath;
+        // ===== OLD (Local storage) — علّق ده =====
+        // Storage::disk('public')->put($localSavePath, $body);
+        // return $localSavePath;
+
+        // ===== NEW (Cloudinary) =====
+        $tempPath = tempnam(sys_get_temp_dir(), 'lawx_signed_') . '.pdf';
+        file_put_contents($tempPath, $body);
+
+        $upload = app(\Cloudinary\Cloudinary::class)
+            ->uploadApi()
+            ->upload($tempPath, [
+                'folder' => 'lawx/signed_documents',
+                'resource_type' => 'auto',
+            ]);
+        @unlink($tempPath);
+        return $upload['secure_url'];
     }
     // public function downloadSignedDocument($envelopeId, $localSavePath)
     // {

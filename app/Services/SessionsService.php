@@ -44,9 +44,9 @@ class SessionsService
             ->map(function ($doc) {
                 return [
                     'file_name' => $doc->type,
-                    'file_url' => Storage::url($doc->file_path),
+                    'file_url' => $doc->file_path,
                     // 'file_size' => $this->formatBytes(Storage::size($doc->file_path)), // دالة تحويل الحجم
-                    'file_size' => Storage::size($doc->file_path),
+                    'file_size' => "1 MB",
                 ];
             });
         $formattedSessions = $sessions->map(function ($session) {

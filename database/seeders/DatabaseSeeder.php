@@ -12,13 +12,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // calling seeders 
         $this->call([
-            RoleSeeder::class,
-            UserSeeder::class,
-            LegalRequestSeeder::class,
-            ProposalSeeder::class,
-            LegalCategoriesSeeder::class
+            RoleSeeder::class,              // أدوار (يدوي - مرجعي)
+            LegalCategoriesSeeder::class,   // تخصصات (يدوي - مرجعي)
+            UserSeeder::class,              // syndicate بس
         ]);
     }
 }

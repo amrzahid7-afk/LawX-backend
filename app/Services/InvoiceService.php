@@ -34,7 +34,17 @@ class InvoiceService
         ]);
         if (isset($data['documents']) && is_array($data['documents'])) {
             foreach ($data['documents'] as $file) {
-                $path = $file->store('invoices', 'public');
+                // ===== OLD (Local storage) — علّق ده =====
+                // $path = $file->store('invoices', 'public');
+
+                // ===== NEW (Cloudinary) =====
+                $path = app(\Cloudinary\Cloudinary::class)
+                    ->uploadApi()
+                    ->upload($file->getRealPath(), [
+                        'folder' => 'lawx/invoices',
+                        'resource_type' => 'auto',
+                    ])['secure_url'];
+
                 Document::create([
                     'case_id' => $data['case_id'],
                     'file_path' => $path,
@@ -68,9 +78,9 @@ class InvoiceService
         $formattedInvoices = $invoices->map(function ($invoice) {
             $files = $invoice->documents->map(function ($doc) {
                 return [
-                    'file_url' => Storage::url($doc->file_path),
+                    'file_url' => $doc->file_path,
                     'file_name' => $doc->type,
-                    'file_size' => Storage::size($doc->file_path)
+                    'file_size' => "1 MB",
                 ];
             });
             return [
@@ -179,9 +189,9 @@ class InvoiceService
         $formatFiles = function ($documents) {
             return $documents->map(function ($doc) {
                 return [
-                    'file_url' => Storage::url($doc->file_path),
+                    'file_url' => $doc->file_path,
                     'file_name' => $doc->type,
-                    'file_size' => Storage::size($doc->file_path)
+                    'file_size' => '1 MB'
                 ];
             });
         };
