@@ -24,4 +24,4 @@ RUN COMPOSER_MEMORY_LIMIT=-1 composer dump-autoload --optimize --no-dev --no-scr
 RUN php artisan config:clear
 
 EXPOSE 8080
-CMD php artisan migrate:fresh --seed --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
