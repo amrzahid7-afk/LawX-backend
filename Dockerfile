@@ -11,9 +11,19 @@ RUN apt-get update && apt-get install -y \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
+
+# انسخ ملفات composer الأول (للـ cache)
+COPY composer.json composer.lock ./
+
+# ثبّت الحزم مع حد ذاكرة مرفوع وبدون scripts
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install \
+    --no-dev --no-scripts --no-autoloader --no-interaction --prefer-dist
+
+# انسخ باقي المشروع
 COPY . /app
 
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# ولّد الـ autoloader بعد نسخ كل الملفات
+RUN COMPOSER_MEMORY_LIMIT=-1 composer dump-autoload --optimize --no-dev
 
 RUN php artisan config:clear
 
