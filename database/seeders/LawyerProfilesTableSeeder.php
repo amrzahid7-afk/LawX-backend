@@ -1,0 +1,208 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class LawyerProfilesTableSeeder extends Seeder
+{
+
+    /**
+     * Auto generated seed file
+     *
+     * @return void
+     */
+    public function run()
+    {
+        
+
+        \DB::table('lawyer_profiles')->delete();
+        
+        \DB::table('lawyer_profiles')->insert(array (
+            0 => 
+            array (
+                'id' => '01a02719-56a1-7361-937e-0d5df35b3923',
+                'user_id' => NULL,
+                'supervised_by_lawyer_id' => NULL,
+                'employed_in_office_id' => NULL,
+                'national_id' => '01010',
+                'full_name' => 'عمر',
+                'birth_date' => '2002-01-01',
+                'birth_place' => 'دمشق',
+                'father_name' => 'التلي',
+                'mother_name' => 'سوزان',
+                'mother_family_name' => 'شداد',
+                'civil_registry_number' => 'الميدان 14',
+                'syndicate_card_number' => '8484',
+                'syndicate_branch' => 'دمشق',
+                'lawyer_state' => 'trainee',
+                'trainee_approved_independent_at' => NULL,
+                'is_claimed' => 0,
+                'claimed_at' => NULL,
+                'is_suspended' => 0,
+                'created_by' => 'd43c0bb0-2f26-4ad7-9144-2fa4f518d3ae',
+                'base_salary' => NULL,
+                'created_at' => '2026-08-22 01:32:47',
+                'updated_at' => '2026-08-22 01:32:47',
+            ),
+            1 => 
+            array (
+                'id' => '01a02719-a7da-7090-99b7-32d0186f597f',
+                'user_id' => '4da6e0fb-b4b6-4024-920b-096f1eb5db60',
+                'supervised_by_lawyer_id' => NULL,
+                'employed_in_office_id' => NULL,
+                'national_id' => '01011',
+                'full_name' => 'أبي',
+                'birth_date' => '2002-01-01',
+                'birth_place' => 'دمشق',
+                'father_name' => 'التلي',
+                'mother_name' => 'سوزان',
+                'mother_family_name' => 'شداد',
+                'civil_registry_number' => 'الميدان 14',
+                'syndicate_card_number' => '8485',
+                'syndicate_branch' => 'دمشق',
+                'lawyer_state' => 'trainee',
+                'trainee_approved_independent_at' => NULL,
+                'is_claimed' => 1,
+                'claimed_at' => '2026-08-22 00:00:00',
+                'is_suspended' => 0,
+                'created_by' => 'd43c0bb0-2f26-4ad7-9144-2fa4f518d3ae',
+                'base_salary' => NULL,
+                'created_at' => '2026-08-22 01:33:07',
+                'updated_at' => '2026-08-22 09:13:24',
+            ),
+            2 => 
+            array (
+                'id' => '01a0271a-0006-71db-b91b-710468ae07a0',
+                'user_id' => NULL,
+                'supervised_by_lawyer_id' => NULL,
+                'employed_in_office_id' => NULL,
+                'national_id' => '01012',
+                'full_name' => 'مهند',
+                'birth_date' => '2002-01-01',
+                'birth_place' => 'دمشق',
+                'father_name' => 'التلي',
+                'mother_name' => 'سوزان',
+                'mother_family_name' => 'شداد',
+                'civil_registry_number' => 'برزة 32',
+                'syndicate_card_number' => '8486',
+                'syndicate_branch' => 'دمشق',
+                'lawyer_state' => 'trainee',
+                'trainee_approved_independent_at' => NULL,
+                'is_claimed' => 0,
+                'claimed_at' => NULL,
+                'is_suspended' => 0,
+                'created_by' => 'd43c0bb0-2f26-4ad7-9144-2fa4f518d3ae',
+                'base_salary' => NULL,
+                'created_at' => '2026-08-22 01:33:30',
+                'updated_at' => '2026-08-22 01:33:30',
+            ),
+            3 => 
+            array (
+                'id' => '01a0271a-636d-7336-9e8c-fd22e46f78c1',
+                'user_id' => 'bd69116a-1e9f-47fb-8cfe-ac93549c5202',
+                'supervised_by_lawyer_id' => NULL,
+                'employed_in_office_id' => NULL,
+                'national_id' => '01013',
+                'full_name' => 'علي',
+                'birth_date' => '2002-01-01',
+                'birth_place' => 'دمشق',
+                'father_name' => 'التلي',
+                'mother_name' => 'سوزان',
+                'mother_family_name' => 'شداد',
+                'civil_registry_number' => 'المزة 12',
+                'syndicate_card_number' => '8489',
+                'syndicate_branch' => 'دمشق',
+                'lawyer_state' => 'licensed',
+                'trainee_approved_independent_at' => NULL,
+                'is_claimed' => 1,
+                'claimed_at' => '2026-08-22 00:00:00',
+                'is_suspended' => 0,
+                'created_by' => 'd43c0bb0-2f26-4ad7-9144-2fa4f518d3ae',
+                'base_salary' => NULL,
+                'created_at' => '2026-08-22 01:33:55',
+                'updated_at' => '2026-08-22 08:47:29',
+            ),
+            4 => 
+            array (
+                'id' => '01a0271a-aec0-70de-b6b9-b63ae6b9a6fe',
+                'user_id' => 'bf6d0732-a679-406a-b349-682ec8011d2b',
+                'supervised_by_lawyer_id' => NULL,
+                'employed_in_office_id' => NULL,
+                'national_id' => '01014',
+                'full_name' => 'رفعت',
+                'birth_date' => '2002-01-01',
+                'birth_place' => 'دمشق',
+                'father_name' => 'التلي',
+                'mother_name' => 'سوزان',
+                'mother_family_name' => 'شداد',
+                'civil_registry_number' => 'المزرعة 32',
+                'syndicate_card_number' => '8490',
+                'syndicate_branch' => 'دمشق',
+                'lawyer_state' => 'licensed',
+                'trainee_approved_independent_at' => NULL,
+                'is_claimed' => 1,
+                'claimed_at' => '2026-08-22 00:00:00',
+                'is_suspended' => 0,
+                'created_by' => 'd43c0bb0-2f26-4ad7-9144-2fa4f518d3ae',
+                'base_salary' => NULL,
+                'created_at' => '2026-08-22 01:34:15',
+                'updated_at' => '2026-08-22 09:00:18',
+            ),
+            5 => 
+            array (
+                'id' => '01a0271a-f8cc-7268-9c53-84c0b5ef1796',
+                'user_id' => 'f3a3d6c6-f451-43ed-8d42-d1de2da8c585',
+                'supervised_by_lawyer_id' => NULL,
+                'employed_in_office_id' => NULL,
+                'national_id' => '01015',
+                'full_name' => 'ابراهيم',
+                'birth_date' => '2002-01-01',
+                'birth_place' => 'دمشق',
+                'father_name' => 'التلي',
+                'mother_name' => 'سوزان',
+                'mother_family_name' => 'شداد',
+                'civil_registry_number' => 'برزة 32',
+                'syndicate_card_number' => '8491',
+                'syndicate_branch' => 'دمشق',
+                'lawyer_state' => 'licensed',
+                'trainee_approved_independent_at' => NULL,
+                'is_claimed' => 1,
+                'claimed_at' => '2026-08-22 00:00:00',
+                'is_suspended' => 0,
+                'created_by' => 'd43c0bb0-2f26-4ad7-9144-2fa4f518d3ae',
+                'base_salary' => NULL,
+                'created_at' => '2026-08-22 01:34:34',
+                'updated_at' => '2026-08-22 08:37:58',
+            ),
+            6 => 
+            array (
+                'id' => '01a0271b-42c3-72b2-99a5-e38ff1b0d7fa',
+                'user_id' => 'f7bf797d-8c4c-4e7b-871f-1e56ebc7c085',
+                'supervised_by_lawyer_id' => NULL,
+                'employed_in_office_id' => NULL,
+                'national_id' => '01016',
+                'full_name' => 'تميم',
+                'birth_date' => '2002-01-01',
+                'birth_place' => 'دمشق',
+                'father_name' => 'التلي',
+                'mother_name' => 'سوزان',
+                'mother_family_name' => 'شداد',
+                'civil_registry_number' => 'برزة 32',
+                'syndicate_card_number' => '8492',
+                'syndicate_branch' => 'دمشق',
+                'lawyer_state' => 'licensed',
+                'trainee_approved_independent_at' => NULL,
+                'is_claimed' => 1,
+                'claimed_at' => '2026-08-22 00:00:00',
+                'is_suspended' => 0,
+                'created_by' => 'd43c0bb0-2f26-4ad7-9144-2fa4f518d3ae',
+                'base_salary' => NULL,
+                'created_at' => '2026-08-22 01:34:53',
+                'updated_at' => '2026-08-22 08:44:14',
+            ),
+        ));
+        
+        
+    }
+}

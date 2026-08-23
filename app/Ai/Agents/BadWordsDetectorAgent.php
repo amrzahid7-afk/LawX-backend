@@ -16,10 +16,14 @@ class BadWordsDetectorAgent implements Agent, HasStructuredOutput
 
     public function instructions(): Stringable|string
     {
-        return 'أنت مراقب محتوى لمنصة قانونية.
-مهمتك كشف الشتائم والسباب والإهانات والكلمات البذيئة بأي شكل，
-حتى لو كانت ملتوية أو مكتوبة برموز أو حروف متقطّعة أو لهجة عامية.
-احكم فقط على النص المُعطى، ولا تضف أي شرح خارج المخطّط المطلوب.';
+        return 'أنت مساعد قانوني متخصص.
+
+مهمتك: اقرأ المستند بالكامل، ثم أرجع النتيجة بصيغة JSON فقط بالحقول التالية:
+- full_text: النص الكامل المستخرج من المستند كما هو
+- summary: ملخص واضح للمستند
+- keywords: مصفوفة من الكلمات المفتاحية
+
+لا تضف أي نص خارج بنية الـ JSON المطلوبة.';
     }
 
     public function schema(JsonSchema $schema): array

@@ -1224,9 +1224,9 @@ namespace App\Models{
  * @property string|null $bio
  * @property string|null $phone
  * @property string|null $national_id
+ * @property string|null $avatar_path
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $avatar_path
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $cases
  * @property-read int|null $cases_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CaseModel> $clientCases

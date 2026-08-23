@@ -5,6 +5,7 @@ namespace App\Services\ProfileServices;
 use App\Contracts\ProfileDataBuilderInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Cloudinary\Cloudinary;
 
 class SyndicateProfileService implements ProfileDataBuilderInterface
 {
@@ -23,14 +24,22 @@ class SyndicateProfileService implements ProfileDataBuilderInterface
     public function update($user, $request)
     {
         $avatarPath = null;
+        // if ($request->hasFile('avatar')) {
+        //     // delete last avatar
+        //     if ($user->avatar_path) {
+        //         Storage::disk('public')->delete($user->avatar_path);
+        //     }
+        //     $path = $request->file('avatar')->store('avatars', 'public');
+        //     $avatarPath = Storage::disk('public')->url($path);
+        //     $user->update(['avatar_path' => $avatarPath]);
+        // }
         if ($request->hasFile('avatar')) {
-            // delete last avatar
-            if ($user->avatar_path) {
-                Storage::disk('public')->delete($user->avatar_path);
-            }
-            $path = $request->file('avatar')->store('avatars', 'public');
-            $avatarPath = Storage::disk('public')->url($path);
-            $user->update(['avatar_path' => $avatarPath]);
+            $result = app(Cloudinary::class)
+                ->uploadApi()
+                ->upload($request->file('avatar')->getRealPath(), [
+                    'folder' => 'lawx/avatars',
+                ]);
+            $user->update(['avatar_path' => $result['secure_url']]);
         }
         $user->update([
             'email' => $request->input('email') ?? $user->email,

@@ -25,7 +25,7 @@ class UploadDocumentRequest extends FormRequest
     {
         return [
             'case_id' => 'required|exists:cases,id',
-            'type' => 'required|string|max:10|min:3',
+            'type' => 'required|string|max:100|min:3',
             'file' => 'required|mimes:pdf,doc,docx,jpg,jpeg,png|max:2048',
             'parent_id' => 'nullable|uuid|exists:documents,id',
         ];

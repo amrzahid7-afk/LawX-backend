@@ -13,7 +13,7 @@ return [
     |
     */
     // قم بتغيير gemini إلى zai
-    'default' => 'zai',
+    'default' => 'gemini',
     'default_for_images' => 'zai',
     'default_for_audio' => 'zai',
     'default_for_transcription' => 'zai',
@@ -55,9 +55,11 @@ return [
             'driver' => 'gemini',
             'key' => env('GEMINI_API_KEY'),
             'url' => env('GEMINI_URL', 'https://generativelanguage.googleapis.com/v1beta/'),
+            'timeout' => 180,
             'models' => [
                 'text' => [
-                    'default' => 'gemini-1.5-flash',
+                    'text' => ['default' => 'gemini-3.5-flash']
+                    // 'default' => 'gemini-3.5-flash',   // جرّب ده لو gemini-flash-latest فشل
                 ],
                 // إضافة موديل الـ Embedding لـ Gemini
                 'embedding' => [
@@ -73,15 +75,13 @@ return [
         'zai' => [
             'driver' => 'openai',
             'key' => env('Z_AI_KEY'),
-            'url' => env('Z_AI_URL', 'https://api.z.ai/v1'),
+            'url' => env('Z_AI_URL', 'https://api.z.ai/api/paas/v4'),
             'models' => [
                 'text' => [
-                    'default' => 'glm-4-flash',
-                    'cheapest' => 'glm-4-flash',
-                    'smartest' => 'glm-4-plus',
+                    'default' => 'glm-4-flash', // أو glm-4.7 حسب رغبتك
                 ],
             ],
-            // 'proxy' => 'http://username:password@IP_ADDRESS:PORT' will have private proxy 
+            'use_responses_api' => false,
         ],
         'anthropic' => [
             'driver' => 'anthropic',

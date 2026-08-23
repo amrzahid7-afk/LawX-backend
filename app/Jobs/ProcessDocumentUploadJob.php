@@ -27,72 +27,150 @@ class ProcessDocumentUploadJob implements ShouldQueue
     use SerializesModels;
     public $tries = 10;
     public function __construct(public string $documentId) {}
+    // use Gemini 
     public function handle()
     {
+        // ✅ استخدام Gemini كـ Provider أساسي
         $providers = [
-            'zai',
-            'openai',
             'gemini',
-            'groq',
-            // 'anthropic',
-            // 'openrouter',
         ];
+
         $document = Document::findOrFail($this->documentId);
         $user = User::find($document->uploaded_by);
-        $agent = DocumentAnalyzerAgent::make($user);
 
-        // ===== NEW (Cloudinary) =====
-        // نزّل الملف من Cloudinary لملف مؤقت مرة واحدة قبل الـ loop
-        $ext = pathinfo(parse_url($document->file_path, PHP_URL_PATH), PATHINFO_EXTENSION);
+        $ext = pathinfo(parse_url($document->file_path, PHP_URL_PATH), PATHINFO_EXTENSION) ?: 'pdf';
         $tempPath = tempnam(sys_get_temp_dir(), 'lawx_doc_') . '.' . $ext;
-        file_put_contents($tempPath, file_get_contents($document->file_path));
 
         try {
+            $fileContent = @file_get_contents($document->file_path);
+            if ($fileContent === false) {
+                throw new \Exception("Unable to download file from: {$document->file_path}");
+            }
+            file_put_contents($tempPath, $fileContent);
+
             foreach ($providers as $provider) {
                 try {
-                    Log::info("Trying Analysis the file with AI Provider  : " . $provider);
-                    $response =   DocumentAnalyzerAgent::make($user) //Ai::textProviderFor($agent, $provider)
+                    Log::info("Trying AI Provider: {$provider} for document #{$document->id}");
+
+                    $response = DocumentAnalyzerAgent::make($user)
                         ->prompt(
-                            'Read the document...',
+                            'Read the document completely. Then extract the text. Then generate a summary. Then generate keywords.',
                             attachments: [
-                                // ===== OLD (Local storage) — علّق ده =====
-                                // AiDocument::fromPath(
-                                //     Storage::disk('public')->path($document->file_path)
-                                // ),
-                                // ===== NEW (Cloudinary) =====
                                 AiDocument::fromPath($tempPath),
                             ],
                             provider: $provider
                         );
+                    // ✅ استخدم dump() لطباعة البيانات في الترمنال بشكل واضح ومضمون
+                    // dump([
+                    //     'document_id' => $document->id,
+                    //     'ai_response' => $response
+                    // ]);
                     $document->update([
-                        'ai_tags' => $response['keywords'] ?? null,
-                        'ai_summary' => $response['summary'] ?? null,
+                        'ai_tags'      => $response['keywords'] ?? null,
+                        'ai_summary'   => $response['summary'] ?? null,
                         'extracted_text' => $response['full_text'] ?? null,
                     ]);
-                    Log::info("Success using  AI Provider : " . $provider);
+                    Log::info("✅ Success using AI Provider: {$provider} for document #{$document->id}");
                     return;
                 } catch (RateLimitedException $e) {
-                    Log::warning("$provider rate limited");
-                    continue;
+                    Log::warning("{$provider} rate limited. Releasing job back to queue.");
+                    // ✅ أعد الـ Job للـ Queue بعد 60 ثانية
+                    $this->release(60);
+                    return;
                 } catch (ProviderOverloadedException $e) {
-                    Log::warning("$provider overloaded");
-                    continue;
+                    Log::warning("{$provider} overloaded. Releasing job back to queue.");
+                    // ✅ أعد الـ Job للـ Queue بعد 30 ثانية (لأن الخادم مزدحم)
+                    $this->release(30);
+                    return;
                 } catch (Throwable $e) {
+                    fwrite(STDERR, "[{$provider}] FAILED: " . $e->getMessage() . PHP_EOL);
+
                     if ($this->isPermanentFailure($e)) {
                         $this->fail($e);
                         return;
                     }
-                    Log::warning("$provider failed : " . $e->getMessage());
+
+                    Log::warning("{$provider} failed : " . $e->getMessage());
                     continue;
                 }
             }
         } finally {
-            // امسح الملف المؤقت مهما حصل (نجاح، فشل، أو exception)
-            @unlink($tempPath);
+            if (file_exists($tempPath)) {
+                @unlink($tempPath);
+            }
         }
 
         throw new \Exception("All AI providers failed.");
     }
+    // public function handle()
+    // {
+    //     $providers = [
+    //         'zai',
+    //         // 'openai',
+    //         // 'gemini',
+    //         // 'groq',
+    //         // 'anthropic',
+    //         // 'openrouter',
+    //     ];
+    //     $document = Document::findOrFail($this->documentId);
+    //     $user = User::find($document->uploaded_by);
+    //     $agent = DocumentAnalyzerAgent::make($user);
+
+    //     // ===== NEW (Cloudinary) =====
+    //     // نزّل الملف من Cloudinary لملف مؤقت مرة واحدة قبل الـ loop
+    //     $ext = pathinfo(parse_url($document->file_path, PHP_URL_PATH), PATHINFO_EXTENSION);
+    //     $tempPath = tempnam(sys_get_temp_dir(), 'lawx_doc_') . '.' . $ext;
+    //     file_put_contents($tempPath, file_get_contents($document->file_path));
+
+    //     try {
+    //         foreach ($providers as $provider) {
+    //             try {
+    //                 Log::info("Trying Analysis the file with AI Provider  : " . $provider);
+    //                 $response =   DocumentAnalyzerAgent::make($user) //Ai::textProviderFor($agent, $provider)
+    //                     ->prompt(
+    //                         'Read the document...',
+    //                         attachments: [
+    //                             // ===== OLD (Local storage) — علّق ده =====
+    //                             // AiDocument::fromPath(
+    //                             //     Storage::disk('public')->path($document->file_path)
+    //                             // ),
+    //                             // ===== NEW (Cloudinary) =====
+    //                             AiDocument::fromPath($tempPath),
+    //                         ],
+    //                         provider: $provider
+    //                     );
+    //                 $document->update([
+    //                     'ai_tags' => $response['keywords'] ?? null,
+    //                     'ai_summary' => $response['summary'] ?? null,
+    //                     'extracted_text' => $response['full_text'] ?? null,
+    //                 ]);
+    //                 Log::info("Success using  AI Provider : " . $provider);
+    //                 return;
+    //             } catch (RateLimitedException $e) {
+    //                 fwrite(STDERR, "[$provider] RATE LIMITED: " . $e->getMessage() . PHP_EOL);
+    //                 Log::warning("$provider rate limited");
+    //                 continue;
+    //             } catch (ProviderOverloadedException $e) {
+    //                 fwrite(STDERR, "[$provider] OVERLOADED: " . $e->getMessage() . PHP_EOL);
+    //                 Log::warning("$provider overloaded");
+    //                 continue;
+    //             } catch (Throwable $e) {
+    //                 fwrite(STDERR, "[$provider] FAILED: " . $e->getMessage() . PHP_EOL); // ← يطبع في الترمنال
+    //                 if ($this->isPermanentFailure($e)) {
+    //                     $this->fail($e);
+    //                     return;
+    //                 }
+    //                 Log::warning("$provider failed : " . $e->getMessage());
+    //                 continue;
+    //             }
+    //         }
+    //     } finally {
+    //         // امسح الملف المؤقت مهما حصل (نجاح، فشل، أو exception)
+    //         @unlink($tempPath);
+    //     }
+
+    //     throw new \Exception("All AI providers failed.");
+    // }
     // public function handle()
     // {
     //     $providers = [

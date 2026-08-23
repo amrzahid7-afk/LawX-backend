@@ -18,15 +18,18 @@ class LegalRequestService
     public function get_legal_requests()
     {
         // lawer ID
-        $lawer_id = request()->user()->id;
-        $requests  = Legal_request::where(function ($query) use ($lawer_id) {
-            $query->where('assigned_lawyer_id', $lawer_id)
-                ->where('status', 'open')
-                ->where('type', 'private');
-        })->orWhere([
-            ['type', 'public'],
-            ['status', 'open']
-        ])->with(['documents', 'client'])->get();
+        $lawer_id = auth('sanctum')->user()->id;
+        $requests  =
+            Legal_request::where(function ($query) use ($lawer_id) {
+                $query->where('assigned_lawyer_id', $lawer_id)
+                    ->where('status', 'open')
+                    ->where('type', 'private');
+            })
+            ->orWhere([
+                ['type', 'public'],
+                ['status', 'open'],
+                ['assigned_lawyer_id', null],
+            ])->with(['documents', 'client'])->get();
         $groupedData = [];
         // Formatting data
         $requests->each(function ($req) use (&$groupedData) {
@@ -63,12 +66,15 @@ class LegalRequestService
     {
         $file = isset($data['file']) ? $data['file'] : null;
         unset($data['file']);
-        $lawer = User::with('lawyerProfile')
-            ->whereHas('lawyerProfile', function ($q) {
-                $q->where('is_suspended', false);
-                $q->where('lawyer_state', 'licensed');
-            })
-            ->find($data['assigned_lawyer_id']);
+        $lawer = null;
+        if (!empty($data['assigned_lawyer_id'])) {
+            $lawer = User::with('lawyerProfile')
+                ->whereHas('lawyerProfile', function ($q) {
+                    $q->where('is_suspended', false);
+                    $q->where('lawyer_state', 'licensed');
+                })
+                ->where('id', $data['assigned_lawyer_id']);
+        }
         if ($lawer == null) {
             return [
                 'status' => 'error',
@@ -78,6 +84,7 @@ class LegalRequestService
                 'code' => '404'
             ];
         }
+
         $legal_request = Legal_request::create([
             'title_request' => $data['title_request'],
             'description_request' => $data['description_request'],
@@ -86,15 +93,16 @@ class LegalRequestService
             'budget_max' => $data['budget_max'],
             'type' => $data['type'],
             'status' => 'open',
-            'created_at' => now(),
-            'client_id' => auth('api')->user()->id,
-            'assigned_lawyer_id' => $data['assigned_lawyer_id'] ?? null,
+            'created_at' => now()->format('Y-m-d'),
+            'client_id' => auth('sanctum')->user()->id,
+            'assigned_lawyer_id' => $data['assigned_lawyer_id'] ? $data['assigned_lawyer_id'] : null,
         ]);
         // sending notification
         if (isset($data['assigned_lawyer_id']) && $data['assigned_lawyer_id']) {
             $lawyer = User::find($data['assigned_lawyer_id']);
             $lawyer->notify(new Send_Request_Notification($legal_request->toArray()));
         }
+
         if ($file) {
             // storage 
             // $path = $file->store('documents', 'public');
