@@ -20,6 +20,7 @@ class ProfileService
             default     => throw new \Exception('Unsupported User Role'),
         };
     }
+
     public function updateMyProfile(User $user,  $request)
     {
         $roleName = $user->role->slug;

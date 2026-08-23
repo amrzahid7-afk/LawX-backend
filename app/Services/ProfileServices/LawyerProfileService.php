@@ -49,7 +49,7 @@ class LawyerProfileService implements ProfileDataBuilderInterface
 
             if ($profile->employed_in_office_id) {
                 $data['employed_in_office'] = [
-                    'is_employed' => true,
+                    'is_employed' => !is_null($profile->employed_in_office_id),
                     'office_name' => $profile->employedOffice?->name,
                 ];
             }
@@ -65,11 +65,10 @@ class LawyerProfileService implements ProfileDataBuilderInterface
                     : 0,
             ];
         } else {
-            $data['is_employed'] = true;
+            $data['is_employed'] = !is_null($profile->employed_in_office_id);
             $data['office_name'] = $profile->employedOffice?->name;
             $data['base_salary'] = $profile->base_salary;
         }
-
         return $data;
     }
     public function update($user, $request)
