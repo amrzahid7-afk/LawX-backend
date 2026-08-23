@@ -65,8 +65,12 @@ return [
             //     PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             //     PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
             // ]) : [],
+            // 'options' => extension_loaded('pdo_mysql') ? [
+            //     PDO::MYSQL_ATTR_SSL_CA => base_path('certs/ca.pem'),
+            // ] : [],
             'options' => extension_loaded('pdo_mysql') ? [
                 PDO::MYSQL_ATTR_SSL_CA => base_path('certs/ca.pem'),
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET SESSION sql_require_primary_key=0',
             ] : [],
         ],
 
