@@ -152,4 +152,5 @@ Route::prefix('/profile')->group(function () {
     Route::get('{lawer_id}/get_lawyer_profile', [UserManagmentController::class, 'get_protofolio_for_lawer_or_office']);
 });
 
-Route::get('/dashboard', [LawyerDashboardController::class, 'index']);
+Route::get('/dashboard', [LawyerDashboardController::class, 'index']); 
+
